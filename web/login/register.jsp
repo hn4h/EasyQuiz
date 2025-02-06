@@ -15,20 +15,20 @@
         </div>
         <div class="register-content">
             <div class="register-header">
-                <a href="register.jsp"><h3>Sign up</h3></a>
-                <a href="login.jsp"><h3>Log in</h3></a>
+                <a href="signup"><h3>Sign up</h3></a>
+                <a href="login"><h3>Log in</h3></a>
             </div>
             <div class="register-with">
                 <div class="register-google">
                     <i class="fa-brands fa-google"></i>
-                    <a href="">Continue with Google</a>
+                   <a href="https://accounts.google.com/o/oauth2/auth?scope=email profile openid &redirect_uri=http://localhost:9999/QuizzApp/login&response_type=code&client_id=591866101388-93m4n7avvp7v3sl4fbf8mqcmbt5otbk3.apps.googleusercontent.com&approval_prompt=force">Log in with Google</a>
                 </div>
                 <div class="login-email">
                     <span>
                         or email
                     </span>
                 </div>
-                <form action="" id="registerForm">
+                <form action="signup" method="post" id="registerForm">
                     <div class="input-email">
                         <div>
                             <b>Email</b>
@@ -88,7 +88,7 @@
                 </form>
                 <div>
                     <div class="have-account-button">
-                        <a href="login.jsp"><button>Already have an account? Log in</button></a>
+                        <a href="login"><button>Already have an account? Log in</button></a>
                     </div>
                 </div>
             </div>
