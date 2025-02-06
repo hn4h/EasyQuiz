@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f6f7fb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-container,
+.register-container {
+    display: flex;
+    width: 80%;
+    max-width: 1000px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Phần banner bên trái */
+.login-banner,
+.register-banner {
+    flex: 1;
+    background-color: #d8bef8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.login-banner img,
+.register-banner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Phần nội dung đăng nhập bên phải */
+.login-content,
+.register-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-header,
+.register-header {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+}
+
+.login-header h3,
+.register-header h3 {
+    font-size: 24px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.login-header a,
+.register-header a {
+    text-decoration: none;
+    color: #000;
+}
+
+.login-header a:nth-child(2) {
+    border-bottom: 2px solid #0077cc;
+    color: #0077cc;
+}
+
+.register-header a:nth-child(1) {
+    border-bottom: 1px solid #0077cc;
+    color: #0077cc;
+}
+
+/* Login bằng các tài khoản khác */
+.login-with, .register-with {
+    width: 100%;
+}
+
+.login-google, .register-google {
+    background-color: #fff;
+    color: #383838;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #ddd;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.login-google a, .register-google a {
+    color: #383838;
+    text-decoration: none;
+}
+
+.login-google:hover, .register-google:hover {
+    background-color: #eee;
+}
+
+.login-email {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-size: 14px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.login-email:before,
+.login-email:after {
+    content: "";
+    flex: 1;
+    height: 1.5px;
+    background-color: #ddd;
+    margin: 0 10px;
+}
+
+/* Form đăng nhập */
+form {
+    width: 100%;
+}
+
+.input-email,
+.input-username,
+.input-password {
+    margin-bottom: 20px;
+}
+
+.input-email div,
+.input-username div {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 16px;
+}
+
+.input-password div {
+    color: #333;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+input:focus {
+    border-color: #0077cc;
+    outline: none;
+}
+
+.input-password .password-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center; 
+}
+
+.input-wrapper input[type="password"] {
+    width: 100%;
+    padding-right: 40px;
+    padding-left: 10px;
+}
+
+.input-wrapper .icon-eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none; 
+    color: #555;
+    font-size: 16px; 
+    cursor: pointer; 
+}
+
+.input-wrapper .icon-eye:hover {
+    color: #0077cc; 
+}
+
+/* Quên mật khẩu */
+.forget-password {
+    font-size: 16px;
+}
+
+.forget-password a {
+    text-decoration: none;
+    color: #0077cc;
+    font-weight: bold;
+
+}
+
+.forget-password a:hover {
+    color: #286d9e;
+}
+
+.term-policy {
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+}
+
+.accept-term-policy {
+    font-size: 14px; 
+    color: #333;
+    margin-bottom: 20px;
+    display: flex; 
+    align-items: center; 
+}
+
+.accept-term-policy input[type="checkbox"] {
+    margin-right: 5px; 
+    width: 14px; 
+    height: 14px; 
+    vertical-align: middle; 
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none; /* Ẩn mặc định */
+}
+
+
+/* Nút đăng nhập */
+.login-button,
+.register-button {
+    margin-top: 10px;
+}
+
+.login-button button,
+.register-button button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4285f4;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.login-button button:hover,
+.register-button button:hover {
+    background-color: #3367d6;
+}
+
+/* Nút tạo tài khoản */
+.create-button,
+.have-account-button {
+    margin-top: 20px;
+}
+
+.create-button button,
+.have-account-button button {
+    width: 100%;
+    padding: 10px;
+    background-color: #fff;
+    color: #383838;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.create-button button:hover,
+.have-account-button button:hover {
+    background-color: #eee;
+}
