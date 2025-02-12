@@ -30,7 +30,7 @@
     align-self: center;
     font-weight: bold;
     font-size: 25px;
-    color: #640D5F;
+    color: #0077cc;
 }
 
 .logo span {
@@ -56,7 +56,7 @@
 .create-btn {
     display: flex;
     padding: 10px;
-    color: #640D5F;
+    color: #0077cc;
     font-weight: bold;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .upgrade-btn button:hover {
-    background-color: #f7cd51;
+    background-color: #ecb102;
 }
 
 .create-btn-icon {
@@ -93,17 +93,16 @@
 .login-btn button {
     border-radius: 5px;
     padding: 10px 15px;
-    background-color: #640D5F;
+    background-color: #0077cc;
     color: #fff;
     border: none;
     font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
 }
 
 .create-btn-icon i:hover,
 .login-btn button:hover {
-    background-color: #2A004E;
+    background-color: #016cb8;
 }
 
 .search {
@@ -142,62 +141,9 @@
 }
 
 .avatar-user img{
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
-}
-
-.avatar-user {
-    cursor: pointer;
-    align-self: center;
-    justify-self: center;
-}
-
-.avatar-user:hover {
-    
-}
-
-.user-menu {
-    position: absolute;
-    top: 60px;
-    right: 10px;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    width: 15%;
-    display: none;
-    z-index: 10;
-}
-
-.user-menu-item {
-    padding: 10px 15px;
-    cursor: pointer;
-    color: #333;
-    text-decoration: none;
-    display: block;
-    font-weight: 600;
-}
-
-.user-menu-item:hover {
-    background-color: #f0f0f0;
-}
-
-.user-menu.show {
-    display: block;
-}
-
-.user-info {
-    display: flex;
-    padding: 10px;
-}
-
-.user-info div{
-    margin-left: 10px
-}
-
-.user-info p:first-child {
-    font-weight: bold;
 }
 /*------------------------------------Body*/
 .side-bar {
@@ -330,163 +276,86 @@
     display: flex;
     height: 100vh;
 }
-
+/*---------------------------------------------------*/
 .body-container {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    padding: 60px 50px;
+    padding: 100px 100px;
     margin: 0 60px;
     width: 100%;
 }
 
-.recents-container,
-.popular-card-container,
-.top-creator-container {
+.personal-setting {
+    padding-bottom: 20px;
+}
+
+.personal-setting h2 {
+    margin: 10px;
+}
+
+.personal-setting-box {
+    border-radius: 10px;
     padding: 20px;
-    background-color: #fff;
+    border: 2px solid #f3f3f3;
 }
 
-.recents-container h2,
-.popular-card-container h2,
-.top-creator-container h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: #333;
+.personal-setting-box img {
+    width: 150px;
+    border-radius: 50%;
+    padding: 10px;;
 }
 
-.recents-list {
+.avt-list {
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
 }
 
-.recents-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border-radius: 5px;
-    width: 50%;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+.avt-list img {
+    width: 50px;
 }
 
-.recents-item:hover {
-    background-color: #f7e8f6;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-}
-
-.recents-item > div:first-child {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    background-color: #ac2aa6;
-    color: #fc6cf4;
-    margin-right: 10px;
-    padding: 20px;
-}
-
-.recents-item i {
-    font-size: 20px;
-    padding: 25px 20px;
-}
-
-.recents-item p {
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
-    line-height: 1.2;
-}
-
-.recents-item div div {
-    font-size: 14px;
-    font-weight: 600;
-    color: #718096;
-    margin-top: 2px;
-}
-
-.flash-card-list,
-.top-creator-list {
-    display: flex;
-    column-gap: 20px;
-}
-
-.flash-card-item,
-.top-creator-item {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #aaaaaa;
-    border-radius: 5px;
-    height: 100%;
-    width: 33%;
-    padding: 20px;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-}
-.flash-card-item:hover,
-.top-creator-item:hover {
-    background-color: #f7e8f6;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-    border-bottom: 3px solid #640D5F;
-}
-
-.flash-card-item > div:first-child p {
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
-    line-height: 1.2;
-    margin-bottom: 5px;
-}
-
-.flash-card-item span,
-.top-creator-item span {
-    background-color: #e8e8e8;
-    font-weight: 600;
-    font-size: 12px;
-    padding: 5px 10px;
-    border-radius: 30px;
-}
-
-.flash-card-item > div:last-child{
-    display: flex;
-    margin-top: 50px;
-    align-items: center;
-}
-
-.flash-card-item > div:last-child img{
-    height: 24px;
-    width: 24px;
+.avt-item button {
     border-radius: 50%;
+    border: none;
 }
 
-.flash-card-item > div:last-child p{
-    align-self: center;
-    margin-left: 5px;
-    font-size: 14px;
+.attribute-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #f3f3f3;
 }
 
-.top-creator-item > div:first-child{
-    margin-bottom: 20px;
-}
-
-.top-creator-item p {
-    font-size: 20px;
+.attribute-box button{
+    background-color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
     font-weight: bold;
-    color: #000;
-    line-height: 1.2;
+    border-style: none;
+    border-radius: 10px;
+    color: #0077cc;
+    cursor: pointer;
 }
 
-.top-creator-item > div:first-child img{
-    height: 64px;
-    width: 64px;
-    border-radius: 50%;
+.attribute-box button:hover,
+.attribute-box select:hover {
+    background-color: #f3f3f3;
 }
 
-.top-creator-item > div:last-child {
-    margin-top: 10px;
+.attribute-box select {
+    background-color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-style: none;
+    border-radius: 10px;
+    color: #0077cc;
+}
+
+.attribute-box p {
+    font-size: 16px;
+    color: #6d6d6d;
 }

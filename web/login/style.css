@@ -76,13 +76,13 @@ body {
 }
 
 .login-header a:nth-child(2) {
-    border-bottom: 2px solid #0077cc;
-    color: #0077cc;
+    border-bottom: 2px solid #640D5F;
+    color: #640D5F;
 }
 
 .register-header a:nth-child(1) {
-    border-bottom: 1px solid #0077cc;
-    color: #0077cc;
+    border-bottom: 2px solid #640D5F;
+    color: #640D5F;
 }
 
 /* Login bằng các tài khoản khác */
@@ -167,7 +167,7 @@ input[type="password"] {
 }
 
 input:focus {
-    border-color: #0077cc;
+    border-color: #640D5F;
     outline: none;
 }
 
@@ -203,7 +203,7 @@ input:focus {
 }
 
 .input-wrapper .icon-eye:hover {
-    color: #0077cc; 
+    color: #640D5F; 
 }
 
 /* Quên mật khẩu */
@@ -213,13 +213,13 @@ input:focus {
 
 .forget-password a {
     text-decoration: none;
-    color: #0077cc;
+    color: #640D5F;
     font-weight: bold;
 
 }
 
 .forget-password a:hover {
-    color: #286d9e;
+    color: #2A004E;
 }
 
 .term-policy {
@@ -262,7 +262,7 @@ input:focus {
 .register-button button {
     width: 100%;
     padding: 10px;
-    background-color: #4285f4;
+    background-color: #640D5F;
     color: #fff;
     font-size: 16px;
     border: none;
@@ -275,7 +275,7 @@ input:focus {
 
 .login-button button:hover,
 .register-button button:hover {
-    background-color: #3367d6;
+    background-color: #2A004E;
 }
 
 /* Nút tạo tài khoản */

@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="upgrade-btn">
-                    <button>Upgrade</button>
+                    <button>Upgrade: Free 7-day trial</button>
                 </div>
                 <div class="avatar-user"  id="avatarUser">
                     <img src="./images/avatar/default.png" alt="Not found">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="login-btn">
-                    <a href="login"><button>Log in</button></a>
+                    <a href="test"><button>Log in</button></a>
                 </div>
             </div>
         </div>
@@ -149,7 +149,7 @@
                                 <span>??? terms</span>
                             </div>
                             <div>
-                                <img src="" alt="Avatar">
+                                <img src="/images/avt1.jpg" alt="Avatar">
                                 <p>Name of user</p>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
                                 <span>??? terms</span>
                             </div>
                             <div>
-                                <img src="" alt="Avatar">
+                                <img src="/images/avt1.jpg" alt="Avatar">
                                 <p>Name of user</p>
                             </div>
                         </div>
@@ -225,7 +225,7 @@
                     <div class="top-creator-list">
                         <div class="top-creator-item">
                             <div>
-                                <img src="" alt="Avatar">
+                                <img src="/images/avt1.jpg" alt="Avatar">
                             </div>
                             <div>
                                 <p>Name of user</p>
@@ -237,7 +237,7 @@
                         </div>
                         <div class="top-creator-item">
                             <div>
-                                <img src="" alt="Avatar">
+                                <img src="/images/avt1.jpg" alt="Avatar">
                             </div>
                             <div>
                                 <p>Name of user</p>
@@ -249,7 +249,7 @@
                         </div>
                         <div class="top-creator-item">
                             <div>
-                                <img src="" alt="Avatar">
+                                <img src="/images/avt1.jpg" alt="Avatar">
                             </div>
                             <div>
                                 <p>Name of user</p>
