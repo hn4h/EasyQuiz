@@ -1,3 +1,10 @@
 /nbproject
 src/java/constant/Iconstant.java
 /build/
+/.idea
+/.smarttomcat
+/conf
+/logs
+/out
+/work
+EasyQuiz.iml

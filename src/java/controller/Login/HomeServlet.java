@@ -3,9 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller;
+package controller.Login;
 
-import dal.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author 11
  */
-public class SignUpServlet extends HttpServlet {
+
+public class HomeServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +34,10 @@ public class SignUpServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SignUpServlet</title>");  
+            out.println("<title>Servlet HomeServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SignUpServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet HomeServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,7 +54,8 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("login/register.jsp").forward(request, response);
+//        response.sendRedirect("home/home.jsp");
+        request.getRequestDispatcher("home/home.jsp").forward(request, response);
     } 
 
     /** 
@@ -67,21 +68,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String email = request.getParameter("email");
-        String rePassword = request.getParameter("confirmPassword");
-        AccountDAO dao = new AccountDAO();
-        if (dao.checkUsername(username)) {
-            request.setAttribute("error", "Username already exists");
-            request.getRequestDispatcher("client/signin.jsp").forward(request, response);
-        } else if (!password.equals(rePassword)) {
-            request.setAttribute("error", "Password and Repeat Password do not match");
-            request.getRequestDispatcher("client/signin.jsp").forward(request, response);
-        } else {
-            dao.createAccount(username, password, email);
-            response.sendRedirect("login");
-        }
+        processRequest(request, response);
     }
 
     /** 

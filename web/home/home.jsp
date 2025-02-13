@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="login-btn">
-                    <a href="test"><button>Log in</button></a>
+                    <a href="login"><button>Log in</button></a>
                 </div>
             </div>
         </div>

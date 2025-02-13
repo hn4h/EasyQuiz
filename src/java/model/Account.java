@@ -13,24 +13,25 @@ import java.sql.Date;
 public class Account {
     private String userName;
     private String hashedPassword;
-    private int role;
+    private boolean isAdmin;
     private String email;
     private String profileImage;
     private Date createdDate;
-
+    private Date expiredDate;
     public Account() {
     }
 
-    public Account(String userName, String hashedPassword, int role, String email, String profileImage, Date createdDate) {
+    public Account(String userName, String hashedPassword, boolean isAdmin, String email, String profileImage, Date createdDate, Date expiredDate) {
         this.userName = userName;
         this.hashedPassword = hashedPassword;
-        this.role = role;
+        this.isAdmin = isAdmin;
         this.email = email;
         this.profileImage = profileImage;
         this.createdDate = createdDate;
+        this.expiredDate = expiredDate;
     }
 
-
+    
     public String getEmail() {
         return email;
     }
@@ -57,14 +58,23 @@ public class Account {
         this.hashedPassword = hashedPassword;
     }
 
-    public int getRole() {
-        return role;
+    public boolean isIsAdmin() {
+        return isAdmin;
     }
 
-    public void setRole(int role) {
-        this.role = role;
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
+    public Date getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(Date expiredDate) {
+        this.expiredDate = expiredDate;
+    }
+
+   
     public String getProfileImage() {
         return profileImage;
     }

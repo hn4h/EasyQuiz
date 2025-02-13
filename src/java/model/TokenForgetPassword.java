@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
  */
 public class TokenForgetPassword {
 
-    private int id, userID;
+    private int id;
+    private int userID;
     private boolean isUsed;
     private String token;
     private LocalDateTime expiredTime;
