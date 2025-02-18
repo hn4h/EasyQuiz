@@ -8,3 +8,4 @@ src/java/constant/Iconstant.java
 /out
 /work
 EasyQuiz.iml
+/${build.web.dir}

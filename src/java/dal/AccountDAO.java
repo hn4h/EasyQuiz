@@ -275,7 +275,7 @@ public class AccountDAO extends DBContext {
     // }
     // return false;
     // }
-
+//Hello
     public Account checkEmail(String email) {
         String sql = "Select * from Accounts where email = ?";
         try {
