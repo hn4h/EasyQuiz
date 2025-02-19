@@ -20,3 +20,44 @@ document.getElementById("registerForm").addEventListener("submit", function (eve
         errorMessage.style.display = "none";
     }
 });
+//----------------------------------OTP--
+
+document.addEventListener("DOMContentLoaded", function () {
+    const inputs = document.querySelectorAll(".otp-input input");
+    const verifyBtn = document.querySelector(".verifyBtn");
+
+    // Focus vào ô đầu tiên khi trang tải
+    inputs[0].disabled = false;
+    inputs[0].focus();
+
+    inputs.forEach((input, index) => {
+        input.addEventListener("input", (event) => {
+            if (input.value.length === 1) {
+                if (index < inputs.length - 1) {
+                    inputs[index + 1].disabled = false;
+                    setTimeout(() => inputs[index + 1].focus(), 50);
+                }
+            }
+            checkAllInputsFilled();
+        });
+
+        input.addEventListener("keydown", (event) => {
+            if (event.key === "Backspace") {
+                if (input.value === "" && index > 0) {
+                    inputs[index].disabled = true;
+                    inputs[index - 1].focus();
+                }
+            }
+        });
+    });
+
+    function checkAllInputsFilled() {
+        const allFilled = [...inputs].every(input => input.value.length === 1);
+        verifyBtn.disabled = !allFilled;
+    }
+});
+
+
+
+
+

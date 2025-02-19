@@ -1,3 +1,6 @@
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,6 +11,8 @@
         <link rel="stylesheet" href="./home/home.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
     </head>
 
     <body>
@@ -23,40 +28,45 @@
                 <input type="text" placeholder="Search for study guides" name="">
             </div>
             <div class="create-login">
-                <div type="button" class="create-btn">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                    <p>Create</p>
-                </div> 
-                <div type="button" class="create-btn-icon">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                </div>
-
-                <div class="upgrade-btn">
-                    <button>Upgrade: Free 7-day trial</button>
-                </div>
-                <div class="avatar-user"  id="avatarUser">
-                    <img src="./images/avatar/default.png" alt="Not found">
-                    <div class="user-menu" id="userMenu">
-                        <div class="user-info">
-                            <img src="./images/avatar/default.png" alt="Not found"/>
-                            <div>
-                                <p>Do Duc Anh</p>
-                                <p>duca@gmail.com</p>
-                            </div>
+                <c:if test="${not empty sessionScope.account.username}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-user-group"></i> Class</a>
                         </div>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Profile</a>
-                        <a href="#" class="user-menu-item">Settings</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Logout</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Help and feedback</a>
-                        <a href="#" class="user-menu-item">Upgrades</a>
                     </div>
-                </div>
-                <div class="login-btn">
-                    <a href="login"><button>Log in</button></a>
-                </div>
+                    <div class="upgrade-btn">
+                        <button>Upgrade: Free 7-day trial</button>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="./images/avatar/default.png" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <div>
+                                    <p>Do Duc Anh</p>
+                                    <p>duca@gmail.com</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <hr/>
+                            <a href="#" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="#" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.username}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
+
             </div>
         </div>
         <div class="body">
@@ -89,7 +99,7 @@
                                 <span class="nav-label">Subject</span>
                                 <span class="dropdown-icon material-symbols-rounded">keyboard_arrow_down</span>
                             </a>
-<!--                            Dropdown subject-->
+                            <!--                            Dropdown subject-->
                             <ul class="dropdown-subject">
                                 <li class="nav-item">
                                     <a class="nav-link dropdown-title" style="font-weight: bold">Subject</a>
@@ -179,131 +189,327 @@
                         </div>
                     </div>
                 </div>
-                <div class="popular-card-container">
-                    <h2>Name</h2>
-                    <div class="flash-card-list">
-                        <div class="flash-card-item">
-                            <div>
-                                <p>Name</p>
-                            </div>
-                            <div>
-                                <span>??? terms</span>
-                            </div>
-                            <div>
-                                <img src="/images/avt1.jpg" alt="Avatar">
-                                <p>Name of user</p>
-                            </div>
-                        </div>
-                        <div class="flash-card-item">
-                            <div>
-                                <p>Name</p>
-                            </div>
-                            <div>
-                                <span>??? terms</span>
-                            </div>
-                            <div>
-                                <img src="" alt="Avatar">
-                                <p>Name of user</p>
-                            </div>
-                        </div>
-                        <div class="flash-card-item">
-                            <div>
-                                <p>Name</p>
-                            </div>
-                            <div>
-                                <span>??? terms</span>
-                            </div>
-                            <div>
-                                <img src="" alt="Avatar">
-                                <p>Name of user</p>
-                            </div>
-                        </div>
+                <div class="container swiper">
+                    <h2>Popular flashcard sets</h2>
+                    <div class="card-wrapper">
+                        <ul class="card-list swiper-wrapper">
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
                 </div>
-                <div class="popular-card-container">
-                    <h2>Name</h2>
-                    <div class="flash-card-list">
-                        <div class="flash-card-item">
-                            <div>
-                                <p>Name</p>
-                            </div>
-                            <div>
-                                <span>??? terms</span>
-                            </div>
-                            <div>
-                                <img src="/images/avt1.jpg" alt="Avatar">
-                                <p>Name of user</p>
-                            </div>
-                        </div>
-                        <div class="flash-card-item">
-                            <div>
-                                <p>Name</p>
-                            </div>
-                            <div>
-                                <span>??? terms</span>
-                            </div>
-                            <div>
-                                <img src="" alt="Avatar">
-                                <p>Name of user</p>
-                            </div>
-                        </div>
-                        <div class="flash-card-item">
-                            <div>
-                                <p>Name</p>
-                            </div>
-                            <div>
-                                <span>??? terms</span>
-                            </div>
-                            <div>
-                                <img src="" alt="Avatar">
-                                <p>Name of user</p>
-                            </div>
-                        </div>
+                <div class="container swiper">
+                    <h2>Popular flashcard sets</h2>
+                    <div class="card-wrapper">
+                        <ul class="card-list swiper-wrapper">
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <h2 class="card-title">Title of quiz</h2>
+                                    <p class="badge">??? terms</p>
+                                    <div class="card-username">
+                                        <span style="display: flex; align-items: center;">
+                                            <img src="avt1.jpg" alt="Avatar">
+                                            <span>Name of user</span>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
                 </div>
-                <div class="top-creator-container">
+                <div class="container swiper">
                     <h2>Top creator</h2>
-                    <div class="top-creator-list">
-                        <div class="top-creator-item">
-                            <div>
-                                <img src="/images/avt1.jpg" alt="Avatar">
-                            </div>
-                            <div>
-                                <p>Name of user</p>
-                            </div>
-                            <div>
-                                <span><i class="fa-solid fa-book"></i> ??? flashcard sets</span>
-                                <span><i class="fa-solid fa-user-group"></i> ??? classes</span>
-                            </div>
-                        </div>
-                        <div class="top-creator-item">
-                            <div>
-                                <img src="/images/avt1.jpg" alt="Avatar">
-                            </div>
-                            <div>
-                                <p>Name of user</p>
-                            </div>
-                            <div>
-                                <span><i class="fa-solid fa-book"></i> ??? flashcard sets</span>
-                                <span><i class="fa-solid fa-user-group"></i> ??? classes</span>
-                            </div>
-                        </div>
-                        <div class="top-creator-item">
-                            <div>
-                                <img src="/images/avt1.jpg" alt="Avatar">
-                            </div>
-                            <div>
-                                <p>Name of user</p>
-                            </div>
-                            <div>
-                                <span><i class="fa-solid fa-book"></i> ??? flashcard sets</span>
-                                <span><i class="fa-solid fa-user-group"></i> ??? classes</span>
-                            </div>
-                        </div>
+                    <div class="card-wrapper">
+                        <ul class="card-list swiper-wrapper">
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <div class="card-avt">
+                                        <img src="avt1.jpg" alt="Avatar">
+                                        <p>Name of user</p>
+                                    </div>
+                                    <div class="card-username">
+                                        <span>
+                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
+                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <div class="card-avt">
+                                        <img src="avt1.jpg" alt="Avatar">
+                                        <p>Name of user</p>
+                                    </div>
+                                    <div class="card-username">
+                                        <span>
+                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
+                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <div class="card-avt">
+                                        <img src="avt1.jpg" alt="Avatar">
+                                        <p>Name of user</p>
+                                    </div>
+                                    <div class="card-username">
+                                        <span>
+                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
+                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <div class="card-avt">
+                                        <img src="avt1.jpg" alt="Avatar">
+                                        <p>Name of user</p>
+                                    </div>
+                                    <div class="card-username">
+                                        <span>
+                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
+                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <div class="card-avt">
+                                        <img src="avt1.jpg" alt="Avatar">
+                                        <p>Name of user</p>
+                                    </div>
+                                    <div class="card-username">
+                                        <span>
+                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
+                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="card-item swiper-slide">
+                                <a href="#" class="card-link">
+                                    <div class="card-avt">
+                                        <img src="avt1.jpg" alt="Avatar">
+                                        <p>Name of user</p>
+                                    </div>
+                                    <div class="card-username">
+                                        <span>
+                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
+                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
+                                        </span>
+                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="swiper-pagination"></div>
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Linking SwiperJS script -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./home/home.js"></script>
     </body>
 

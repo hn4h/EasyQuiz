@@ -54,11 +54,6 @@
                             <button type="button" class="icon-eye" id="togglePassword"><i class="fa-regular fa-eye"></i></button>
                         </div>
                     </div>
-                    <div>
-                        <!-- <div class="term-policy">
-                            By clicking Log in, you accept EasyQuiz's <b>Terms of Service</b> and <b>Privacy Policy</b>
-                        </div> -->
-                    </div>
                     <div class="login-button">
                         <button type="submit">Log in</button>
                     </div>
