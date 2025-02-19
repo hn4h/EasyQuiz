@@ -22,15 +22,15 @@
                 OTP AUTHENTICATION
             </h2>
             <p class="text-center text-gray-600 mb-6">
-                Please enter the code we sent you via email ?????@gmail.com. The verification code is valid for 120 seconds.
+                Please enter the code we sent you via email ?????@gmail.com. The verification code is valid for <span id="countdown">120</span> seconds.
             </p>
             <div class="flex justify-center space-x-2 mb-6">
-                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl" maxlength="1" type="text" id="otp1">
-                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl" maxlength="1" type="text" id="otp2">
-                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl" maxlength="1" type="text" id="otp3">
-                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl" maxlength="1" type="text" id="otp4">
-                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl" maxlength="1" type="text" id="otp5">
-                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl" maxlength="1" type="text" id="otp6">
+                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl otp-input" maxlength="1" type="text" id="otp1">
+                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl otp-input" maxlength="1" type="text" id="otp2">
+                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl otp-input" maxlength="1" type="text" id="otp3">
+                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl otp-input" maxlength="1" type="text" id="otp4">
+                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl otp-input" maxlength="1" type="text" id="otp5">
+                <input class="w-12 h-12 border border-gray-300 rounded text-center text-xl otp-input" maxlength="1" type="text" id="otp6">
             </div>
             <button class="w-full bg-orange-500 text-white py-3 rounded-lg text-lg font-semibold" onclick="verifyOTP()">
                 Continue
@@ -44,6 +44,21 @@
         </div>
 
         <script>
+            const otpInputs = document.querySelectorAll('.otp-input');
+
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', (event) => {
+                    if (input.value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+                });
+
+                input.addEventListener('keydown', (event) => {
+                    if (event.key === 'Backspace' && input.value.length === 0 && index > 0) {
+                        otpInputs[index - 1].focus();
+                    }
+                });
+            });
             function verifyOTP() {
                 const otp1 = document.getElementById('otp1').value;
                 const otp2 = document.getElementById('otp2').value;
@@ -70,6 +85,22 @@
                             }
                         });
             }
+            let countdownElement = document.getElementById("countdown");
+            let timeLeft = 120;
+
+            function updateCountdown() {
+                countdownElement.textContent = timeLeft;
+                timeLeft--;
+
+                if (timeLeft < 0) {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = "0";
+                }
+            }
+
+            updateCountdown();
+            let countdownInterval = setInterval(updateCountdown, 1000);
+
         </script>
     </body>
 </html>
