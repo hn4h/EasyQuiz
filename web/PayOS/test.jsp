@@ -38,4 +38,4 @@
 </body>
 </html>
 <script src="https://cdn.payos.vn/payos-checkout/v1/stable/payos-initialize.js"></script>
-<script src="index.js"></script>
+<script src="./PayOS/index.js"></script>

@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         GoogleAccount acc = GoogleLogin.getUserInfo(accessToken);
         if (acc == null) {
             request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("client/login.jsp").forward(request, response);
+            request.getRequestDispatcher("login/login.jsp").forward(request, response);
         } else {
             AccountDAO d = new AccountDAO();
 

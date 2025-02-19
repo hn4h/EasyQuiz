@@ -3,9 +3,9 @@ const buttonContainer = document.getElementById("button-container");
 const contentContainer = document.getElementById("content-container");
 let isOpen = false;
 let config = {
-    RETURN_URL: window.location.origin,
+    RETURN_URL: "http://localhost:9999/QuizzApp/home",
     ELEMENT_ID: "embeded-payment-container",
-    CHECKOUT_URL: "",
+    CHECKOUT_URL: "http://localhost:9999/QuizzApp/pay",
     embedded: true,
     onSuccess: (event) => {
         contentContainer.innerHTML = `
