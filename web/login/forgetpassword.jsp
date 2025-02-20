@@ -21,10 +21,12 @@
                 we’ll send them the link.
             </p>
             <h3>Email</h3>
+            <form action="forgetpassword" method="post">
             <label for="">
-                <input type="text" name="" placeholder="name@email.com">
+                <input type="email" name="email" placeholder="name@email.com">
             </label>
             <button type="submit">Send link</button>
+            </form>
         </div>
     </body>
 </html>

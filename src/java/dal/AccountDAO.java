@@ -16,27 +16,26 @@ import model.PasswordUtil;
  * @author 11
  */
 public class AccountDAO extends DBContext {
-    // public Account getAccountByEmail(String email) {
-    // String sql = "Select * from Accounts where email = ?";
-    // try {
-    // PreparedStatement st = connection.prepareStatement(sql)
-    // st.setString(1, email);
-    // ResultSet rs = st.executeQuery();
-    // if (rs.next()) {
-    // Account account = new Account();
-    // account.setUserName(rs.getString("username"));
-    // account.setHashedPassword(rs.getString("HashedPassword"));
-    // account.setCreatedDate(rs.getDate("createdDate"));
-    // account.setProfileImage(rs.getString("profileImage"));
-    // account.setRole(rs.getInt("role"));
-    // account.setEmail(rs.getString("email"));
-    // return account;
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    // return null;
-    // }
+
+    public Account getAccountByEmail(String email) {
+    String sql = "Select * from Accounts where email = ?";
+    try {
+    PreparedStatement st = connection.prepareStatement(sql);
+    st.setString(1, email);
+    ResultSet rs = st.executeQuery();
+    if (rs.next()) {
+    Account account = new Account();
+    account.setUserName(rs.getString("username"));
+    account.setProfileImage(rs.getString("profileImage"));
+    account.setEmail(rs.getString("email"));
+    return account;
+    }
+    } catch (SQLException e) {
+    System.out.println(e);
+    }
+    return null;
+    }
+
     public Account checkAuthen(String email, String password) {
         String sql = "Select * from Accounts where Email = ?";
         try {
@@ -54,9 +53,9 @@ public class AccountDAO extends DBContext {
                     account.setIsAdmin(isAdmin);
                     account.setExpiredDate(rs.getDate("expiredDate"));
                     account.setEmail(rs.getString("email"));
-                    if(rs.getInt("is_deleted") == 1){
+                    if (rs.getInt("is_deleted") == 1) {
                         return null;
-                    }else{
+                    } else {
                         return account;
                     }
                 }
@@ -275,7 +274,7 @@ public class AccountDAO extends DBContext {
     // }
     // return false;
     // }
-//Hello
+    // Hello
     public Account checkEmail(String email) {
         String sql = "Select * from Accounts where email = ?";
         try {
@@ -288,7 +287,8 @@ public class AccountDAO extends DBContext {
                 account.setHashedPassword(rs.getString("HashedPassword"));
                 account.setCreatedDate(rs.getDate("createdDate"));
                 account.setProfileImage(rs.getString("profileImage"));
-                account.setRole(rs.getInt("role"));
+                boolean isAdmin = rs.getInt("is_admin") == 1;
+                account.setIsAdmin(isAdmin);
                 account.setEmail(rs.getString("email"));
                 return account;
             }

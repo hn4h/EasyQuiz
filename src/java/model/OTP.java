@@ -10,29 +10,25 @@ import java.time.LocalDateTime;
  *
  * @author 11
  */
-public class TokenForgetPassword {
-
-    private int id;
+public class OTP {
+   private int id;
     private String userName;
     private boolean isUsed;
-    private String token;
+    private String otp;
     private LocalDateTime expiredTime;
-
-    public TokenForgetPassword(int id, String userName, boolean isUsed, String token, LocalDateTime expiredTime) {
+    public OTP(int id, boolean isUsed, String otp, LocalDateTime expiredTime) {
         this.id = id;
-        this.userName = userName;
         this.isUsed = isUsed;
-        this.token = token;
+        this.otp = otp;
         this.expiredTime = expiredTime;
     }
-    public TokenForgetPassword(String userName, boolean isUsed, String token, LocalDateTime expiredTime) {
+    public OTP( String userName , boolean isUsed, String otp, LocalDateTime expiredTime) {
         this.userName = userName;
         this.isUsed = isUsed;
-        this.token = token;
+        this.otp = otp;
         this.expiredTime = expiredTime;
     }
-
-    public TokenForgetPassword() {
+    public OTP() {
     }
 
     public int getId() {
@@ -51,21 +47,20 @@ public class TokenForgetPassword {
         this.userName = userName;
     }
 
-
-    public boolean isIsUsed() {
+    public boolean isUsed() {
         return isUsed;
     }
 
-    public void setIsUsed(boolean isUsed) {
-        this.isUsed = isUsed;
+    public void setUsed(boolean used) {
+        isUsed = used;
     }
 
-    public String getToken() {
-        return token;
+    public String getOtp() {
+        return otp;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setOtp(String otp) {
+        this.otp = otp;
     }
 
     public LocalDateTime getExpiredTime() {
@@ -74,6 +69,5 @@ public class TokenForgetPassword {
 
     public void setExpiredTime(LocalDateTime expiredTime) {
         this.expiredTime = expiredTime;
-    }
-
+    } 
 }
