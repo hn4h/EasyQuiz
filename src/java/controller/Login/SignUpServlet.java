@@ -12,6 +12,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
@@ -74,14 +76,19 @@ public class SignUpServlet extends HttpServlet {
         AccountDAO dao = new AccountDAO();
         if (dao.checkUsername(username)) {
             request.setAttribute("error", "Username already exists");
-            request.getRequestDispatcher("client/signin.jsp").forward(request, response);
+            request.getRequestDispatcher("login/register.jsp").forward(request, response);
         } else if (!password.equals(rePassword)) {
             request.setAttribute("error", "Password and Repeat Password do not match");
-            request.getRequestDispatcher("client/signin.jsp").forward(request, response);
+            request.getRequestDispatcher("login/register.jsp").forward(request, response);
         } else {
-            dao.createAccount(username, password, email);
-            System.out.println("Sign up successful");
-            response.sendRedirect("login");
+            // dao.createAccount(username, password, email);
+            // System.out.println("Sign up successful");
+//            response.sendRedirect("login");
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
+            session.setAttribute("password", password);
+            session.setAttribute("email", email);
+            response.sendRedirect("verifyotp");
         }
     }
 

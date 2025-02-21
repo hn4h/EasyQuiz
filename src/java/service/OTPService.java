@@ -14,6 +14,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.eclipse.jdt.internal.compiler.batch.Main;
 
 /**
  *
@@ -37,7 +38,7 @@ public class OTPService {
     }
     
     
-    public boolean sendEmail(String to, String otp, String name) {
+    public boolean sendEmail(String to, String otp) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
@@ -71,5 +72,35 @@ public class OTPService {
             System.out.println(e);
             return false;
         }
+    }
+    public static void main(String[] args) {
+       OTPService s = new OTPService();
+       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+              s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+
+                     s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+
+                            s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+
+                                   s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+
+              s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+
+                     s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+
+                            s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
+
+       
+       
+       
+       
+                            
+                                   
     }
 }

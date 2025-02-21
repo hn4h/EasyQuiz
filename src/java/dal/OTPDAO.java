@@ -5,6 +5,7 @@
 package dal;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
@@ -38,5 +39,40 @@ public class OTPDAO extends DBContext{
             System.out.println(e);
         }
         return false;
+    }
+   public OTP getOTP(String otp) {
+        String sql = "Select * from [OTP] where OTP_Code = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, otp);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new OTP(
+                        rs.getInt("OTP_ID"),
+                        rs.getString("userName"),
+                        rs.getBoolean("isUsed"),
+                        rs.getString("OTP_Code"),
+                        rs.getTimestamp("ExpiredTime").toLocalDateTime()
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public void updateStatus(OTP otp) {
+        System.out.println("token = " + otp);
+        String sql = "UPDATE [dbo].[OTP]\n"
+                + "   SET [isUsed] = ?\n"
+                + " WHERE OTP_Code = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setBoolean(1, otp.isUsed());
+            st.setString(2, otp.getOtp());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 }

@@ -31,6 +31,13 @@ public class Account {
         this.expiredDate = expiredDate;
     }
 
+    public Account(String userName, String hashedPassword, String email) {
+        this.userName = userName;
+        this.hashedPassword = hashedPassword;
+        this.email = email;
+    }
+    
+
     
     public String getEmail() {
         return email;

@@ -16,6 +16,15 @@ public class OTP {
     private boolean isUsed;
     private String otp;
     private LocalDateTime expiredTime;
+
+    public OTP(int id, String userName, boolean isUsed, String otp, LocalDateTime expiredTime) {
+        this.id = id;
+        this.userName = userName;
+        this.isUsed = isUsed;
+        this.otp = otp;
+        this.expiredTime = expiredTime;
+    }
+    
     public OTP(int id, boolean isUsed, String otp, LocalDateTime expiredTime) {
         this.id = id;
         this.isUsed = isUsed;
