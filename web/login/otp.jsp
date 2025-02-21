@@ -39,7 +39,7 @@
             </form>
             <p class="text-center text-gray-600">
                 Haven't received code yet?
-                <a class="text-blue-500" href="#">
+                <a class="text-blue-500" href="verifyotp">
                     Resend
                 </a>
             </p>
