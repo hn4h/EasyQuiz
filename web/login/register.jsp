@@ -28,14 +28,14 @@
                         or email
                     </span>
                 </div>
-                <form action="" id="registerForm">
+                <form action="signup" method="post" id="registerForm">
                     <div class="input-email">
                         <div>
                             <b>Email</b>
                         </div>
                         <div>
                             <label for="">
-                                <input type="text" name="" placeholder="user@email.com">
+                                <input type="text" name="email" placeholder="user@email.com">
                             </label>
                         </div>
                     </div>
@@ -45,7 +45,7 @@
                         </div>
                         <div>
                             <label for="">
-                                <input type="text" name="" placeholder="andrew123">
+                                <input type="text" name="username" placeholder="andrew123">
                             </label>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <input id="passwordInput" type="password" name="" placeholder="********">
+                            <input id="passwordInput" type="password" name="password" placeholder="********">
                             <button type="button" class="icon-eye" id="togglePassword"><i
                                     class="fa-regular fa-eye"></i></button>
                         </div>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <input id="confirmPasswordInput" type="password" name="" placeholder="********">
+                            <input id="confirmPasswordInput" type="password" name="confirmPassword" placeholder="********">
                             <button type="button" class="icon-eye" id="togglePassword"><i
                                     class="fa-regular fa-eye"></i></button>
                         </div>

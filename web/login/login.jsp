@@ -29,14 +29,14 @@
                         or email
                     </span>
                 </div>
-                <form action="">
+                <form action="login" method="post">
                     <div class="input-email">
                         <div>
                             <b>Email</b>
                         </div>
                         <div>
                             <label for="">
-                                <input type="text" name="" placeholder="Enter your email address or username">
+                                <input type="text" name="email" placeholder="Enter your email address or username">
                             </label>
                         </div>
                     </div>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
                         <div class="input-wrapper">
-                            <input id="passwordInput" type="password" name="" placeholder="Enter your password">
+                            <input id="passwordInput" type="password" name="password" placeholder="Enter your password">
                             <button type="button" class="icon-eye" id="togglePassword"><i class="fa-regular fa-eye"></i></button>
                         </div>
                     </div>

@@ -28,7 +28,7 @@
                 <input type="text" placeholder="Search for study guides" name="">
             </div>
             <div class="create-login">
-                <c:if test="${not empty sessionScope.account.username}">
+                <c:if test="${not empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
@@ -54,14 +54,14 @@
                             <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
                             <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Logout</a>
+                            <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
                             <a href="#" class="user-menu-item">Help and feedback</a>
                             <a href="#" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
                 </c:if>
-                <c:if test="${empty sessionScope.account.username}">
+                <c:if test="${empty sessionScope.account.userName}">
                     <div class="login-btn">
                         <a href="login"><button>Log in</button></a>
                     </div>
