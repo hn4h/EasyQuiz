@@ -31,7 +31,7 @@ import service.ResetService;
  */
 @WebServlet(name = "ForgetPasswordServlet", urlPatterns = {"/forgetpassword"})
 public class ForgetPasswordServlet extends HttpServlet {
-    private final static String forgetPasswordLink = "login/forgetpassword_1.jsp";
+    private final static String forgetPasswordLink = "login/forgetpassword.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
