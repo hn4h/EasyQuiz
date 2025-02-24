@@ -31,10 +31,11 @@
     align-self: center;
     font-weight: bold;
     font-size: 25px;
-    color: #640D5F;
 }
 
-.logo span {
+.logo a {
+    color: #640D5F;
+    text-decoration: none;
     padding: 0 10px;
     align-self: center;
 }
@@ -47,7 +48,8 @@
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .create-login {
@@ -231,6 +233,7 @@
     position: fixed;
     top: 64px;
     left: 0;
+    z-index: 101;
     width: 260px;
     height: 100vh;
     background: #fff;
@@ -248,12 +251,7 @@
     padding: 0 15px;
     flex-direction: column;
     transform: translateY(15px);
-/*    transition: 0.4s ease;*/
 }
-
-/*.sidebar.collapsed .sidebar-nav .primary-nav {
-    transform: translateY(65px);
-}*/
 
 .sidebar-nav .nav-item .nav-link,
 .sidebar-nav .nav-item .nav-link-actived {

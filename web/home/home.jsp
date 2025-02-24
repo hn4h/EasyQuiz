@@ -21,7 +21,7 @@
                 <div class="menu-btn">
                     <button class="sidebar-toggler" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
                 </div>
-                <span>EasyQuiz</span>
+                <a href="home"><span>EasyQuiz</span></a>
             </div>
             <div class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -99,7 +99,7 @@
                                 <span class="nav-label">Subject</span>
                                 <span class="dropdown-icon material-symbols-rounded">keyboard_arrow_down</span>
                             </a>
-                            <!--                            Dropdown subject-->
+                            <!--Dropdown subject-->
                             <ul class="dropdown-subject">
                                 <li class="nav-item">
                                     <a class="nav-link dropdown-title" style="font-weight: bold">Subject</a>

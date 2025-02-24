@@ -10,6 +10,20 @@
     </head>
 
     <body>
+        <div class="header">
+            <div class="logo">
+                <a href="home"><span>EasyQuiz</span></a>
+            </div>
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for study guides" name="">
+            </div>
+            <div class="create-login">
+                <div class="login-btn">
+                    <a href="login"><button>Log in</button></a>
+                </div>
+            </div>
+        </div>
         <div class="login-container">
             <div class="login-banner">
                 <img src="./login/images/banner_login.jpg" alt="Not found">
@@ -60,7 +74,7 @@
                     </form>
                     <div>
                         <div class="create-button">
-                            <a href="register.jsp"><button>Create an account</button></a>
+                            <a href="signup"><button>Create an account</button></a>
                         </div>
                     </div>
                 </div>
