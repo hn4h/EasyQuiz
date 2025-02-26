@@ -11,7 +11,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>History</title>
-        <link rel="stylesheet" href="./history/history.css">
+        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <link rel="stylesheet" href="history.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -24,47 +25,52 @@
                 <div class="menu-btn">
                     <button class="sidebar-toggler" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
                 </div>
-                <span>EasyQuiz</span>
+                <a href="home"><span>EasyQuiz</span></a>
             </div>
             <div class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for blog" name="">
+                <input type="text" placeholder="Search for study guides" name="">
             </div>
             <div class="create-login">
-                <div type="button" class="create-btn">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                    <p>Create</p>
-                </div> 
-                <div type="button" class="create-btn-icon">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                </div>
-
-                <div class="upgrade-btn">
-                    <button>Upgrade: Free 7-day trial</button>
-                </div>
-                <div class="avatar-user"  id="avatarUser">
-                    <img src="./images/avatar/default.png" alt="Not found">
-                    <div class="user-menu" id="userMenu">
-                        <div class="user-info">
-                            <img src="./images/avatar/default.png" alt="Not found"/>
-                            <div>
-                                <p>Do Duc Anh</p>
-                                <p>duca@gmail.com</p>
-                            </div>
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-user-group"></i> Class</a>
                         </div>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Profile</a>
-                        <a href="#" class="user-menu-item">Settings</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Logout</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Help and feedback</a>
-                        <a href="#" class="user-menu-item">Upgrades</a>
                     </div>
-                </div>
-                <div class="login-btn">
-                    <a href="login"><button>Log in</button></a>
-                </div>
+                    <div class="upgrade-btn">
+                        <button>Upgrade: Free 7-day trial</button>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="./images/avatar/default.png" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <div>
+                                    <p>Do Duc Anh</p>
+                                    <p>duca@gmail.com</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="#" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
+
             </div>
         </div>
         <div class="body">
@@ -89,29 +95,6 @@
                                 <span class="material-symbols-rounded">rss_feed</span>
                                 <span class="nav-label">Blog</span>
                             </a>
-                        </li>
-                        <!--Dropdown -->
-                        <li class="nav-item dropdown-container">
-                            <a href="#" class="nav-link dropdown-toggle">
-                                <span class="material-symbols-rounded">subject</span>
-                                <span class="nav-label">Subject</span>
-                                <span class="dropdown-icon material-symbols-rounded">keyboard_arrow_down</span>
-                            </a>
-                            <!--                            Dropdown subject-->
-                            <ul class="dropdown-subject">
-                                <li class="nav-item">
-                                    <a class="nav-link dropdown-title" style="font-weight: bold">Subject</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject A</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject B</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject C</a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <!--Bottom nav-->
@@ -195,7 +178,7 @@
         </div>
 
 
-        <script src="./history/history.js"></script>
+        <script src="history.js"></script>
     </body>
 
 </html>
