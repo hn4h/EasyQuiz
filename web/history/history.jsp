@@ -96,29 +96,6 @@
                                 <span class="nav-label">Blog</span>
                             </a>
                         </li>
-                        <!--Dropdown -->
-                        <li class="nav-item dropdown-container">
-                            <a href="#" class="nav-link dropdown-toggle">
-                                <span class="material-symbols-rounded">subject</span>
-                                <span class="nav-label">Subject</span>
-                                <span class="dropdown-icon material-symbols-rounded">keyboard_arrow_down</span>
-                            </a>
-                            <!--                            Dropdown subject-->
-                            <ul class="dropdown-subject">
-                                <li class="nav-item">
-                                    <a class="nav-link dropdown-title" style="font-weight: bold">Subject</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject A</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject B</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject C</a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
