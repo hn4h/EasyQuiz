@@ -122,9 +122,10 @@
             </aside>   
             <div class="body-container">
                 <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
-                <div class="flex space-x-4 mb-4">
-                    <button class="border-b-2 border-blue-600 pb-2">Quiz</button>
-                    <button class="pb-2">Folders</button>
+                <div class="history-card">
+                <div class="button2">
+                    <a href="#" class="quiz-button">Quiz</a>
+                    <a href="#" class="folders-button">Folders</a>
                 </div>
                 <div class="flex justify-between items-center mb-4">
                     <select class="border border-gray-300 px-4 py-2 rounded">
@@ -174,6 +175,7 @@
                         </div>
                     </div>
                 </div>
+              </div>
             </div>
         </div>
 
