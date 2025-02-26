@@ -47,7 +47,8 @@
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .create-login {
@@ -138,7 +139,7 @@
 }
 
 .search input:focus {
-    border-color: #0077cc;
+    border-color: #640D5F;
     outline: none;
 }
 
@@ -212,6 +213,7 @@
     height: 100vh;
     background: #fff;
     transition: 0.4s ease;
+    z-index: 101;
 }
 
 .sidebar.collapsed {
@@ -356,10 +358,23 @@
 }
 
 .blog-container {
+    margin: 20px auto;
+}
+
+.blog-container h1 {
+    margin: 10px 0;
+    font-size: 34px;
+}
+
+.blog-card {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
     color: #000;
+    max-width: 1100px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    
 }
 
 .content-header {
@@ -378,6 +393,7 @@
     font-size: 16px;
     font-weight: bold;
     margin: 0 5px;
+    cursor: pointer;
 }
 
 .btn p {
@@ -393,16 +409,83 @@
     background: #e6e6e6;
 }
 
-.blog-container * {
-    color: #000;
-}
-.blog-header img {
-    border-radius:100px;
-}
-.blog-comment {
-    border-radius:5px;
+.blog-header {
+    display: flex;
+    align-items: center;
 }
 
-.mb-4 ul li{
-    list-style-type: none;
+.blog-header span {
+    font-size: 17px;
+    font-weight: 600;
+    color: #666;
+    margin-right: 5px;
+}
+
+.blog-header img {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.blog-content {
+    margin-top: 20px;
+}
+
+.blog-content p {
+    font-size: 15px;
+    font-weight: 600;
+    color: #666;
+    margin: 5px 0;
+}
+
+.blog-content h3 {
+    margin: 15px 0;
+}
+
+.blog-comment {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.blog-comment input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    flex: 1;
+    padding-right: 40px;
+}
+
+.blog-comment input:focus {
+    border-color: #640D5F;
+    outline: none;
+}
+
+.send-btn {
+    position: absolute;
+    left: calc(400px - 42px)
+}
+
+.send-btn,
+.chat-btn {
+    align-self: center;
+    font-size: 30px;
+    color: #666;
+    padding: 5px;
+    margin: 0 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+}
+
+.send-btn:hover,
+.chat-btn:hover {
+    background: #e6e6e6;
 }

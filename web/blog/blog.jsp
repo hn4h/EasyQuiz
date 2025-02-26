@@ -11,7 +11,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blog</title>
-        <link rel="stylesheet" href="./blog/blog.css">
+        <link rel="stylesheet" href="blog.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
@@ -113,154 +113,69 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <h1>Blogs</h1>
-                <div class="content blog-container">
-                    <div class="content-header">
-                        <h2>Blog 1</h2>
-                        <div class="header-btn">
-                            <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-                            <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
+                <div class="blog-container">
+                    <h1>Blogs</h1>
+                    <div class="blog-card">
+                        <div class="content-header">
+                            <h2>Blog 1</h2>
+                            <div class="header-btn">
+                                <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
+                                <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
+                            </div>
+                        </div>
+                        <div class="blog-header">
+                            <img alt="" src="./images/avatar/default.png"/> 
+                            <span style="margin-right: 20px;">Name of user</span>
+                            <span class="material-symbols-rounded">update</span>
+                            <span>Created 01/01/25</span>
+                        </div>
+                        <div class="blog-content">
+                            <h3>Title</h3>
+                            <div class="">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum? 
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum?
+                                </p>
+                            </div>
+                            <div class="blog-comment">
+                                <input type="text" placeholder="Your comment here...">
+                                <span class="send-btn material-symbols-rounded">send</span>
+                                <span class="chat-btn material-symbols-rounded">chat</span>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="blog-header">
-                        <img alt="User avatar" height="30" src="./images/avatar/default.png" width="30" /> <span>
-                            user_1
-                        </span>
-                        <span class="mx-2">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                        </span>
-                        <span>
-                            Created ?/?/?
-                        </span>
+                    <div class="blog-card">
+                        <div class="content-header">
+                            <h2>Blog 2</h2>
+                            <div class="header-btn">
+                                <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
+                                <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
+                            </div>
+                        </div>
+                        <div class="blog-header">
+                            <img alt="" src="./images/avatar/default.png"/> 
+                            <span style="margin-right: 20px;">Name of user</span>
+                            <span class="material-symbols-rounded">update</span>
+                            <span>Created 01/01/25</span>
+                        </div>
+                        <div class="blog-content">
+                            <h3>Title</h3>
+                            <div class="">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum? 
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum?
+                                </p>
+                            </div>
+                            <div class="blog-comment">
+                                <input type="text" placeholder="Your comment here...">
+                                <span class="send-btn material-symbols-rounded">send</span>
+                                <span class="chat-btn material-symbols-rounded">chat</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="font-bold">
-                        Title 1
-                    </h3>
-                    <div class="mb-4">
-                        <ul class="list-disc list-inside">
-                            <li>
-                                Microorganisms are microscopic organisms like bacteria, viruses, fungi, and protozoa.
-                            </li>
-                            <li>
-                                They play crucial roles in various ecosystems and can be both beneficial and harmful to humans.
-                            </li>
-                            <li>
-                                Microbial growth refers to the increase in the number of microorganisms.
-                            </li>
-                            <li>
-                                It involves processes like binary fission, where a single cell divides into two identical cells.
-                            </li>
-                            <li>
-                                Microbial pathogenesis is the process by which microorganisms cause disease.
-                            </li>
-                            <li>
-                                It involves mechanisms like toxin production, invasion of host tissues, and evasion of the immune system.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="flex items-center justify-between">
-
-                        <input type="text" placeholder="Your comment here..." class="blog-comment">
-                        <i class="fa-regular fa-paper-plane absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"></i>
-
-                        <i class="fa-regular fa-comment"></i> </div>
-                </div>
-                <div class="content blog-container">  <h2 class="font-bold">
-                        Blog 1
-                    </h2>
-                    <div class="blog-header">
-                        <img alt="User avatar" height="30" src="./images/avatar/default.png" width="30" /> <span>
-                            user_1
-                        </span>
-                        <span class="mx-2">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                        </span>
-                        <span>
-                            Created ?/?/?
-                        </span>
-                    </div>
-                    <h3 class="font-bold">
-                        Title 1
-                    </h3>
-                    <div class="mb-4">
-                        <ul class="list-disc list-inside">
-                            <li>
-                                Microorganisms are microscopic organisms like bacteria, viruses, fungi, and protozoa.
-                            </li>
-                            <li>
-                                They play crucial roles in various ecosystems and can be both beneficial and harmful to humans.
-                            </li>
-                            <li>
-                                Microbial growth refers to the increase in the number of microorganisms.
-                            </li>
-                            <li>
-                                It involves processes like binary fission, where a single cell divides into two identical cells.
-                            </li>
-                            <li>
-                                Microbial pathogenesis is the process by which microorganisms cause disease.
-                            </li>
-                            <li>
-                                It involves mechanisms like toxin production, invasion of host tissues, and evasion of the immune system.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="flex items-center justify-between">
-
-                        <input type="text" placeholder="Your comment here..." class="blog-comment">
-                        <i class="fa-regular fa-paper-plane absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"></i>
-
-                        <i class="fa-regular fa-comment"></i> </div>
-                </div>
-                <div class="content blog-container">  <h2 class="font-bold">
-                        Blog 1
-                    </h2>
-                    <div class="blog-header">
-                        <img alt="User avatar" height="30" src="./images/avatar/default.png" width="30" /> <span>
-                            user_1
-                        </span>
-                        <span class="mx-2">
-                            <i class="fa-solid fa-clock-rotate-left"></i>
-                        </span>
-                        <span>
-                            Created ?/?/?
-                        </span>
-                    </div>
-                    <h3 class="font-bold">
-                        Title 1
-                    </h3>
-                    <div class="mb-4">
-                        <ul class="list-disc list-inside">
-                            <li>
-                                Microorganisms are microscopic organisms like bacteria, viruses, fungi, and protozoa.
-                            </li>
-                            <li>
-                                They play crucial roles in various ecosystems and can be both beneficial and harmful to humans.
-                            </li>
-                            <li>
-                                Microbial growth refers to the increase in the number of microorganisms.
-                            </li>
-                            <li>
-                                It involves processes like binary fission, where a single cell divides into two identical cells.
-                            </li>
-                            <li>
-                                Microbial pathogenesis is the process by which microorganisms cause disease.
-                            </li>
-                            <li>
-                                It involves mechanisms like toxin production, invasion of host tissues, and evasion of the immune system.
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="flex items-center justify-between">
-
-                        <input type="text" placeholder="Your comment here..." class="blog-comment">
-                        <i class="fa-regular fa-paper-plane absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"></i>
-
-                        <i class="fa-regular fa-comment"></i> </div>
                 </div>
             </div>
         </div>
-
         <script src="blog.js"></script>
     </body>
 
