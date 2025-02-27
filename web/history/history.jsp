@@ -11,7 +11,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>History</title>
-        <link rel="stylesheet" href="./history/history.css">
+        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <link rel="stylesheet" href="history.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -24,47 +25,52 @@
                 <div class="menu-btn">
                     <button class="sidebar-toggler" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
                 </div>
-                <span>EasyQuiz</span>
+                <a href="home"><span>EasyQuiz</span></a>
             </div>
             <div class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for blog" name="">
+                <input type="text" placeholder="Search for study guides" name="">
             </div>
             <div class="create-login">
-                <div type="button" class="create-btn">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                    <p>Create</p>
-                </div> 
-                <div type="button" class="create-btn-icon">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                </div>
-
-                <div class="upgrade-btn">
-                    <button>Upgrade: Free 7-day trial</button>
-                </div>
-                <div class="avatar-user"  id="avatarUser">
-                    <img src="./images/avatar/default.png" alt="Not found">
-                    <div class="user-menu" id="userMenu">
-                        <div class="user-info">
-                            <img src="./images/avatar/default.png" alt="Not found"/>
-                            <div>
-                                <p>Do Duc Anh</p>
-                                <p>duca@gmail.com</p>
-                            </div>
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-user-group"></i> Class</a>
                         </div>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Profile</a>
-                        <a href="#" class="user-menu-item">Settings</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Logout</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Help and feedback</a>
-                        <a href="#" class="user-menu-item">Upgrades</a>
                     </div>
-                </div>
-                <div class="login-btn">
-                    <a href="login"><button>Log in</button></a>
-                </div>
+                    <div class="upgrade-btn">
+                        <button>Upgrade: Free 7-day trial</button>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="./images/avatar/default.png" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <div>
+                                    <p>Do Duc Anh</p>
+                                    <p>duca@gmail.com</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="#" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
+
             </div>
         </div>
         <div class="body">
@@ -89,29 +95,6 @@
                                 <span class="material-symbols-rounded">rss_feed</span>
                                 <span class="nav-label">Blog</span>
                             </a>
-                        </li>
-                        <!--Dropdown -->
-                        <li class="nav-item dropdown-container">
-                            <a href="#" class="nav-link dropdown-toggle">
-                                <span class="material-symbols-rounded">subject</span>
-                                <span class="nav-label">Subject</span>
-                                <span class="dropdown-icon material-symbols-rounded">keyboard_arrow_down</span>
-                            </a>
-                            <!--                            Dropdown subject-->
-                            <ul class="dropdown-subject">
-                                <li class="nav-item">
-                                    <a class="nav-link dropdown-title" style="font-weight: bold">Subject</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject A</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject B</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link dropdown-link">Subject C</a>
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <!--Bottom nav-->
@@ -139,55 +122,57 @@
             </aside>   
             <div class="body-container">
                 <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
-                <div class="flex space-x-4 mb-4">
-                    <button class="border-b-2 border-blue-600 pb-2">Quiz</button>
-                    <button class="pb-2">Folders</button>
-                </div>
-                <div class="flex justify-between items-center mb-4">
-                    <select class="border border-gray-300 px-4 py-2 rounded">
-                        <option>Recent</option>
-                        <option>Created</option>
-                    </select>
-                    <div class="relative w-1/3">
-                        <input type="text" placeholder="Search for a quiz" class="w-full p-2 border border-gray-300 rounded pr-10">
-                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
+                <div class="history-card">
+                    <div class="button2">
+                        <a href="#" class="quiz-button">Quiz</a>
+                        <a href="#" class="folders-button">Folders</a>
+                    </div>
+                    <div style="margin-top: 20px;" class="flex justify-between items-center mb-4">
+                        <select class="border border-gray-300 px-4 py-2 rounded">
+                            <option>Recent</option>
+                            <option>Created</option>
+                        </select>
+                        <div class="relative w-1/3">
+                            <input type="text" placeholder="Search for a quiz" class="w-full p-2 border border-gray-300 rounded pr-10">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div>
-                    <h2 class="text-lg font-bold mb-2">TODAY</h2>
-                    <div class="bg-gray-100 p-4 rounded mb-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-sm text-gray-600">10 questions</span>
-                                <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">denvau</span>
+                    <div>
+                        <h2 class="text-lg font-bold mb-2">TODAY</h2>
+                        <div class=" quiz-card bg-white-100 rounded mb-4">
+                            <div class=" quiz-title flex">
+                                <div>
+                                    <span class="text-sm text-gray-600">10 questions</span>
+                                    <span class="text-sm text-gray-600 ml-2">|</span>
+                                    <span class="text-sm text-gray-600 ml-2">denvau</span>
+                                </div>
+                                <span class="title-text text-gray-600 mt-1">Quiz 1</span>
                             </div>
-                            <span class="text-sm text-gray-600">Quiz 1</span>
                         </div>
-                    </div>
-                    <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
-                    <div class="bg-gray-100 p-4 rounded mb-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-sm text-gray-600">100 questions</span>
-                                <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">duongdomic</span>
+                        <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
+                        <div class=" quiz-card bg-white-100 rounded mb-4">
+                            <div class=" quiz-title flex">
+                                <div>
+                                    <span class="text-sm text-gray-600">100 questions</span>
+                                    <span class="text-sm text-gray-600 ml-2">|</span>
+                                    <span class="text-sm text-gray-600 ml-2">duongdomic</span>
+                                </div>
+                                <span class="title-text text-gray-600">tieng anh</span>
                             </div>
-                            <span class="text-sm text-gray-600">tieng anh</span>
                         </div>
-                    </div>
-                    <div class="bg-gray-100 p-4 rounded mb-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-sm text-gray-600">69 questions</span>
-                                <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">j97</span>
+                        <div class=" quiz-card bg-white-100 rounded mb-4">
+                            <div class=" quiz-title flex">
+                                <div>
+                                    <span class="text-sm text-gray-600">69 questions</span>
+                                    <span class="text-sm text-gray-600 ml-2">|</span>
+                                    <span class="text-sm text-gray-600 ml-2">j97</span>
+                                </div>
+                                <span class="title-text text-gray-600">tieng trung</span>
                             </div>
-                            <span class="text-sm text-gray-600">tieng trung</span>
                         </div>
                     </div>
                 </div>
@@ -195,7 +180,7 @@
         </div>
 
 
-        <script src="./history/history.js"></script>
+        <script src="history.js"></script>
     </body>
 
 </html>

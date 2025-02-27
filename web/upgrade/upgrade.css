@@ -7,14 +7,44 @@
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background-color: #640D5F;
-    color: #fff;
+    background-color: #fff;
+    color: #000;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
 }
+
+.logo {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    height: 100%;
+    align-self: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.logo a {
+    color: #640D5F;
+    text-decoration: none;
+    padding: 0 10px;
+    align-self: center;
+}
+
+.header {
+    position: fixed;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .container {
     padding: 50px 20px;
 }
@@ -110,4 +140,170 @@ body {
         align-items: center;
     }
 }
+/*---------------------------Checkout---------------*/
+.checkout-container {
+    max-width: 900px;
+    width: 100%;
+    padding: 20px;
+/*    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);*/
+    border-radius: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: #fff;
+    text-align: left;
+}
+.checkout-container h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #000;
+}
+.order, .payment {
+    width: 100%;
+    max-width: 400px;
+}
+.order h2, .payment h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #000;
+}
+
+.order .total {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order .total span {
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.order .plan {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background: none;
+    box-shadow: none;
+    width: 100%;
+}
+.order .plan input {
+    margin-right: 10px;
+}
+.order .plan label {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.plan-content {
+    display: flex;
+    align-items: center;
+}
+
+.plan-content-best-deal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    width: 100%;
+}
+
+.plan-content-best-deal span {
+    margin-left: auto;
+    color: #640D5F;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    background: #FFB200;
+}
+
+.order .plan .price {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin: 10px 0;
+    font-weight: 500;
+}
+.order .plan .free-trial {
+    font-size: 12px;
+    color: #666;
+    background-color: #f0f0f0;
+    padding: 2px 5px;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+.payment .quick-checkout {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.payment .quick-checkout button {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #fff;
+}
+.payment .quick-checkout button img {
+    height: 20px;
+}
+.payment .card-payment {
+    display: flex;
+    flex-wrap: wrap;
+}
+.payment .card-payment input {
+    width: 100%;
+    max-width: 48%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+}
+.payment .card-payment input.full-width {
+    max-width: 100%;
+}
+.payment .card-payment .expiration {
+    display: flex;
+    justify-content: space-between;
+}
+.payment .card-payment .expiration input {
+    width: 48%;
+}
+.payment .card-payment .cvc {
+    width: 48%;
+}
+.payment .complete-purchase {
+    width: 100%;
+    padding: 15px;
+    background: #640D5F;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+}
+.payment .note {
+    font-size: 12px;
+    color: #666;
+    margin-top: 10px;
+}
+
+/* Tăng kích thước và đổi màu của nút radio */
+input[type="radio"] {
+    width: 20px; /* Kích thước */
+    height: 20px;
+    accent-color: #640D5F; /* Màu khi được chọn */
+    cursor: pointer;
+}
+
+
 
