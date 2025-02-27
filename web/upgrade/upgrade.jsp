@@ -19,22 +19,22 @@
             <div class="plans">
                 <div class="plan best-deal">
                     <div class="plan-title">Monthly</div>
-                    <div class="plan-description">Billed annually at US$35.99, that's like</div>
-                    <div class="plan-price">US$1.99 <span>/month</span></div>
+                    <div class="plan-description">Billed annually today</div>
+                    <div class="plan-price">50,000 VND <span>/month</span></div>
                     <div class="plan-description">Start with a 7-day free trial</div>
-                    <a href="#" class="plan-button">Start your free trial</a>
+                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
                 <div class="plan">
                     <div class="plan-title">Annual</div>
                     <div class="plan-description">Amount billed today</div>
-                    <div class="plan-price">US$16.99 <span>/year</span></div>
+                    <div class="plan-price">450,000 VND <span>/year</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
                 <div class="plan">
                     <div class="plan-title">Unlimited</div>
                     <div class="plan-description">Amount billed today</div>
-                    <div class="plan-price">US$129.99</div>
+                    <div class="plan-price">3,500,000 VND </div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
