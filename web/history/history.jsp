@@ -123,59 +123,59 @@
             <div class="body-container">
                 <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
                 <div class="history-card">
-                <div class="button2">
-                    <a href="#" class="quiz-button">Quiz</a>
-                    <a href="#" class="folders-button">Folders</a>
-                </div>
-                <div class="flex justify-between items-center mb-4">
-                    <select class="border border-gray-300 px-4 py-2 rounded">
-                        <option>Recent</option>
-                        <option>Created</option>
-                    </select>
-                    <div class="relative w-1/3">
-                        <input type="text" placeholder="Search for a quiz" class="w-full p-2 border border-gray-300 rounded pr-10">
-                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                            </svg>
-                        </div>
+                    <div class="button2">
+                        <a href="#" class="quiz-button">Quiz</a>
+                        <a href="#" class="folders-button">Folders</a>
                     </div>
-                </div>
-                <div>
-                    <h2 class="text-lg font-bold mb-2">TODAY</h2>
-                    <div class="bg-gray-100 p-4 rounded mb-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-sm text-gray-600">10 questions</span>
-                                <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">denvau</span>
+                    <div style="margin-top: 20px;" class="flex justify-between items-center mb-4">
+                        <select class="border border-gray-300 px-4 py-2 rounded">
+                            <option>Recent</option>
+                            <option>Created</option>
+                        </select>
+                        <div class="relative w-1/3">
+                            <input type="text" placeholder="Search for a quiz" class="w-full p-2 border border-gray-300 rounded pr-10">
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
                             </div>
-                            <span class="text-sm text-gray-600">Quiz 1</span>
                         </div>
                     </div>
-                    <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
-                    <div class="bg-gray-100 p-4 rounded mb-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-sm text-gray-600">100 questions</span>
-                                <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">duongdomic</span>
+                    <div>
+                        <h2 class="text-lg font-bold mb-2">TODAY</h2>
+                        <div class=" quiz-card bg-white-100 rounded mb-4">
+                            <div class=" quiz-title flex">
+                                <div>
+                                    <span class="text-sm text-gray-600">10 questions</span>
+                                    <span class="text-sm text-gray-600 ml-2">|</span>
+                                    <span class="text-sm text-gray-600 ml-2">denvau</span>
+                                </div>
+                                <span class="title-text text-gray-600 mt-1">Quiz 1</span>
                             </div>
-                            <span class="text-sm text-gray-600">tieng anh</span>
                         </div>
-                    </div>
-                    <div class="bg-gray-100 p-4 rounded mb-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-sm text-gray-600">69 questions</span>
-                                <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">j97</span>
+                        <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
+                        <div class=" quiz-card bg-white-100 rounded mb-4">
+                            <div class=" quiz-title flex">
+                                <div>
+                                    <span class="text-sm text-gray-600">100 questions</span>
+                                    <span class="text-sm text-gray-600 ml-2">|</span>
+                                    <span class="text-sm text-gray-600 ml-2">duongdomic</span>
+                                </div>
+                                <span class="title-text text-gray-600">tieng anh</span>
                             </div>
-                            <span class="text-sm text-gray-600">tieng trung</span>
+                        </div>
+                        <div class=" quiz-card bg-white-100 rounded mb-4">
+                            <div class=" quiz-title flex">
+                                <div>
+                                    <span class="text-sm text-gray-600">69 questions</span>
+                                    <span class="text-sm text-gray-600 ml-2">|</span>
+                                    <span class="text-sm text-gray-600 ml-2">j97</span>
+                                </div>
+                                <span class="title-text text-gray-600">tieng trung</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-              </div>
             </div>
         </div>
 

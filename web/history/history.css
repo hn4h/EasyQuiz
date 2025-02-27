@@ -375,13 +375,11 @@
     margin-left: 85px;
 }
 .history-card{
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    color: #000;
+    padding-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
     max-width: 1100px;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 .recents-container,
 .popular-card-container,
@@ -390,15 +388,15 @@
     background-color: #fff;
 }
 .button2{
-    
+
 }
 .quiz-button{
     position: relative;
-    display: inline-block; 
+    display: inline-block;
     padding-bottom: 5px;
     text-decoration: none;
     color: black;
-    
+
 }
 
 
@@ -408,21 +406,37 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 3px; 
+    height: 3px;
     background-color: blue;
     transition: width 0.3s ease-in-out;
 }
 .quiz-button:hover::after {
     width: 100%;
-    
+
+}
+
+.quiz-card{
+    background-color: white;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem;
+}
+
+.quiz-title{
+    flex-direction: column;
+    align-items: start;
+}
+
+.title-text{
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .folders-button{
     position: relative;
-    display: inline-block; 
+    display: inline-block;
     padding-bottom: 5px;
     margin-left: 10px;
-    
+
 }
 
 
