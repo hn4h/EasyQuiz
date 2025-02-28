@@ -75,32 +75,7 @@ public class OTPService {
     }
     public static void main(String[] args) {
        OTPService s = new OTPService();
-       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-              s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-
-                     s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-
-                            s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-
-                                   s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-
-              s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-
-                     s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-
-                            s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-       s.sendEmail("huannhhe180923@fpt.edu.vn", s.generateOTP());
-
-       
-       
-       
-       
-                            
+                                  
                                    
     }
 }

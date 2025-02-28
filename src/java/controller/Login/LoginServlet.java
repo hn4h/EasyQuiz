@@ -88,7 +88,6 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         AccountDAO d = new AccountDAO();

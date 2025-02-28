@@ -3,21 +3,28 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.Login;
+package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import vn.payos.PayOS;
+import vn.payos.type.CheckoutResponseData;
+import vn.payos.type.ItemData;
+import vn.payos.type.PaymentData;
+import vn.payos.*;
 /**
  *
  * @author 11
  */
-
-public class HomeServlet extends HttpServlet {
+@WebServlet(name="PaymentServlet", urlPatterns={"/pay"})
+public class PaymentServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +41,10 @@ public class HomeServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomeServlet</title>");  
+            out.println("<title>Servlet PaymentServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomeServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet PaymentServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -54,8 +61,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//        response.sendRedirect("home/home.jsp");
-        request.getRequestDispatcher("home/home.jsp").forward(request, response);
+        request.getRequestDispatcher("payos/payos.jsp").forward(request, response);
     } 
 
     /** 
@@ -68,8 +74,40 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        final String domain = "payos";
+        String clientId = "fdd3a44e-f5ea-445c-ae4e-ed1bf53398b8";
+        String apiKey = "ef26f367-c15c-467e-8c93-985dd59a91bb";
+        String checksumKey = "6668d926ca0cfa8d8496d84402b08f1992aad29c2705801c47d12bdfdf31fc82";
+
+        PayOS payOS = new PayOS(clientId, apiKey, checksumKey);
+        Long orderCode = System.currentTimeMillis() / 1000;
+            ItemData itemData = ItemData
+                    .builder()
+                    .name("Trial Package")
+                    .quantity(1)
+                    .price(2000)
+                    .build();
+
+            PaymentData paymentData = PaymentData
+                    .builder()
+                    .orderCode(orderCode)
+                    .amount(2000)
+                    .description("Thanh toán đơn hàng")
+                    .returnUrl(domain + "/success.html")
+                    .cancelUrl(domain + "/cancel.html")
+                    .item(itemData)
+                    .build();
+
+            CheckoutResponseData result = null;
+        try {
+            result = payOS.createPaymentLink(paymentData);
+        } catch (Exception ex) {
+            Logger.getLogger(PaymentServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            response.sendRedirect(result.getCheckoutUrl());
+
     }
+    
 
     /** 
      * Returns a short description of the servlet.

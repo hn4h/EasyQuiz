@@ -106,35 +106,19 @@ public class AccountDAO extends DBContext {
         return false;
     }
 
-    public int getNextAccountID() {
-        String sql = "Select max(AccountID) from Accounts";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) + 1;
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return 0;
-    }
-
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
         // dao.createAccount("admin", "", "easiquiz@gmail.com");
         dao.createAccountByEmail("test12@gmail.com");
     }
 
-    public void updateProfile(String firstname, String lastname, String phoneNumber, String address, int accountID) {
-        String sql = "Update Accounts set FirstName = ?, LastName = ?, phoneNumber = ?, address = ? where AccountID = ?";
+    public void updateProfile(String userName, String profileImage) {
+        String sql = "Update Accounts set userName = ?, profileImage = ? where userName = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, firstname);
-            st.setString(2, lastname);
-            st.setString(3, phoneNumber);
-            st.setString(4, address);
-            st.setInt(5, accountID);
+            st.setString(1, userName);
+            st.setString(2, profileImage);
+            st.setString(3, userName);
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
