@@ -396,7 +396,7 @@
     padding-bottom: 5px;
     text-decoration: none;
     color: black;
-
+    width: 75px;
 }
 
 
@@ -412,7 +412,6 @@
 }
 .quiz-button:hover::after {
     width: 100%;
-
 }
 
 .quiz-card{
@@ -421,9 +420,25 @@
     padding: 0.5rem 1rem;
 }
 
+.quiz-card::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: blue;
+    transition: width 0.3s ease-in-out;
+}
+
 .quiz-title{
     flex-direction: column;
     align-items: start;
+}
+
+.quiz-card:hover{
+    cursor: pointer;
+    background-color: #e8e8e8;
 }
 
 .title-text{
@@ -436,7 +451,21 @@
     display: inline-block;
     padding-bottom: 5px;
     margin-left: 10px;
+    width: 75px;
+}
 
+.folder-card{
+    display: flex;
+    align-items: center;
+    min-height: 70px;
+    background-color: white;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    padding: 0.5rem 1rem;
+}
+
+.folder-card:hover{
+    cursor: pointer;
+    background-color: #e8e8e8;
 }
 
 
