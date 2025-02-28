@@ -17,6 +17,9 @@ public class QuizSet {
     private Date createdDate;
     private String quizSetDescription;
 
+    public QuizSet() {
+    }
+
     public QuizSet(int quizSetId, String quizSetName, String userName, Date createdDate, String quizSetDescription) {
         this.quizSetId = quizSetId;
         this.quizSetName = quizSetName;

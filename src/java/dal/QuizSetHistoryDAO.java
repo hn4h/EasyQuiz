@@ -1,25 +1,29 @@
 package dal;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.QuizSet;
 public class QuizSetHistoryDAO extends DBContext {
     public List<QuizSet> getQuizSetHistoryByUserName(String userName) {
         List<QuizSet> list = new ArrayList<>();
-        Strign sql = "SELECT * FROM Quiz_Set_History WHERE userName = ?";
+        String sql = "SELECT * FROM Quiz_Set_History WHERE userName = ?";
         try{
-            ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, userName);
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 QuizSet qs = new QuizSet();
-                qs.setQuizSetID(rs.getInt("quizSetID"));
+                qs.setQuizSetId(rs.getInt("quizSetID"));
                 qs.setQuizSetName(rs.getString("quizSetName"));
-                qs.setDescription(rs.getString("description"));
-                qs.setAuthor(rs.getString("author"));
+                qs.setQuizSetDescription(rs.getString("description"));
+                qs.setUserName(rs.getString("author"));
                 list.add(qs);
             }
             return list;
-        }catch(Exception e){
+        }catch(SQLException e){
             System.out.println(e);
         }
         return null;

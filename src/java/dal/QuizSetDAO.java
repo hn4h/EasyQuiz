@@ -1,6 +1,9 @@
 package dal;
 
 import java.util.List;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class QuizSetDAO extends DBContext {
     
@@ -8,7 +11,7 @@ public class QuizSetDAO extends DBContext {
     public void createQuizSet(String quizSetName, String description, String author) {
         try {
             String sql = "INSERT INTO QuizSet(quizSetName, description, author) VALUES(?,?,?)";
-            ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, quizSetName);
             ps.setString(2, description);
             ps.setString(3, author);
@@ -21,7 +24,7 @@ public class QuizSetDAO extends DBContext {
     public void deleteQuizSet(int quizSetID) {
         try {
             String sql = "DELETE FROM QuizSet WHERE quizSetID = ?";
-            ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, quizSetID);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -32,7 +35,7 @@ public class QuizSetDAO extends DBContext {
     public void updateQuizSet(int quizSetID, String quizSetName, String description) {
         try {
             String sql = "UPDATE QuizSet SET quizSetName = ?, description = ? WHERE quizSetID = ?";
-            ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, quizSetName);
             ps.setString(2, description);
             ps.setInt(3, quizSetID);
@@ -45,7 +48,7 @@ public class QuizSetDAO extends DBContext {
     public void addQuestionToQuizSet(int quizSetID, int questionID) {
         try {
             String sql = "INSERT INTO QuizSetQuestion(quizSetID, questionID) VALUES(?,?)";
-            ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, quizSetID);
             ps.setInt(2, questionID);
             ps.executeUpdate();
@@ -57,7 +60,7 @@ public class QuizSetDAO extends DBContext {
     public void removeQuestionFromQuizSet(int quizSetID, int questionID) {
         try {
             String sql = "DELETE FROM QuizSetQuestion WHERE quizSetID = ? AND questionID = ?";
-            ps = connection.prepareStatement(sql);
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, quizSetID);
             ps.setInt(2, questionID);
             ps.executeUpdate();
