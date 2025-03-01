@@ -26,7 +26,7 @@
         </div>
         <div class="register-container">
             <div class="register-banner">
-                <img src="./login/images/banner_login.jpg" alt="Not found">
+                <img src="./login/images/banner_login.png" alt="Not found">
             </div>
             <div class="register-content">
                 <div class="register-header">
@@ -50,9 +50,10 @@
                             </div>
                             <div>
                                 <label for="">
-                                    <input type="text" name="email" placeholder="user@email.com">
+                                    <input id="emailInput" type="text" name="email" placeholder="user@email.com" required="">
                                 </label>
                             </div>
+                            <div class="error-message" id="emailError"></div>
                         </div>
                         <div class="input-username">
                             <div>
@@ -60,7 +61,7 @@
                             </div>
                             <div>
                                 <label for="">
-                                    <input type="text" name="username" placeholder="andrew123">
+                                    <input type="text" name="username" placeholder="andrew123" required="">
                                 </label>
                             </div>
                         </div>
@@ -71,20 +72,12 @@
                                 </div>
                             </div>
                             <div class="input-wrapper">
-                                <input id="passwordInput" type="password" name="password" placeholder="********">
+                                <input id="passwordInput" type="password" name="password" placeholder="********" required="">
                                 <button type="button" class="icon-eye" id="togglePassword"><i
                                         class="fa-regular fa-eye"></i></button>
                             </div>
+                            <div class="error-message" id="passwordError"></div>
                         </div>
-                        <!-- <div>
-                            <div class="accept-term-policy">
-                                <label>
-                                    <input type="checkbox" name="acceptTerms">
-                                    I accept EasyQuiz's <b>Terms of Service</b> and <b>Privacy Policy</b>
-                                </label>
-                            </div>
-                            <div id="errorMessage" class="error-message"></div>
-                        </div> -->
                         <div class="input-password">
                             <div class="password-header">
                                 <div>
@@ -92,13 +85,14 @@
                                 </div>
                             </div>
                             <div class="input-wrapper">
-                                <input id="confirmPasswordInput" type="password" name="confirmPassword" placeholder="********">
-                                <button type="button" class="icon-eye" id="togglePassword"><i
+                                <input id="confirmPasswordInput" type="password" name="confirmPassword" placeholder="********" required="">
+                                <button type="button" class="icon-eye" id="toggleConfirmPassword"><i
                                         class="fa-regular fa-eye"></i></button>
                             </div>
+                            <div class="error-message" id="confirmPasswordError"></div>
                         </div>
                         <div class="register-button">
-                            <button type="submit">Sign up</button>
+                            <button type="submit" id="submitButton" disabled>Sign up</button>
                         </div>
                     </form>
                     <div>

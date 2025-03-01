@@ -1,25 +1,21 @@
 const togglePassword = document.getElementById("togglePassword");
 const passwordInput = document.getElementById("passwordInput");
-togglePassword.addEventListener("click", function () {
-    const isPasswordVisible = passwordInput.type === "password";
-    passwordInput.type = isPasswordVisible ? "text" : "password";
-    this.innerHTML = isPasswordVisible
-            ? '<i class="fa-regular fa-eye-slash"></i>'
-            : '<i class="fa-regular fa-eye"></i>';
-});
+const confirmPasswordInput = document.getElementById("confirmPasswordInput");
+const toggleConfirmPassword = document.getElementById("toggleConfirmPassword");
 
-document.getElementById("registerForm").addEventListener("submit", function (event) {
-    const acceptTerms = document.getElementById("acceptTerms");
-    const errorMessage = document.getElementById("errorMessage");
+function togglePasswordVisibility(input, button) {
+    button.addEventListener("click", function () {
+        const isVisible = input.type === "password";
+        input.type = isVisible ? "text" : "password";
+        this.innerHTML = isVisible
+                ? '<i class="fa-regular fa-eye-slash"></i>'
+                : '<i class="fa-regular fa-eye"></i>';
+    });
+}
 
-    if (!acceptTerms.checked) {
-        event.preventDefault();
-        errorMessage.textContent = "Please accept EasyQuiz's terms of service and privacy policy to continue.";
-        errorMessage.style.display = "block";
-    } else {
-        errorMessage.style.display = "none";
-    }
-});
+togglePasswordVisibility(passwordInput, togglePassword);
+togglePasswordVisibility(confirmPasswordInput, toggleConfirmPassword);
+
 //----------------------------------OTP--
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -56,6 +52,105 @@ document.addEventListener("DOMContentLoaded", function () {
         verifyBtn.disabled = !allFilled;
     }
 });
+
+//-----------------------Validate form--------
+document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("emailInput");
+    const passwordInput = document.getElementById("passwordInput");
+    const confirmPasswordInput = document.getElementById("confirmPasswordInput");
+    const submitButton = document.getElementById("submitButton");
+
+    const emailError = document.getElementById("emailError");
+    const passwordError = document.getElementById("passwordError");
+    const confirmPasswordError = document.getElementById("confirmPasswordError");
+
+    let emailTouched = false;
+    let passwordTouched = false;
+    let confirmPasswordTouched = false;
+
+    function setError(input, message, errorElement) {
+        errorElement.textContent = message;
+        input.classList.add("input-error");
+    }
+
+    function clearError(input, errorElement) {
+        errorElement.textContent = "";
+        input.classList.remove("input-error");
+    }
+
+    function validateEmail() {
+        if (!emailTouched) return false; // Chưa chạm vào thì không kiểm tra
+
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (emailInput.value.trim() === "") {
+            setError(emailInput, "Please enter your email.", emailError);
+            return false;
+        } else if (!emailPattern.test(emailInput.value.trim())) {
+            setError(emailInput, "Invalid email address.", emailError);
+            return false;
+        } else {
+            clearError(emailInput, emailError);
+            return true;
+        }
+    }
+
+    function validatePassword() {
+        if (!passwordTouched) return false; // Chưa nhập password thì không kiểm tra
+
+        if (passwordInput.value.length < 8) {
+            setError(passwordInput, "Your password is too short. The minimum length is 8 characters.", passwordError);
+            return false;
+        } else {
+            clearError(passwordInput, passwordError);
+            return true;
+        }
+    }
+
+    function validateConfirmPassword() {
+        if (!confirmPasswordTouched) return false; // Chưa nhập confirm password thì không kiểm tra
+
+        if (confirmPasswordInput.value !== passwordInput.value) {
+            setError(confirmPasswordInput, "Your password does not match.", confirmPasswordError);
+            return false;
+        } else {
+            clearError(confirmPasswordInput, confirmPasswordError);
+            return true;
+        }
+    }
+
+    function validateForm() {
+        const isEmailValid = validateEmail();
+        const isPasswordValid = validatePassword();
+        const isConfirmPasswordValid = validateConfirmPassword();
+
+        submitButton.disabled = !(isEmailValid && isPasswordValid && isConfirmPasswordValid);
+    }
+
+    emailInput.addEventListener("input", function () {
+        emailTouched = true;
+        validateEmail();
+        validateForm();
+    });
+
+    passwordInput.addEventListener("input", function () {
+        passwordTouched = true;
+        validatePassword();
+        validateForm();
+    });
+
+    confirmPasswordInput.addEventListener("input", function () {
+        confirmPasswordTouched = true;
+        validateConfirmPassword();
+        validateForm();
+    });
+});
+
+
+
+
+
+
+
 
 
 
