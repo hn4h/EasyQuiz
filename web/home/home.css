@@ -225,7 +225,7 @@
 .body {
     display: flex;
     min-height: 100vh;
-    background: linear-gradient(#fff, #ffbcfb);
+    background: linear-gradient(#e3f3fe, #ffbcfb);
     transition: 0.4s ease;
 }
 
@@ -412,6 +412,20 @@
     width: 42px;
     border-radius: 50%;
     border: 2px solid #e8e8e8;
+}
+
+.card-list .card-link .preview-content {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 20px;
+    max-height: 100px; /* Giới hạn chiều cao */
+    overflow: hidden; /* Ẩn phần nội dung vượt quá */
+    text-overflow: ellipsis; /* Thêm dấu "..." khi bị cắt */
+    display: -webkit-box; 
+    -webkit-line-clamp: 3; /* Giới hạn số dòng hiển thị */
+    -webkit-box-orient: vertical; /* Hiển thị nội dung theo chiều dọc */
+    word-break: break-word; /* Đảm bảo từ không bị tràn ra ngoài */
 }
 
 .card-list .card-link .card-username span:not(.card-username img){

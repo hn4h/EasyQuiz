@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
     </head>
 
     <body>
@@ -275,13 +275,13 @@
                     </div>
                 </div>
                 <div class="container swiper">
-                    <h2>Popular flashcard sets</h2>
+                    <h2>Popular blogs</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <li class="card-item swiper-slide">
                                 <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
+                                    <h2 class="card-title">Title of blog</h2>
+                                    <p class="preview-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, id adipisci dolor sapiente iusto excepturi, eum omnis voluptatem reprehenderit doloremque repellat at asperiores expedita maxime facere deserunt corrupti culpa officia!</p>
                                     <div class="card-username">
                                         <span style="display: flex; align-items: center;">
                                             <img src="avt1.jpg" alt="Avatar">
@@ -289,13 +289,12 @@
                                         </span>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
-
                                 </a>
                             </li>
                             <li class="card-item swiper-slide">
                                 <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
+                                    <h2 class="card-title">Title of blog</h2>
+                                    <p class="preview-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, id adipisci dolor sapiente iusto excepturi, eum omnis voluptatem reprehenderit doloremque repellat at asperiores expedita maxime facere deserunt corrupti culpa officia!</p>
                                     <div class="card-username">
                                         <span style="display: flex; align-items: center;">
                                             <img src="avt1.jpg" alt="Avatar">
@@ -303,13 +302,12 @@
                                         </span>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
-
                                 </a>
                             </li>
                             <li class="card-item swiper-slide">
                                 <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
+                                    <h2 class="card-title">Title of blog</h2>
+                                    <p class="preview-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, id adipisci dolor sapiente iusto excepturi, eum omnis voluptatem reprehenderit doloremque repellat at asperiores expedita maxime facere deserunt corrupti culpa officia!</p>
                                     <div class="card-username">
                                         <span style="display: flex; align-items: center;">
                                             <img src="avt1.jpg" alt="Avatar">
@@ -317,63 +315,6 @@
                                         </span>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
                                 </a>
                             </li>
                         </ul>
@@ -393,10 +334,7 @@
                                         <p>Name of user</p>
                                     </div>
                                     <div class="card-username">
-                                        <span>
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
-                                        </span>
+                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
                                 </a>
@@ -408,10 +346,7 @@
                                         <p>Name of user</p>
                                     </div>
                                     <div class="card-username">
-                                        <span>
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
-                                        </span>
+                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
                                 </a>
@@ -423,10 +358,7 @@
                                         <p>Name of user</p>
                                     </div>
                                     <div class="card-username">
-                                        <span>
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
-                                        </span>
+                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
                                 </a>
@@ -438,10 +370,7 @@
                                         <p>Name of user</p>
                                     </div>
                                     <div class="card-username">
-                                        <span>
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
-                                        </span>
+                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
                                 </a>
@@ -453,25 +382,7 @@
                                         <p>Name of user</p>
                                     </div>
                                     <div class="card-username">
-                                        <span>
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="avt1.jpg" alt="Avatar">
-                                        <p>Name of user</p>
-                                    </div>
-                                    <div class="card-username">
-                                        <span>
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                            <p class="badge2"><i class="fa-solid fa-user-group"></i> ??? classes</p>
-                                        </span>
+                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
                                         <button class="card-button material-symbols-rounded">arrow_forward</button>
                                     </div>
                                 </a>
