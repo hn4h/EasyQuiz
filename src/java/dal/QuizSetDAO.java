@@ -1,12 +1,13 @@
 package dal;
 
-import java.util.List;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.Account;
+import model.QuizSet;
 
 public class QuizSetDAO extends DBContext {
-    
 
     public void createQuizSet(String quizSetName, String description, String author) {
         try {
@@ -68,5 +69,32 @@ public class QuizSetDAO extends DBContext {
             System.out.println(e);
         }
     }
-}
 
+    public List<QuizSet> getPopularQuizSet() {
+        List<QuizSet> list = new ArrayList<>();
+        try {
+            String sql = "SELECT Top(9) s.Quiz_Set_ID, s.Quiz_Set_Name ,s.Number_Of_Quiz, s.Author, a.ProfileImage FROM Quiz_Set_History h\n"
+                    + "join Quiz_Set s on s.Quiz_Set_ID = h.Quiz_Set_ID\n"
+                    + "join Accounts a on a.UserName = s.author\n"
+                    + "WHERE  h.Quiz_Date >= DATEADD(day, -7, GETDATE())\n"
+                    + "group by s.Quiz_Set_ID, s.Quiz_Set_Name ,s.Number_Of_Quiz, s.Author, a.ProfileImage\n"
+                    + "order by count(h.Quiz_Set_ID) desc";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                QuizSet qs = new QuizSet();
+                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
+                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
+                Account a = new Account();
+                a.setUserName(rs.getString("Author"));
+                a.setProfileImage(rs.getString("ProfileImage"));
+                qs.setAuthor(a);
+                list.add(qs);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+}

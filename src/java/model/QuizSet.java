@@ -13,21 +13,23 @@ import java.sql.Date;
 public class QuizSet {
     private int quizSetId;
     private String quizSetName;
-    private String userName;
+    private Account author;
     private Date createdDate;
+    private int numberOfQuiz;
     private String quizSetDescription;
 
     public QuizSet() {
     }
 
-    public QuizSet(int quizSetId, String quizSetName, String userName, Date createdDate, String quizSetDescription) {
+    public QuizSet(int quizSetId, String quizSetName, Account author, Date createdDate, int numberOfQuiz, String quizSetDescription) {
         this.quizSetId = quizSetId;
         this.quizSetName = quizSetName;
-        this.userName = userName;
+        this.author = author;
         this.createdDate = createdDate;
+        this.numberOfQuiz = numberOfQuiz;
         this.quizSetDescription = quizSetDescription;
     }
-
+    
     public int getQuizSetId() {
         return quizSetId;
     }
@@ -44,13 +46,25 @@ public class QuizSet {
         this.quizSetName = quizSetName;
     }
 
-    public String getUserName() {
-        return userName;
+    public Account getAuthor() {
+        return author;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAuthor(Account author) {
+        this.author = author;
     }
+
+
+
+    public int getNumberOfQuiz() {
+        return numberOfQuiz;
+    }
+
+    public void setNumberOfQuiz(int numberOfQuiz) {
+        this.numberOfQuiz = numberOfQuiz;
+    }
+
+    
 
     public Date getCreatedDate() {
         return createdDate;

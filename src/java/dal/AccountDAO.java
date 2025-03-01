@@ -7,8 +7,11 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import model.Account;
+import model.Creator;
 import model.PasswordUtil;
 
 /**
@@ -18,22 +21,22 @@ import model.PasswordUtil;
 public class AccountDAO extends DBContext {
 
     public Account getAccountByEmail(String email) {
-    String sql = "Select * from Accounts where email = ?";
-    try {
-    PreparedStatement st = connection.prepareStatement(sql);
-    st.setString(1, email);
-    ResultSet rs = st.executeQuery();
-    if (rs.next()) {
-    Account account = new Account();
-    account.setUserName(rs.getString("username"));
-    account.setProfileImage(rs.getString("profileImage"));
-    account.setEmail(rs.getString("email"));
-    return account;
-    }
-    } catch (SQLException e) {
-    System.out.println(e);
-    }
-    return null;
+        String sql = "Select * from Accounts where email = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Account account = new Account();
+                account.setUserName(rs.getString("username"));
+                account.setProfileImage(rs.getString("profileImage"));
+                account.setEmail(rs.getString("email"));
+                return account;
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     public Account checkAuthen(String email, String password) {
@@ -293,5 +296,31 @@ public class AccountDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+
+    public List<Creator> getTopQuizSetCreator() {
+        List<Creator> list = new ArrayList<>();
+        String sql = "SELECT Top(9) a.UserName, a.ProfileImage, count(qs.Quiz_Set_ID) as NumberOfQuizSet\n"
+                + "FROM Accounts a\n"
+                + "join Quiz_Set qs on qs.Author = a.UserName\n"
+                + "group by a.UserName, a.ProfileImage\n"
+                + "order by count(qs.Quiz_Set_ID) desc";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Account a = new Account();
+                a.setUserName(rs.getString("UserName"));
+                a.setProfileImage(rs.getString("ProfileImage"));
+                Creator c = new Creator();
+                c.setAccount(a);
+                c.setNumberOfQuizSet(rs.getInt("NumberOfQuizSet"));
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
     }
 }

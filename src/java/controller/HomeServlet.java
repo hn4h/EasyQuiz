@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
+import service.HomeService;
 
 /**
  *
@@ -55,6 +57,14 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 //        response.sendRedirect("home/home.jsp");
+        HomeService hs = new HomeService();
+        request.setAttribute("popularQuizSet", hs.getPopularQuizSet());
+        request.setAttribute("popularBlog", hs.getPopularBlog());
+        request.setAttribute("topAuthors", hs.getTopAuthors());
+        Account a = (Account) request.getSession().getAttribute("account");
+        if(a != null){
+            request.setAttribute("quizSetHistoryTop4", hs.getQuizSetHistoryTop4ByUserName(a.getUserName()));
+        }
         request.getRequestDispatcher("home/home.jsp").forward(request, response);
     } 
 

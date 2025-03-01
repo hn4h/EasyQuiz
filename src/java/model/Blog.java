@@ -12,18 +12,29 @@ import java.sql.Date;
  */
 public class Blog {
     private int blogId;
-    private String userName;
+    private Account author;
     private String blogContent;
+    private String blogTitle;
     private Date createdDate;
     private boolean isDeleted;
 
-    public Blog(int blogId, String userName, String blogContent, Date createdDate, boolean isDeleted) {
+    public Blog(int blogId, Account author, String blogContent, Date createdDate, boolean isDeleted) {
         this.blogId = blogId;
-        this.userName = userName;
+        this.author = author;
         this.blogContent = blogContent;
         this.createdDate = createdDate;
         this.isDeleted = isDeleted;
     }
+
+    public Blog() {
+    }
+    public String getBlogTitle() {
+        return blogTitle;
+    }
+
+    public void setBlogTitle(String blogTitle) {
+        this.blogTitle = blogTitle;
+    }    
 
     public int getBlogId() {
         return blogId;
@@ -33,13 +44,15 @@ public class Blog {
         this.blogId = blogId;
     }
 
-    public String getUserName() {
-        return userName;
+    public Account getAuthor() {
+        return author;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAuthor(Account author) {
+        this.author = author;
     }
+
+    
 
     public String getBlogContent() {
         return blogContent;
