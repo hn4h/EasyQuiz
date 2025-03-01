@@ -27,7 +27,7 @@
         </div>
         <div class="login-container">
             <div class="login-banner">
-                <img src="./login/images/banner_login.jpg" alt="Not found">
+                <img src="./login/images/banner_login.png" alt="Not found">
             </div>
             <div class="login-content">
                 <div class="login-header">
