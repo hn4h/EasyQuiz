@@ -12,6 +12,7 @@
         <title>Upgrade package</title>
         <link rel="stylesheet" href="upgrade.css"/>
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
     <body style="    background-image: url('../images/background/backgr.png'); 

@@ -12,6 +12,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
         <script src="account.js"></script>
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
     </head>
     <body class="bg-gray-50">
         <header class="bg-white shadow-sm">

@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Checkout | EasyQuiz</title>
         <link rel="stylesheet" href="upgrade.css"/>
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
     </head>
     <body>
         <div class="header">

@@ -9,9 +9,11 @@
     <head>
         <title>Help Center - Account</title>
         <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
         <script src="studying.js"></script>
+        
     </head>
     <body class="bg-gray-50">
         <header class="bg-white shadow-sm">

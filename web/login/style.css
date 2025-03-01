@@ -107,7 +107,7 @@ body {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 64px 0;
+    margin: 80px 0;
 }
 
 /* Phần banner bên trái */
@@ -242,7 +242,8 @@ form {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"]{
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -392,13 +393,14 @@ input:focus {
     padding: 30px;
     border-radius: 5px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    max-width: 800px;
+    max-width: 700px;
+    width: 100%;
 }
 
 .forget-password-container h1,
 .forget-password-container p,
 .forget-password-container h3,
-.forget-password-container input{
+.forget-password-container input {
     margin-bottom: 15px;
 }
 
@@ -426,84 +428,45 @@ input:focus {
     background: #3f143d;
     cursor: pointer;
 }
-/*------------------------------------------------------OTP--*/
-.form-otp {
-    width: 500px;
-    height: 400px;
+
+/*-------------------------------------------------------Reset password--*/
+.resetpassword-container {
     background: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 30px;
-    gap: 20px;
+    padding: 30px;
+    border-radius: 5px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+    max-width: 600px;
+    width: 100%;
 }
 
-.otp-title {
-    font-size: 30px;
-    color: #000;
-    font-weight: bold;
+.resetpassword-container h1,
+.resetpassword-container p,
+.resetpassword-container h3,
+.resetpassword-container .input-wrapper {
+    margin-bottom: 15px;
 }
 
-.otp-text {
-    font-size: 20px;
-    color: #000;
-    text-align: center;
+.resetpassword-container p {
+    font-weight: 500;
+    color: #333;
 }
 
-.otp-input {
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    gap: 13px;
+.resetpassword-container h3 {
+    color: #333;
 }
 
-.otp-input input{
-    background: #e6e6e6;
-    width: 60px;
-    height: 60px;
-    text-align: center;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    color: #222;
-    font-size: 24px;
-    font-weight: bold;
-    border: 2px solid transparent;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
-}
-
-.otp-input input:focus {
-    border-color: #640D5F;
-}
-
-.otp-input input:disabled {
-    background: #d1d1d1;
-    cursor: not-allowed;
-}
-
-.verifyBtn {
-    border: none;
+.resetpassword-container button:not(.icon-eye) {
+    padding: 15px 20px;
     background: #640D5F;
     color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 28px;
     font-family: 'Montserrat', sans-serif;
-    padding: 15px 80px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
 }
 
-.verifyBtn:hover {
+.resetpassword-container button:hover:not(.icon-eye) {
     background: #3f143d;
-    transition: 0.3s ease;
-}
-
-.verifyBtn:disabled {
-    opacity: 0.8;
-    cursor: not-allowed;
+    cursor: pointer;
 }
