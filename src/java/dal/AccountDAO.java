@@ -202,19 +202,26 @@ public class AccountDAO extends DBContext {
     // return null;
     // }
 
-    public int getAccountIDByUsername(String username) {
-        String sql = "Select AccountID from Accounts where username = ?";
+    public Account getAccountByUserName(String userName){
         try {
+            String sql = "Select * from Accounts where UserName = ?";
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
+            st.setString(1, userName);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return rs.getInt(1);
+                Account account = new Account();
+                account.setUserName(rs.getString("username"));
+                account.setCreatedDate(rs.getDate("createdDate"));
+                account.setProfileImage(rs.getString("profileImage"));
+                boolean isAdmin = rs.getInt("is_admin") == 1;
+                account.setIsAdmin(isAdmin);
+                account.setEmail(rs.getString("email"));
+                return account;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
-        return 1;
+        return null;
     }
 
     public boolean changePassword(String username, String oldPassword, String newPassword) {

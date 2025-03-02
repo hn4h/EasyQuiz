@@ -31,6 +31,8 @@
             <label for="">
                 <input type="email" name="email" placeholder="name@email.com">
             </label>
+                <p class="error-title">${requestScope.mess}</p>
+                <p class="success-msg">${requestScope.success}</p>
             <button type="submit">Send link</button>
             </form>
         </div>
