@@ -10,3 +10,4 @@ src/java/constant/Iconstant.java
 EasyQuiz.iml
 /${build.web.dir}
 /dist/
+src/java/dal/DBContext.java
