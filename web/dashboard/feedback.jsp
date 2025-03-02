@@ -79,54 +79,66 @@
                 </ul>
             </nav>
         </aside>
-        <div class="main-content">
-            <div class="user">
+<%@ page import="dal.FeedbackDAO" %>
+<%@ page import="model.Feedback" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+    FeedbackDAO feedbackDAO = new FeedbackDAO();
+
+    int currentPage = 1;
+    int recordsPerPage = 10;
+    int totalRecords = feedbackDAO.getTotalFeedbackCount();
+    int totalPages = (int) Math.ceil((double) totalRecords / recordsPerPage);
+    int startIndex = (currentPage - 1) * recordsPerPage;
+
+    if (request.getParameter("page") != null) {
+        currentPage = Integer.parseInt(request.getParameter("page"));
+    }
+
+    List<Feedback> feedbacks = feedbackDAO.getPagedFeedbacks(startIndex, recordsPerPage);
+%>
+
+<div class="main-content">
+    <div class="user">
                 <div class="title2">
                     <div style="display: flex;">
                         <div class="vertical-line"></div>
-                        <p>Feedbacks</p>
+                        <p>Feedback</p>
                     </div>
                 </div>
             </div>
-            <div class="user-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID <i class="fas fa-sort"></i></th>
-                            <th>Name of user <i class="fas fa-sort"></i></th>
-                            <th>Title <i class="fas fa-sort"></i></th>
-                            <th>Content <i class="fas fa-sort"></i></th>
-                            <th>Date <i class="fas fa-sort"></i></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Airi Satou</td>
-                            <td>First feedback</td>
-                            <td>Good</td>
-                            <td>2025-01-01</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Angelica Ramos</td>
-                            <td>Second feedback</td>
-                            <td>Excellent</td>
-                            <td>2025-01-01</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="pagination">
-                    <div>
-                        <nav>
-                            <a href="#">Previous</a>
-                            <a href="#">1</a>
-                            <a href="#">Next</a>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="user-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name of user</th>
+                    <th>Content</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    for (Feedback f : feedbacks) {
+                %>
+                <tr>
+                    <td><%= f.getFeedbackId() %></td>
+                    <td><%= f.getUserName() %></td>
+                    <td><%= f.getFeedbackContent() %></td>
+                    <td><%= dateFormat.format(f.getFeedbackDate()) %></td>
+                </tr>
+                <%
+                    }
+                %>
+            </tbody>
+        </table>
+        <%-- Pagination --%>
+    </div>
+</div>
     </div>
     <script src="dashboard.js"></script>
 </body>

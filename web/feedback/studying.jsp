@@ -24,7 +24,7 @@
                 <a href="home"><span>EasyQuiz |</span></a>
             </div>
             <div class="help-center-title">
-                Help center
+                <a href="feedback.jsp">Help center</a>
             </div>
         </div>
     </div>
