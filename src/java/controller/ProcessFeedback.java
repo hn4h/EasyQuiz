@@ -82,7 +82,7 @@ public class ProcessFeedback extends HttpServlet {
 
         if (account == null) {
             //handle no username
-            //request.setAttribute("", this);
+            request.setAttribute("errorMessage", "You must log in before performing this action.");
             request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
             return;
         }
@@ -90,7 +90,7 @@ public class ProcessFeedback extends HttpServlet {
         FeedbackDAO feedbackDAO = new FeedbackDAO();
         feedbackDAO.addFeedback(account.getUserName(), feedbackContent);
         //send success
-        System.out.println("Send successfull");
+        System.out.println("Send feedback successfully.");
         response.sendRedirect("home");
     }
 

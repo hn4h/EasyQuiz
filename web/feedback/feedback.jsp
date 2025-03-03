@@ -55,6 +55,14 @@
                               placeholder="Write your feedback here..." 
                               rows="5"></textarea>
                     <button class="send-button" type="submit">Send</button>
+                    <%
+                    String errorMessage = (String) request.getAttribute("errorMessage");
+                    if (errorMessage != null) {
+                    %>
+                    <span style="color: red; margin-left: 10px;"><%= errorMessage %></span>
+                    <%
+                        }
+                    %>
                 </form>
             </div>
         </div>
