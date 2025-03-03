@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tạo Link thanh toán</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
   </head>
   <body>
     <div class="main-box">

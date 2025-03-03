@@ -22,19 +22,19 @@
             <!--Top nav-->
             <ul class="nav-list primary-nav">
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="home" class="nav-link">
                         <span class="material-symbols-rounded">home</span>
                         <span class="nav-label">Home</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link-actived">
+                    <a href="history" class="nav-link-actived">
                         <span class="material-symbols-rounded">history</span>
                         <span class="nav-label">History</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="blog" class="nav-link">
                         <span class="material-symbols-rounded">rss_feed</span>
                         <span class="nav-label">Blog</span>
                     </a>
@@ -55,7 +55,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="logout" class="nav-link">
                         <span class="material-symbols-rounded">logout</span>
                         <span class="nav-label">Logout</span>
                     </a>

@@ -31,8 +31,8 @@
                 <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
                 <div class="history-card">
                     <div class="button2">
-                        <a href="#" class="quiz-button">Quiz</a>
-                        <a href="#" class="folders-button">Folders</a>
+                        <a href="#" class="folders-button">Quiz</a>
+                        <a href="#" class="quiz-button">Folders</a>
                     </div>
                     <div style="margin-top: 20px;" class="flex justify-between items-center mb-4">
                         <select class="border border-gray-300 px-4 py-2 rounded">
@@ -47,30 +47,9 @@
                                 <div>
                                     
                                 </div>
-                                <span class="title-text text-gray-600 mt-1">Folder 1</span>
+                                <span class="title-text text-gray-600 mt-1"><i class="fa-solid fa-folder"></i>&nbsp;Folder 1</span>
                             </div>
                         </div>
-<!--                        <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
-                        <div class=" quiz-card bg-white-100 rounded mb-4">
-                            <div class=" quiz-title flex">
-                                <div>
-                                    <span class="text-sm text-gray-600">100 questions</span>
-                                    <span class="text-sm text-gray-600 ml-2">|</span>
-                                    <span class="text-sm text-gray-600 ml-2">duongdomic</span>
-                                </div>
-                                <span class="title-text text-gray-600">tieng anh</span>
-                            </div>
-                        </div>
-                        <div class=" quiz-card bg-white-100 rounded mb-4">
-                            <div class=" quiz-title flex">
-                                <div>
-                                    <span class="text-sm text-gray-600">69 questions</span>
-                                    <span class="text-sm text-gray-600 ml-2">|</span>
-                                    <span class="text-sm text-gray-600 ml-2">j97</span>
-                                </div>
-                                <span class="title-text text-gray-600">tieng trung</span>
-                            </div>
-                        </div>-->
                     </div>
                 </div>
             </div>

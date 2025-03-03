@@ -19,6 +19,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
@@ -62,7 +63,7 @@ public class ProcessFeedback extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
     } 
 
     /** 
@@ -73,24 +74,24 @@ public class ProcessFeedback extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String feedbackContent = request.getParameter("feedbackContent");
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
+        Account account = (Account) session.getAttribute("account");
 
-        if (username == null) {
+        if (account == null) {
             //handle no username
+            //request.setAttribute("", this);
+            request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
             return;
         }
 
         FeedbackDAO feedbackDAO = new FeedbackDAO();
-        feedbackDAO.addFeedback(username, feedbackContent);
-
-        try {
-            response.sendRedirect("../feedback/feedback.jsp");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        feedbackDAO.addFeedback(account.getUserName(), feedbackContent);
+        //send success
+        System.out.println("Send successfull");
+        response.sendRedirect("home");
     }
 
 
