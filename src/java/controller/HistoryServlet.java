@@ -55,7 +55,7 @@ public class HistoryServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("history/history.jsp").forward(request, response);
+        request.getRequestDispatcher("history/quiz.jsp").forward(request, response);
     } 
 
     /** 

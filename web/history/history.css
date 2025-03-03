@@ -454,6 +454,21 @@
     width: 75px;
 }
 
+.folders-button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px; /* Độ dày của underline */
+    background-color: blue;
+    transition: width 0.3s ease-in-out;
+}
+
+.folders-button:hover::after {
+    width: 100%;
+}
+
 .folder-card{
     display: flex;
     align-items: center;
@@ -468,20 +483,6 @@
     background-color: #e8e8e8;
 }
 
-
-.folders-button::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 3px; /* Độ dày của underline */
-    background-color: blue;
-    transition: width 0.3s ease-in-out;
-}
-.folders-button:hover::after {
-    width: 100%;
-}
 .recents-container h2,
 .popular-card-container h2,
 .top-creator-container h2 {
