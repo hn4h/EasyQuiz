@@ -202,7 +202,7 @@
     display: flex;
     min-height: 100vh;
     transition: 0.4s ease;
-    background: linear-gradient(#fff, #ffbcfb);
+    background: linear-gradient(#e3f3fe, #ffbcfb);
 }
 
 .sidebar {

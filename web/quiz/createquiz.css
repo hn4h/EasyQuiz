@@ -374,7 +374,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .body {
     display: flex;
     min-height: 100vh;
-    background: linear-gradient(#fff, #ffbcfb);
+    background: linear-gradient(#e3f3fe, #ffbcfb);
     transition: 0.4s ease;
 }
 
