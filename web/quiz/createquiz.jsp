@@ -131,29 +131,28 @@
                         <i class="fas fa-grip-vertical drag-handle"></i>
                         <div class="question">
                             <div class="question-header">
-                                <input class="question-text input" type="text" placeholder="Enter question here">
-                                <div class="actions">
-                                    <button class="edit-btn btn-border">Edit</button>
+                                <input class="question-text input" type="text" name="question${questionCount}" placeholder="Enter question here">
+                                <div class="actions">  
                                     <i class="fas fa-trash"></i>
                                 </div>
                             </div>
                             <p class="text-gray">Answer</p>
                             <div class="options">
                                 <div class="option">
-                                    <input type="radio" name="question2" value="a1" class="form-radio">
-                                    <input type="text" placeholder="Answer here"   class="option-input">
+                                    <input type="radio" name="correct1" value="option1" class="form-radio">
+                                    <input type="text" placeholder = "Option 1" name="Answer1.1" class="option-input">
                                 </div>
                                 <div class="option">
-                                    <input type="radio" name="question2" value="a2" class="form-radio">
-                                    <input type="text" placeholder="Answer here"  class="option-input">
+                                    <input type="radio" name="correct1" value="option2" class="form-radio">
+                                    <input type="text" placeholder = "Option 2" name="Answer1.2" class="option-input">
                                 </div>
                                 <div class="option">
-                                    <input type="radio" name="question2" value="a3" class="form-radio">
-                                    <input type="text" placeholder="Answer here" class="option-input">
+                                    <input type="radio" name="correct1" value="option3" class="form-radio">
+                                    <input type="text" placeholder = "Option 3" name="Answer1.3" class="option-input">
                                 </div>
                                 <div class="option">
-                                    <input type="radio" name="question2" value="a4" class="form-radio">
-                                    <input type="text" placeholder="Answer here" class="option-input">
+                                    <input type="radio" name="correct1" value="option4" class="form-radio">
+                                    <input type="text" placeholder = "Option 4" name="Answer1.4" class="option-input">
                                 </div>
                             </div>
                         </div>

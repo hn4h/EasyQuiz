@@ -7,47 +7,78 @@
 document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.querySelector('.add-btn');
     const bodyContainer = document.querySelector('.body-container');
+    let questionCount = 1; // Initialize count with existing question
+
+    // Function to update all question names and inputs based on their current position
+    function updateQuestionNames() {
+        const quizItems = bodyContainer.querySelectorAll('.quiz-item');
+        questionCount = quizItems.length; // Update total count
+        
+        quizItems.forEach((item, index) => {
+            const questionNumber = index + 1;
+            
+            // Update question input name
+            const questionInput = item.querySelector('.question-text');
+            questionInput.name = `question${questionNumber}`;
+            
+            // Update radio buttons name
+            const radioButtons = item.querySelectorAll('.form-radio');
+            radioButtons.forEach(button => {
+                button.name = `correct${questionNumber}`;
+            });
+            
+            // Update answer inputs name
+            const answerInputs = item.querySelectorAll('.option-input');
+            answerInputs.forEach((answer, answerIndex) => {
+                answer.name = `answer${questionNumber}.${answerIndex + 1}`;
+            });
+        });
+        
+        // Update total questions counter (you can use this variable as needed)
+        console.log(`Total questions: ${questionCount}`); // For debugging
+    }
 
     // Function to create a new quiz item
     function createNewQuizItem() {
         const newQuizItem = document.createElement('div');
         newQuizItem.className = 'quiz-item';
         
+        // Use questionCount + 1 for new item naming
+        const newQuestionNum = questionCount + 1;
+        
         newQuizItem.innerHTML = `
             <div class="quiz-content">
                 <i class="fas fa-grip-vertical drag-handle"></i>
                 <div class="question">
                     <div class="question-header">
-                        <input class="question-text input" type="text" placeholder="Enter question here">
+                        <input class="question-text input" type="text" name="question${newQuestionNum}" placeholder="Enter question here">
                         <div class="actions">
-                            <button class="edit-btn btn-border">Edit</button>
                             <i class="fas fa-trash"></i>
                         </div>
                     </div>
                     <p class="text-gray">Answer</p>
                     <div class="options">
                         <div class="option">
-                            <input type="radio" name="question${Date.now()}" value="option1" class="form-radio">
-                            <input type="text" value="Option 1" class="option-input">
+                            <input type="radio" name="correct${newQuestionNum}" value="option1" class="form-radio">
+                            <input type="text" placeholder = "Option 1" name="answer${newQuestionNum}.1" class="option-input">
                         </div>
                         <div class="option">
-                            <input type="radio" name="question${Date.now()}" value="option2" class="form-radio">
-                            <input type="text" value="Option 2" class="option-input">
+                            <input type="radio" name="correct${newQuestionNum}" value="option2" class="form-radio">
+                            <input type="text" placeholder = "Option 2" name="answer${newQuestionNum}.2" class="option-input">
                         </div>
                         <div class="option">
-                            <input type="radio" name="question${Date.now()}" value="option3" class="form-radio">
-                            <input type="text" value="Option 3" class="option-input">
+                            <input type="radio" name="correct${newQuestionNum}" value="option3" class="form-radio">
+                            <input type="text" placeholder = "Option 3" name="answer${newQuestionNum}.3" class="option-input">
                         </div>
                         <div class="option">
-                            <input type="radio" name="question${Date.now()}" value="option4" class="form-radio">
-                            <input type="text" value="Option 4" class="option-input">
+                            <input type="radio" name="correct${newQuestionNum}" value="option4" class="form-radio">
+                            <input type="text" placeholder = "Option 4" name="answer${newQuestionNum}.4" class="option-input">
                         </div>
                     </div>
                 </div>
             </div>
         `;
 
-        // Add drag event listeners to the handle
         const dragHandle = newQuizItem.querySelector('.drag-handle');
         dragHandle.setAttribute('draggable', 'true');
         
@@ -59,6 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const newQuizItem = createNewQuizItem();
         const centerBtn = document.querySelector('.center-btn');
         bodyContainer.insertBefore(newQuizItem, centerBtn);
+        questionCount++; // Increment counter
+        updateQuestionNames(); // Update all names
     });
 
     // Delete quiz item
@@ -67,6 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const quizItem = event.target.closest('.quiz-item');
             if (quizItem) {
                 quizItem.remove();
+                updateQuestionNames(); // Update names after deletion
             }
         }
     });
@@ -80,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
             draggedItem.classList.add('dragging');
             event.dataTransfer.effectAllowed = 'move';
         } else {
-            event.preventDefault(); // Prevent dragging if not the handle
+            event.preventDefault();
         }
     });
 
@@ -110,6 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     targetItem.before(draggedItem);
                 }
+                updateQuestionNames(); // Update names after reordering
             }
         }
     });
@@ -119,6 +154,9 @@ document.addEventListener('DOMContentLoaded', function() {
     existingHandles.forEach(handle => {
         handle.setAttribute('draggable', 'true');
     });
+    
+    // Initial name update for existing items
+    updateQuestionNames();
 });
 
 //Toggle the visibility of a dropdown menu
