@@ -2,8 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Ẩn tất cả các total khi trang load
     function hideAllTotals() {
         document.getElementById("total-monthly").style.display = "none";
+        document.getElementById("total-quarterly").style.display = "none";
         document.getElementById("total-annual").style.display = "none";
-        document.getElementById("total-unlimited").style.display = "none";
     }
 
     // Hàm cập nhật total khi chọn radio

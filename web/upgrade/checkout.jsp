@@ -36,7 +36,18 @@
                         <span style="text-align: right">Best deal</span>
                     </div>
                     <span class="price">
-                        US$1.99/month
+                        49,000 VND /month
+                    </span>
+                </div>
+                <div class="plan">
+                    <div class="plan-content">
+                        <input id="quarterly" name="plan" type="radio"/>
+                        <label for="quarterly">
+                            Quarterly
+                        </label>
+                    </div>
+                    <span class="price">
+                        129,000 VND /quarter
                     </span>
                 </div>
                 <div class="plan">
@@ -47,18 +58,7 @@
                         </label>
                     </div>
                     <span class="price">
-                        US$16.99/year - that's like US$1.42 a month
-                    </span>
-                </div>
-                <div class="plan">
-                    <div class="plan-content">
-                        <input id="unlimited" name="plan" type="radio"/>
-                        <label for="umlimited">
-                            Unlimited
-                        </label>
-                    </div>
-                    <span class="price">
-                        US$129.99
+                        449,000 VND /year
                     </span>
                 </div>
                 <div class="total" id="total-monthly">
@@ -66,7 +66,15 @@
                         One month of EasyQuiz Premium
                     </span>
                     <span>
-                        US$1.99
+                        49,000 VND
+                    </span>
+                </div>
+                <div class="total" id="total-quarterly">
+                    <span>
+                        One quarter of EasyQuiz Premium
+                    </span>
+                    <span>
+                        129,000 VND/quarter
                     </span>
                 </div>
                 <div class="total" id="total-annual">
@@ -74,15 +82,7 @@
                         One year of EasyQuiz Premium
                     </span>
                     <span>
-                        US$16.99
-                    </span>
-                </div>
-                <div class="total" id="total-unlimited">
-                    <span>
-                        Unlimited of EasyQuiz Premium
-                    </span>
-                    <span>
-                        US$129.99
+                        449,000 VND/year
                     </span>
                 </div>
             </div>
