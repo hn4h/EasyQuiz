@@ -18,8 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author 11
  */
-@WebServlet(name="DashBoardServlet", urlPatterns={"/dashboard"})
-public class DashBoardServlet extends HttpServlet {
+@WebServlet(name="ManagePackageServlet", urlPatterns={"/managepackage"})
+public class ManagePackageServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +36,10 @@ public class DashBoardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DashBoardServlet</title>");  
+            out.println("<title>Servlet ManagePackageServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DashBoardServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManagePackageServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,12 +56,9 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        StatisDAO db = new StatisDAO();
-        request.setAttribute("numOfQuizSet", db.getNumberOfQuiz());
-        request.setAttribute("numOfUser", db.getNumberOfUser());
-        request.setAttribute("numOfTransaction", db.getNumberOfTransaction());
-        request.setAttribute("totalRevenue", db.getTotalRevenue());
-        request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
+        StatisDAO dao = new StatisDAO();
+//        request.setAttribute("users", dao.getAllUserStatistics());
+        request.getRequestDispatcher("dashboard/package.jsp").forward(request, response);
     } 
 
     /** 

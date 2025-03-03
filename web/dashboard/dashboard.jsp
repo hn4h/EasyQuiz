@@ -86,42 +86,34 @@
                         <div class="vertical-line"></div>
                         <p>Summary</p>
                     </div>
-                    <div class="filter-summary">
-                        <select id="summaryFilter" onchange="updateSummary()">
-                            <option value="today">Today</option>
-                            <option value="week">This Week</option>
-                            <option value="month">This Month</option>
-                            <option value="year">This Year</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="summary-list">
                     <div class="summary-item" style="border-bottom: 4px solid #EFB6C8;">
                         <span class="material-symbols-rounded">payments</span>
                         <div>
                             <p style="font-weight: 600;">Total Revenue</p>
-                            <p style="font-weight: bold; font-size: 30px;" id="revenue">$123</p>
+                            <p style="font-weight: bold; font-size: 30px;" id="revenue">${requestScope.totalRevenue}</p>
                         </div>
                     </div>
                     <div class="summary-item" style="border-bottom: 4px solid #A888B5;">
                         <span class="material-symbols-rounded">person</span>
                         <div>
                             <p style="font-weight: 600;">Total User</p>
-                            <p style="font-weight: bold; font-size: 30px;" id="users">123</p>
+                            <p style="font-weight: bold; font-size: 30px;" id="users">${requestScope.numOfUser}</p>
                         </div>
                     </div>
                     <div class="summary-item" style="border-bottom: 4px solid #8174A0;">
                         <span class="material-symbols-rounded">quiz</span>
                         <div>
                             <p style="font-weight: 600;">Total Quiz</p>
-                            <p style="font-weight: bold; font-size: 30px;" id="quizzes">123</p>
+                            <p style="font-weight: bold; font-size: 30px;" id="quizzes">${requestScope.numOfQuizSet}</p>
                         </div>
                     </div>
                     <div class="summary-item" style="border-bottom: 4px solid #441752;">
                         <span class="material-symbols-rounded">receipt_long</span>
                         <div>
                             <p style="font-weight: 600;">Total Transaction</p>
-                            <p style="font-weight: bold; font-size: 30px;" id="transactions">123</p>
+                            <p style="font-weight: bold; font-size: 30px;" id="transactions">${requestScope.numOfQuizSet}</p>
                         </div>
                     </div>
                 </div>
