@@ -34,7 +34,7 @@ public class QuizSetHistoryDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
+        return list;
     }
     //Get popular quiz set
 }

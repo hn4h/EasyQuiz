@@ -95,6 +95,7 @@ public class QuizSetDAO extends DBContext {
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
+        return list;
     }
+   
 }

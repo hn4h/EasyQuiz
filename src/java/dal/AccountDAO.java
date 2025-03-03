@@ -328,7 +328,7 @@ public class AccountDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
+        return list;
     }
     
 }
