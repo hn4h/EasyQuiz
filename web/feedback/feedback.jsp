@@ -14,7 +14,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="./feedback/styles.css">
     </head>
     <body class="bg-white text-gray-800">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">

@@ -61,6 +61,7 @@ public class DashBoardServlet extends HttpServlet {
         request.setAttribute("numOfUser", db.getNumberOfUser());
         request.setAttribute("numOfTransaction", db.getNumberOfTransaction());
         request.setAttribute("totalRevenue", db.getTotalRevenue());
+        request.setAttribute("newUser", db.getNewCreatedUser());
         request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
     } 
 
