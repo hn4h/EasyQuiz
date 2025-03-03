@@ -19,8 +19,18 @@
     </head>
     <body>
         <div class="header">
-
-
+            <div class="popup-overlay-show" id="popupOverlay1" onclick="closePopup1()"></div>
+            <div class="popup-show" id="popup1">
+                <span class="close-button1" onclick="closePopup1()">×</span>
+                <h3 style="color: #000">Test</h3>
+                <h2>Set up your test</h2>
+                
+                
+                <label for="questionCount">Questions (max ???)</label>
+                <input class="questionCount" type="number" id="questionCount" value="20" min="1" max="999">
+                <br>
+                <button class="start-test" onclick="closePopup1()">Start test</button>
+            </div>
             <div class="test">
                 <div class="">
                     <div class="avatar-user"  id="avatarUser">
@@ -76,6 +86,7 @@
                         <button class="correct1">Using consistent data definitions across the enterprise</button>
                     </div>
                 </div>
+                <button class="submit" onclick="openPopup()">Submit test</button>
                 <!-- Hamburger button -->
                 <div class="hamburger" id="hamburgerBtn">
                     <!-- Using Google Material Icons you already load -->
@@ -96,8 +107,17 @@
                     </ul>
                 </nav>
             </div>
-
-        </div> 
+            <div class="popup-overlay" id="popupOverlay" onclick="closePopup()"></div>
+            <div class="popup" id="popup">
+                <span class="close-button" onclick="closePopup()">×</span>
+                <h2>It looks like you skipped some questions</h2>
+                <h3>Do you want to review the skipped questions, or submit the test now?</h3>
+                <div class="popup-buttons">
+                    <button class="review-btn" onclick="closePopup()">Review skipped questions</button>
+                    <button class="submit-btn" onclick="submitFinalTest()">Submit test</button>
+                </div>
+            </div>
+        </div>
         <!-- Linking SwiperJS script -->
         <!--        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>-->
         <script src="test.js"></script>
