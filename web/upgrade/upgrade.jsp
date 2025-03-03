@@ -15,7 +15,7 @@
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
-    <body style="    background-image: url('../images/background/backgr.png');
+    <body style="    background-image: url('../images/background/backgr1.png');
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;

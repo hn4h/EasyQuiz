@@ -141,7 +141,22 @@
                             <div class="blog-comment">
                                 <input type="text" placeholder="Your comment here...">
                                 <span class="send-btn material-symbols-rounded">send</span>
-                                <span class="chat-btn material-symbols-rounded">chat</span>
+                                <span class="chat-btn material-symbols-rounded" id="chatBtn1">chat</span>
+                            </div>
+                            <div class="comment-window" id="commentWindow1" style="display: none;">
+                                <div class="comment">
+                                    <img src="./images/avatar/default.png" alt="Avatar">
+                                    <p><strong>Huan123</strong>: I have made a comment</p>
+                                </div>
+                                <div class="comment">
+                                    <img src="./images/avatar/default.png" alt="Avatar">
+                                    <p><strong>Me</strong>: hello bro wish you a good day</p>
+                                </div>
+                                <div class="comment">
+                                    <img src="./images/avatar/default.png" alt="Avatar">
+                                    <p><strong>Cuong</strong>: hello bro wish you a good day</p>
+                                </div>
+                                <a href="#">View more comment...</a>
                             </div>
                         </div>
                     </div>
@@ -170,13 +185,66 @@
                             <div class="blog-comment">
                                 <input type="text" placeholder="Your comment here...">
                                 <span class="send-btn material-symbols-rounded">send</span>
-                                <span class="chat-btn material-symbols-rounded">chat</span>
+                                <span class="chat-btn material-symbols-rounded" id="chatBtn2">chat</span>
+                            </div>
+                            <div class="comment-window" id="commentWindow2" style="display: none;">
+                                <div class="comment">
+                                    <img src="./images/avatar/default.png" alt="Avatar">
+                                    <p><strong>Huan123</strong>: I have made a comment</p>
+                                </div>
+                                <div class="comment">
+                                    <img src="./images/avatar/default.png" alt="Avatar">
+                                    <p><strong>Me</strong>: hello bro wish you a good day</p>
+                                </div>
+                                <div class="comment">
+                                    <img src="./images/avatar/default.png" alt="Avatar">
+                                    <p><strong>Cuong</strong>: hello bro wish you a good day</p>
+                                </div>
+                                <a href="#">View more comment...</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <style>
+            .comment-window {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-top: 10px;
+            }
+
+            .comment {
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+            }
+
+            .comment img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        </style>
+        <script>
+            document.getElementById('chatBtn1').addEventListener('click', function () {
+                var commentWindow = document.getElementById('commentWindow1');
+                if (commentWindow.style.display === 'none') {
+                    commentWindow.style.display = 'block';
+                } else {
+                    commentWindow.style.display = 'none';
+                }
+            });
+            document.getElementById('chatBtn2').addEventListener('click', function () {
+                var commentWindow = document.getElementById('commentWindow2');
+                if (commentWindow.style.display === 'none') {
+                    commentWindow.style.display = 'block';
+                } else {
+                    commentWindow.style.display = 'none';
+                }
+            });
+        </script>
         <script src="blog.js"></script>
     </body>
 
