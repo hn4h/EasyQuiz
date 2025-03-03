@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             userMenu.classList.remove("show");
         }
     });
-        // HAMBURGER SIDEBAR TOGGLE
+    // HAMBURGER SIDEBAR TOGGLE
     const hamburgerBtn = document.getElementById("hamburgerBtn");
     const sidebar = document.getElementById("sidebar");
     const closeBtn = document.getElementById("closeBtn");
@@ -49,4 +49,37 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+    function openPopup() {
+        document.getElementById("popup").classList.add("show");
+        document.getElementById("popupOverlay").classList.add("show");
+        document.querySelector(".header").classList.add("darken"); // Làm tối topbar
+    }
+
+    function closePopup() {
+        document.getElementById("popup").classList.remove("show");
+        document.getElementById("popupOverlay").classList.remove("show");
+        document.querySelector(".header").classList.remove("darken"); // Bỏ làm tối topbar
+    }
+    function submitFinalTest() {
+        alert("Test submitted successfully!");
+        closePopup();
+    }
+    window.openPopup = openPopup;
+    window.closePopup = closePopup;
+    window.submitFinalTest = submitFinalTest;
+    function closePopup1() {
+        let popup1 = document.getElementById("popup1");
+        let overlay1 = document.getElementById("popupOverlay1");
+
+        if (popup1 && overlay1) {
+            popup1.classList.add("hide");
+            overlay1.classList.add("hide");
+        } else {
+            console.error("Popup1 or Overlay1 not found!");
+        }
+    }
+    // Gán vào window để gọi từ HTML
+    window.closePopup1 = closePopup1;
+    
+    
 });
