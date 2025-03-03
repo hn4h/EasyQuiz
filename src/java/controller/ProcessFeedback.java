@@ -100,7 +100,8 @@ public class ProcessFeedback extends HttpServlet {
         feedbackDAO.addFeedback(account.getUserName(), feedbackContent);
         //send success
         System.out.println("Send feedback successfully.");
-        response.sendRedirect("home");
+        request.setAttribute("successMessage", "Send feedback successfully.");
+        request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
     }
 
     /**

@@ -15,45 +15,45 @@
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
-    <body style="    background-image: url('../images/background/backgr.png'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
-    color: black;">
+    <body style="    background-image: url('../images/background/backgr.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          color: black;">
         <div class="container">
             <div class="header" style="position: fixed;
-    background-color: #fff;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <div class="logo" style="display: flex;
-    justify-content: center;
-    padding: 10px;
-    height: 100%;
-    align-self: center;
-    font-weight: bold;
-    font-size: 25px;">
-                <a href="home"><span>EasyQuiz</span></a>
+                 background-color: #fff;
+                 display: flex;
+                 justify-content: space-between;
+                 width: 100%;
+                 top: 0;
+                 left: 0;
+                 z-index: 100;
+                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <div class="logo" style="display: flex;
+                     justify-content: center;
+                     padding: 10px;
+                     height: 100%;
+                     align-self: center;
+                     font-weight: bold;
+                     font-size: 25px;">
+                    <a href="home"><span>EasyQuiz</span></a>
+                </div>
             </div>
-        </div>
             <div class="py-8"></div>
             <h1 class="text-5xl font-bold text-center mb-8">EasyQuiz Premium</h1>
             <div class="py-4"></div>
             <h1 class="text-4xl font-bold text-center mb-8">Get better results with the <br/> number one learning platform</h1>
             <div class="plans">            
                 <div class="plan best-deal">
-                    <div class="plan-title">1 month</div>
+                    <div class="plan-title">Monthly</div>
                     <div class="plan-description">Billed monthly today</div>
                     <div class="plan-price">49,000 VND <span>/month</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
                 <div class="plan">
-                    <div class="plan-title">3 months</div>
+                    <div class="plan-title">Quarterly</div>
                     <div class="plan-description">Billed every three months</div>
                     <div class="plan-price">129,000 VND <span>/quarter</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
@@ -98,14 +98,14 @@
             <h1 class="text-4xl font-bold text-center mb-8">Experience it today at a great price!</h1>
             <div class="plans">            
                 <div class="plan best-deal">
-                    <div class="plan-title">1 month</div>
+                    <div class="plan-title">Monthly</div>
                     <div class="plan-description">Billed monthly today</div>
                     <div class="plan-price">49,000 VND <span>/month</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
                 <div class="plan">
-                    <div class="plan-title">3 months</div>
+                    <div class="plan-title">Quarterly</div>
                     <div class="plan-description">Billed every three months</div>
                     <div class="plan-price">129,000 VND <span>/quarter</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>

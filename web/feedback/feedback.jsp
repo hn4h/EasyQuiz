@@ -57,7 +57,12 @@
                     <button class="send-button" type="submit">Send</button>
                     <%
                     String errorMessage = (String) request.getAttribute("errorMessage");
-                    if (errorMessage != null) {
+                    String successMessage = (String) request.getAttribute("successMessage"); 
+                    if (successMessage != null) { 
+                    %>
+                    <span style="color: green; margin-left: 10px;"><%= successMessage %></span>
+                    <%
+                        } else if (errorMessage != null) { 
                     %>
                     <span style="color: red; margin-left: 10px;"><%= errorMessage %></span>
                     <%

@@ -94,6 +94,7 @@
                         <tr>
                             <th>ID <i class="fas fa-sort"></i></th>
                             <th>Name of package <i class="fas fa-sort"></i></th>
+                            <th>Value <i class="fas fa-sort"></i></th>
                             <th>Price <i class="fas fa-sort"></i></th>
                             <th></th>
                         </tr>
@@ -102,7 +103,8 @@
                         <tr>
                             <td>1</td>
                             <td>Monthly</td>
-                            <td>1.99$</td>
+                            <td>30 days</td>
+                            <td>49,000 VND</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
                                 <button class="delete-btn">Delete</button>
@@ -110,8 +112,9 @@
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td>Annual</td>
-                            <td>16.99$</td>
+                            <td>Quarterly</td>
+                            <td>90 days</td>
+                            <td>129,000 VND</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
                                 <button class="delete-btn">Delete</button>
@@ -119,8 +122,9 @@
                         </tr>
                         <tr>
                             <td>3</td>
-                            <td>Unlimited</td>
-                            <td>129.99$</td>
+                            <td>Annual</td>
+                            <td>360 days</td>
+                            <td>449,000 VND</td>
                             <td>
                                 <button class="edit-btn">Edit</button>
                                 <button class="delete-btn">Delete</button>
