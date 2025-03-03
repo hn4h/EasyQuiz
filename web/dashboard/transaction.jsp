@@ -24,7 +24,7 @@
 
         <div class="admin-icon">
             <div>
-                <img src="avt1.jpg" alt="Not found">
+                <img src="./images/avatar/default.png" alt="Not found">
             </div>
             <div class="admin-info">
                 <p>Admin</p>
@@ -38,31 +38,31 @@
                 <!--Top nav-->
                 <ul class="nav-list primary-nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="dashboard" class="nav-link">
                             <span class="material-symbols-rounded">dashboard</span>
                             <span class="nav-label">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="manageuser" class="nav-link">
                             <span class="material-symbols-rounded">person</span>
                             <span class="nav-label">User</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link-actived">
+                        <a href="managetransaction" class="nav-link-actived">
                             <span class="material-symbols-rounded">receipt_long</span>
                             <span class="nav-label">Transaction</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="managepackage" class="nav-link">
                             <span class="material-symbols-rounded">package</span>
                             <span class="nav-label">Package</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="managefeedback" class="nav-link">
                             <span class="material-symbols-rounded">feedback</span>
                             <span class="nav-label">Feedback</span>
                         </a>
@@ -71,7 +71,7 @@
                 <!--Bottom nav-->
                 <ul class="nav-list secondary-nav">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="logout" class="nav-link">
                             <span class="material-symbols-rounded">logout</span>
                             <span class="nav-label">Logout</span>
                         </a>
