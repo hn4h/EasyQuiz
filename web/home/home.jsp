@@ -170,104 +170,21 @@
                     <h2>Popular flashcard sets</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of quiz</h2>
-                                    <p class="badge">??? terms</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-
-                                </a>
-                            </li>
+                            <c:forEach items="${popularQuizSet}" var="i">
+                                <li class="card-item swiper-slide">
+                                    <a href="#" class="card-link">
+                                        <h2 class="card-title">${i.quizSetName}</h2>
+                                        <p class="badge">${i.numberOfQuiz} terms</p>
+                                        <div class="card-username">
+                                            <span style="display: flex; align-items: center;">
+                                                <img src="${i.author.profileImage}" alt="Avatar">
+                                                <span>${i.author.userName}</span>
+                                            </span>
+                                            <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                        </div>
+                                    </a>
+                                </li>
+                            </c:forEach>
                         </ul>
                         <div class="swiper-pagination"></div>
                         <div class="swiper-button-prev"></div>

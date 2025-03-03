@@ -1,3 +1,5 @@
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,6 +70,7 @@
                             <div class="forget-password">
                                 <a href="forgetpassword">Forgot password?</a>
                             </div>
+                            <div class="error-message">${requestScope.error}</div>
                         </div>
                         <div class="login-button">
                             <button type="submit">Log in</button>

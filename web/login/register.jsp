@@ -92,7 +92,7 @@
                             <div class="error-message" id="confirmPasswordError"></div>
                         </div>
                         <div class="register-button">
-                            <button type="submit" id="submitButton" disabled>Sign up</button>
+                            <button type="submit" id="submitButton">Sign up</button>
                         </div>
                     </form>
                     <div>
