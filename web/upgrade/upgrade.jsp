@@ -79,7 +79,7 @@
                         <p class="text-2xl">Unlimited number of tests you take.</p>
                     </div>
 
-                    <div class="bg-yellow-400 rounded-lg p-6 lg:w-3/5 flex justify-center items-center h-full">
+                    <div class="rounded-lg p-6 lg:w-3/5 flex justify-center items-center h-full" style="background-color:#640D5F;">
                         <div class="bg-white rounded-lg p-6 w-full">
                             <p class="text-gray-600 font-bold mb-2">Question 2/30</p>
                             <p class="text-gray-800 mb-4 text-lg">Organelle found only in plant cells that makes glucose?</p>
