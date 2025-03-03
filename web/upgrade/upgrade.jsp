@@ -44,25 +44,25 @@
             <h1 class="text-5xl font-bold text-center mb-8">EasyQuiz Premium</h1>
             <div class="py-4"></div>
             <h1 class="text-4xl font-bold text-center mb-8">Get better results with the <br/> number one learning platform</h1>
-            <div class="plans">
+            <div class="plans">            
                 <div class="plan best-deal">
-                    <div class="plan-title">Monthly</div>
-                    <div class="plan-description">Billed annually today</div>
-                    <div class="plan-price">50,000 VND <span>/month</span></div>
+                    <div class="plan-title">1 month</div>
+                    <div class="plan-description">Billed monthly today</div>
+                    <div class="plan-price">49,000 VND <span>/month</span></div>
+                    <div class="plan-description">Recurring billing. Cancel any time.</div>
+                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
+                </div>
+                <div class="plan">
+                    <div class="plan-title">3 months</div>
+                    <div class="plan-description">Billed every three months</div>
+                    <div class="plan-price">129,000 VND <span>/quarter</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
                 <div class="plan">
                     <div class="plan-title">Annual</div>
-                    <div class="plan-description">Amount billed today</div>
-                    <div class="plan-price">450,000 VND <span>/year</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
-                <div class="plan">
-                    <div class="plan-title">Unlimited</div>
-                    <div class="plan-description">Amount billed today</div>
-                    <div class="plan-price">3,500,000 VND </div>
+                    <div class="plan-description">Billed annually today</div>
+                    <div class="plan-price">449,000 VND <span>/year</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
@@ -96,25 +96,25 @@
             <div class="py-8"></div>
 
             <h1 class="text-4xl font-bold text-center mb-8">Experience it today at a great price!</h1>
-            <div class="plans">
+            <div class="plans">            
                 <div class="plan best-deal">
-                    <div class="plan-title">Monthly</div>
-                    <div class="plan-description">Billed annually today</div>
-                    <div class="plan-price">50,000 VND <span>/month</span></div>
+                    <div class="plan-title">1 month</div>
+                    <div class="plan-description">Billed monthly today</div>
+                    <div class="plan-price">49,000 VND <span>/month</span></div>
+                    <div class="plan-description">Recurring billing. Cancel any time.</div>
+                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
+                </div>
+                <div class="plan">
+                    <div class="plan-title">3 months</div>
+                    <div class="plan-description">Billed every three months</div>
+                    <div class="plan-price">129,000 VND <span>/quarter</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
                 <div class="plan">
                     <div class="plan-title">Annual</div>
-                    <div class="plan-description">Amount billed today</div>
-                    <div class="plan-price">450,000 VND <span>/year</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
-                <div class="plan">
-                    <div class="plan-title">Unlimited</div>
-                    <div class="plan-description">Amount billed today</div>
-                    <div class="plan-price">3,500,000 VND </div>
+                    <div class="plan-description">Billed annually today</div>
+                    <div class="plan-price">449,000 VND <span>/year</span></div>
                     <div class="plan-description">Recurring billing. Cancel any time.</div>
                     <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
                 </div>
