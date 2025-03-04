@@ -451,6 +451,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     top: 10px;
     right: 15px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
+}
+.close-button:hover{
+    color: #ffbcfb;
 }
