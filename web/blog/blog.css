@@ -31,10 +31,11 @@
     align-self: center;
     font-weight: bold;
     font-size: 25px;
-    color: #640D5F;
 }
 
-.logo span {
+.logo a {
+    color: #640D5F;
+    text-decoration: none;
     padding: 0 10px;
     align-self: center;
 }
@@ -55,22 +56,11 @@
     display: flex;
 }
 
-.create-btn {
-    display: flex;
-    padding: 10px;
-    color: #640D5F;
-    font-weight: bold;
-}
-
 .login-btn,
 .upgrade-btn,
-.create-btn-icon span,
-.create-btn span {
+.create-btn-icon span {
     padding: 10px;
-}
-
-.create-btn p {
-    padding: 10px 0;
+    align-self: center;
 }
 
 .upgrade-btn button {
@@ -91,7 +81,7 @@
     align-self: center;
 }
 
-.create-btn-icon i,
+.create-btn-icon button,
 .login-btn button {
     border-radius: 5px;
     padding: 10px 15px;
@@ -103,7 +93,7 @@
     cursor: pointer;
 }
 
-.create-btn-icon i:hover,
+.create-btn-icon button:hover,
 .login-btn button:hover {
     background-color: #2A004E;
 }
@@ -139,7 +129,7 @@
 }
 
 .search input:focus {
-    border-color: #640D5F;
+    border-color: #0077cc;
     outline: none;
 }
 
@@ -147,6 +137,7 @@
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    margin: 0 10px;
 }
 
 .avatar-user {
@@ -166,10 +157,25 @@
     width: 15%;
     display: none;
     z-index: 10;
+    font-size: 14px;
 }
 
-.user-menu-item {
-    padding: 10px 15px;
+.create-menu {
+    position: absolute;
+    top: 60px;
+    right: 326px;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    width: 12%;
+    display: none;
+    z-index: 10;
+    font-size: 14px;
+}
+
+.user-menu-item,
+.create-menu-item {
     cursor: pointer;
     color: #333;
     text-decoration: none;
@@ -177,17 +183,35 @@
     font-weight: 600;
 }
 
-.user-menu-item:hover {
+.user-menu-item,
+.create-menu-item {
+    padding: 10px;
+}
+
+.user-menu-item i,
+.create-menu-item i{
+    padding: 5px;
+}
+
+.user-menu-item:hover,
+.create-menu-item:hover{
     background-color: #f0f0f0;
 }
 
-.user-menu.show {
+.user-menu.show,
+.create-menu.show {
     display: block;
 }
 
 .user-info {
     display: flex;
     padding: 10px;
+}
+
+.user-info img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
 }
 
 .user-info div{
@@ -197,6 +221,124 @@
 .user-info p:first-child {
     font-weight: bold;
 }
+
+.folderPopup-container {
+    padding: 2rem;
+}
+
+/* Popup styles */
+.folder-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.folder-popup-content {
+    background-color: #fff;
+    margin: 4rem auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    color: #333;
+}
+
+.folder-popup-content h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.folder-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e8e8e8;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.create-folder-btn {
+    display: flex;
+    justify-content: end;
+}
+
+.create-folder-btn button{
+    padding: 10px 15px;
+    background-color: #640D5F;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-folder-btn button:hover {
+    background-color: #2A004E;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Ensure the popup appears above other elements */
+#folderPopup {
+    z-index: 1001;
+    animation: fadeIn 0.2s ease-out forwards, slideDown 0.2s ease-out forwards;
+}
+
+/* Khi ẩn popup, sử dụng fadeOut */
+#folderPopup.hide {
+    animation: fadeOut 0.2s ease-out forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 /*------------------------------------Body*/
 .body {
     display: flex;

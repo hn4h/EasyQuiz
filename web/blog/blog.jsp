@@ -30,12 +30,13 @@
                 <input type="text" placeholder="Search for blog" name="">
             </div>
             <div class="create-login">
-                <div type="button" class="create-btn">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                    <p>Create</p>
-                </div> 
-                <div type="button" class="create-btn-icon">
-                    <span><i class="fa-solid fa-plus"></i></span>
+                <div type="button" class="create-btn-icon" id="createButton">
+                    <span><button><i class="fa-solid fa-plus"></i></button></span>
+                    <div class="create-menu" id="createMenu">
+                        <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                        <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                        <a href="#" class="create-menu-item"><i class="fa-solid fa-user-group"></i> Class</a>
+                    </div>
                 </div>
 
                 <div class="upgrade-btn">
@@ -63,6 +64,18 @@
                 </div>
                 <div class="login-btn">
                     <a href="login"><button>Log in</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="folderPopup-container">
+            <div id="folderPopup" class="folder-popup">
+                <div class="folder-popup-content">
+                    <span class="close-btn material-symbols-rounded">close</span>
+                    <h2>Create a new folder</h2>
+                    <input type="text" id="folderName" placeholder="Title" class="folder-input">
+                    <div class="create-folder-btn">
+                        <button id="createFolderConfirm">Create folder</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,7 +258,7 @@
                 }
             });
         </script>
-        <script src="blog.js"></script>
+        <script src="./blog/blog.js"></script>
     </body>
 
 </html>

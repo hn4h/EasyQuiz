@@ -85,6 +85,10 @@ document.addEventListener('click', () => {
 // Get elements
 const createButton = document.getElementById('createButton');
 const dropdownCreateMenu = document.getElementById('createMenu');
+const createFolderItem = document.querySelector('.create-menu-item:nth-child(2)'); // Chọn mục "Folder"
+const folderPopup = document.getElementById('folderPopup');
+const closeBtn = document.querySelector('.close-btn');
+
 
 // Toggle dropdown menu on click
 createButton.addEventListener('click', (e) => {
@@ -98,5 +102,19 @@ document.addEventListener('click', () => {
         dropdownCreateMenu.classList.remove('show');
     }
 });
+//------------------------Pop up create folder
+// Hiển thị popup
+createFolderItem.addEventListener('click', (e) => {
+    folderPopup.style.display = "block";
+    folderPopup.classList.remove("hide");
+    e.stopPropagation();
+});
 
+// Ẩn popup với animation fadeOut
+closeBtn.addEventListener('click', () => {
+    folderPopup.classList.add("hide");
+    setTimeout(() => {
+        folderPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
+});
 
