@@ -428,18 +428,17 @@
     word-break: break-word; /* Đảm bảo từ không bị tràn ra ngoài */
 }
 
-.card-list .card-link .card-username span:not(.card-username img){
-    font-size: 18px;
+.card-list .card-link .card-username span{
+    font-size: 16px;
     font-weight: 600;
     color: #000;
-    margin: 0 10px;
 }
 
 .card-list .card-link .badge {
     color: #000;
     margin: 16px 0 18px;
     padding: 5px 10px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 12px;
     background: #e8e8e8;
     width: fit-content;
@@ -458,7 +457,7 @@
 }
 
 .card-list .card-link .card-title {
-    font-size: 24px;
+    font-size: 20px;
     color: #000;
     font-weight: 700;
 }
@@ -467,6 +466,12 @@
     display: flex;
     justify-content: space-between;
     align-items: end;
+}
+
+.card-item .card-username img {
+    height: 36px;
+    width: 36px;
+    margin-right: 10px;
 }
 
 .card-list .card-link .card-button {

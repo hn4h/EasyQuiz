@@ -98,4 +98,10 @@ public class QuizSetDAO extends DBContext {
         return list;
     }
    
+    
+    public static void main(String[] args) {
+        QuizSetDAO d = new QuizSetDAO();
+        List<QuizSet> l = d.getPopularQuizSet();
+        System.out.println(l.size());
+    }
 }
