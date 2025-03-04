@@ -247,7 +247,7 @@
                             <div class="actions">
                                 <h3>Next steps</h3>
                                 <div class="actions-info">
-                                    <button id="nextSteps"><a href="#">Practise with questions</a></button>
+                                    <button id="nextSteps"><a href="#">Practice with questions</a></button>
                                     <button id="restartFlashcards"><a href="#">Restart flashcards</a></button>
                                 </div>
                             </div>
