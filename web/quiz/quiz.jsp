@@ -27,7 +27,7 @@
                 <input type="text" placeholder="Search for study guides" name="">
             </div>
             <div class="create-login">
-                <c:if test="${not empty sessionScope.account.userName}">
+                <c:if test="${ empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
@@ -39,10 +39,10 @@
                         <button>Upgrade: Free 7-day trial</button>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
-                        <img src="./images/avatar/default.png" alt="Not found">
+                        <img src="../images/avatar/default.png" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
-                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <img src="../images/avatar/default.png" alt="Not found"/>
                                 <div>
                                     <p>Do Duc Anh</p>
                                     <p>duca@gmail.com</p>
