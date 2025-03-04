@@ -121,50 +121,19 @@
                 <div class="recents-container">
                     <h2>Recents</h2>
                     <div class="recents-list">
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
+                        <c:forEach items="${quizSetHistoryTop4}" var="quizSet"> 
+                            <div class="recents-item">
                                 <div>
-                                    Type - ?? terms - by ????
+                                    <i class="fa-solid fa-book"></i> 
+                                </div>
+                                <div>
+                                    <p><a href="quiz-set-details?quizSetId=${quizSet.quizSetId}">${quizSet.quizSetName}</a></p> 
+                                    <div>
+                                        Quiz Set - ${quizSet.numberOfQuiz} terms - by ${quizSet.author.userName} 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
-                                <div>
-                                    Type - ?? terms - by ????
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
-                                <div>
-                                    Type - ?? terms - by ????
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
-                                <div>
-                                    Type - ?? terms - by ????
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
                 <div class="container swiper">
