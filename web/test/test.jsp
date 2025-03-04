@@ -34,7 +34,7 @@
             <div class="test">
                 <div class="">
                     <div class="avatar-user"  id="avatarUser">
-                        <img class="test-img" src="./images/icon/#640D5F.png">
+                        <img class="test-img" src="../images/icon/test_icon.png">
                         <span class="test-word">Test</span>
                         <div class="user-menu" id="userMenu">
 
