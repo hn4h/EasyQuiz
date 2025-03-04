@@ -59,12 +59,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding: 5px;
     width: 60px; /* Điều chỉnh độ rộng tùy theo nhu cầu */
     text-align: center;
-    margin-right: 43px;  
+    margin-right: 43px;
     border-radius: 6px;
-/*    margin-bottom: 10px;*/
-/*    margin-left: 570px;*/
-/*    border-top-style: none;
-    border-left-style: none;*/
+    /*    margin-bottom: 10px;*/
+    /*    margin-left: 570px;*/
+    /*    border-top-style: none;
+        border-left-style: none;*/
 }
 .popup-show h2, label{
     padding-top: 20px;
@@ -96,7 +96,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-left: 15px;
 }
 .test-word {
-/*    padding: 0 10px;*/
+    /*    padding: 0 10px;*/
     color: #656565;
     font-size: 20px;
 
@@ -104,7 +104,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .test-img{
     width: 25px;
-/*    top: 10%;*/
+    /*    top: 10%;*/
 }
 .number{
     margin: 0 auto;
@@ -156,7 +156,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .avatar-user:hover{
     background-color: #ffbcfb;
-    
+
     border-radius: 10px;
 }
 
@@ -204,7 +204,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background: linear-gradient(#e3f3fe, #ffbcfb);
     transition: 0.4s ease;
     width: 100%;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+
 }
 .container {
     justify-content: center;
@@ -274,7 +277,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .hamburger:hover{
     color: #ffbcfb;
     border-radius: 5px;
-    
+
 }
 
 /* Sidebar container (hidden by default using translateX) */
@@ -306,7 +309,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin-bottom: 10px;
 }
 .sidebar-header span:hover{
-     color: #ffbcfb;
+    color: #ffbcfb;
 }
 
 /* Close button style */
@@ -413,7 +416,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .popup h3{
     padding-top: 0px;
-/*    padding-left: 30px;*/
+    /*    padding-left: 30px;*/
     padding-right: 30px;
     color: #656565;
 }
@@ -457,4 +460,85 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .close-button:hover{
     color: #ffbcfb;
+}
+.container3 {
+    width: 800px;
+    top: 40%;
+    padding: 20px;
+    margin: auto;
+    border-radius: 10px;
+}
+.time-steps {
+    display: flex;
+    align-items: center;
+    gap: 200px; /* Khoảng cách giữa 2 phần tử */
+     font-weight: bold;
+}
+.next-steps{
+      font-weight: bold;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+.stats {
+    margin: 20px 0;
+ 
+}
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 10px solid #ff6b6b;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff7873;
+    position: relative;
+ 
+}
+.circle::after {
+    content: "0%";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.correct {
+    color: #27AE60;
+    border: 1px solid #28a745;
+    border-radius: 7px;
+    background-color: #98f1d1;
+    width: fit-content; /* Tự động fit với nội dung */
+    white-space: nowrap; /* Ngăn chữ bị xuống dòng */
+    padding: 2px 5px;
+}
+.incorrect {
+    color: #e74c3c;
+    border: 1px solid firebrick;
+    border-radius: 7px;
+    background-color: #ffc38c;
+    width: fit-content; /* Tự động fit với nội dung */
+    white-space: nowrap; /* Ngăn chữ bị xuống dòng */
+    padding: 2px 5px;
+}
+.correct, incorrect{
+    display: block;
+        font-weight: bold;
+ 
+}
+
+.card {
+    background: #f5f6fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.card:hover {
+    background: #e0e0e0;
 }

@@ -60,13 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("popupOverlay").classList.remove("show");
         document.querySelector(".header").classList.remove("darken"); // Bỏ làm tối topbar
     }
-    function submitFinalTest() {
-        alert("Test submitted successfully!");
-        closePopup();
-    }
+//    function submitFinalTest() {
+//        alert("Test submitted successfully!");
+//        closePopup();
+//    }
     window.openPopup = openPopup;
     window.closePopup = closePopup;
-    window.submitFinalTest = submitFinalTest;
+//    window.submitFinalTest = submitFinalTest;
     function closePopup1() {
         let popup1 = document.getElementById("popup1");
         let overlay1 = document.getElementById("popupOverlay1");
@@ -80,6 +80,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     // Gán vào window để gọi từ HTML
     window.closePopup1 = closePopup1;
-    
-    
+    document.getElementById("submit").addEventListener("click", function () {
+        document.body.innerHTML = `
+<body>
+    <div class="container3">
+        <div class="title">Don't give up now! Trust the process.</div>
+        <div class="stats">
+            <div class="time-steps">
+                <p>Your time: 1 min.</p>
+                <p class="next-steps">Next steps</p>
+        </div>
+            <div class="circle"><span></span></div>
+            <p class="correct">Correct: 0</p>
+            <p class="incorrect">Incorrect: 20</p>
+        </div>
+        <div class="next-steps">
+            <div class="card">📚 Practise terms in Learn</div>
+            <div class="card">📝 Take a new test</div>
+        </div>
+    </div>
+</body>
+            `;
+        document.body.classList.add("*");
+        document.body.classList.add("body");
+
+    });
 });
