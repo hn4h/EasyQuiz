@@ -1,3 +1,12 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 5, 2025, 12:31:53 AM
+    Author     : Lenovo
+*/
+
 * {
     margin: 0;
     padding: 0;
@@ -374,61 +383,50 @@
 .sidebar.collapsed + .body-container {
     margin-left: 85px;
 }
-.history-card{
-    padding-top: 20px;
+
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin-bottom: 150px;
+    font-size: 40px;
+    min-width: 1100px;
     margin-left: auto;
     margin-right: auto;
-    width: 100%;
-    max-width: 1100px;
-}
-.recents-container,
-.popular-card-container,
-.top-creator-container {
-    padding: 20px;
-    background-color: #fff;
-}
-.button2{
-
-}
-.quiz-button{
-    position: relative;
-    display: inline-block;
-    padding-bottom: 5px;
-    text-decoration: none;
-    color: black;
-    width: 75px;
 }
 
-
-.quiz-button::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 3px;
-    background-color: blue;
-    transition: width 0.3s ease-in-out;
-}
-.quiz-button:hover::after {
-    width: 100%;
+.content .folder-title{
+    font-weight: 700;
 }
 
-.quiz-card{
-    background-color: white;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    padding: 0.5rem 1rem;
+.btn-area{
+    display: flex;
+    font-size: 28px;
+    width: 100px;
+    justify-content: space-between;
 }
 
-.quiz-card::after{
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 3px;
-    background-color: blue;
-    transition: width 0.3s ease-in-out;
+.option-btn,
+.add-btn{
+    border: solid 1.5px;
+    padding: 0px 8px;
+    border-radius: 5px;
+    border-color: #333;
+}
+
+.empty-folder{
+    max-width: 1200px;
+    padding: 16px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.8rem;
+    min-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .quiz-title{
@@ -441,209 +439,13 @@
     background-color: #e8e8e8;
 }
 
-.title-text{
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.folders-button{
-    position: relative;
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-left: 10px;
-    width: 75px;
-}
-
-.folders-button::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 3px; /* Độ dày của underline */
-    background-color: blue;
-    transition: width 0.3s ease-in-out;
-}
-
-.folders-button:hover::after {
-    width: 100%;
-}
-
-.folder-card{
-    display: flex;
-    align-items: center;
-    min-height: 70px;
-    background-color: white;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
-    padding: 0.5rem 1rem;
-}
-
-.folder-card:hover{
-    cursor: pointer;
-    background-color: #e8e8e8;
-}
-
-.recents-container h2,
-.popular-card-container h2,
-.top-creator-container h2 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: #333;
-}
-
-.recents-list {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.recents-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
+.quiz-card{
+    max-width: 1200px;
+    padding:8px 16px;
+    background-color: #f0f0f0;
     border-radius: 5px;
-    width: 50%;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.recents-item:hover {
-    background-color: #f7e8f6;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-}
-
-.recents-item > div:first-child {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-    background-color: #ffbcfb;
-    color: #640D5F;
-    margin-right: 10px;
-    padding: 20px;
-}
-
-.recents-item i {
-    font-size: 20px;
-    padding: 25px 20px;
-}
-
-.recents-item p {
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
-    line-height: 1.2;
-}
-
-.recents-item div div {
-    font-size: 14px;
-    font-weight: 600;
-    color: #718096;
-    margin-top: 2px;
-}
-
-.flash-card-list,
-.top-creator-list {
-    display: flex;
-    column-gap: 20px;
-}
-
-.flash-card-item,
-.top-creator-item {
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #aaaaaa;
-    border-radius: 5px;
-    height: 100%;
-    width: 33%;
-    padding: 20px;
-    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-}
-.flash-card-item:hover,
-.top-creator-item:hover {
-    background-color: #f7e8f6;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
-    border-bottom: 3px solid #640D5F;
-}
-
-.flash-card-item > div:first-child p {
-    font-size: 16px;
-    font-weight: 600;
-    color: #000;
-    line-height: 1.2;
-    margin-bottom: 5px;
-}
-
-.flash-card-item span,
-.top-creator-item span {
-    background-color: #e8e8e8;
-    font-weight: 600;
-    font-size: 12px;
-    padding: 5px 10px;
-    border-radius: 30px;
-}
-
-.flash-card-item > div:last-child{
-    display: flex;
-    margin-top: 50px;
-    align-items: center;
-}
-
-.flash-card-item > div:last-child img{
-    height: 24px;
-    width: 24px;
-    border-radius: 50%;
-}
-
-.flash-card-item > div:last-child p{
-    align-self: center;
-    margin-left: 5px;
-    font-size: 14px;
-}
-
-.top-creator-item > div:first-child{
-    margin-bottom: 20px;
-}
-
-.top-creator-item p {
-    font-size: 20px;
-    font-weight: bold;
-    color: #000;
-    line-height: 1.2;
-}
-
-.top-creator-item > div:first-child img{
-    height: 64px;
-    width: 64px;
-    border-radius: 50%;
-}
-
-.top-creator-item > div:last-child {
-    margin-top: 10px;
-}
-
-.blog-container {
-    background-color: #ff99ff;
-    padding: 20px;
-    border-radius: 10px;
-    color: white;
-}
-.blog-container * {
-    color:white;
-}
-.blog-header img {
-    border-radius:100px;
-}
-.blog-comment {
-    border-radius:5px;
-}
-
-.mb-4 ul li{
-    list-style-type: none;
+    min-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
