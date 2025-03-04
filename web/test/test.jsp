@@ -114,7 +114,7 @@
                 <h3>Do you want to review the skipped questions, or submit the test now?</h3>
                 <div class="popup-buttons">
                     <button class="review-btn" onclick="closePopup()">Review skipped questions</button>
-                    <button class="submit-btn" onclick="submitFinalTest()">Submit test</button>
+                    <button class="submit-btn" id="submit" onclick="submitFinalTest()">Submit test</button>
                 </div>
             </div>
         </div>
