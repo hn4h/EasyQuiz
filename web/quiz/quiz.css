@@ -496,13 +496,15 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    border: 2px solid #e6e6e6;
-    background: #fff;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: #f3f3f3;
     padding: 10px 15px;
 }
 
 .flashcard-test .btn:hover {
-    background: #f3f3f3;
+    border-bottom-color: #640D5F;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .flashcard-test span {
@@ -601,10 +603,38 @@
     }
 }
 
+.fade-out {
+    animation: fadeOut 0.5s forwards;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 .flashcard-inner {
     width: 100%;
     height: 100%;
-    position: re;
+    position: relative;
     transform-style: preserve-3d;
     transition: transform 0.4s;
 }
@@ -635,6 +665,117 @@
 
 .flashcard.flip .flashcard-inner {
     transform: rotateX(180deg);
+}
+
+.flashcard-complete {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: none;
+}
+
+.progress-actions {
+    display: flex;
+    margin: 10px 0;
+}
+
+.progress {
+    flex: 1;
+}
+
+.progress h3,
+.actions h3{
+    color: #555;
+}
+
+.progress-info {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.progress-info-complete {
+    flex: 1;
+}
+
+.progress-info-complete p {
+    display: flex;
+    justify-content: space-between; 
+    width: auto;
+    background: #ffbcfb;
+    color: #640D5F;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 0 20px 10px 5px;
+}
+
+.complete-icon {
+    font-size: 74px !important;
+    font-weight: bold !important;
+    color: #640D5F;
+    margin: 5px;
+}
+
+.backToLastBtn {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    color: #555;
+    border: none;
+    cursor: pointer;
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+.backToLastBtn span{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+.actions {
+    flex: 1;
+}
+
+.actions-info {
+    margin: 10px 0;
+}
+
+.actions button {
+    width: 100%;
+    background: #640D5F;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.actions button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#restartFlashcards a {
+    color: #555;
+}
+
+.actions button:hover {
+    background-color: #2A004E;
+}
+
+#restartFlashcards {
+    background: #fff;
+    border: 2px solid #e6e6e6;
+}
+
+#restartFlashcards:hover {
+    background-color: #e6e6e6;
 }
 
 .previous-next {
@@ -811,6 +952,26 @@
     width: 60%;
     padding: 10px 20px;
     border-left: 2px solid #e6e6e6;
+}
+
+.edit-term .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px auto;
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+
+.edit-term .btn a {
+    text-decoration: none;
+    color: #555;
+}
+
+.edit-term .btn span {
+    font-size: 22px;
+    color: #555;
+    margin: 0 5px;
 }
 
 .mode-btn {

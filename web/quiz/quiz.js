@@ -99,16 +99,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let isAnimating = false;
 
     function showFlashcard(newIndex, direction) {
-        if (isAnimating || newIndex < 0 || newIndex >= flashcards.length) return;
+        if (isAnimating || newIndex < 0 || newIndex >= flashcards.length)
+            return;
         isAnimating = true;
 
         const currentCard = flashcards[currentIndex];
         const nextCard = flashcards[newIndex];
 
-        // Nếu thẻ hiện tại đang bị lật thì reset lại mặt trước
-        currentCard.querySelector(".flashcard-inner").classList.remove("flip");
+        // **Reset về mặt trước**
+        currentCard.classList.remove("flip");
+        nextCard.classList.remove("flip");
 
-        // Đặt hướng di chuyển của thẻ cũ
         currentCard.classList.add(direction === "next" ? "slide-out-left" : "slide-out-right");
 
         setTimeout(() => {
@@ -122,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 nextCard.classList.add("active");
                 nextCard.classList.remove("slide-in-right", "slide-in-left");
 
-                // Reset mặt trước khi hiển thị thẻ mới
-                nextCard.querySelector(".flashcard-inner").classList.remove("flip");
+                // **Đảm bảo thẻ mới luôn ở mặt trước**
+                nextCard.classList.remove("flip");
 
                 currentIndex = newIndex;
                 pageIndicator.textContent = `${currentIndex + 1} / ${flashcards.length}`;
@@ -138,13 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     prevBtn.addEventListener("click", function () {
         showFlashcard(currentIndex - 1, "prev");
-    });
-
-    // Xử lý lật thẻ
-    flashcards.forEach(card => {
-        card.addEventListener("click", function () {
-            this.querySelector(".flashcard-inner").classList.toggle("flip");
-        });
     });
 
     // Ẩn tất cả thẻ trừ thẻ đầu tiên
@@ -225,6 +219,96 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+//----------------------------------Complete flash card
+document.addEventListener("DOMContentLoaded", function () {
+    const flashcards = document.querySelectorAll(".flashcard");
+    const flashcardSlide = document.getElementById("flashcardSlide");
+    const flashcardComplete = document.getElementById("flashcardComplete");
+    const nextButton = document.getElementById("nextBtn");
+    const prevButton = document.getElementById("prevBtn");
+    const pageIndicator = document.getElementById("pageIndicator");
+    const extraControls = document.querySelector(".extra-controls"); // Nhóm nút chức năng
+    const navControls = document.querySelector(".nav-controls"); // Nhóm nút điều hướng
+    const backToLastBtn = document.getElementById("backToLast");
+
+    let currentCard = 0;
+    let totalCards = flashcards.length;
+
+    function showCard(index) {
+        if (index < totalCards) {
+            flashcards.forEach(card => card.style.display = "none");
+            flashcards[index].style.display = "block";
+            pageIndicator.textContent = `${index + 1} / ${totalCards}`;
+
+            // Hiển thị lại giao diện khi chưa hoàn thành
+            flashcardSlide.style.display = "block";
+            navControls.style.display = "flex";
+            extraControls.style.display = "flex";
+            pageIndicator.style.display = "inline-block";
+            flashcardComplete.style.display = "none";
+        } else {
+
+            // Thêm hiệu ứng fade-out
+            flashcardSlide.classList.add("fade-out");
+
+            setTimeout(() => {
+                // Ẩn giao diện cũ
+                flashcardSlide.style.display = "none";
+                navControls.style.display = "none";
+                extraControls.style.display = "none";
+                pageIndicator.style.display = "none";
+
+                // Hiển thị trang hoàn thành với hiệu ứng fade-in
+                flashcardComplete.style.display = "block";
+                flashcardComplete.classList.add("fade-in");
+
+                // Hiển thị số thẻ đã hoàn thành
+                document.getElementById("completedCount").innerText = totalCards;
+            }, 500); // Đợi hiệu ứng fade-out hoàn thành (0.5s)
+        }
+    }
+
+    nextButton.addEventListener("click", function () {
+        currentCard++;
+        showCard(currentCard);
+    });
+
+    prevButton.addEventListener("click", function () {
+        if (currentCard > 0) {
+            currentCard--;
+            showCard(currentCard);
+        }
+    });
+
+    // Nút "Back to the last question" -> Quay lại thẻ cuối cùng
+    backToLastBtn.addEventListener("click", function () {
+    flashcardComplete.classList.add("fade-out");
+
+    setTimeout(() => {
+        // Ẩn trang hoàn thành
+        flashcardComplete.style.display = "none";
+
+        // Hiển thị lại flashcard cuối cùng và giao diện điều khiển
+        flashcardSlide.style.display = "block";
+        navControls.style.display = "flex";
+        extraControls.style.display = "flex";
+        pageIndicator.style.display = "inline-block";
+
+        // Hiển thị flashcard cuối cùng
+        currentCard = totalCards - 1;
+        showCard(currentCard);
+
+        // Hiệu ứng xuất hiện mượt mà
+        flashcardSlide.classList.remove("fade-out");
+        flashcardSlide.classList.add("fade-in");
+    }, 500); // Chờ hiệu ứng fade-out hoàn tất
+});
+
+
+    // Hiển thị thẻ đầu tiên khi tải trang
+    showCard(currentCard);
+});
+
 //------------------------------Sort terms 
 document.addEventListener("DOMContentLoaded", function () {
     const selectSort = document.querySelector(".term-header select");
@@ -257,24 +341,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //-----------------------Study mode button
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const studyMode = document.querySelector(".study-mode");
     const moreMode = document.querySelector(".more-mode");
 
-    studyMode.addEventListener("click", function(event) {
+    studyMode.addEventListener("click", function (event) {
         moreMode.style.display = (moreMode.style.display === "block") ? "none" : "block";
         event.stopPropagation(); // Ngăn chặn sự kiện click lan ra ngoài
     });
 
     // Ẩn menu khi click ra ngoài
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         if (!studyMode.contains(event.target) && !moreMode.contains(event.target)) {
             moreMode.style.display = "none";
         }
     });
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const toggleBtn = document.querySelector(".mode-content"); // Nút Hide/Show definitions hoặc terms
     const swapBtn = document.querySelector(".swapBtn"); // Nút đổi giữa term & definition
     const verticalLine = document.querySelector(".vertical-line-mode"); // Đường kẻ
@@ -286,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let isHidden = false; // Trạng thái ẩn hiện
 
     // Ẩn hoặc hiện definitions hoặc terms khi click vào "Hide definitions"
-    toggleBtn.addEventListener("click", function() {
+    toggleBtn.addEventListener("click", function () {
         if (isDefinitionMode) {
             // Chế độ definitions -> chỉ ẩn hoặc hiện definitions
             definitions.forEach(def => def.classList.toggle("hidden"));
@@ -308,7 +392,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Chuyển đổi giữa hiển thị term <-> definition
-    swapBtn.addEventListener("click", function() {
+    swapBtn.addEventListener("click", function () {
         isDefinitionMode = !isDefinitionMode; // Đảo trạng thái hiển thị
 
         // Đổi chữ của toggleBtn theo chế độ hiện tại
@@ -336,7 +420,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Xử lý sự kiện khi bấm vào nút
     scrollBtn.addEventListener("click", function () {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({top: 0, behavior: "smooth"});
     });
 });
 
