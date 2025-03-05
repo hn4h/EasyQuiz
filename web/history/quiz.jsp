@@ -23,12 +23,115 @@
     </head>
     <body>
         <div class="header">
-            <%@include file="../default/header.jsp" %>
+            <div class="logo">
+                <div class="menu-btn">
+                    <button class="sidebar-toggler" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <a href="home"><span>EasyQuiz</span></a>
+            </div>
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for study guides" name="">
+            </div>
+            <div class="create-login">
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                        </div>
+                    </div>
+                    <div class="upgrade-btn">
+                        <button>Upgrade: Free 7-day trial</button>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="./images/avatar/default.png" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <div>
+                                    <p>Do Duc Anh</p>
+                                    <p>duca@gmail.com</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="#" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+        <div class="folderPopup-container">
+            <div id="folderPopup" class="folder-popup">
+                <div class="folder-popup-content">
+                    <span class="close-btn material-symbols-rounded">close</span>
+                    <h2>Create a new folder</h2>
+                    <input type="text" id="folderName" placeholder="Title" class="folder-input">
+                    <div class="create-folder-btn">
+                        <button id="createFolderConfirm">Create folder</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="body">
             <aside class="sidebar">
-                <%@include file="../default/sidebar.jsp" %>
-            </aside>   
+                <nav class="sidebar-nav">
+                    <!--Top nav-->
+                    <ul class="nav-list primary-nav">
+                        <li class="nav-item">
+                            <a href="home" class="nav-link">
+                                <span class="material-symbols-rounded">home</span>
+                                <span class="nav-label">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="quiz" class="nav-link-actived">
+                                <span class="material-symbols-rounded">history</span>
+                                <span class="nav-label">History</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="blog" class="nav-link">
+                                <span class="material-symbols-rounded">rss_feed</span>
+                                <span class="nav-label">Blog</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--Bottom nav-->
+                    <ul class="nav-list secondary-nav">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="material-symbols-rounded">person</span>
+                                <span class="nav-label">Profile</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="material-symbols-rounded">settings</span>
+                                <span class="nav-label">Setting</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" class="nav-link">
+                                <span class="material-symbols-rounded">logout</span>
+                                <span class="nav-label">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
             <div class="body-container">
                 <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
                 <div class="history-card">
@@ -84,7 +187,7 @@
                             </c:forEach>
                         </c:if>
                         <!--month-->
-                        <c:if test="${empty todayQuizzes and empty weekQuizzes}">
+                        <c:if test="${empty todayQuizzes and empty weekQuizzes and not empty monthlyQuizzes}">
                             <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
                             <c:forEach var="quiz" items="${monthlyQuizzes}">
                                 <div class=" quiz-card bg-white-100 rounded mb-4">
@@ -99,12 +202,18 @@
                                 </div>
                             </c:forEach>
                         </c:if>
+                        <c:if test="${empty todayQuizzes and empty weekQuizzes and empty monthlyQuizzes}">
+                            <div class="empty-quiz" style="margin-top: 140px">
+                                <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">You haven't accessed any quiz set before</p>
+                                <img style="margin: 0 auto; width: 150px;" src="./images/icon/flashcard_icon.png" alt="Not found">
+                            </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="history.js"></script>
+        <script src="./history/history.js"></script>
     </body>
 
 </html>

@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import model.Account;
 import model.QuizHistory;
 import model.QuizSet;
 
@@ -25,7 +26,7 @@ import model.QuizSet;
  *
  * @author DUCA
  */
-@WebServlet(name = "HistoryQuizServlet", urlPatterns = {"/quiz"})
+@WebServlet(name = "HistoryQuizServlet", urlPatterns = {"/quizhistory"})
 public class HistoryQuizServlet extends HttpServlet {
 
     /**
@@ -66,16 +67,16 @@ public class HistoryQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        String userName = (String) session.getAttribute("userName");
-//
-//        if (userName == null) {
-//            response.sendRedirect("login.jsp");
-//            return;
-//        }
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("account");
+
+        if (acc == null) {
+            response.sendRedirect("login");
+            return;
+        }
 
         HistoryDAO dao = new HistoryDAO();
-        List<QuizHistory> historyList = dao.getHistoryQuizSet("EasyQuiz343293");
+        List<QuizHistory> historyList = dao.getHistoryQuizSet(acc.getUserName());
 
         List<QuizHistory> todayQuizzes = new ArrayList<>();
         List<QuizHistory> weekQuizzes = new ArrayList<>();
