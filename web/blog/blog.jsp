@@ -27,7 +27,9 @@
             </div>
             <div class="search">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for blog" name="">
+                <form action="searchBlog" method="get">
+    <input type="text" name="keyword" placeholder="Search for blog">
+</form>
             </div>
             <div class="create-login">
                 <div type="button" class="create-btn-icon" id="createButton">

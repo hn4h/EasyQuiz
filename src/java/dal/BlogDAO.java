@@ -131,4 +131,29 @@ public class BlogDAO extends DBContext {
         }
         return 0;
     }
+    
+    public List<Blog> searchBlogsByTitle(String keyword) {
+    List<Blog> list = new ArrayList<>();
+    String sql = "SELECT * FROM Blog WHERE Blog_Title LIKE ? ORDER BY Blog_Date DESC";
+    try {
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, "%" + keyword + "%");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Blog blog = new Blog();
+            blog.setBlogId(rs.getInt("Blog_ID"));
+            blog.setBlogTitle(rs.getString("Blog_Title"));
+            blog.setBlogContent(rs.getString("Blog_Content"));
+            Account author = new Account();
+            author.setUserName(rs.getString("Author"));
+            blog.setAuthor(author);
+            blog.setCreatedDate(rs.getDate("Blog_Date"));
+            blog.setComments(getCommentsByBlogId(blog.getBlogId()));
+            list.add(blog);
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+    return list;
+}
 }
