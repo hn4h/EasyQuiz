@@ -35,15 +35,15 @@
                 <div class="flex space-x-4">
                     <div class="help-option">
                         <i class="fas fa-user fa-2x mb-2"></i>
-                        <span><a href="account.jsp">Account</a></span>
+                        <span><a href="feedback/account.jsp">Account</a></span>
                     </div>
                     <div class="help-option">
                         <i class="fas fa-credit-card fa-2x mb-2"></i>
-                        <span><a href="billing.jsp">Billing</a></span>
+                        <span><a href="feedback/billing.jsp">Billing</a></span>
                     </div>
                     <div class="help-option">
                         <i class="fas fa-graduation-cap fa-2x mb-2"></i>
-                        <span><a href="studying.jsp">Studying</a></span>
+                        <span><a href="feedback/studying.jsp">Studying</a></span>
                     </div>
                 </div>
             </div>

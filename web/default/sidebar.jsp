@@ -28,7 +28,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="history" class="nav-link-actived">
+                    <a href="quiz" class="nav-link-actived">
                         <span class="material-symbols-rounded">history</span>
                         <span class="nav-label">History</span>
                     </a>

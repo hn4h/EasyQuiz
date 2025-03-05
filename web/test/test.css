@@ -59,12 +59,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding: 5px;
     width: 60px; /* Điều chỉnh độ rộng tùy theo nhu cầu */
     text-align: center;
-    margin-right: 43px;  
+    margin-right: 43px;
     border-radius: 6px;
-/*    margin-bottom: 10px;*/
-/*    margin-left: 570px;*/
-/*    border-top-style: none;
-    border-left-style: none;*/
+    /*    margin-bottom: 10px;*/
+    /*    margin-left: 570px;*/
+    /*    border-top-style: none;
+        border-left-style: none;*/
 }
 .popup-show h2, label{
     padding-top: 20px;
@@ -96,7 +96,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     padding-left: 15px;
 }
 .test-word {
-/*    padding: 0 10px;*/
+    /*    padding: 0 10px;*/
     color: #656565;
     font-size: 20px;
 
@@ -104,7 +104,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .test-img{
     width: 25px;
-/*    top: 10%;*/
+    /*    top: 10%;*/
 }
 .number{
     margin: 0 auto;
@@ -156,7 +156,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .avatar-user:hover{
     background-color: #ffbcfb;
-    
+
     border-radius: 10px;
 }
 
@@ -204,7 +204,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background: linear-gradient(#e3f3fe, #ffbcfb);
     transition: 0.4s ease;
     width: 100%;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+
 }
 .container {
     justify-content: center;
@@ -274,7 +277,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .hamburger:hover{
     color: #ffbcfb;
     border-radius: 5px;
-    
+
 }
 
 /* Sidebar container (hidden by default using translateX) */
@@ -306,7 +309,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin-bottom: 10px;
 }
 .sidebar-header span:hover{
-     color: #ffbcfb;
+    color: #ffbcfb;
 }
 
 /* Close button style */
@@ -413,7 +416,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .popup h3{
     padding-top: 0px;
-/*    padding-left: 30px;*/
+    /*    padding-left: 30px;*/
     padding-right: 30px;
     color: #656565;
 }
@@ -457,4 +460,163 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 }
 .close-button:hover{
     color: #ffbcfb;
+}
+.flashcard-complete {
+    padding: 20px;
+    /*    background: white;*/
+    border-radius: 10px;
+    /*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    /*    margin-bottom: 20px;*/
+    /*    display: none;*/
+    width: 800px;
+    position: absolute;
+    top: 10%; /* Điều chỉnh giá trị này để đưa thẻ gần top bar */
+    left: 25%;
+
+}
+.progress-actions {
+    display: flex;
+    margin: 10px 0;
+}
+
+.progress {
+    flex: 1;
+}
+
+.progress h3,
+.actions h3{
+    color: #555;
+}
+
+.progress-info {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 10px solid #ff6b6b;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff7873;
+    position: relative;
+
+}
+.circle::after {
+    content: "0%";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.progress-info-complete {
+    flex: 1;
+}
+
+.progress-info-complete p {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    /*    background: #ffbcfb;
+        color: #640D5F;*/
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    /*    border-radius: 20px;*/
+    margin: 0 20px 10px 5px;
+}
+.correct{
+    color: #27AE60;
+    border: 1px solid #28a745;
+    border-radius: 7px;
+    background-color: #98f1d1;
+    white-space: nowrap;
+}
+.incorrect{
+    color: #e74c3c;
+    border: 1px solid firebrick;
+    border-radius: 7px;
+    background-color: #ffc38c;
+    /*    width: fit-content;  Tự động fit với nội dung */
+    white-space: nowrap; /* Ngăn chữ bị xuống dòng */
+
+}
+
+.complete-icon {
+    font-size: 74px !important;
+    font-weight: bold !important;
+    color: #640D5F;
+    margin: 5px;
+}
+
+.backToLastBtn {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    color: #555;
+    border: none;
+    cursor: pointer;
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+.backToLastBtn span{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+.actions {
+    flex: 1;
+}
+
+.actions-info {
+    margin: 10px 0;
+}
+
+.actions button {
+    width: 80%;
+    background: #640D5F;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.actions button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#restartFlashcards a {
+    color: #555;
+}
+
+.actions button:hover {
+    background-color: #2A004E;
+}
+
+#restartFlashcards {
+    background: #fff;
+    border: 2px solid #e6e6e6;
+}
+
+#restartFlashcards:hover {
+    background-color: #ffbcfb;
+}
+.Your-answers{
+ 
+    display: block; /* Đảm bảo nó là một phần tử block */
+    margin-top: 350px; /* Điều chỉnh khoảng cách xuống dưới */
+    text-align: left; /* Căn giữa nếu cần */
+    margin-left: 400px;
+    color: #555;
 }

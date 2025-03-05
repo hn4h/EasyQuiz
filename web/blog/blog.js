@@ -1,30 +1,4 @@
 
-//Toggle the visibility of a dropdown menu
-const toggleDropdown = (dropdown, menu, isOpen) => {
-    dropdown.classList.toggle("open", isOpen);
-    menu.style.height = isOpen ? `${menu.scrollHeight}px` : 0;
-}
-
-const closeAllDropdowns = () => {
-    document.querySelectorAll(".dropdown-container.open").forEach(openDropdown => {
-        toggleDropdown(openDropdown, openDropdown.querySelector(".dropdown-subject"), false);
-    });
-}
-//Attach click event to all dropdown toggles
-document.querySelectorAll(".dropdown-toggle").forEach(dropdownToggle => {
-    dropdownToggle.addEventListener("click", e => {
-        e.preventDefault();
-
-        const dropdown = e.target.closest(".dropdown-container");
-        const menu = dropdown.querySelector(".dropdown-subject");
-        const isOpen = dropdown.classList.contains("open");
-
-        closeAllDropdowns();//Close all open dropdowns
-
-        toggleDropdown(dropdown, menu, !isOpen); //Toggle current dropdown visibility
-    });
-});
-
 document.querySelector(".sidebar-toggler").addEventListener("click", () => {
     closeAllDropdowns();
 
@@ -53,21 +27,40 @@ document.addEventListener('click', () => {
     }
 });
 //----------------------Menu of create button
-// Get elements
+// Lấy các phần tử
 const createButton = document.getElementById('createButton');
 const dropdownCreateMenu = document.getElementById('createMenu');
+const createFolderItem = document.querySelector('.create-menu-item:nth-child(2)'); // Chọn mục "Folder"
+const folderPopup = document.getElementById('folderPopup');
+const closeBtn = document.querySelector('.close-btn');
 
-// Toggle dropdown menu on click
+// Toggle menu Create khi nhấn vào nút +
 createButton.addEventListener('click', (e) => {
     dropdownCreateMenu.classList.toggle('show');
-    e.stopPropagation(); // Prevent click from closing immediately
+    e.stopPropagation();
 });
 
-// Close menu when clicking outside
+// Đóng menu khi click ra ngoài
 document.addEventListener('click', () => {
     if (dropdownCreateMenu.classList.contains('show')) {
         dropdownCreateMenu.classList.remove('show');
     }
 });
+//------------------------Pop up create folder
+// Hiển thị popup
+createFolderItem.addEventListener('click', (e) => {
+    folderPopup.style.display = "block";
+    folderPopup.classList.remove("hide");
+    e.stopPropagation();
+});
+
+// Ẩn popup với animation fadeOut
+closeBtn.addEventListener('click', () => {
+    folderPopup.classList.add("hide");
+    setTimeout(() => {
+        folderPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
+});
+
 
 

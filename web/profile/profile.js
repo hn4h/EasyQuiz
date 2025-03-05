@@ -1,33 +1,3 @@
-// SwiperJS pagination
-const swiper = new Swiper('.card-wrapper', {
-    loop: true,
-    spaceBetween: 20,
-
-    // Pagination bullets
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-        dynamicBullets: true
-    },
-
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-
-    breakpoints: {
-        0: {
-            slidesPerView: 1
-        },
-        768: {
-            slidesPerView: 2
-        },
-        1024: {
-            slidesPerView: 3
-        },
-    }
-});
 //Toggle the visibility of a dropdown menu
 const toggleDropdown = (dropdown, menu, isOpen) => {
     dropdown.classList.toggle("open", isOpen);
@@ -117,4 +87,3 @@ closeBtn.addEventListener('click', () => {
         folderPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
-

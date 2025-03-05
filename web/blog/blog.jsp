@@ -30,12 +30,12 @@
                 <input type="text" placeholder="Search for blog" name="">
             </div>
             <div class="create-login">
-                <div type="button" class="create-btn">
-                    <span><i class="fa-solid fa-plus"></i></span>
-                    <p>Create</p>
-                </div> 
-                <div type="button" class="create-btn-icon">
-                    <span><i class="fa-solid fa-plus"></i></span>
+                <div type="button" class="create-btn-icon" id="createButton">
+                    <span><button><i class="fa-solid fa-plus"></i></button></span>
+                    <div class="create-menu" id="createMenu">
+                        <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                        <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                    </div>
                 </div>
 
                 <div class="upgrade-btn">
@@ -63,6 +63,18 @@
                 </div>
                 <div class="login-btn">
                     <a href="login"><button>Log in</button></a>
+                </div>
+            </div>
+        </div>
+        <div class="folderPopup-container">
+            <div id="folderPopup" class="folder-popup">
+                <div class="folder-popup-content">
+                    <span class="close-btn material-symbols-rounded">close</span>
+                    <h2>Create a new folder</h2>
+                    <input type="text" id="folderName" placeholder="Title" class="folder-input">
+                    <div class="create-folder-btn">
+                        <button id="createFolderConfirm">Create folder</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,136 +128,145 @@
             <div class="body-container">
                 <div class="blog-container">
                     <h1>Blogs</h1>
-                    <div class="blog-card">
-                        <div class="content-header">
-                            <h2>Blog 1</h2>
-                            <div class="header-btn">
-                                <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-                                <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
+                    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+                    <c:forEach var="blog" items="${blogs}">
+                        <div class="blog-card">
+                            <div class="content-header">
+                                <h2>${blog.blogTitle}</h2>
+                                <div class="header-btn">
+                                    <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
+                                    <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
+                                </div>
+                            </div>
+                            <div class="blog-header">
+                                <img alt="" src="./images/avatar/default.png"/> 
+                                <span style="margin-right: 20px;">${blog.author.userName}</span>
+                                <span class="material-symbols-rounded">update</span>
+                                <span>Created ${blog.createdDate}</span>
+                            </div>
+                            <div class="blog-content">
+                                <h3>${blog.blogTitle}</h3>
+                                <p>${blog.blogContent}</p>
+
+                                <div class="blog-comment">
+                                    <input type="text" placeholder="Your comment here...">
+                                    <span class="send-btn material-symbols-rounded">send</span>
+                                    <span class="chat-btn material-symbols-rounded" id="chatBtn${blog.blogId}">chat</span>
+                                </div>
+
+                                <div class="comment-window" id="commentWindow${blog.blogId}" style="display: none;">
+                                    <c:forEach var="comment" items="${blog.comments}" varStatus="status">
+                                        <div class="comment ${status.index >= 3 ? 'hidden-comment' : ''}" id="comment-${blog.blogId}-${status.index}">
+                                            <img src="./images/avatar/default.png" alt="Avatar">
+                                            <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
+                                        </div>
+                                    </c:forEach>
+                                    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+                                    <c:if test="${fn:length(blog.comments) > 3}">
+                                        <a href="#" class="view-more" data-blogid="${blog.blogId}">View more comment...</a>
+                                    </c:if>
+                                </div>
+
                             </div>
                         </div>
-                        <div class="blog-header">
-                            <img alt="" src="./images/avatar/default.png"/> 
-                            <span style="margin-right: 20px;">Name of user</span>
-                            <span class="material-symbols-rounded">update</span>
-                            <span>Created 01/01/25</span>
-                        </div>
-                        <div class="blog-content">
-                            <h3>Title</h3>
-                            <div class="">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum? 
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum?
-                                </p>
-                            </div>
-                            <div class="blog-comment">
-                                <input type="text" placeholder="Your comment here...">
-                                <span class="send-btn material-symbols-rounded">send</span>
-                                <span class="chat-btn material-symbols-rounded" id="chatBtn1">chat</span>
-                            </div>
-                            <div class="comment-window" id="commentWindow1" style="display: none;">
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Huan123</strong>: I have made a comment</p>
-                                </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Me</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Cuong</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <a href="#">View more comment...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-card">
-                        <div class="content-header">
-                            <h2>Blog 2</h2>
-                            <div class="header-btn">
-                                <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-                                <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
-                            </div>
-                        </div>
-                        <div class="blog-header">
-                            <img alt="" src="./images/avatar/default.png"/> 
-                            <span style="margin-right: 20px;">Name of user</span>
-                            <span class="material-symbols-rounded">update</span>
-                            <span>Created 01/01/25</span>
-                        </div>
-                        <div class="blog-content">
-                            <h3>Title</h3>
-                            <div class="">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum? 
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum?
-                                </p>
-                            </div>
-                            <div class="blog-comment">
-                                <input type="text" placeholder="Your comment here...">
-                                <span class="send-btn material-symbols-rounded">send</span>
-                                <span class="chat-btn material-symbols-rounded" id="chatBtn2">chat</span>
-                            </div>
-                            <div class="comment-window" id="commentWindow2" style="display: none;">
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Huan123</strong>: I have made a comment</p>
-                                </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Me</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Cuong</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <a href="#">View more comment...</a>
-                            </div>
-                        </div>
+                    </c:forEach>
+
+                    <div class="pagination">
+                        <c:if test="${currentPage > 1}">
+                            <a href="blog?page=${currentPage - 1}" class="page-link">Previous</a>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <a href="blog?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}">${i}</a>
+                        </c:forEach>
+                        <c:if test="${currentPage < totalPages}">
+                            <a href="blog?page=${currentPage + 1}" class="page-link">Next</a>
+                        </c:if>
                     </div>
                 </div>
             </div>
+
+            <style>
+                .pagination {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 20px;
+                }
+
+                .page-link {
+                    display: inline-block;
+                    padding: 8px 12px;
+                    margin: 0 5px;
+                    background: #640D5F;
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 5px;
+                }
+
+                .page-link.active {
+                    background: #640D5F;
+                    font-weight: bold;
+                }
+
+                .page-link:hover {
+                    background: #2A004E;
+                }
+            </style>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.querySelector(".blog-container").addEventListener("click", function (event) {
+
+                        if (event.target.classList.contains("chat-btn")) {
+                            let blogId = event.target.id.replace("chatBtn", "");
+                            let commentWindow = document.getElementById("commentWindow" + blogId);
+                            commentWindow.style.display = (commentWindow.style.display === "none" || commentWindow.style.display === "") ? "block" : "none";
+                        }
+
+                        if (event.target.classList.contains("view-more")) {
+                            event.preventDefault();
+                            let blogId = event.target.getAttribute("data-blogid");
+                            let commentWindow = document.getElementById("commentWindow" + blogId);
+                            let comments = commentWindow.querySelectorAll(".comment");
+                            let hiddenCount = 0;
+
+                            for (let i = 0; i < comments.length; i++) {
+                                if (comments[i].classList.contains("hidden-comment")) {
+                                    if (hiddenCount < 3) {
+                                        comments[i].classList.remove("hidden-comment");
+                                        hiddenCount++;
+                                    }
+                                }
+                            }
+
+                            if (commentWindow.querySelectorAll(".hidden-comment").length === 0) {
+                                event.target.style.display = "none";
+                            }
+                        }
+                    });
+                });
+            </script>
         </div>
-        <style>
-            .comment-window {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin-top: 10px;
-            }
+    </div>
+    <style>
+        .comment-window {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
 
-            .comment {
-                display: flex;
-                align-items: center;
-                margin-bottom: 5px;
-            }
+        .comment {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
 
-            .comment img {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                margin-right: 10px;
-            }
-        </style>
-        <script>
-            document.getElementById('chatBtn1').addEventListener('click', function () {
-                var commentWindow = document.getElementById('commentWindow1');
-                if (commentWindow.style.display === 'none') {
-                    commentWindow.style.display = 'block';
-                } else {
-                    commentWindow.style.display = 'none';
-                }
-            });
-            document.getElementById('chatBtn2').addEventListener('click', function () {
-                var commentWindow = document.getElementById('commentWindow2');
-                if (commentWindow.style.display === 'none') {
-                    commentWindow.style.display = 'block';
-                } else {
-                    commentWindow.style.display = 'none';
-                }
-            });
-        </script>
-        <script src="blog.js"></script>
-    </body>
+        .comment img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+    <script src="./blog/blog.js"></script>
+</body>
 
 </html>

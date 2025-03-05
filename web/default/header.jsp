@@ -35,7 +35,7 @@
                     <span><button><i class="fa-solid fa-plus"></i></button></span>
                     <div class="create-menu" id="createMenu">
                         <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                        <a href="#" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
+                        <a href="#" class="create-menu-item" id="createFolderBtn"><i class="fa-solid fa-folder"></i> Folder</a>
                         <a href="#" class="create-menu-item"><i class="fa-solid fa-user-group"></i> Class</a>
                     </div>
                 </div>

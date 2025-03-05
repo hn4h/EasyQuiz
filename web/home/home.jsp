@@ -1,6 +1,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,8 +34,7 @@
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
                             <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-user-group"></i> Class</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -66,7 +66,18 @@
                         <a href="login"><button>Log in</button></a>
                     </div>
                 </c:if>
-
+            </div>
+        </div>
+        <div class="folderPopup-container">
+            <div id="folderPopup" class="folder-popup">
+                <div class="folder-popup-content">
+                    <span class="close-btn material-symbols-rounded">close</span>
+                    <h2>Create a new folder</h2>
+                    <input type="text" id="folderName" placeholder="Title" class="folder-input">
+                    <div class="create-folder-btn">
+                        <button id="createFolderConfirm">Create folder</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="body">
@@ -81,7 +92,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="history" class="nav-link">
+                            <a href="quiz" class="nav-link">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>
@@ -120,54 +131,23 @@
                 <div class="recents-container">
                     <h2>Recents</h2>
                     <div class="recents-list">
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
+                        <c:forEach items="${quizSetHistoryTop4}" var="quizSet"> 
+                            <div class="recents-item">
                                 <div>
-                                    Type - ?? terms - by ????
+                                    <i class="fa-solid fa-book"></i> 
+                                </div>
+                                <div>
+                                    <p><a href="quiz-set-details?quizSetId=${quizSet.quizSetId}">${quizSet.quizSetName}</a></p> 
+                                    <div>
+                                        Quiz Set - ${quizSet.numberOfQuiz} terms - by ${quizSet.author.userName} 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
-                                <div>
-                                    Type - ?? terms - by ????
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
-                                <div>
-                                    Type - ?? terms - by ????
-                                </div>
-                            </div>
-                        </div>
-                        <div class="recents-item">
-                            <div>
-                                <i class="fa-solid fa-book"></i>
-                            </div>
-                            <div>
-                                <p>Name</p>
-                                <div>
-                                    Type - ?? terms - by ????
-                                </div>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                 </div>
                 <div class="container swiper">
-                    <h2>Popular flashcard sets</h2>
+                    <h2>Popular Flashcard sets</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${popularQuizSet}" var="i">
@@ -191,119 +171,62 @@
                         <div class="swiper-button-next"></div>
                     </div>
                 </div>
+
+
                 <div class="container swiper">
-                    <h2>Popular blogs</h2>
+                    <h2>Popular Blog posts</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of blog</h2>
-                                    <p class="preview-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, id adipisci dolor sapiente iusto excepturi, eum omnis voluptatem reprehenderit doloremque repellat at asperiores expedita maxime facere deserunt corrupti culpa officia!</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of blog</h2>
-                                    <p class="preview-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, id adipisci dolor sapiente iusto excepturi, eum omnis voluptatem reprehenderit doloremque repellat at asperiores expedita maxime facere deserunt corrupti culpa officia!</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <h2 class="card-title">Title of blog</h2>
-                                    <p class="preview-content">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, id adipisci dolor sapiente iusto excepturi, eum omnis voluptatem reprehenderit doloremque repellat at asperiores expedita maxime facere deserunt corrupti culpa officia!</p>
-                                    <div class="card-username">
-                                        <span style="display: flex; align-items: center;">
-                                            <img src="avt1.jpg" alt="Avatar">
-                                            <span>Name of user</span>
-                                        </span>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
+                            <c:forEach items="${popularBlog}" var="blog">
+                                <li class="card-item swiper-slide">
+                                    <a href="#" class="card-link">
+                                        <h2 class="card-title">${blog.blogTitle}</h2>
+                                        <p class="preview-content">
+                                            <c:choose>
+                                                <c:when test="${fn:length(blog.blogContent) > 100}">
+                                                    ${fn:substring(blog.blogContent, 0, 100)}...
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${blog.blogContent}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </p>
+                                        <div class="card-username">
+                                            <span style="display: flex; align-items: center;">
+                                                <img src="default-avatar.jpg" alt="Avatar">
+                                                <span>${blog.author.userName}</span>
+                                            </span>
+                                            <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                        </div>
+                                    </a>
+                                </li>
+                            </c:forEach>
                         </ul>
                         <div class="swiper-pagination"></div>
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
                     </div>
                 </div>
+
+
                 <div class="container swiper">
                     <h2>Top creator</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="avt1.jpg" alt="Avatar">
-                                        <p>Name of user</p>
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="avt1.jpg" alt="Avatar">
-                                        <p>Name of user</p>
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="avt1.jpg" alt="Avatar">
-                                        <p>Name of user</p>
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="avt1.jpg" alt="Avatar">
-                                        <p>Name of user</p>
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item swiper-slide">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="avt1.jpg" alt="Avatar">
-                                        <p>Name of user</p>
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ??? flashcard sets</p>
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
+                            <c:forEach items="${topAuthors}" var="creator"> 
+                                <li class="card-item swiper-slide">
+                                    <a href="#" class="card-link">
+                                        <div class="card-avt">
+                                            <img src="${creator.account.profileImage}" alt="Avatar"> 
+                                            <p>${creator.account.userName}</p> 
+                                        </div>
+                                        <div class="card-username">
+                                            <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
+                                            <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                        </div>
+                                    </a>
+                                </li>
+                            </c:forEach>
                         </ul>
                         <div class="swiper-pagination"></div>
                         <div class="swiper-button-prev"></div>

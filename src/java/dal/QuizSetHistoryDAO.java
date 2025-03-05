@@ -36,5 +36,11 @@ public class QuizSetHistoryDAO extends DBContext {
         }
         return list;
     }
+    
+    public static void main(String[] args) {
+        QuizSetHistoryDAO qs = new QuizSetHistoryDAO();
+        List<QuizSet> d = qs.getQuizSetHistoryTop4ByUserName("EasyQuiz343293");
+        System.out.println(d.size());
+    }
     //Get popular quiz set
 }

@@ -4,7 +4,7 @@
  */
 package controller;
 
-import dal.BlogDAO;
+import dal.HistoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,16 +12,21 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
-import model.Blog;
-import service.BlogService;
+import java.util.Map;
+import model.QuizHistory;
+import model.QuizSet;
 
 /**
  *
  * @author DUCA
  */
-@WebServlet(name = "BlogServlet", urlPatterns = {"/blog"})
-public class BlogServlet extends HttpServlet {
+@WebServlet(name = "HistoryQuizServlet", urlPatterns = {"/quiz"})
+public class HistoryQuizServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +45,10 @@ public class BlogServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BlogServlet</title>");
+            out.println("<title>Servlet HistoryServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BlogServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HistoryServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,28 +66,43 @@ public class BlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDAO blogDAO = new BlogDAO();
-        int page = 1;
-        int pageSize = 5;
+//        HttpSession session = request.getSession();
+//        String userName = (String) session.getAttribute("userName");
+//
+//        if (userName == null) {
+//            response.sendRedirect("login.jsp");
+//            return;
+//        }
 
-        String pageParam = request.getParameter("page");
-        if (pageParam != null) {
-            try {
-                page = Integer.parseInt(pageParam);
-            } catch (NumberFormatException e) {
-                page = 1;
+        HistoryDAO dao = new HistoryDAO();
+        List<QuizHistory> historyList = dao.getHistoryQuizSet("EasyQuiz343293");
+
+        List<QuizHistory> todayQuizzes = new ArrayList<>();
+        List<QuizHistory> weekQuizzes = new ArrayList<>();
+        Map<String, List<QuizHistory>> monthlyQuizzes = new LinkedHashMap<>();
+
+        Date now = new Date();
+        long oneDayMillis = 24 * 60 * 60 * 1000;
+        long oneWeekMillis = 7 * oneDayMillis;
+
+        for (QuizHistory quiz : historyList) {
+            Date quizDate = quiz.getQuizDate();
+            long diffMillis = now.getTime() - quizDate.getTime();
+
+            if (diffMillis <= oneDayMillis) {
+                todayQuizzes.add(quiz);
+            } else if (diffMillis <= oneWeekMillis) {
+                weekQuizzes.add(quiz);
+            } else {
+                String monthYear = quiz.getMonthYear();
+                monthlyQuizzes.computeIfAbsent(monthYear, k -> new ArrayList<>()).add(quiz);
             }
         }
 
-        List<Blog> blogs = blogDAO.getBlogsByPage(page, pageSize);
-        int totalBlogs = blogDAO.getTotalBlogs();
-        int totalPages = (int) Math.ceil((double) totalBlogs / pageSize);
-
-        request.setAttribute("blogs", blogs);
-        request.setAttribute("currentPage", page);
-        request.setAttribute("totalPages", totalPages);
-
-        request.getRequestDispatcher("blog/blog.jsp").forward(request, response);
+        request.setAttribute("todayQuizzes", todayQuizzes);
+        request.setAttribute("weekQuizzes", weekQuizzes);
+        request.setAttribute("monthlyQuizzes", monthlyQuizzes);
+        request.getRequestDispatcher("history/quiz.jsp").forward(request, response);
     }
 
     /**

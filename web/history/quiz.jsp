@@ -3,6 +3,9 @@
     Created on : Feb 21, 2025, 2:14:10 PM
     Author     : DUCA
 --%>
+<%@ page import="java.util.*, model.QuizHistory" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +14,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Quizzes</title>
-        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <link rel="stylesheet" href="./history/history.css">
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -31,8 +33,8 @@
                 <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
                 <div class="history-card">
                     <div class="button2">
-                        <a href="#" class="quiz-button">Quiz</a>
-                        <a href="#" class="folders-button">Folders</a>
+                        <a href="quiz" class="quiz-button">Quiz</a>
+                        <a href="folderhistory" class="folders-button">Folders</a>
                     </div>
                     <div style="margin-top: 20px;" class="flex justify-between items-center mb-4">
                         <select class="border border-gray-300 px-4 py-2 rounded">
@@ -49,38 +51,54 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold mb-2">TODAY</h2>
-                        <div class=" quiz-card bg-white-100 rounded mb-4">
-                            <div class=" quiz-title flex">
-                                <div>
-                                    <span class="text-sm text-gray-600">10 questions</span>
-                                    <span class="text-sm text-gray-600 ml-2">|</span>
-                                    <span class="text-sm text-gray-600 ml-2">denvau</span>
+                        <!--Today-->
+                        <c:if test="${not empty todayQuizzes}">
+                            <h2 class="text-lg font-bold mb-2">TODAY</h2>
+                            <c:forEach var="quiz" items="${todayQuizzes}">
+                                <div class=" quiz-card bg-white-100 rounded mb-4">
+                                    <div class=" quiz-title flex">
+                                        <div>
+                                            <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                            <span class="text-sm text-gray-600 ml-2">|</span>
+                                            <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                        </div>
+                                        <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                    </div>
                                 </div>
-                                <span class="title-text text-gray-600 mt-1">Quiz 1</span>
-                            </div>
-                        </div>
-                        <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
-                        <div class=" quiz-card bg-white-100 rounded mb-4">
-                            <div class=" quiz-title flex">
-                                <div>
-                                    <span class="text-sm text-gray-600">100 questions</span>
-                                    <span class="text-sm text-gray-600 ml-2">|</span>
-                                    <span class="text-sm text-gray-600 ml-2">duongdomic</span>
+                            </c:forEach>
+                        </c:if>
+                        <!--This week-->
+                        <c:if test="${empty todayQuizzes and not empty weekQuizzes}">
+                            <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
+                            <c:forEach var="quiz" items="${weekQuizzes}">
+                                <div class=" quiz-card bg-white-100 rounded mb-4">
+                                    <div class=" quiz-title flex">
+                                        <div>
+                                            <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                            <span class="text-sm text-gray-600 ml-2">|</span>
+                                            <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                        </div>
+                                        <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                    </div>
                                 </div>
-                                <span class="title-text text-gray-600">tieng anh</span>
-                            </div>
-                        </div>
-                        <div class=" quiz-card bg-white-100 rounded mb-4">
-                            <div class=" quiz-title flex">
-                                <div>
-                                    <span class="text-sm text-gray-600">69 questions</span>
-                                    <span class="text-sm text-gray-600 ml-2">|</span>
-                                    <span class="text-sm text-gray-600 ml-2">j97</span>
+                            </c:forEach>
+                        </c:if>
+                        <!--month-->
+                        <c:if test="${empty todayQuizzes and empty weekQuizzes}">
+                            <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
+                            <c:forEach var="quiz" items="${monthlyQuizzes}">
+                                <div class=" quiz-card bg-white-100 rounded mb-4">
+                                    <div class=" quiz-title flex">
+                                        <div>
+                                            <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                            <span class="text-sm text-gray-600 ml-2">|</span>
+                                            <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                        </div>
+                                        <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                    </div>
                                 </div>
-                                <span class="title-text text-gray-600">tieng trung</span>
-                            </div>
-                        </div>
+                            </c:forEach>
+                        </c:if>
                     </div>
                 </div>
             </div>
