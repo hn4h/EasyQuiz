@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Folder</title>
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-        <link rel="stylesheet" href="history.css">
+        <link rel="stylesheet" href="./history/history.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -30,23 +30,23 @@
             <div class="body-container">
                 <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
                 <div class="history-card">
-                    <div class="button2">
-                        <a href="#" class="folders-button">Quiz</a>
-                        <a href="#" class="quiz-button">Folders</a>
-                    </div>
-                    <div style="margin-top: 20px;" class="flex justify-between items-center mb-4">
-                        <button id="createFolderBtn">Create</button>
+                    <div class="button2" style="margin-bottom: 50px;">
+                        <a href="quiz" class="folders-button">Quiz</a>
+                        <a href="folderhistory" class="quiz-button">Folders</a>
                     </div>
                     <div>
-                        <h2 class="text-lg font-bold mb-2">TODAY</h2>
-                        <div class="folder-card bg-white-100 rounded mb-4">
-                            <div class=" quiz-title flex">
-                                <div>
-
+                        <c:if test="${not empty folder}">
+                            <c:forEach var="folder" items="${requestScope.folder}" >
+                                <div class="folder-card bg-white-100 rounded mb-4">
+                                    <div class=" quiz-title flex">
+                                        <div>
+                                            <p class="set-num">${folder.quizSetCount} Quiz Set</p>
+                                        </div>
+                                        <span class="title-text text-gray-600 mt-1"><i class="fa-solid fa-folder"></i>&nbsp;${folder.folderName}</span>
+                                    </div>
                                 </div>
-                                <span class="title-text text-gray-600 mt-1"><i class="fa-solid fa-folder"></i>&nbsp;Folder 1</span>
-                            </div>
-                        </div>
+                            </c:forEach>
+                        </c:if>
                     </div>
                 </div>
             </div>

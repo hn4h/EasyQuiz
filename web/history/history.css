@@ -647,3 +647,8 @@
     list-style-type: none;
 }
 
+.set-num{
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #666;
+}
