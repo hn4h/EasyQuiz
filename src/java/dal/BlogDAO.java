@@ -71,23 +71,63 @@ public class BlogDAO extends DBContext {
 
     public List<Comment> getCommentsByBlogId(int blogId) {
         List<Comment> comments = new ArrayList<>();
-        String sql = "SELECT Comment_ID, UserName, Blog_ID, Comment_Content, Comment_Date FROM Comment WHERE Blog_ID = ?";
+        String sql = "SELECT TOP 100 * FROM Comment WHERE Blog_ID = ? ORDER BY Comment_Date DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, blogId);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Comment comment = new Comment();
-                comment.setCommentId(rs.getInt("Comment_ID"));
-                comment.setUserName(rs.getString("UserName"));
-                comment.setBlogId(rs.getInt("Blog_ID"));
-                comment.setCommentContent(rs.getString("Comment_Content"));
-                comment.setCreatedDate(rs.getDate("Comment_Date"));
-                comments.add(comment);
+                Comment c = new Comment();
+                c.setCommentId(rs.getInt("Comment_ID"));
+                c.setUserName(rs.getString("UserName"));
+                c.setBlogId(rs.getInt("Blog_ID"));
+                c.setCommentContent(rs.getString("Comment_Content"));
+                c.setCreatedDate(rs.getDate("Comment_Date"));
+                comments.add(c);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return comments;
+    }
+
+    public List<Blog> getBlogsByPage(int page, int pageSize) {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT * FROM Blog ORDER BY Blog_Date DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, (page - 1) * pageSize);
+            ps.setInt(2, pageSize);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogId(rs.getInt("Blog_ID"));
+                blog.setBlogTitle(rs.getString("Blog_Title"));
+                blog.setBlogContent(rs.getString("Blog_Content"));
+                Account author = new Account();
+                author.setUserName(rs.getString("Author"));
+                blog.setAuthor(author);
+                blog.setCreatedDate(rs.getDate("Blog_Date"));
+                blog.setComments(getCommentsByBlogId(blog.getBlogId()));
+                list.add(blog);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public int getTotalBlogs() {
+        String sql = "SELECT COUNT(*) FROM Blog";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
     }
 }

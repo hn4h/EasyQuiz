@@ -4,6 +4,7 @@
  */
 package controller;
 
+import dal.BlogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -60,10 +61,27 @@ public class BlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogService blogService = new BlogService();
-        List<Blog> blogs = blogService.getAllBlogs();
+        BlogDAO blogDAO = new BlogDAO();
+        int page = 1;
+        int pageSize = 5;
+
+        String pageParam = request.getParameter("page");
+        if (pageParam != null) {
+            try {
+                page = Integer.parseInt(pageParam);
+            } catch (NumberFormatException e) {
+                page = 1;
+            }
+        }
+
+        List<Blog> blogs = blogDAO.getBlogsByPage(page, pageSize);
+        int totalBlogs = blogDAO.getTotalBlogs();
+        int totalPages = (int) Math.ceil((double) totalBlogs / pageSize);
 
         request.setAttribute("blogs", blogs);
+        request.setAttribute("currentPage", page);
+        request.setAttribute("totalPages", totalPages);
+
         request.getRequestDispatcher("blog/blog.jsp").forward(request, response);
     }
 

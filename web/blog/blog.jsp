@@ -126,93 +126,147 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <%@ page import="java.util.List" %>
-                <%@ page import="java.util.List" %>
-                <%@ page import="model.Blog" %>
-                <%@ page import="model.Comment" %>
-                <%@ page import="model.Account" %>
-                <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-                <%
-                    List<Blog> blogs = (List<Blog>) request.getAttribute("blogs");
-                %>
-
                 <div class="blog-container">
                     <h1>Blogs</h1>
-                    <% for (Blog blog : blogs) { %>
-                    <div class="blog-card">
-                        <div class="content-header">
-                            <h2><%= blog.getBlogTitle() %></h2>
-                            <div class="header-btn">
-                                <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-                                <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
-                            </div>
-                        </div>
-                        <div class="blog-header">
-                            <img alt="" src="./images/avatar/default.png"/> 
-                            <span style="margin-right: 20px;"><%= blog.getAuthor().getUserName() %></span>
-                            <span class="material-symbols-rounded">update</span>
-                            <span>Created <%= blog.getCreatedDate() %></span>
-                        </div>
-                        <div class="blog-content">
-                            <h3><%= blog.getBlogTitle() %></h3>
-                            <p><%= blog.getBlogContent() %></p>
-                            <div class="blog-comment">
-                                <input type="text" placeholder="Your comment here...">
-                                <span class="send-btn material-symbols-rounded">send</span>
-                                <span class="chat-btn material-symbols-rounded" onclick="toggleComments('<%= blog.getBlogId() %>')">chat</span>
-                            </div>
-                            <div class="comment-window" id="commentWindow<%= blog.getBlogId() %>" style="display: none;">
-                                <% if (blog.getComments().isEmpty()) { %>
-                                <p>No comments yet.</p>
-                                <% } else { %>
-                                <% for (Comment comment : blog.getComments()) { %>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong><%= comment.getUserName() %></strong>: <%= comment.getCommentContent() %></p>
+                    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+                    <c:forEach var="blog" items="${blogs}">
+                        <div class="blog-card">
+                            <div class="content-header">
+                                <h2>${blog.blogTitle}</h2>
+                                <div class="header-btn">
+                                    <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
+                                    <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
                                 </div>
-                                <% } %>
-                                <% } %>
-                                <a href="#">View more comments...</a>
+                            </div>
+                            <div class="blog-header">
+                                <img alt="" src="./images/avatar/default.png"/> 
+                                <span style="margin-right: 20px;">${blog.author.userName}</span>
+                                <span class="material-symbols-rounded">update</span>
+                                <span>Created ${blog.createdDate}</span>
+                            </div>
+                            <div class="blog-content">
+                                <h3>${blog.blogTitle}</h3>
+                                <p>${blog.blogContent}</p>
+
+                                <div class="blog-comment">
+                                    <input type="text" placeholder="Your comment here...">
+                                    <span class="send-btn material-symbols-rounded">send</span>
+                                    <span class="chat-btn material-symbols-rounded" id="chatBtn${blog.blogId}">chat</span>
+                                </div>
+
+                                <div class="comment-window" id="commentWindow${blog.blogId}" style="display: none;">
+                                    <c:forEach var="comment" items="${blog.comments}" varStatus="status">
+                                        <div class="comment ${status.index >= 3 ? 'hidden-comment' : ''}" id="comment-${blog.blogId}-${status.index}">
+                                            <img src="./images/avatar/default.png" alt="Avatar">
+                                            <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
+                                        </div>
+                                    </c:forEach>
+                                    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+                                    <c:if test="${fn:length(blog.comments) > 3}">
+                                        <a href="#" class="view-more" data-blogid="${blog.blogId}">View more comment...</a>
+                                    </c:if>
+                                </div>
+
                             </div>
                         </div>
+                    </c:forEach>
+
+                    <div class="pagination">
+                        <c:if test="${currentPage > 1}">
+                            <a href="blog?page=${currentPage - 1}" class="page-link">Previous</a>
+                        </c:if>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <a href="blog?page=${i}" class="page-link ${i == currentPage ? 'active' : ''}">${i}</a>
+                        </c:forEach>
+                        <c:if test="${currentPage < totalPages}">
+                            <a href="blog?page=${currentPage + 1}" class="page-link">Next</a>
+                        </c:if>
                     </div>
-                    <% } %>
                 </div>
-
-                <script>
-                    function toggleComments(blogId) {
-                        var commentWindow = document.getElementById("commentWindow" + blogId);
-                        if (commentWindow.style.display === "none") {
-                            commentWindow.style.display = "block";
-                        } else {
-                            commentWindow.style.display = "none";
-                        }
-                    }
-                </script>
             </div>
+
+            <style>
+                .pagination {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 20px;
+                }
+
+                .page-link {
+                    display: inline-block;
+                    padding: 8px 12px;
+                    margin: 0 5px;
+                    background: #640D5F;
+                    color: white;
+                    text-decoration: none;
+                    border-radius: 5px;
+                }
+
+                .page-link.active {
+                    background: #640D5F;
+                    font-weight: bold;
+                }
+
+                .page-link:hover {
+                    background: #2A004E;
+                }
+            </style>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    document.querySelector(".blog-container").addEventListener("click", function (event) {
+
+                        if (event.target.classList.contains("chat-btn")) {
+                            let blogId = event.target.id.replace("chatBtn", "");
+                            let commentWindow = document.getElementById("commentWindow" + blogId);
+                            commentWindow.style.display = (commentWindow.style.display === "none" || commentWindow.style.display === "") ? "block" : "none";
+                        }
+
+                        if (event.target.classList.contains("view-more")) {
+                            event.preventDefault();
+                            let blogId = event.target.getAttribute("data-blogid");
+                            let commentWindow = document.getElementById("commentWindow" + blogId);
+                            let comments = commentWindow.querySelectorAll(".comment");
+                            let hiddenCount = 0;
+
+                            for (let i = 0; i < comments.length; i++) {
+                                if (comments[i].classList.contains("hidden-comment")) {
+                                    if (hiddenCount < 3) {
+                                        comments[i].classList.remove("hidden-comment");
+                                        hiddenCount++;
+                                    }
+                                }
+                            }
+
+                            if (commentWindow.querySelectorAll(".hidden-comment").length === 0) {
+                                event.target.style.display = "none";
+                            }
+                        }
+                    });
+                });
+            </script>
         </div>
-        <style>
-            .comment-window {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin-top: 10px;
-            }
+    </div>
+    <style>
+        .comment-window {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
 
-            .comment {
-                display: flex;
-                align-items: center;
-                margin-bottom: 5px;
-            }
+        .comment {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
 
-            .comment img {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                margin-right: 10px;
-            }
-        </style>
-        <script src="./blog/blog.js"></script>
-    </body>
+        .comment img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+    </style>
+    <script src="./blog/blog.js"></script>
+</body>
 
 </html>
