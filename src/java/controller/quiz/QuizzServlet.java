@@ -77,7 +77,7 @@ public class QuizzServlet extends HttpServlet {
             return;
         }
 
-        request.setAttribute("quizSet", qsd.getQuizSetById(id));
+        request.setAttribute("quizDetail", qsd.getQuizDetailById(id));
         request.getRequestDispatcher("quiz/quiz.jsp").forward(request, response);
 
     }

@@ -7,8 +7,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Quiz</title>
-        <link rel="stylesheet" href="../quiz/quiz.css">
-        <link rel="shortcut icon" href="../images/logo/Easyquiz_logo.png">
+        <link rel="stylesheet" href="./quiz/quiz.css">
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -39,10 +39,10 @@
                         <button>Upgrade: Free 7-day trial</button>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
-                        <img src="../images/avatar/default.png" alt="Not found">
+                        <img src="./images/avatar/default.png" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
-                                <img src="../images/avatar/default.png" alt="Not found"/>
+                                <img src="./images/avatar/default.png" alt="Not found"/>
                                 <div>
                                     <p>Do Duc Anh</p>
                                     <p>duca@gmail.com</p>
@@ -154,70 +154,32 @@
                     </div>
                     <div class="flashcard-test">
                         <button class="btn">
-                            <img src="../images/icon/flashcard_icon.png" alt="">
+                            <img src="./images/icon/flashcard_icon.png" alt="">
                             <a href="">Flashcards</a>
                         </button>
                         <button class="btn">
-                            <img src="../images/icon/learn_icon.png" alt="">
+                            <img src="./images/icon/learn_icon.png" alt="">
                             <a href="">Learn</a>
                         </button>
                         <button class="btn">
-                            <img src="../images/icon/test_icon.png" alt="">
+                            <img src="./images/icon/test_icon.png" alt="">
                             <a href="">Test</a>
                         </button>
                     </div>
                     <div class="flashcard-content">
                         <div class="flashcard-slide" id="flashcardSlide">
-                            <div class="flashcard">
-                                <div class="flashcard-inner">
-                                    <div class="flashcard-front">
-                                        <p>1 + 1</p>
-                                    </div>
-                                    <div class="flashcard-back">
-                                        <p>2</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flashcard">
-                                <div class="flashcard-inner">
-                                    <div class="flashcard-front">
-                                        <p>3 + 2</p>
-                                    </div>
-                                    <div class="flashcard-back">
-                                        <p>5</p>
+                            <c:forEach items="${requestScope.quizDetail.flashCards}" var="q">
+                                <div class="flashcard">
+                                    <div class="flashcard-inner">
+                                        <div class="flashcard-front">
+                                            <p>${q.definition}</p>
+                                        </div>
+                                        <div class="flashcard-back">
+                                            <p>${q.term}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="flashcard">
-                                <div class="flashcard-inner">
-                                    <div class="flashcard-front">
-                                        <p>4 + 4</p>
-                                    </div>
-                                    <div class="flashcard-back">
-                                        <p>8</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flashcard">
-                                <div class="flashcard-inner">
-                                    <div class="flashcard-front">
-                                        <p>6 x 2</p>
-                                    </div>
-                                    <div class="flashcard-back">
-                                        <p>12</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="flashcard">
-                                <div class="flashcard-inner">
-                                    <div class="flashcard-front">
-                                        <p>10 ÷ 2</p>
-                                    </div>
-                                    <div class="flashcard-back">
-                                        <p>5</p>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="previous-next">
@@ -273,57 +235,35 @@
                     <hr>
                     <div class="flashcard-info">
                         <div class="actor-info">
-                            <img src="../images/avatar/default.png" alt="">
+                            <img src="${requestScope.quizDetail.qs.author.profileImage}" alt="">
                             <div class="name-info">
                                 <p>Created by</p>
-                                <h3>Duca</h3>
+                                <h3>${requestScope.quizDetail.qs.author.userName}</h3>
                                 <p>Created 3 years ago</p>
                             </div>
                         </div>
-                        <p class="flashcard-description">Day la quiz de test</p>
+                        <p class="flashcard-description">${requestScope.quizDetail.qs.quizSetDescription}</p>
                     </div>
                 </div>
                 <div class="term-container">
                     <div class="term-header">
-                        <h3>Term in this set (???)</h3>
+                        <h3>Term in this set (${requestScope.quizDetail.qs.numberOfQuiz})</h3>
                         <select name="" id="">
                             <option value="original">Original</option>
                             <option value="alphabetical">Alphabetical</option>
                         </select>
                     </div>
                     <div class="term-content">
-                        <div class="term-card">
-                            <div class="definition">
-                                <p>1 + 1</p>
+                        <c:forEach items="${requestScope.quizDetail.flashCards}" var="q">
+                            <div class="term-card">
+                                <div class="definition">
+                                    <p>${q.definition}</p>
+                                </div>
+                                <div class="term">
+                                    <p>${q.term}</p>
+                                </div>
                             </div>
-                            <div class="term">
-                                <p>2</p>
-                            </div>
-                        </div>
-                        <div class="term-card">
-                            <div class="definition">
-                                <p>c</p>
-                            </div>
-                            <div class="term">
-                                <p>4</p>
-                            </div>
-                        </div>
-                        <div class="term-card">
-                            <div class="definition">
-                                <p>a</p>
-                            </div>
-                            <div class="term">
-                                <p>2</p>
-                            </div>
-                        </div>
-                        <div class="term-card">
-                            <div class="definition">
-                                <p>b</p>
-                            </div>
-                            <div class="term">
-                                <p>2</p>
-                            </div>
-                        </div>
+                        </c:forEach>
                     </div>
                     <div class="edit-term">
                         <button class="btn">
@@ -360,7 +300,7 @@
                 </button>
             </div>
         </div>
-        <script src="../quiz/quiz.js"></script>
+        <script src="./quiz/quiz.js"></script>
     </body>
 
 </html>
