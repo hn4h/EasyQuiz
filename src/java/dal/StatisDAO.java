@@ -77,7 +77,7 @@ public class StatisDAO extends DBContext {
     public List<Account> getNewCreatedUser() {
         List<Account> list = new ArrayList<>();
         try {
-            String sql = "select top (10) UserName, profileImage from Accounts order by CreatedDate desc";
+            String sql = "select top (6) UserName, profileImage from Accounts order by CreatedDate desc";
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -97,7 +97,7 @@ public class StatisDAO extends DBContext {
         try {
             String sql = "select a.UserName, a.ProfileImage, a.Email, Count(f.Folder_ID) as NumOfFolder, Count(b.Blog_ID) as NumOfBlog, COUNT(qs.Quiz_Set_ID) as NumOfQuiz, COUNT(c.Comment_ID) as NumOfComment, COUNT(fb.Feedback_ID) as NumOfFeedBack from Accounts a\n"
                     + "left join Folder f on a.UserName = f.UserName\n"
-                    + "left join Blog b on a.UserName = b.UserName\n"
+                    + "left join Blog b on a.UserName = b.Author\n"
                     + "left join Quiz_Set qs on a.UserName = qs.Author\n"
                     + "left join Comment c on a.UserName = c.UserName\n"
                     + "left join Feedback fb on a.UserName = fb.UserName\n"
@@ -113,7 +113,7 @@ public class StatisDAO extends DBContext {
                 u.setNumComment(rs.getInt("NumOfComment"));
                 u.setNumFeedBack(rs.getInt("NumOfFeedBack"));
                 u.setNumFolder(rs.getInt("NumOfFolder"));
-                u.setNumQuizSet(rs.getInt("NumberOfQuiz"));
+                u.setNumQuizSet(rs.getInt("NumOfQuiz"));
                 list.add(u);
             }
         } catch (SQLException e) {

@@ -14,14 +14,27 @@ public class Transaction {
     private int transactionId;
     private int transactionTypeId;
     private Date createdDate;
-    private double transactionAmount;
+    private double amount;
+    private String currency;
+    private String status;
+    private String orderCode;
+    private String description;
 
-    public Transaction(int transactionId, int transactionTypeId, Date createdDate, double transactionAmount) {
+    public Transaction() {
+    }
+
+    public Transaction(int transactionId, int transactionTypeId, Date createdDate, double amount, String currency, String status, String orderCode, String description) {
         this.transactionId = transactionId;
         this.transactionTypeId = transactionTypeId;
         this.createdDate = createdDate;
-        this.transactionAmount = transactionAmount;
+        this.amount = amount;
+        this.currency = currency;
+        this.status = status;
+        this.orderCode = orderCode;
+        this.description = description;
     }
+
+    
 
     public int getTransactionId() {
         return transactionId;
@@ -47,12 +60,46 @@ public class Transaction {
         this.createdDate = createdDate;
     }
 
-    public double getTransactionAmount() {
-        return transactionAmount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setTransactionAmount(double transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getOrderCode() {
+        return orderCode;
+    }
+
+    public void setOrderCode(String orderCode) {
+        this.orderCode = orderCode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+   
     
 }

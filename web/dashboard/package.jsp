@@ -220,7 +220,7 @@
             <h2>New Package</h2>
             <label for="packageName">Package Name:</label><br>
             <input type="text" id="packageName" name="packageName"><br>
-            <label for="packageValue">Package Value:</label><br>
+            <label for="packageValue">Package Duration:</label><br>
             <input type="text" id="packageValue" name="packageValue"><br>
             <label for="packagePrice">Package Price:</label><br>
             <input type="text" id="packagePrice" name="packagePrice"><br>

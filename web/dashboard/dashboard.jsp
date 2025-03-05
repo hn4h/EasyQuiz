@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -147,30 +148,13 @@
                         <p>Recently user</p>
                     </div>
                     <div class="card-content">
-                        <div class="notify">
-                            <img src="avt1.jpg" alt="Not found">
-                            <p class="notify-content"><b>Duca</b> has just registered an account successfully</p>
+                        <c:forEach items="${requestScope.newUser}" var="c">
+                            <div class="notify">
+                            <img src="${c.profileImage}" alt="Not found">
+                            <p class="notify-content"><b>${c.userName}</b> has just registered an account successfully</p>
                         </div>
-                        <div class="notify">
-                            <img src="avt1.jpg" alt="Not found">
-                            <p class="notify-content"><b>Duca</b> has just registered an account successfully</p>
-                        </div>
-                        <div class="notify">
-                            <img src="avt1.jpg" alt="Not found">
-                            <p class="notify-content"><b>Duca</b> has just registered an account successfully</p>
-                        </div>
-                        <div class="notify">
-                            <img src="avt1.jpg" alt="Not found">
-                            <p class="notify-content"><b>Duca</b> has just registered an account successfully</p>
-                        </div>
-                        <div class="notify">
-                            <img src="avt1.jpg" alt="Not found">
-                            <p class="notify-content"><b>Duca</b> has just registered an account successfully</p>
-                        </div>
-                        <div class="notify">
-                            <img src="avt1.jpg" alt="Not found">
-                            <p class="notify-content"><b>Duca</b> has just registered an account successfully</p>
-                        </div>
+                        </c:forEach>
+                        
                     </div>
                 </div>
             </div>

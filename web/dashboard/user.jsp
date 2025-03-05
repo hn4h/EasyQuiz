@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,105 +97,50 @@
             <div class="user-table">
                 <table>
                     <thead>
+                        
                         <tr>
-                            <th>ID <i class="fas fa-sort"></i></th>
+                            <!--<th>ID <i class="fas fa-sort"></i></th>-->
                             <th>Avatar <i class="fas fa-sort"></i></th>
-                            <th>Name <i class="fas fa-sort"></i></th>
+                            <th>User Name <i class="fas fa-sort"></i></th>
                             <th>Email <i class="fas fa-sort"></i></th>
                             <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="user-row" id="row-1" onclick="toggleDetails(1)">
-                            <td>1</td>
-                            <td><img src="avt1.jpg" alt="Not found"></td>
-                            <td>Airi Satou</td>
-                            <td>test1@email.com</td>
+                        <c:forEach items="${requestScope.users}" var="c" varStatus="status">
+                        <tr class="user-row" id="row-${status.index}" onclick="toggleDetails(${status.index})">
+                            <!--<td>1</td>-->
+                            <td><img src="${c.imageProfile}" alt="Not found"></td>
+                            <td>${c.userName}</td>
+                            <td>${c.email}</td>
                             <td>
-                                <span class="dropdown-icon material-symbols-rounded" id="icon-1">expand_more</span>
+                                <span class="dropdown-icon material-symbols-rounded" id="icon-${status.index}">expand_more</span>
                             </td>
                         </tr>
-                        <tr class="user-details" id="details-1">
+                        <tr class="user-details" id="details-${status.index}">
                             <td colspan="5">
                                 <div class="user-content">
                                     <div class="column">
-                                        <p><strong>ID:</strong> 1</p>
-                                        <p><strong>Name:</strong> Duca</p>
-                                        <p><strong>Email:</strong> duca@gmail.com</p>
+<!--                                        <p><strong>ID:</strong> 1</p>-->
+                                        <p><strong>Name:</strong> ${c.userName}</p>
+                                        <p><strong>Email:</strong> ${c.email}</p>
+                                        <p><strong>Feedback:</strong> ${c.numFeedBack}</p>
                                     </div>
                                     <div class="column">
-                                        <p><strong>Folder:</strong> 2</p>
-                                        <p><strong>Quiz set:</strong> 10</p>
-                                        <p><strong>Quiz test completed:</strong> 5</p>
+                                        <p><strong>Folder:</strong> ${c.numFolder}</p>
+                                        <p><strong>Quiz set:</strong> ${c.numQuizSet}</p>
+                                        <!--<p><strong>Quiz test completed:</strong> 5</p>-->
                                     </div>
                                     <div class="column">
-                                        <p><strong>Blog:</strong> 1</p>
-                                        <p><strong>Comment:</strong> 2</p>
-                                        <p><strong>Feedback:</strong> 0</p>
+                                        <p><strong>Blog:</strong> ${c.numBlog}</p>
+                                        <p><strong>Comment:</strong> ${c.numComment}</p>
+                                        
                                     </div>
                                 </div>
                             </td>
                         </tr>
-                        <tr class="user-row" id="row-2" onclick="toggleDetails(2)">
-                            <td>1</td>
-                            <td><img src="avt1.jpg" alt="Not found"></td>
-                            <td>Airi Satou</td>
-                            <td>test1@email.com</td>
-                            <td>
-                                <span class="dropdown-icon material-symbols-rounded" id="icon-2">expand_more</span>
-                            </td>
-                        </tr>
-                        <tr class="user-details" id="details-2">
-                            <td colspan="5">
-                                <div class="user-content">
-                                    <div class="column">
-                                        <p><strong>ID:</strong> 1</p>
-                                        <p><strong>Name:</strong> Duca</p>
-                                        <p><strong>Email:</strong> duca@gmail.com</p>
-                                    </div>
-                                    <div class="column">
-                                        <p><strong>Folder:</strong> 2</p>
-                                        <p><strong>Quiz set:</strong> 10</p>
-                                        <p><strong>Quiz test completed:</strong> 5</p>
-                                    </div>
-                                    <div class="column">
-                                        <p><strong>Blog:</strong> 1</p>
-                                        <p><strong>Comment:</strong> 2</p>
-                                        <p><strong>Feedback:</strong> 0</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="user-row" id="row-3" onclick="toggleDetails(3)">
-                            <td>1</td>
-                            <td><img src="avt1.jpg" alt="Not found"></td>
-                            <td>Airi Satou</td>
-                            <td>test1@email.com</td>
-                            <td>
-                                <span class="dropdown-icon material-symbols-rounded" id="icon-3">expand_more</span>
-                            </td>
-                        </tr>
-                        <tr class="user-details" id="details-3">
-                            <td colspan="5">
-                                <div class="user-content">
-                                    <div class="column">
-                                        <p><strong>ID:</strong> 1</p>
-                                        <p><strong>Name:</strong> Duca</p>
-                                        <p><strong>Email:</strong> duca@gmail.com</p>
-                                    </div>
-                                    <div class="column">
-                                        <p><strong>Folder:</strong> 2</p>
-                                        <p><strong>Quiz set:</strong> 10</p>
-                                        <p><strong>Quiz test completed:</strong> 5</p>
-                                    </div>
-                                    <div class="column">
-                                        <p><strong>Blog:</strong> 1</p>
-                                        <p><strong>Comment:</strong> 2</p>
-                                        <p><strong>Feedback:</strong> 0</p>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                    </c:forEach>
+                        
                     </tbody>
                 </table>
                 <div class="pagination">

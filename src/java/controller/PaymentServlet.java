@@ -85,13 +85,13 @@ public class PaymentServlet extends HttpServlet {
                     .builder()
                     .name("Trial Package")
                     .quantity(1)
-                    .price(2000)
+                    .price(200000)
                     .build();
 
             PaymentData paymentData = PaymentData
                     .builder()
                     .orderCode(orderCode)
-                    .amount(2000)
+                    .amount(200000)
                     .description("Thanh toán đơn hàng")
                     .returnUrl(domain + "/success.html")
                     .cancelUrl(domain + "/cancel.html")
