@@ -5,70 +5,11 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
+import model.FlashCard;
 import model.QuizSet;
+import model.QuizSetDetail;
 
 public class QuizSetDAO extends DBContext {
-
-    public void createQuizSet(String quizSetName, String description, String author) {
-        try {
-            String sql = "INSERT INTO QuizSet(quizSetName, description, author) VALUES(?,?,?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, quizSetName);
-            ps.setString(2, description);
-            ps.setString(3, author);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void deleteQuizSet(int quizSetID) {
-        try {
-            String sql = "DELETE FROM QuizSet WHERE quizSetID = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, quizSetID);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void updateQuizSet(int quizSetID, String quizSetName, String description) {
-        try {
-            String sql = "UPDATE QuizSet SET quizSetName = ?, description = ? WHERE quizSetID = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, quizSetName);
-            ps.setString(2, description);
-            ps.setInt(3, quizSetID);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void addQuestionToQuizSet(int quizSetID, int questionID) {
-        try {
-            String sql = "INSERT INTO QuizSetQuestion(quizSetID, questionID) VALUES(?,?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, quizSetID);
-            ps.setInt(2, questionID);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    public void removeQuestionFromQuizSet(int quizSetID, int questionID) {
-        try {
-            String sql = "DELETE FROM QuizSetQuestion WHERE quizSetID = ? AND questionID = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, quizSetID);
-            ps.setInt(2, questionID);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
 
     public List<QuizSet> getPopularQuizSet() {
         List<QuizSet> list = new ArrayList<>();
@@ -97,11 +38,59 @@ public class QuizSetDAO extends DBContext {
         }
         return list;
     }
-   
-    
+
+    public QuizSetDetail getQuizDetailById(int id) {
+//        if (this.getQuizDetailById(id) == null) {
+//            return null;
+//        }
+        List<FlashCard> list = new ArrayList<>();
+        try {
+            String sql = "select q.Quiz_content, a.Answer_Content from quiz q join Answer a on a.Quiz_ID = q.Quiz_ID\n"
+                    + "where q.Quiz_Set_ID = ? and a.Is_Correct = 1";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                FlashCard fc = new FlashCard();
+                fc.setDefinition(rs.getString("Quiz_Content"));
+                fc.setTerm(rs.getString("Answer_Content"));
+                list.add(fc);
+            }
+            return new QuizSetDetail(this.getQuizSetById(id), list);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public QuizSet getQuizSetById(int id) {
+        try {
+            String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, q.Author, q.Number_Of_Quiz, q.Created_Date, q.Quiz_Set_Description,a.ProfileImage FROM Quiz_Set q join Accounts a on a.UserName = q.Author WHERE Quiz_Set_ID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                QuizSet qs = new QuizSet();
+                qs.setQuizSetId(rs.getInt("Quiz_Set_ID"));
+                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
+                Account a = new Account();
+                a.setUserName(rs.getString("Author"));
+                a.setProfileImage(rs.getString("ProfileImage"));
+                qs.setAuthor(a);
+                qs.setCreatedDate(rs.getDate("Created_Date"));
+                qs.setQuizSetDescription(rs.getString("Quiz_Set_Description"));
+                return qs;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         QuizSetDAO d = new QuizSetDAO();
-        List<QuizSet> l = d.getPopularQuizSet();
-        System.out.println(l.size());
+
+        System.out.println(d.getQuizDetailById(1).getQs().getQuizSetName());
     }
 }
