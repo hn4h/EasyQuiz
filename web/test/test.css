@@ -461,30 +461,37 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .close-button:hover{
     color: #ffbcfb;
 }
-.container3 {
-    width: 800px;
-    top: 40%;
+.flashcard-complete {
     padding: 20px;
-    margin: auto;
+    /*    background: white;*/
     border-radius: 10px;
+    /*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+    /*    margin-bottom: 20px;*/
+    /*    display: none;*/
+    width: 800px;
+    position: absolute;
+    top: 10%; /* Điều chỉnh giá trị này để đưa thẻ gần top bar */
+    left: 25%;
+
 }
-.time-steps {
+.progress-actions {
     display: flex;
-    align-items: center;
-    gap: 200px; /* Khoảng cách giữa 2 phần tử */
-     font-weight: bold;
-}
-.next-steps{
-      font-weight: bold;
+    margin: 10px 0;
 }
 
-.title {
-    font-size: 24px;
-    font-weight: bold;
+.progress {
+    flex: 1;
 }
-.stats {
-    margin: 20px 0;
- 
+
+.progress h3,
+.actions h3{
+    color: #555;
+}
+
+.progress-info {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
 }
 .circle {
     width: 80px;
@@ -493,12 +500,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border: 10px solid #ff6b6b;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    margin: 10px 0;
     font-size: 18px;
     font-weight: bold;
     color: #ff7873;
     position: relative;
- 
+
 }
 .circle::after {
     content: "0%";
@@ -507,38 +514,109 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.correct {
+
+.progress-info-complete {
+    flex: 1;
+}
+
+.progress-info-complete p {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    /*    background: #ffbcfb;
+        color: #640D5F;*/
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    /*    border-radius: 20px;*/
+    margin: 0 20px 10px 5px;
+}
+.correct{
     color: #27AE60;
     border: 1px solid #28a745;
     border-radius: 7px;
     background-color: #98f1d1;
-    width: fit-content; /* Tự động fit với nội dung */
-    white-space: nowrap; /* Ngăn chữ bị xuống dòng */
-    padding: 2px 5px;
+    white-space: nowrap;
 }
-.incorrect {
+.incorrect{
     color: #e74c3c;
     border: 1px solid firebrick;
     border-radius: 7px;
     background-color: #ffc38c;
-    width: fit-content; /* Tự động fit với nội dung */
+    /*    width: fit-content;  Tự động fit với nội dung */
     white-space: nowrap; /* Ngăn chữ bị xuống dòng */
-    padding: 2px 5px;
-}
-.correct, incorrect{
-    display: block;
-        font-weight: bold;
- 
+
 }
 
-.card {
-    background: #f5f6fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin: 10px 0;
-    cursor: pointer;
-    transition: 0.3s;
+.complete-icon {
+    font-size: 74px !important;
+    font-weight: bold !important;
+    color: #640D5F;
+    margin: 5px;
 }
-.card:hover {
-    background: #e0e0e0;
+
+.backToLastBtn {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    color: #555;
+    border: none;
+    cursor: pointer;
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+.backToLastBtn span{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+.actions {
+    flex: 1;
+}
+
+.actions-info {
+    margin: 10px 0;
+}
+
+.actions button {
+    width: 80%;
+    background: #640D5F;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.actions button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#restartFlashcards a {
+    color: #555;
+}
+
+.actions button:hover {
+    background-color: #2A004E;
+}
+
+#restartFlashcards {
+    background: #fff;
+    border: 2px solid #e6e6e6;
+}
+
+#restartFlashcards:hover {
+    background-color: #ffbcfb;
+}
+.Your-answers{
+ 
+    display: block; /* Đảm bảo nó là một phần tử block */
+    margin-top: 350px; /* Điều chỉnh khoảng cách xuống dưới */
+    text-align: left; /* Căn giữa nếu cần */
+    margin-left: 400px;
+    color: #555;
 }
