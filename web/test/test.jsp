@@ -114,12 +114,14 @@
                 <h3>Do you want to review the skipped questions, or submit the test now?</h3>
                 <div class="popup-buttons">
                     <button class="review-btn" onclick="closePopup()">Review skipped questions</button>
-                    <button class="submit-btn" id="submit" onclick="submitFinalTest()">Submit test</button>
+                    <button class="submit-btn" id="submit" onclick="">Submit test</button>
                 </div>
             </div>
         </div>
         <!-- Linking SwiperJS script -->
         <!--        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>-->
         <script src="test.js"></script>
+        <div id="flashcardContainer"></div> <!-- Đây là nơi để render nội dung -->
     </body>
+    
 </html>
