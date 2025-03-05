@@ -1,12 +1,15 @@
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Name of user</title>
-    <link rel="stylesheet" href="profile.css">
-    <link rel="shortcut icon" href="../images/logo/Easyquiz_logo.png">
+    <title>Search</title>
+    <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
+    <link rel="stylesheet" href="search.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -121,57 +124,81 @@
             </nav>
         </aside>
         <div class="body-container">
-            <div class="user-container">
-                <img src="../images/avatar/default.png" alt="">
-                <div class="user-name">
-                    <h2>Name</h2>
-                    <p>Email name</p>
+            <div class="search-container">
+                <h2>Result for "???"</h2>
+                <div class="search-header">
+                    <a href="#" class="search-item">All results</a>
+                    <a href="#" class="search-item">Flashcard sets</a>
+                    <a href="#" class="search-item-actived">Users</a>
                 </div>
-            </div>
-            <div class="flashcard-folder">
-                <div class="flashcard-folder-header">
-                    <a href="#" class="flashcard-folder-item">Flashcard sets</a>
-                    <a href="#" class="flashcard-folder-item-actived">Folders</a>
-                </div>
-                <div class="search-user">
-                    <input type="text" placeholder="Search your folders" name="">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                <div class="folder-container">
-                    <ul class="folder-list">
-                        <li class="folder-item">
-                            <a href="" class="folder-link">
-                                <p>15 terms</p>
-                                <div class="title-icon">
-                                    <span class="material-symbols-rounded">folder</span>
-                                    <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h3>
+                <div class="user-container">
+                    <ul class="card-list">
+                        <li class="card-item">
+                            <a href="#" class="card-link">
+                                <div class="card-avt">
+                                    <img src="${creator.account.profileImage}" alt="Avatar"> 
+                                    <p>${creator.account.userName}</p> 
+                                </div>
+                                <div class="card-username">
+                                    <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
+                                    <button class="card-button material-symbols-rounded">arrow_forward</button>
                                 </div>
                             </a>
                         </li>
-                        <li class="folder-item">
-                            <a href="" class="folder-link">
-                                <p>15 terms</p>
-                                <div class="title-icon">
-                                    <span class="material-symbols-rounded">folder</span>
-                                    <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h3>
+                        <li class="card-item">
+                            <a href="#" class="card-link">
+                                <div class="card-avt">
+                                    <img src="${creator.account.profileImage}" alt="Avatar"> 
+                                    <p>${creator.account.userName}</p> 
+                                </div>
+                                <div class="card-username">
+                                    <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
+                                    <button class="card-button material-symbols-rounded">arrow_forward</button>
                                 </div>
                             </a>
                         </li>
-                        <li class="folder-item">
-                            <a href="" class="folder-link">
-                                <p>15 terms</p>
-                                <div class="title-icon">
-                                    <span class="material-symbols-rounded">folder</span>
-                                    <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h3>
+                        <li class="card-item">
+                            <a href="#" class="card-link">
+                                <div class="card-avt">
+                                    <img src="${creator.account.profileImage}" alt="Avatar"> 
+                                    <p>${creator.account.userName}</p> 
+                                </div>
+                                <div class="card-username">
+                                    <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
+                                    <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="card-item">
+                            <a href="#" class="card-link">
+                                <div class="card-avt">
+                                    <img src="${creator.account.profileImage}" alt="Avatar"> 
+                                    <p>${creator.account.userName}</p> 
+                                </div>
+                                <div class="card-username">
+                                    <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
+                                    <button class="card-button material-symbols-rounded">arrow_forward</button>
                                 </div>
                             </a>
                         </li>
                     </ul>
+                    <div class="number-page">
+                        <button>
+                            <span class="material-symbols-rounded">chevron_left</span>
+                            <span>Previous</span>
+                        </button>
+                        <span>Page ? of ???</span>
+                        <button>
+                            <span>Next</span>
+                            <span class="material-symbols-rounded">chevron_right</span>
+                        </button>
+                    </div>
                 </div>
+                
             </div>
         </div>
     </div>
-    <script src="profile.js"></script>
+    <script src="search.js"></script>
 </body>
 
 </html>
