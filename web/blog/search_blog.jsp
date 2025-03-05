@@ -32,7 +32,7 @@
                 </c:forEach>
             </c:otherwise>
         </c:choose>
-        <a href="blog.jsp">Back to Blogs</a>
+        <a href="blog">Back to Blogs</a>
     </div>
 </body>
 </html>

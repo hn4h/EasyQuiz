@@ -25,12 +25,14 @@
                 </div>
                 <span>EasyQuiz</span>
             </div>
-            <div class="search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <form action="searchBlog" method="get">
-    <input type="text" name="keyword" placeholder="Search for blog">
-</form>
-            </div>
+            <form action="searchBlog" method="get">
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input type="text" name="keyword" placeholder="Search for blog">
+                </div>
+            </form>
+
             <div class="create-login">
                 <div type="button" class="create-btn-icon" id="createButton">
                     <span><button><i class="fa-solid fa-plus"></i></button></span>
