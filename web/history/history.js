@@ -1,3 +1,34 @@
+// SwiperJS pagination
+const swiper = new Swiper('.card-wrapper', {
+    loop: true,
+    spaceBetween: 20,
+
+    // Pagination bullets
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        dynamicBullets: true
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+
+    breakpoints: {
+        0: {
+            slidesPerView: 1
+        },
+        768: {
+            slidesPerView: 2
+        },
+        1024: {
+            slidesPerView: 3
+        }
+    }
+});
+
 //Toggle the visibility of a dropdown menu
 const toggleDropdown = (dropdown, menu, isOpen) => {
     dropdown.classList.toggle("open", isOpen);
@@ -67,4 +98,23 @@ document.addEventListener('click', () => {
     if (dropdownCreateMenu.classList.contains('show')) {
         dropdownCreateMenu.classList.remove('show');
     }
+});
+
+const createFolderItem = document.querySelector('.create-menu-item:nth-child(2)'); // Chọn mục "Folder"
+const folderPopup = document.getElementById('folderPopup');
+const closeBtn = document.querySelector('.close-btn');
+
+// Hiển thị popup
+createFolderItem.addEventListener('click', (e) => {
+    folderPopup.style.display = "block";
+    folderPopup.classList.remove("hide");
+    e.stopPropagation();
+});
+
+// Ẩn popup với animation fadeOut
+closeBtn.addEventListener('click', () => {
+    folderPopup.classList.add("hide");
+    setTimeout(() => {
+        folderPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
 });

@@ -12,7 +12,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Account;
 import model.Folder;
 
 /**
@@ -60,14 +62,14 @@ public class HistoryFolderServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        HttpSession session = request.getSession();
-//        Account acc = (Account) session.getAttribute("account");
-//        if (acc == null) {
-//            response.sendRedirect("login");
-//            return;
-//        }
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("account");
+        if (acc == null) {
+            response.sendRedirect("login");
+            return;
+        }
         HistoryDAO dao = new HistoryDAO();
-        List<Folder> list = dao.getAllFodlerByUserName("EasyQuiz343293");
+        List<Folder> list = dao.getAllFodlerByUserName(acc.getUserName());
         request.setAttribute("folder", list);
         request.getRequestDispatcher("history/folders.jsp").forward(request, response);
     }
