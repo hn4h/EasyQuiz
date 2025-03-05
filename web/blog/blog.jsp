@@ -126,11 +126,23 @@
                 </nav>
             </aside>
             <div class="body-container">
+                <%@ page import="java.util.List" %>
+                <%@ page import="java.util.List" %>
+                <%@ page import="model.Blog" %>
+                <%@ page import="model.Comment" %>
+                <%@ page import="model.Account" %>
+                <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+                <%
+                    List<Blog> blogs = (List<Blog>) request.getAttribute("blogs");
+                %>
+
                 <div class="blog-container">
                     <h1>Blogs</h1>
+                    <% for (Blog blog : blogs) { %>
                     <div class="blog-card">
                         <div class="content-header">
-                            <h2>Blog 1</h2>
+                            <h2><%= blog.getBlogTitle() %></h2>
                             <div class="header-btn">
                                 <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
                                 <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
@@ -138,85 +150,46 @@
                         </div>
                         <div class="blog-header">
                             <img alt="" src="./images/avatar/default.png"/> 
-                            <span style="margin-right: 20px;">Name of user</span>
+                            <span style="margin-right: 20px;"><%= blog.getAuthor().getUserName() %></span>
                             <span class="material-symbols-rounded">update</span>
-                            <span>Created 01/01/25</span>
+                            <span>Created <%= blog.getCreatedDate() %></span>
                         </div>
                         <div class="blog-content">
-                            <h3>Title</h3>
-                            <div class="">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum? 
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum?
-                                </p>
-                            </div>
+                            <h3><%= blog.getBlogTitle() %></h3>
+                            <p><%= blog.getBlogContent() %></p>
                             <div class="blog-comment">
                                 <input type="text" placeholder="Your comment here...">
                                 <span class="send-btn material-symbols-rounded">send</span>
-                                <span class="chat-btn material-symbols-rounded" id="chatBtn1">chat</span>
+                                <span class="chat-btn material-symbols-rounded" onclick="toggleComments('<%= blog.getBlogId() %>')">chat</span>
                             </div>
-                            <div class="comment-window" id="commentWindow1" style="display: none;">
+                            <div class="comment-window" id="commentWindow<%= blog.getBlogId() %>" style="display: none;">
+                                <% if (blog.getComments().isEmpty()) { %>
+                                <p>No comments yet.</p>
+                                <% } else { %>
+                                <% for (Comment comment : blog.getComments()) { %>
                                 <div class="comment">
                                     <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Huan123</strong>: I have made a comment</p>
+                                    <p><strong><%= comment.getUserName() %></strong>: <%= comment.getCommentContent() %></p>
                                 </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Me</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Cuong</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <a href="#">View more comment...</a>
+                                <% } %>
+                                <% } %>
+                                <a href="#">View more comments...</a>
                             </div>
                         </div>
                     </div>
-                    <div class="blog-card">
-                        <div class="content-header">
-                            <h2>Blog 2</h2>
-                            <div class="header-btn">
-                                <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-                                <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
-                            </div>
-                        </div>
-                        <div class="blog-header">
-                            <img alt="" src="./images/avatar/default.png"/> 
-                            <span style="margin-right: 20px;">Name of user</span>
-                            <span class="material-symbols-rounded">update</span>
-                            <span>Created 01/01/25</span>
-                        </div>
-                        <div class="blog-content">
-                            <h3>Title</h3>
-                            <div class="">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum? 
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores tempore exercitationem neque voluptate temporibus quam veniam earum, enim totam tempora qui consectetur itaque quibusdam amet et praesentium? Deleniti, consequuntur nostrum?
-                                </p>
-                            </div>
-                            <div class="blog-comment">
-                                <input type="text" placeholder="Your comment here...">
-                                <span class="send-btn material-symbols-rounded">send</span>
-                                <span class="chat-btn material-symbols-rounded" id="chatBtn2">chat</span>
-                            </div>
-                            <div class="comment-window" id="commentWindow2" style="display: none;">
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Huan123</strong>: I have made a comment</p>
-                                </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Me</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <div class="comment">
-                                    <img src="./images/avatar/default.png" alt="Avatar">
-                                    <p><strong>Cuong</strong>: hello bro wish you a good day</p>
-                                </div>
-                                <a href="#">View more comment...</a>
-                            </div>
-                        </div>
-                    </div>
+                    <% } %>
                 </div>
+
+                <script>
+                    function toggleComments(blogId) {
+                        var commentWindow = document.getElementById("commentWindow" + blogId);
+                        if (commentWindow.style.display === "none") {
+                            commentWindow.style.display = "block";
+                        } else {
+                            commentWindow.style.display = "none";
+                        }
+                    }
+                </script>
             </div>
         </div>
         <style>
@@ -239,24 +212,6 @@
                 margin-right: 10px;
             }
         </style>
-        <script>
-            document.getElementById('chatBtn1').addEventListener('click', function () {
-                var commentWindow = document.getElementById('commentWindow1');
-                if (commentWindow.style.display === 'none') {
-                    commentWindow.style.display = 'block';
-                } else {
-                    commentWindow.style.display = 'none';
-                }
-            });
-            document.getElementById('chatBtn2').addEventListener('click', function () {
-                var commentWindow = document.getElementById('commentWindow2');
-                if (commentWindow.style.display === 'none') {
-                    commentWindow.style.display = 'block';
-                } else {
-                    commentWindow.style.display = 'none';
-                }
-            });
-        </script>
         <script src="./blog/blog.js"></script>
     </body>
 

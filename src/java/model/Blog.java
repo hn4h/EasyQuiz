@@ -5,18 +5,21 @@
 package model;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  *
  * @author 11
  */
 public class Blog {
+
     private int blogId;
     private Account author;
     private String blogContent;
     private String blogTitle;
     private Date createdDate;
     private boolean isDeleted;
+    private List<Comment> comments;
 
     public Blog(int blogId, Account author, String blogContent, Date createdDate, boolean isDeleted) {
         this.blogId = blogId;
@@ -28,13 +31,14 @@ public class Blog {
 
     public Blog() {
     }
+
     public String getBlogTitle() {
         return blogTitle;
     }
 
     public void setBlogTitle(String blogTitle) {
         this.blogTitle = blogTitle;
-    }    
+    }
 
     public int getBlogId() {
         return blogId;
@@ -52,7 +56,13 @@ public class Blog {
         this.author = author;
     }
 
-    
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public String getBlogContent() {
         return blogContent;
@@ -77,5 +87,5 @@ public class Blog {
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
-    
+
 }

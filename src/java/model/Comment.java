@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author 11
  */
 public class Comment {
+
     private int commentId;
     private String userName;
     private int blogId;
@@ -23,6 +24,9 @@ public class Comment {
         this.blogId = blogId;
         this.commentContent = commentContent;
         this.createdDate = createdDate;
+    }
+
+    public Comment() {
     }
 
     public int getCommentId() {
@@ -64,5 +68,5 @@ public class Comment {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
-    
+
 }
