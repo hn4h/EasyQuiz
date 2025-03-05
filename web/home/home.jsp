@@ -147,7 +147,7 @@
                     </div>
                 </div>
                 <div class="container swiper">
-                    <h2>Popular flashcard sets</h2>
+                    <h2>Popular Flashcard sets</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${popularQuizSet}" var="i">
@@ -174,7 +174,7 @@
 
 
                 <div class="container swiper">
-                    <h2>Popular Blog Posts</h2>
+                    <h2>Popular Blog posts</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${popularBlog}" var="blog">
