@@ -278,7 +278,7 @@ td img {
     margin-bottom: 30px;
     border-radius: 8px;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    width: 52.5%;
+    width: 79%;
     gap: 10px;
 }
 
@@ -303,14 +303,14 @@ td img {
 }
 
 .notify img {
-    height: 50px;
-    width: 50px;
+    height: 2rem;
+    width: 2rem;
     border-radius: 50%;
     border: 2px solid #e6e6e6;
 }
 
 .notify-content {
-    font-size: 16px;
+    font-size: 14px;
     width: 100%;
     margin-left: 10px;
 }
@@ -328,7 +328,7 @@ td img {
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 30px;
-    width: 79%;
+    width: 53%;
 }
 
 .user {
