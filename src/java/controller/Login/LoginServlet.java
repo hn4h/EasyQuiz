@@ -22,6 +22,17 @@ import model.GoogleAccount;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
+    private final AccountDAO accountDAO; // Field to hold AccountDAO
+
+    // Constructor for dependency injection
+    public LoginServlet() {
+        this.accountDAO = new AccountDAO(); // Default constructor for real use
+    }
+
+    // Constructor for testing (Mockito will use this)
+    public LoginServlet(AccountDAO accountDAO) {
+        this.accountDAO = accountDAO;
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -88,18 +99,17 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        AccountDAO d = new AccountDAO();
-        Account a = d.checkAuthen(email, password);
-        if (a == null) {
-            request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("login/login.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("account", a);
-            response.sendRedirect("home");
-        }
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            Account a = accountDAO.checkAuthen(email, password);
+            if (a == null) {
+                request.setAttribute("error", "Invalid username or password");
+                request.getRequestDispatcher("login/login.jsp").forward(request, response);
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("account", a);
+                response.sendRedirect("home");
+            }
     }
 
     /**

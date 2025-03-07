@@ -26,7 +26,11 @@ import model.Account;
  */
 @WebServlet(name = "ProcessFeedback", urlPatterns = {"/feedback"})
 public class ProcessFeedback extends HttpServlet {
+    private FeedbackDAO feedbackDAO;
 
+    public ProcessFeedback(FeedbackDAO feedbackDAO) {
+        this.feedbackDAO = feedbackDAO;
+    }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -36,22 +40,6 @@ public class ProcessFeedback extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProcessFeedback</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProcessFeedback at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -87,21 +75,21 @@ public class ProcessFeedback extends HttpServlet {
             //handle no username
             request.setAttribute("errorMessage", "You must log in before performing this action.");
             request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
-            return;
         }
-
-        if (feedbackContent == null || feedbackContent.trim().isEmpty()) {
+        else if (feedbackContent.trim().isEmpty()) {
             request.setAttribute("errorMessage", "You must complete the content before performing this action.");
             request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
-            return;
-        }
 
-        FeedbackDAO feedbackDAO = new FeedbackDAO();
-        feedbackDAO.addFeedback(account.getUserName(), feedbackContent);
-        //send success
-        System.out.println("Send feedback successfully.");
-        request.setAttribute("successMessage", "Send feedback successfully.");
-        request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
+        }
+        else {
+            try {
+                feedbackDAO.addFeedback(account.getUserName(), feedbackContent);
+                request.setAttribute("successMessage", "Send feedback successfully.");
+            } catch (RuntimeException e) {
+                request.setAttribute("errorMessage", "An error occurred while processing your feedback. Please try again later.");
+            }
+            request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
+        }
     }
 
     /**
