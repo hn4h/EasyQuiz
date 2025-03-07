@@ -69,7 +69,6 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-
     public void createAccount(String username, String password, String email) {
         String hashedPassword = PasswordUtil.hashPassword(password);
         String sql = "INSERT INTO Accounts(UserName, HashedPassword, email) values (?,?,?)";
