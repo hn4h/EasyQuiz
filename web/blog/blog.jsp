@@ -49,12 +49,12 @@
                     <img src="./images/avatar/default.png" alt="Not found">
                     <div class="user-menu" id="userMenu">
                         <div class="user-info">
-                            <img src="./images/avatar/default.png" alt="Not found"/>
-                            <div>
-                                <p>Do Duc Anh</p>
-                                <p>duca@gmail.com</p>
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
+                                <div>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
+                                </div>
                             </div>
-                        </div>
                         <hr/>
                         <a href="#" class="user-menu-item">Profile</a>
                         <a href="#" class="user-menu-item">Settings</a>
@@ -94,7 +94,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="quiz" class="nav-link">
+                            <a href="quizhistory" class="nav-link">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>

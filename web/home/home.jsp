@@ -44,10 +44,10 @@
                         <img src="./images/avatar/default.png" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
-                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>Do Duc Anh</p>
-                                    <p>duca@gmail.com</p>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
                                 </div>
                             </div>
                             <hr/>
@@ -92,7 +92,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="quiz" class="nav-link">
+                            <a href="quizhistory" class="nav-link">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>

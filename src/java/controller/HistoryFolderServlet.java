@@ -59,6 +59,7 @@ public class HistoryFolderServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -69,7 +70,7 @@ public class HistoryFolderServlet extends HttpServlet {
             return;
         }
         HistoryDAO dao = new HistoryDAO();
-        List<Folder> list = dao.getAllFodlerByUserName(acc.getUserName());
+        List<Folder> list = dao.getAllFolderByUserName(acc.getUserName()); // Fixed typo
         request.setAttribute("folder", list);
         request.getRequestDispatcher("history/folders.jsp").forward(request, response);
     }

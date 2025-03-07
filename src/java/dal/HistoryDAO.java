@@ -50,7 +50,7 @@ public class HistoryDAO extends DBContext {
         return list;
     }
 
-    public List<QuizSet> seachForHistoryQuiz(String quizSetName, String userName) {
+    public List<QuizSet> searchForHistoryQuiz(String quizSetName, String userName) {
         List<QuizSet> list = new ArrayList<>();
         String sql = "SELECT s.Quiz_Set_ID, s.Quiz_Set_Name, s.Number_Of_Quiz, s.Author "
                 + "FROM Quiz_Set_History h "
@@ -114,7 +114,7 @@ public class HistoryDAO extends DBContext {
         return list;
     }
 
-    public List<Folder> getAllFodlerByUserName(String userName) {
+    public List<Folder> getAllFolderByUserName(String userName) {
         List<Folder> list = new ArrayList<>();
         String sql = "SELECT \n"
                 + "    f.Folder_ID,\n"
@@ -163,10 +163,33 @@ public class HistoryDAO extends DBContext {
         }
         return list;
     }
+    
+    public List<QuizSet> getAllCreatedQuizSet(String userName){
+        List<QuizSet> list = new ArrayList<>();
+        String sql = "select * from Quiz_Set where Author = ?";
+        try{
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                QuizSet qs = new QuizSet();
+                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
+                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
+                Account a = new Account();
+                a.setUserName(rs.getString("Author"));
+                qs.setAuthor(a);
+                list.add(qs);
+            }
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
         HistoryDAO d = new HistoryDAO();
-        List<Folder> list = d.getAllFodlerByUserName("EasyQuiz343293");
+        List<Folder> list = d.getAllFolderByUserName("EasyQuiz343293");
         System.out.println(list.size());
     }
 
