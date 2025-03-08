@@ -4,6 +4,10 @@
     Author     : DUCA
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,6 +19,101 @@
         <link rel="shortcut icon" href="../images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .page-link {
+                display: inline-block;
+                padding: 8px 12px;
+                margin: 0 5px;
+                background: #640D5F;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+            }
+
+            .page-link.active {
+                background: #640D5F;
+                font-weight: bold;
+            }
+
+            .page-link:hover {
+                background: #2A004E;
+            }
+
+            .comment-window {
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin-top: 10px;
+            }
+
+            .comment {
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+            }
+
+            .comment img {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+
+            .popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                padding: 20px;
+                border: 1px solid #ccc;
+                box-shadow: 0 0 10px rgba(0,0,0,0.5);
+                z-index: 1000;
+            }
+
+            .popup-content {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .popup-content input, .popup-content textarea {
+                margin-bottom: 10px;
+                padding: 5px;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+            }
+
+            .message {
+                padding: 10px;
+                margin: 10px 0;
+                border-radius: 5px;
+            }
+
+            .success-message {
+                background-color: #d4edda;
+                color: #155724;
+            }
+
+            .error-message {
+                background-color: #f8d7da;
+                color: #721c24;
+            }
+        </style>
     </head>
 
     <body>
@@ -28,7 +127,6 @@
             <form action="searchBlog" method="get">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-
                     <input type="text" name="keyword" placeholder="Search for blog">
                 </div>
             </form>
@@ -45,16 +143,16 @@
                 <div class="upgrade-btn">
                     <button>Upgrade: Free 7-day trial</button>
                 </div>
-                <div class="avatar-user"  id="avatarUser">
+                <div class="avatar-user" id="avatarUser">
                     <img src="./images/avatar/default.png" alt="Not found">
                     <div class="user-menu" id="userMenu">
                         <div class="user-info">
-                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
-                                <div>
-                                    <p>${sessionScope.account.userName}</p>
-                                    <p>${sessionScope.account.email}</p>
-                                </div>
+                            <img src="${sessionScope.account.profileImage}" alt="Not found"/>
+                            <div>
+                                <p>${sessionScope.account.userName}</p>
+                                <p>${sessionScope.account.email}</p>
                             </div>
+                        </div>
                         <hr/>
                         <a href="#" class="user-menu-item">Profile</a>
                         <a href="#" class="user-menu-item">Settings</a>
@@ -131,8 +229,21 @@
             </aside>
             <div class="body-container">
                 <div class="blog-container">
-                    <h1>Blogs</h1>
-                    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+                    <!-- Display success or error message -->
+                    <c:if test="${not empty successMessage}">
+                        <div class="message success-message">${successMessage}</div>
+                    </c:if>
+                    <c:if test="${not empty errorMessage}">
+                        <div class="message error-message">${errorMessage}</div>
+                    </c:if>
+
+                    <div class="header-blog">
+                        <h1>Blogs</h1>
+                        <button class="btn" onclick="showPopup()">
+                            <span class="material-symbols-rounded">create</span>
+                            <p>Create</p>
+                        </button>
+                    </div>
                     <c:forEach var="blog" items="${blogs}">
                         <div class="blog-card">
                             <div class="content-header">
@@ -151,13 +262,11 @@
                             <div class="blog-content">
                                 <h3>${blog.blogTitle}</h3>
                                 <p>${blog.blogContent}</p>
-
                                 <div class="blog-comment">
                                     <input type="text" placeholder="Your comment here...">
                                     <span class="send-btn material-symbols-rounded">send</span>
                                     <span class="chat-btn material-symbols-rounded" id="chatBtn${blog.blogId}">chat</span>
                                 </div>
-
                                 <div class="comment-window" id="commentWindow${blog.blogId}" style="display: none;">
                                     <c:forEach var="comment" items="${blog.comments}" varStatus="status">
                                         <div class="comment ${status.index >= 3 ? 'hidden-comment' : ''}" id="comment-${blog.blogId}-${status.index}">
@@ -165,16 +274,13 @@
                                             <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
                                         </div>
                                     </c:forEach>
-                                    <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
                                     <c:if test="${fn:length(blog.comments) > 3}">
                                         <a href="#" class="view-more" data-blogid="${blog.blogId}">View more comment...</a>
                                     </c:if>
                                 </div>
-
                             </div>
                         </div>
                     </c:forEach>
-
                     <div class="pagination">
                         <c:if test="${currentPage > 1}">
                             <a href="blog?page=${currentPage - 1}" class="page-link">Previous</a>
@@ -188,89 +294,67 @@
                     </div>
                 </div>
             </div>
+        </div>
 
-            <style>
-                .pagination {
-                    display: flex;
-                    justify-content: center;
-                    margin-top: 20px;
-                }
+        <!-- Popup for creating a new blog -->
+        <div class="overlay" id="overlay" onclick="hidePopup()"></div>
+        <div class="popup" id="createPopup">
+            <div class="popup-content">
+                <h2>Create New Blog</h2>
+                <form action="${pageContext.request.contextPath}/createblog" method="post">
+                    <input type="text" name="title" id="blogTitle" placeholder="Blog Title" required>
+                    <textarea name="content" id="blogContent" placeholder="Blog Content" rows="5" required></textarea>
+                    <button type="submit" class="btn">Submit</button>
+                    <button type="button" class="btn" onclick="hidePopup()">Cancel</button>
+                </form>
+            </div>
+        </div>
 
-                .page-link {
-                    display: inline-block;
-                    padding: 8px 12px;
-                    margin: 0 5px;
-                    background: #640D5F;
-                    color: white;
-                    text-decoration: none;
-                    border-radius: 5px;
-                }
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelector(".blog-container").addEventListener("click", function (event) {
+                    if (event.target.classList.contains("chat-btn")) {
+                        let blogId = event.target.id.replace("chatBtn", "");
+                        let commentWindow = document.getElementById("commentWindow" + blogId);
+                        commentWindow.style.display = (commentWindow.style.display === "none" || commentWindow.style.display === "") ? "block" : "none";
+                    }
 
-                .page-link.active {
-                    background: #640D5F;
-                    font-weight: bold;
-                }
+                    if (event.target.classList.contains("view-more")) {
+                        event.preventDefault();
+                        let blogId = event.target.getAttribute("data-blogid");
+                        let commentWindow = document.getElementById("commentWindow" + blogId);
+                        let comments = commentWindow.querySelectorAll(".comment");
+                        let hiddenCount = 0;
 
-                .page-link:hover {
-                    background: #2A004E;
-                }
-            </style>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    document.querySelector(".blog-container").addEventListener("click", function (event) {
-
-                        if (event.target.classList.contains("chat-btn")) {
-                            let blogId = event.target.id.replace("chatBtn", "");
-                            let commentWindow = document.getElementById("commentWindow" + blogId);
-                            commentWindow.style.display = (commentWindow.style.display === "none" || commentWindow.style.display === "") ? "block" : "none";
-                        }
-
-                        if (event.target.classList.contains("view-more")) {
-                            event.preventDefault();
-                            let blogId = event.target.getAttribute("data-blogid");
-                            let commentWindow = document.getElementById("commentWindow" + blogId);
-                            let comments = commentWindow.querySelectorAll(".comment");
-                            let hiddenCount = 0;
-
-                            for (let i = 0; i < comments.length; i++) {
-                                if (comments[i].classList.contains("hidden-comment")) {
-                                    if (hiddenCount < 3) {
-                                        comments[i].classList.remove("hidden-comment");
-                                        hiddenCount++;
-                                    }
+                        for (let i = 0; i < comments.length; i++) {
+                            if (comments[i].classList.contains("hidden-comment")) {
+                                if (hiddenCount < 3) {
+                                    comments[i].classList.remove("hidden-comment");
+                                    hiddenCount++;
                                 }
                             }
-
-                            if (commentWindow.querySelectorAll(".hidden-comment").length === 0) {
-                                event.target.style.display = "none";
-                            }
                         }
-                    });
+
+                        if (commentWindow.querySelectorAll(".hidden-comment").length === 0) {
+                            event.target.style.display = "none";
+                        }
+                    }
                 });
-            </script>
-        </div>
-    </div>
-    <style>
-        .comment-window {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 10px;
-        }
+            });
 
-        .comment {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-        }
+            function showPopup() {
+                document.getElementById('createPopup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            }
 
-        .comment img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-    </style>
-    <script src="./blog/blog.js"></script>
-</body>
+            function hidePopup() {
+                document.getElementById('createPopup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('blogTitle').value = '';
+                document.getElementById('blogContent').value = '';
+            }
+        </script>
+        <script src="./blog/blog.js"></script>
+    </body>
 
 </html>
