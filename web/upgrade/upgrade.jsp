@@ -5,17 +5,18 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Upgrade package</title>
-        <link rel="stylesheet" href="upgrade.css"/>
+        <link rel="stylesheet" href="./upgrade/upgrade.css"/>
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
-    <body style="    background-image: url('../images/background/backgr1.png');
+    <body style="    background-image: url('./images/background/backgr1.png');
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -45,27 +46,20 @@
             <div class="py-4"></div>
             <h1 class="text-4xl font-bold text-center mb-8">Get better results with the <br/> number one learning platform</h1>
             <div class="plans">            
-                <div class="plan best-deal">
-                    <div class="plan-title">Monthly</div>
-                    <div class="plan-description">Billed monthly today</div>
-                    <div class="plan-price">49,000 VND <span>/month</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
-                <div class="plan">
-                    <div class="plan-title">Quarterly</div>
-                    <div class="plan-description">Billed every three months</div>
-                    <div class="plan-price">129,000 VND <span>/quarter</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
-                <div class="plan">
-                    <div class="plan-title">Annual</div>
-                    <div class="plan-description">Billed annually today</div>
-                    <div class="plan-price">449,000 VND <span>/year</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
+                <c:forEach var="p" items="${packages}">
+                    <div class="plan">
+                        <div class="plan-title">${p.name}</div>
+                        <div class="plan-description">${p.description}</div>
+                        <div class="plan-price">${p.price} VND</div>
+                        <div class="plan-description"></div>
+                        <form action="./order" method="post" id="paymentForm">
+                            <input type="hidden" name="packageName" value="${p.name}">
+                            <input type="hidden" name="price" value="${p.price}">
+                            <!-- Return URLs will be set by the server -->
+                            <button type="submit" id="plan-button secondary">Get EasyQuiz Premium</button>
+                        </form>
+                    </div>
+                </c:forEach>
             </div>
             <div class="py-8"></div>
             <div class="container mx-auto my-8 px-20 py-8">
@@ -97,27 +91,15 @@
 
             <h1 class="text-4xl font-bold text-center mb-8">Experience it today at a great price!</h1>
             <div class="plans">            
-                <div class="plan best-deal">
-                    <div class="plan-title">Monthly</div>
-                    <div class="plan-description">Billed monthly today</div>
-                    <div class="plan-price">49,000 VND <span>/month</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
-                <div class="plan">
-                    <div class="plan-title">Quarterly</div>
-                    <div class="plan-description">Billed every three months</div>
-                    <div class="plan-price">129,000 VND <span>/quarter</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
-                <div class="plan">
-                    <div class="plan-title">Annual</div>
-                    <div class="plan-description">Billed annually today</div>
-                    <div class="plan-price">449,000 VND <span>/year</span></div>
-                    <div class="plan-description">Recurring billing. Cancel any time.</div>
-                    <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                </div>
+                <c:forEach var="p" items="${packages}">
+                    <div class="plan">
+                        <div class="plan-title">${p.name}</div>
+                        <div class="plan-description">${p.description}</div>
+                        <div class="plan-price">${p.price} VND</div>
+                        <div class="plan-description"></div>
+                        <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </body>

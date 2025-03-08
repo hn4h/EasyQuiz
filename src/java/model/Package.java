@@ -15,13 +15,13 @@ public class Package {
     private String name;
     private String description;
     private int value;
-    private double price;
+    private int price;
     private Date createdDate;
 
     public Package() {
     }
 
-    public Package(int id, String name, String description, int value, double price, Date createdDate) {
+    public Package(int id, String name, String description, int value, int price, Date createdDate) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -72,11 +72,11 @@ public class Package {
         this.value = value;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
     }
     

@@ -1,15 +1,15 @@
 package model;
 
 public class CreatePaymentLinkRequestBody {
-    private String productName;
+    private String packageName;
     private int price;
     private String description;
     private String returnUrl;
     private String cancelUrl;
 
     // Getters
-    public String getProductName() {
-        return productName;
+    public String getPackageName() {
+        return packageName;
     }
 
     public int getPrice() {
@@ -29,8 +29,8 @@ public class CreatePaymentLinkRequestBody {
     }
 
     // Setters
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
     }
 
     public void setPrice(int price) {

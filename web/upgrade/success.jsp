@@ -1,0 +1,86 @@
+<%-- 
+    Document   : success
+    Created on : Mar 9, 2025, 1:43:10 AM
+    Author     : 11
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(#e3f3fe, #ffbcfb);
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .main-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            position: relative;
+        }
+        .success-icon {
+            width: 50px;
+            height: 50px;
+            background: green;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+        }
+        .payment-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #197d19;
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+        a {
+            color: #197d19;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #return-page-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #197d19;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        #return-page-btn:hover {
+            background: #125c12;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-box">
+        <div class="success-icon">✔</div>
+        <h4 class="payment-title">Payment Successful</h4>
+        <p>
+            If you have any questions, please send an email to
+            <a href="mailto:easiquiz@gmail.com">easiquiz@gmail.com</a>
+        </p>
+        <a href="/" id="return-page-btn">Return to Payment Link Creation</a>
+    </div>
+</body>
+</html>
