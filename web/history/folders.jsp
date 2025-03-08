@@ -47,10 +47,10 @@
                         <img src="./images/avatar/default.png" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
-                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>Do Duc Anh</p>
-                                    <p>duca@gmail.com</p>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
                                 </div>
                             </div>
                             <hr/>
@@ -131,10 +131,10 @@
                 </nav>
             </aside> 
             <div class="body-container">
-                <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
+                <h1 class="text-2xl font-bold mb-4">History</h1>
                 <div class="history-card">
                     <div class="button2" style="margin-bottom: 50px;">
-                        <a href="quiz" class="folders-button">Quiz</a>
+                        <a href="quizhistory" class="folders-button">Quiz</a>
                         <a href="folderhistory" class="quiz-button">Folders</a>
                     </div>
                     <div>

@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Map;
 import model.Account;
 import model.QuizHistory;
-import model.QuizSet;
 
 /**
  *
@@ -67,13 +66,13 @@ public class HistoryQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
-
-        if (acc == null) {
-            response.sendRedirect("login");
-            return;
-        }
+         HttpSession session = request.getSession();
+         Account acc = (Account) session.getAttribute("account");
+        
+         if (acc == null) {
+             response.sendRedirect("login");
+             return;
+         }
 
         HistoryDAO dao = new HistoryDAO();
         List<QuizHistory> historyList = dao.getHistoryQuizSet(acc.getUserName());
@@ -100,9 +99,15 @@ public class HistoryQuizServlet extends HttpServlet {
             }
         }
 
-        request.setAttribute("todayQuizzes", todayQuizzes);
-        request.setAttribute("weekQuizzes", weekQuizzes);
-        request.setAttribute("monthlyQuizzes", monthlyQuizzes);
+        boolean hasData = !todayQuizzes.isEmpty() || !weekQuizzes.isEmpty() || !monthlyQuizzes.isEmpty();
+
+        if (hasData) {
+            request.setAttribute("todayQuizzes", todayQuizzes);
+            request.setAttribute("weekQuizzes", weekQuizzes);
+            request.setAttribute("monthlyQuizzes", monthlyQuizzes);
+        }
+
+        request.setAttribute("hasData", hasData);
         request.getRequestDispatcher("history/quiz.jsp").forward(request, response);
     }
 

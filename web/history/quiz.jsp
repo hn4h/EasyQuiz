@@ -49,10 +49,10 @@
                         <img src="./images/avatar/default.png" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
-                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>Do Duc Anh</p>
-                                    <p>duca@gmail.com</p>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
                                 </div>
                             </div>
                             <hr/>
@@ -133,7 +133,7 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <h1 class="text-2xl font-bold mb-4" style="margin-top: 10px;">History</h1>
+                <h1 class="text-2xl font-bold mb-4">History</h1>
                 <div class="history-card">
                     <div class="button2">
                         <a href="quiz" class="quiz-button">Quiz</a>
@@ -154,57 +154,67 @@
                         </div>
                     </div>
                     <div>
-                        <!--Today-->
-                        <c:if test="${not empty todayQuizzes}">
-                            <h2 class="text-lg font-bold mb-2">TODAY</h2>
-                            <c:forEach var="quiz" items="${todayQuizzes}">
-                                <div class=" quiz-card bg-white-100 rounded mb-4">
-                                    <div class=" quiz-title flex">
-                                        <div>
-                                            <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
-                                            <span class="text-sm text-gray-600 ml-2">|</span>
-                                            <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                        <c:if test="${hasData}">
+                            
+                            <c:if test="${not empty todayQuizzes}">
+                                <h2 class="text-lg font-bold mb-2">TODAY</h2>
+                                <c:forEach var="quiz" items="${todayQuizzes}">
+                                    <div class="quiz-card bg-white-100 rounded mb-4">
+                                        <div class="quiz-title flex">
+                                            <div>
+                                                <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                                <span class="text-sm text-gray-600 ml-2">|</span>
+                                                <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                            </div>
+                                            <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
                                         </div>
-                                        <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
                                     </div>
-                                </div>
-                            </c:forEach>
-                        </c:if>
-                        <!--This week-->
-                        <c:if test="${empty todayQuizzes and not empty weekQuizzes}">
-                            <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
-                            <c:forEach var="quiz" items="${weekQuizzes}">
-                                <div class=" quiz-card bg-white-100 rounded mb-4">
-                                    <div class=" quiz-title flex">
-                                        <div>
-                                            <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
-                                            <span class="text-sm text-gray-600 ml-2">|</span>
-                                            <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                </c:forEach>
+                            </c:if>
+
+                            
+                            <c:if test="${not empty weekQuizzes}">
+                                <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
+                                <c:forEach var="quiz" items="${weekQuizzes}">
+                                    <div class="quiz-card bg-white-100 rounded mb-4">
+                                        <div class="quiz-title flex">
+                                            <div>
+                                                <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                                <span class="text-sm text-gray-600 ml-2">|</span>
+                                                <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                            </div>
+                                            <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
                                         </div>
-                                        <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
                                     </div>
-                                </div>
-                            </c:forEach>
-                        </c:if>
-                        <!--month-->
-                        <c:if test="${empty todayQuizzes and empty weekQuizzes and not empty monthlyQuizzes}">
-                            <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
-                            <c:forEach var="quiz" items="${monthlyQuizzes}">
-                                <div class=" quiz-card bg-white-100 rounded mb-4">
-                                    <div class=" quiz-title flex">
-                                        <div>
-                                            <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
-                                            <span class="text-sm text-gray-600 ml-2">|</span>
-                                            <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                </c:forEach>
+                            </c:if>
+
+                            
+                            <c:if test="${not empty monthlyQuizzes}">
+                                <c:forEach var="entry" items="${monthlyQuizzes}">
+                                    <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
+                                    <c:forEach var="quiz" items="${entry.value}">
+                                        <div class="quiz-card bg-white-100 rounded mb-4">
+                                            <div class="quiz-title flex">
+                                                <div>
+                                                    <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                                    <span class="text-sm text-gray-600 ml-2">|</span>
+                                                    <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                                </div>
+                                                <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                            </div>
                                         </div>
-                                        <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
-                                    </div>
-                                </div>
-                            </c:forEach>
+                                    </c:forEach>
+                                </c:forEach>
+                            </c:if>
                         </c:if>
-                        <c:if test="${empty todayQuizzes and empty weekQuizzes and empty monthlyQuizzes}">
+
+                        
+                        <c:if test="${not hasData}">
                             <div class="empty-quiz" style="margin-top: 140px">
-                                <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">You haven't accessed any quiz set before</p>
+                                <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">
+                                    You haven't accessed any quiz set before
+                                </p>
                                 <img style="margin: 0 auto; width: 150px;" src="./images/icon/flashcard_icon.png" alt="Not found">
                             </div>
                         </c:if>

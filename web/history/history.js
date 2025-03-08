@@ -118,3 +118,51 @@ closeBtn.addEventListener('click', () => {
         folderPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('input[placeholder="Search for a quiz"]');
+    const quizCards = document.querySelectorAll('.quiz-card');
+    const sectionHeaders = document.querySelectorAll('h2');
+
+    searchInput.addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase().trim();
+        
+        // If search is empty, show all cards and headers
+        if (searchTerm === '') {
+            quizCards.forEach(card => card.style.display = 'block');
+            sectionHeaders.forEach(header => header.style.display = 'block');
+            return;
+        }
+
+        // Filter quiz cards based on quiz set name
+        quizCards.forEach(card => {
+            const quizSetName = card.querySelector('.title-text').textContent.toLowerCase();
+            const shouldShow = quizSetName.includes(searchTerm);
+            card.style.display = shouldShow ? 'block' : 'none';
+        });
+
+        // Show/hide section headers based on visible cards in their section
+        sectionHeaders.forEach(header => {
+            const nextCards = getNextQuizCards(header);
+            const hasVisibleSibling = nextCards.some(card => 
+                card.style.display !== 'none'
+            );
+            header.style.display = hasVisibleSibling ? 'block' : 'none';
+        });
+    });
+
+    // Helper function to get quiz cards that follow a header
+    function getNextQuizCards(header) {
+        const cards = [];
+        let nextElement = header.nextElementSibling;
+        
+        while (nextElement && !nextElement.matches('h2')) {
+            if (nextElement.matches('.quiz-card')) {
+                cards.push(nextElement);
+            }
+            nextElement = nextElement.nextElementSibling;
+        }
+        
+        return cards;
+    }
+});
