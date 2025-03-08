@@ -53,12 +53,23 @@ public class QuizzServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+
+    private QuizSetDAO qsd;
+
+    public QuizzServlet() {
+        this.qsd = new QuizSetDAO(); // Mặc định dùng DAO thật
+    }
+
+    public QuizzServlet(QuizSetDAO quizSetDAO) { // Thêm constructor để inject DAO giả
+        this.qsd = quizSetDAO;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idRaw = request.getParameter("id");
+
         int id = 0;
-        QuizSetDAO qsd = new QuizSetDAO();
 
         if (idRaw == null) {
             response.sendRedirect("home");

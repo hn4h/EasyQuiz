@@ -73,6 +73,7 @@ public class QuizSetDAO extends DBContext {
                 QuizSet qs = new QuizSet();
                 qs.setQuizSetId(rs.getInt("Quiz_Set_ID"));
                 qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+
                 qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
                 Account a = new Account();
                 a.setUserName(rs.getString("Author"));

@@ -33,6 +33,7 @@ public class PackageDAO extends DBContext {
                     + "    WHERE tr2.Transaction_Type_ID = tr.Transaction_Type_ID\n"
                     + ");";
             PreparedStatement stm = connection.prepareStatement(sql);
+
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Package p = new Package();
