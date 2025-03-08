@@ -297,15 +297,24 @@
         </div>
 
         <!-- Popup for creating a new blog -->
-        <div class="overlay" id="overlay" onclick="hidePopup()"></div>
-        <div class="popup" id="createPopup">
-            <div class="popup-content">
-                <h2>Create New Blog</h2>
-                <form action="${pageContext.request.contextPath}/createblog" method="post">
-                    <input type="text" name="title" id="blogTitle" placeholder="Blog Title" required>
-                    <textarea name="content" id="blogContent" placeholder="Blog Content" rows="5" required></textarea>
-                    <button type="submit" class="btn">Submit</button>
-                    <button type="button" class="btn" onclick="hidePopup()">Cancel</button>
+        <div class="overlay" id="overlay" onclick="hidePopup()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;"></div>
+        <div class="popup" id="createPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px;
+             border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.5); z-index: 1000; width: 600px; max-width: 90%;">
+            <div class="popup-content" style="display: flex; flex-direction: column; align-items: center;">
+                <h2 style="margin-bottom: 20px; font-size: 24px;">Create New Blog</h2>
+                <form action="${pageContext.request.contextPath}/createblog" method="post" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                    <div style="width: 100%; margin-bottom: 15px;">
+                        <input type="text" name="title" id="blogTitle" placeholder="Blog Title" required style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                    </div>
+                    <div style="width: 100%; margin-bottom: 15px;">
+                        <textarea name="content" id="blogContent" placeholder="Blog Content" rows="5" required style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; resize: vertical;"></textarea>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 20px; width: 100%;">
+                        <button type="submit" class="btn" style="background-color: green; color: white; padding: 10px 20px; border: none;
+                                border-radius: 5px; font-size: 16px; cursor: pointer;">Create</button>
+                        <button type="button" class="btn" style="background-color: #C62300; color: white; padding: 10px 20px; border: none;
+                                border-radius: 5px; font-size: 16px; cursor: pointer;" onclick="hidePopup()">Cancel</button>
+                    </div>
                 </form>
             </div>
         </div>
