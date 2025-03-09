@@ -1,21 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Learn</title>
-    <link rel="stylesheet" href="learnquiz.css">
-    <link rel="shortcut icon" href="../images/logo/Easyquiz_logo.png">
+    <link rel="stylesheet" href="./quiz/learnquiz.css">
+    <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
-
 <body>
     <div class="header">
         <div class="learn-icon">
             <button>
-                <img src="../images/icon/learn_icon.png" alt="">
+                <img src="./images/icon/learn_icon.png" alt="">
                 <span class="learn-title">Learn</span>
                 <span class="material-symbols-rounded">keyboard_arrow_down</span>
             </button>
@@ -53,58 +53,54 @@
                 <p>0</p>
             </div>
             <div class="progress-line">
-                <div class="line-1">
-
-                </div>
-                <div class="line-2">
-
-                </div>
-                <div class="line-3">
-
-                </div>
+                <div class="line-correct"></div> <!-- Phần xanh nhạt: đúng -->
+                <div class="line-wrong"></div>   <!-- Phần xanh đậm: sai -->
+                <div class="line-remaining"></div> <!-- Phần chưa làm -->
             </div>
             <div class="progress-end">
-                <p>6</p>
+                <p>${quizzes.size()}</p>
             </div>
         </div>
         <div class="learn-container">
-            <div class="definition">
-                <h4>Definition</h4>
-                <div class="definition-content">
-                    <p>1 + 1</p>
+            <c:if test="${not empty quizzes}">
+                <c:forEach var="quiz" items="${quizzes}" varStatus="loop">
+                    <div class="definition">
+                        <h4>Definition</h4>
+                        <div class="definition-content">
+                            <p>${quiz.content}</p>
+                        </div>
+                    </div>
+                    <div class="term" data-quiz-id="${quiz.quizID}">
+                        <h4>Select the correct term</h4>
+                        <div class="term-content">
+                            <c:forEach var="answer" items="${quiz.answers}" varStatus="answerLoop">
+                                <div class="answer" data-answer-id="${answer.answerID}" data-is-correct="${answer.isCorrect}">
+                                    <span class="answer-number">${answerLoop.count}</span>
+                                    <p>${answer.content}</p>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <div class="suggest-btn">
+                        <button class="dont-know-btn" data-quiz-id="${quiz.quizID}">
+                            <span>Don't know?</span>
+                        </button>
+                    </div>
+                </c:forEach>
+            </c:if>
+            <c:if test="${empty quizzes}">
+                <div class="definition">
+                    <h4>Definition</h4>
+                    <div class="definition-content">
+                        <p>No quizzes available.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="term">
-                <h4>Select the correct term</h4>
-                <div class="term-content">
-                    <div class="answer">
-                        <span class="answer-number">1</span>
-                        <p>2</p>
-                    </div>
-                    <div class="answer">
-                        <span class="answer-number">2</span>
-                        <p>2</p>
-                    </div>
-                    <div class="answer">
-                        <span class="answer-number">3</span>
-                        <p>2</p>
-                    </div>
-                    <div class="answer">
-                        <span class="answer-number">4</span>
-                        <p>2</p>
-                    </div>
-                </div>
-            </div>
-            <div class="suggest-btn">
-                <button>
-                    <span>Don't know?</span>
-                </button>
-            </div>
+            </c:if>
         </div>
-        <div class="continue-container">
+        <div class="continue-container" style="display: none;">
             <div class="continue-content">
-                <p>Select the correc answer or press any key to continue</p>
-                <button>
+                <p>Select the correct answer or press any key to continue</p>
+                <button class="continue-btn">
                     <span>Continue</span>
                 </button>
             </div>
@@ -112,5 +108,4 @@
     </div>
     <script src="learnquiz.js"></script>
 </body>
-
 </html>
