@@ -5,6 +5,7 @@
 package controller.quiz;
 
 import dal.QuizDAO;
+import dal.QuizSetDAO;
 import model.Quiz;
 import java.util.List;
 import java.io.IOException;
@@ -62,6 +63,7 @@ public class LearnQuizServlet extends HttpServlet {
 protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
     String quizSetIDParam = request.getParameter("quizSetID");
+    QuizSetDAO qsd = new QuizSetDAO();
     if (quizSetIDParam != null) {
         try {
             int quizSetID = Integer.parseInt(quizSetIDParam);
@@ -76,6 +78,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
                         quiz.setAnswers(new ArrayList<>());
                     }
                 }
+                request.setAttribute("quizDetail", qsd.getQuizDetailById(quizSetID));
                 request.setAttribute("quizzes", quizzes);
             }
         } catch (NumberFormatException e) {

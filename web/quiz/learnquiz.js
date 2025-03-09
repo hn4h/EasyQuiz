@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
             learnMenu.classList.remove("show");
         }
     });
-
+    
     const quizzes = document.querySelectorAll(".quiz");
     const continueContainer = document.querySelector(".continue-container");
     const progressStart = document.querySelector(".progress-start p");
@@ -27,13 +27,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let correctAnswers = 0;
     let wrongAnswers = 0;
 
-    // Kiểm tra các phần tử
     if (!quizzes.length) {
         console.error("No quizzes found!");
         return;
     }
     if (!continueContainer || !progressStart || !line1 || !line2 || !line3) {
-        console.error("Required elements (continueContainer, progressStart, lines) not found!");
+        console.error("Required elements not found!");
         return;
     }
 
@@ -42,11 +41,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const correctPercentage = (correctAnswers / totalQuizzes) * 100;
         const wrongPercentage = (wrongAnswers / totalQuizzes) * 100;
 
-        line1.style.width = `${correctPercentage}%`; // Phần xanh nhạt (câu đúng)
-        line2.style.left = `${correctPercentage}%`;   // Dịch chuyển phần xanh đậm
-        line2.style.width = `${wrongPercentage}%`;    // Phần xanh đậm (câu sai)
-        line3.style.width = "100%";                   // Phần xám luôn full làm nền
-        progressStart.textContent = correctAnswers;   // Cập nhật số câu đúng
+        line1.style.width = `${correctPercentage}%`;
+        line2.style.width = `${correctPercentage + wrongPercentage}%`;
+        line3.style.width = "100%";
+        progressStart.textContent = correctAnswers;
         console.log(`Progress updated: Correct: ${correctPercentage}%, Wrong: ${wrongPercentage}%`);
     }
 
@@ -55,14 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
             quizzes[currentQuizIndex].style.display = "none";
             currentQuizIndex++;
             quizzes[currentQuizIndex].style.display = "block";
-            continueContainer.style.display = "none";
+            continueContainer.classList.remove("show"); // Ẩn với hiệu ứng
 
-            // Reset trạng thái các đáp án cho quiz mới
             const answers = quizzes[currentQuizIndex].querySelectorAll(".answer");
             answers.forEach(answer => {
                 const answerNumber = answer.querySelector(".answer-number");
-                answerNumber.innerHTML = answerNumber.textContent.replace(/✔|✖/, ''); // Reset về số ban đầu
-                answerNumber.style.backgroundColor = "#e8e8e8";    // Reset màu nền
+                answerNumber.innerHTML = answerNumber.textContent.replace(/✔|✖/, '');
+                answerNumber.style.backgroundColor = "#e8e8e8";
             });
         } else {
             alert("Quiz completed!");
@@ -76,26 +73,26 @@ document.addEventListener("DOMContentLoaded", function () {
     answers.forEach(answer => {
         answer.addEventListener("click", function () {
             console.log("Answer clicked:", this);
-            if (continueContainer.style.display === "flex") return; // Ngăn click nhiều lần
+            if (continueContainer.classList.contains("show")) return;
 
             const isCorrect = this.getAttribute("data-correct") === "true";
             const answerNumber = this.querySelector(".answer-number");
 
             if (isCorrect) {
-                answerNumber.innerHTML = "✔"; // Dấu tích xanh
-                answerNumber.style.backgroundColor = "#8BC34A"; // Xanh nhạt
+                answerNumber.innerHTML = "✔";
+                answerNumber.style.backgroundColor = "#8BC34A";
                 correctAnswers++;
             } else {
-                answerNumber.innerHTML = "✖"; // Dấu x đỏ
-                answerNumber.style.backgroundColor = "#FF0000"; // Đỏ
+                answerNumber.innerHTML = "✖";
+                answerNumber.style.backgroundColor = "#FF0000";
                 wrongAnswers++;
                 const correctAnswer = this.parentElement.querySelector("[data-correct='true']");
-                correctAnswer.querySelector(".answer-number").innerHTML = "✔"; // Hiển thị đáp án đúng
-                correctAnswer.querySelector(".answer-number").style.backgroundColor = "#8BC34A"; // Xanh nhạt
+                correctAnswer.querySelector(".answer-number").innerHTML = "✔";
+                correctAnswer.querySelector(".answer-number").style.backgroundColor = "#8BC34A";
             }
 
             updateProgress();
-            continueContainer.style.display = "flex"; // Hiển thị nút Continue
+            continueContainer.classList.add("show"); // Thêm hiệu ứng fade-up
         });
     });
 
@@ -106,14 +103,14 @@ document.addEventListener("DOMContentLoaded", function () {
     dontKnowButtons.forEach(button => {
         button.addEventListener("click", function () {
             console.log("Don't know clicked:", this);
-            if (continueContainer.style.display === "flex") return; // Ngăn click nhiều lần
+            if (continueContainer.classList.contains("show")) return;
 
             const correctAnswer = this.closest(".quiz").querySelector("[data-correct='true']");
-            correctAnswer.querySelector(".answer-number").innerHTML = "✔"; // Hiển thị đáp án đúng
-            correctAnswer.querySelector(".answer-number").style.backgroundColor = "#8BC34A"; // Xanh nhạt
+            correctAnswer.querySelector(".answer-number").innerHTML = "✔";
+            correctAnswer.querySelector(".answer-number").style.backgroundColor = "#8BC34A";
             wrongAnswers++;
             updateProgress();
-            continueContainer.style.display = "flex"; // Hiển thị nút Continue
+            continueContainer.classList.add("show"); // Thêm hiệu ứng fade-up
         });
     });
 
@@ -121,8 +118,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!continueBtn) {
         console.error("Continue button not found!");
     }
-    continueBtn.addEventListener("click", showNextQuiz);
+    continueBtn.addEventListener("click", function () {
+        continueContainer.classList.remove("show"); // Ẩn với hiệu ứng mượt
+        showNextQuiz();
+    });
 
-    // Khởi tạo thanh tiến độ
     updateProgress();
 });

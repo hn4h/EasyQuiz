@@ -78,6 +78,7 @@ body {
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
     position: relative;
 }
+
 .plan.best-deal::before {
     content: 'Best deal';
     background: #FFB200;
@@ -131,7 +132,7 @@ body {
 .plan-button.secondary {
     background: transparent;
     color: black;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
 }
 @media (max-width: 768px) {
     .plans {

@@ -20,7 +20,7 @@
             </button>
             <div class="learn-menu">
                 <ul class="learn-menu-nav">
-                    <li class="nav-item">
+                    <li class="nav-item" onclick="window.location.href='quizz?id=${requestScope.quizDetail.qs.quizSetId}'">
                         <img src="./images/icon/flashcard_icon.png" alt="">
                         <a href="" class="nav-link">Flashcards</a>
                     </li>
@@ -32,9 +32,6 @@
                     <li class="nav-item">
                         <a href="" class="nav-link">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="" class="nav-link">Search</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -42,8 +39,7 @@
             <span>Title</span>
         </div>
         <div class="close">
-            <button><span class="material-symbols-rounded">settings</span></button>
-            <button><span class="material-symbols-rounded">close</span></button>
+            <button onclick="window.location.href='quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
         </div>
     </div>
     <div class="body">
@@ -98,7 +94,7 @@
                 </div>
             </c:if>
         </div>
-        <div class="continue-container" style="display: none;">
+        <div class="continue-container">
             <div class="continue-content">
                 <p>Select the correct answer or press any key to continue</p>
                 <button class="continue-btn">

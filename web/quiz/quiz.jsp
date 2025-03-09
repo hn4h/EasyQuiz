@@ -152,7 +152,7 @@
                             <img src="./images/icon/flashcard_icon.png" alt="">
                             <a>Flashcards</a>
                         </button>
-                        <button class="btn">
+                        <button class="btn" onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/learn_icon.png" alt="">
                             <a href="">Learn</a>
                         </button>

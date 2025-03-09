@@ -199,7 +199,7 @@ body {
     width: 0%;
     height: 100%;
     border-radius: 12.5rem;
-    background-color: #8BC34A; /* Xanh nhạt cho câu đúng */
+    background-color: #640D5F; /* Xanh nhạt cho câu đúng */
     z-index: 102;
     transition: width 0.3s ease;
 }
@@ -209,7 +209,7 @@ body {
     width: 0%;
     height: 100%;
     border-radius: 12.5rem;
-    background-color: #2E7D32; /* Xanh đậm cho câu sai */
+    background-color: #ffbcfb; /* Xanh đậm cho câu sai */
     z-index: 101;
     transition: width 0.3s ease, left 0.3s ease;
 }
@@ -313,7 +313,7 @@ body {
 }
 
 .continue-container {
-    display: none;
+    display: flex;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -322,6 +322,10 @@ body {
     z-index: 401;
     padding: 0 1.5rem;
     width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    overflow: hidden;
 }
 
 .continue-content {
@@ -329,7 +333,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin: auto;
-    max-width: 52.5rem;
+    min-width: 60rem;
     height: 100%;
 }
 
@@ -347,8 +351,18 @@ body {
     cursor: pointer;
 }
 
+.continue-content button:hover {
+    background-color: #2A004E;
+}
+
 .continue-content button span {
     font-size: 16px;
     font-weight: 600;
     color: #fff;
+}
+
+.continue-container.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
 }
