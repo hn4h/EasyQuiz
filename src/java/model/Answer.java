@@ -37,4 +37,9 @@ public class Answer {
     public boolean isCorrect() {
         return isCorrect;
     }
+
+    public boolean getIsCorrect() {
+        return isCorrect;
+    }
+
 }
