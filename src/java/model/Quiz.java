@@ -43,4 +43,11 @@ public class Quiz {
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }
+
+    public Quiz(int quizID, int quizSetID, String content) {
+        this.quizID = quizID;
+        this.quizSetID = quizSetID;
+        this.content = content;
+    }
+    
 }
