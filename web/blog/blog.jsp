@@ -16,7 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Blog</title>
         <link rel="stylesheet" href="./blog/blog.css">
-        <link rel="shortcut icon" href="../images/logo/Easyquiz_logo.png">
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <style>
@@ -122,50 +122,48 @@
                 <div class="menu-btn">
                     <button class="sidebar-toggler" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
                 </div>
-                <span>EasyQuiz</span>
+                <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchBlog" method="get">
-                <div class="search">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" name="keyword" placeholder="Search for blog">
-                </div>
-            </form>
-
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for study guides" name="">
+            </div>
             <div class="create-login">
-                <div type="button" class="create-btn-icon" id="createButton">
-                    <span><button><i class="fa-solid fa-plus"></i></button></span>
-                    <div class="create-menu" id="createMenu">
-                        <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                        <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
-                    </div>
-                </div>
-
-                <div class="upgrade-btn">
-                    <button>Upgrade: Free 7-day trial</button>
-                </div>
-                <div class="avatar-user" id="avatarUser">
-                    <img src="./images/avatar/default.png" alt="Not found">
-                    <div class="user-menu" id="userMenu">
-                        <div class="user-info">
-                            <img src="${sessionScope.account.profileImage}" alt="Not found"/>
-                            <div>
-                                <p>${sessionScope.account.userName}</p>
-                                <p>${sessionScope.account.email}</p>
-                            </div>
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Profile</a>
-                        <a href="#" class="user-menu-item">Settings</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Logout</a>
-                        <hr/>
-                        <a href="#" class="user-menu-item">Help and feedback</a>
-                        <a href="#" class="user-menu-item">Upgrades</a>
                     </div>
-                </div>
-                <div class="login-btn">
-                    <a href="login"><button>Log in</button></a>
-                </div>
+                    <div class="upgrade-btn">
+                        <a href="upgrade">Upgrade your package</a>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="./images/avatar/default.png" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
+                                <div>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
             </div>
         </div>
         <div class="folderPopup-container">
@@ -208,12 +206,6 @@
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <span class="material-symbols-rounded">person</span>
-                                <span class="nav-label">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>
@@ -239,17 +231,19 @@
 
                     <div class="header-blog">
                         <h1>Blogs</h1>
-                        <button class="btn" onclick="showPopup()">
-                            <span class="material-symbols-rounded">create</span>
-                            <p>Create</p>
-                        </button>
+                        <c:if test="${not empty sessionScope.account.userName}">
+                            <button class="btn" onclick="showPopup()">
+                                <span class="material-symbols-rounded">create</span>
+                                <p>Create</p>
+                            </button>
+                        </c:if>
                     </div>
                     <c:forEach var="blog" items="${blogs}">
                         <div class="blog-card">
                             <div class="content-header">
                                 <h2>${blog.blogTitle}</h2>
                                 <div class="header-btn">
-                                    <button class="btn"><span class="material-symbols-rounded">share</span><p>Share</p></button>
+                                    <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span><p>Share</p></button>
                                     <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
                                 </div>
                             </div>
@@ -281,6 +275,7 @@
                             </div>
                         </div>
                     </c:forEach>
+                    <div id="copyMessage" class="copy-message">Link copied!</div>
                     <div class="pagination">
                         <c:if test="${currentPage > 1}">
                             <a href="blog?page=${currentPage - 1}" class="page-link">Previous</a>
