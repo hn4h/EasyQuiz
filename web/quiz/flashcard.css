@@ -15,12 +15,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 4rem;
+    height: 5rem;
     width: 100%;
     padding: 0 20px;
     gap: 1rem;
     position: fixed;
     background-color: #fff;
+    z-index: 100;
 }
 
 .learn-title {
@@ -149,21 +150,107 @@ body {
     background: #e8e8e8;
 }
 
+.optionPopup-container {
+    padding: 2rem;
+}
+
+/* Popup styles */
+.option-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.option-popup-content {
+    background-color: #fff;
+    margin: 4rem auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    color: #333;
+}
+
+.option-popup-content h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Ensure the popup appears above other elements */
+#optionPopup {
+    z-index: 1001;
+    animation: fadeIn 0.2s ease-out forwards, slideDown 0.2s ease-out forwards;
+}
+
+/* Khi ẩn popup, sử dụng fadeOut */
+#optionPopup.hide {
+    animation: fadeOut 0.2s ease-out forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
 /*-------------------------------Body */
 .body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 4rem);
+    margin: 2rem auto;
+    height: 100%;
 }
 
 .flashcard-container {
     width: 100%;
-    max-width: 60rem;
-    min-height: 35rem;
-    margin-top: 6rem;
+    height: 80%;
+    max-width: 70rem;
+    min-height: 40rem;
+    margin: 0 auto;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .flashcard-slide {
@@ -300,6 +387,7 @@ body {
     font-size: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    padding: 40px;
 }
 
 .flashcard-front {
@@ -323,7 +411,7 @@ body {
     align-items: center;
     margin-top: 2rem;
     margin-bottom: 20px;
-    max-width: 60rem;
+    max-width: 70rem;
 }
 
 .previous-next .btn {
@@ -343,7 +431,7 @@ body {
     align-items: center;
     flex-grow: 1; 
     justify-content: center; 
-    margin-left: 95px;
+    margin-left: 140px;
     gap: 1.5rem;
 }
 
@@ -412,4 +500,326 @@ body {
 #swapFaceBtn.active {
     color: #640D5F;
     background: #ffbcfb;
+}
+
+.flashcard-complete {
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    display: none;
+    margin: 8rem auto;
+    max-width: 70rem;
+}
+
+.flashcard-complete-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.flashcard-complete-header h2 {
+    line-height: 1.25;
+    letter-spacing: normal;
+    -webkit-letter-spacing: normal;
+    font-size: 2rem;
+}
+
+.flashcard-complete-header img {
+    width: 100px;
+}
+
+.flashcard-complete-header .congratulations-icon {
+    display: flex;
+    justify-content: flex-end;
+    width: 45%;
+}
+
+.congratulations-icon {
+    display: flex;
+    justify-content: flex-end;
+    width: 45%;
+}
+
+.progress-actions {
+    display: flex;
+    margin: 10px 0;
+}
+
+.progress {
+    flex: 1;
+}
+
+.progress h3,
+.actions h3{
+    color: #555;
+}
+
+.progress-info {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.progress-info-complete {
+    flex: 1;
+}
+
+.progress-info-complete p {
+    display: flex;
+    justify-content: space-between; 
+    width: auto;
+    background: #ffbcfb;
+    color: #640D5F;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    margin: 0 20px 10px 5px;
+}
+
+.complete-icon {
+    font-size: 74px !important;
+    font-weight: bold !important;
+    color: #640D5F;
+    margin: 5px;
+}
+
+.backToLastBtn {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    color: #555;
+    border: none;
+    cursor: pointer;
+    font-size: 14px !important;
+    font-weight: 600;
+}
+
+.backToLastBtn span{
+    font-size: 20px !important;
+    font-weight: 600 !important;
+}
+
+.actions {
+    flex: 1;
+}
+
+.actions-info {
+    margin: 10px 0;
+}
+
+.actions button {
+    width: 100%;
+    background: #640D5F;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.actions button a {
+    text-decoration: none;
+    color: #fff;
+}
+
+#restartFlashcards a {
+    color: #555;
+}
+
+.actions button:hover {
+    background-color: #2A004E;
+}
+
+#restartFlashcards {
+    background: #fff;
+    border: 2px solid #e6e6e6;
+}
+
+#restartFlashcards:hover {
+    background-color: #e6e6e6;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 25px;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 2.5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #640D5F; /* Màu xanh khi bật */
+}
+
+input:checked + .slider::before {
+    transform: translateX(25px);
+}
+
+.option-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.option-list hr {
+    border: none;
+    height: 2px;
+    background-color: #ddd;
+}
+
+.option-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.option-item  .option-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.option-item button {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    background: #fff;
+    color: #640D5F;
+    cursor: pointer;
+}
+
+.option-item span {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.option-item select {
+    background-color: #fff;
+    padding: 5px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    color: #640D5F;
+}
+
+.option-item select:hover {
+    background-color: #f3f3f3;
+    cursor: pointer;
+}
+
+.restart {
+    color: #C62300;
+}
+
+.restart:hover {
+    color: #A31D1D;
+    cursor: pointer;
+}
+
+.keyboard-shortcut {
+    display: flex;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.keyboard-shortcut .column {
+    flex: 1;
+}
+
+.keyboard-shortcut .column .column-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #f3f3f3;
+    font-weight: 500; 
+}
+
+.keyboard-shortcut.show {
+    display: block;
+    opacity: 1;
+}
+
+.rotate {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+.show-both .flashcard-inner {
+    transform: none !important;
+    display: flex;
+    justify-content: space-between;
+}
+
+.show-both .flashcard-front,
+.show-both .flashcard-back {
+    display: block;
+    width: 50%;
+}
+
+.flashcard-inner2 {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.flashcard-front2, .flashcard-back2 {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    font-size: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    padding: 40px;
+}
+
+/* Khi bật "Show both sides" */
+.flashcard.show-both .flashcard-inner {
+    display: none; /* Ẩn chế độ một mặt */
+}
+
+.flashcard.show-both .flashcard-inner2 {
+    display: flex; /* Hiển thị chế độ hai mặt */
 }

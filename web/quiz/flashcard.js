@@ -147,3 +147,239 @@ document.addEventListener("DOMContentLoaded", function () {
         swapFaceBtn.classList.toggle("active", isSwapped);
     });
 });
+
+//----------------------------------Complete flash card
+document.addEventListener("DOMContentLoaded", function () {
+    const flashcards = document.querySelectorAll(".flashcard");
+    const flashcardSlide = document.getElementById("flashcardSlide");
+    const flashcardComplete = document.getElementById("flashcardComplete");
+    const nextButton = document.getElementById("nextBtn");
+    const prevButton = document.getElementById("prevBtn");
+    const pageIndicator = document.getElementById("pageIndicator");
+    const extraControls = document.querySelector(".extra-controls"); // Nhóm nút chức năng
+    const navControls = document.querySelector(".nav-controls"); // Nhóm nút điều hướng
+    const backToLastBtn = document.getElementById("backToLast");
+
+    let currentCard = 0;
+    let totalCards = flashcards.length;
+
+    function showCard(index) {
+        if (index < totalCards) {
+            flashcards.forEach(card => card.style.display = "none");
+            flashcards[index].style.display = "block";
+            pageIndicator.textContent = `${index + 1} / ${totalCards}`;
+
+            // Hiển thị lại giao diện khi chưa hoàn thành
+            flashcardSlide.style.display = "block";
+            navControls.style.display = "flex";
+            extraControls.style.display = "flex";
+            pageIndicator.style.display = "inline-block";
+            flashcardComplete.style.display = "none";
+        } else {
+
+            // Thêm hiệu ứng fade-out
+            flashcardSlide.classList.add("fade-out");
+
+            setTimeout(() => {
+                // Ẩn giao diện cũ
+                flashcardSlide.style.display = "none";
+                navControls.style.display = "none";
+                extraControls.style.display = "none";
+                pageIndicator.style.display = "none";
+
+                // Hiển thị trang hoàn thành với hiệu ứng fade-in
+                flashcardComplete.style.display = "block";
+                flashcardComplete.classList.add("fade-in");
+
+                // Hiển thị số thẻ đã hoàn thành
+                document.getElementById("completedCount").innerText = totalCards;
+            }, 500); // Đợi hiệu ứng fade-out hoàn thành (0.5s)
+        }
+    }
+
+    nextButton.addEventListener("click", function () {
+        currentCard++;
+        showCard(currentCard);
+    });
+
+    prevButton.addEventListener("click", function () {
+        if (currentCard > 0) {
+            currentCard--;
+            showCard(currentCard);
+        }
+    });
+
+    // Nút "Back to the last question" -> Quay lại thẻ cuối cùng
+    backToLastBtn.addEventListener("click", function () {
+        flashcardComplete.classList.add("fade-out");
+
+        setTimeout(() => {
+            // Ẩn trang hoàn thành
+            flashcardComplete.style.display = "none";
+
+            // Hiển thị lại flashcard cuối cùng và giao diện điều khiển
+            flashcardSlide.style.display = "block";
+            navControls.style.display = "flex";
+            extraControls.style.display = "flex";
+            pageIndicator.style.display = "inline-block";
+
+            // Hiển thị flashcard cuối cùng
+            currentCard = totalCards - 1;
+            showCard(currentCard);
+
+            // Hiệu ứng xuất hiện mượt mà
+            flashcardSlide.classList.remove("fade-out");
+            flashcardSlide.classList.add("fade-in");
+        }, 500); // Chờ hiệu ứng fade-out hoàn tất
+    });
+
+
+    // Hiển thị thẻ đầu tiên khi tải trang
+    showCard(currentCard);
+});
+//------------------------Pop up option
+const optionItem = document.querySelector('.optionBtn');
+const optionPopup = document.getElementById('optionPopup');
+const closeBtn = document.querySelector('.close-btn');
+
+// Hiển thị popup
+optionItem.addEventListener('click', (e) => {
+    optionPopup.style.display = "block";
+    optionPopup.classList.remove("hide");
+    e.stopPropagation();
+});
+
+// Ẩn popup với animation fadeOut
+closeBtn.addEventListener('click', () => {
+    optionPopup.classList.add("hide");
+    setTimeout(() => {
+        optionPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
+});
+
+//------------------------Keyboard shortcut view
+document.getElementById("viewKeyboardButton").addEventListener("click", function () {
+    let shortcutMenu = document.getElementById("shortcutMenu");
+    let buttonText = document.getElementById("buttonText");
+    let arrowIcon = document.getElementById("arrowIcon");
+
+    if (shortcutMenu.classList.contains("show")) {
+        shortcutMenu.classList.remove("show");
+        setTimeout(() => (shortcutMenu.style.display = "none"), 300);
+        buttonText.textContent = "View";
+        arrowIcon.classList.remove("rotate");
+    } else {
+        shortcutMenu.style.display = "flex";
+        setTimeout(() => shortcutMenu.classList.add("show"), 10);
+        buttonText.textContent = "Hide";
+        arrowIcon.classList.add("rotate");
+    }
+});
+
+//-----------------------Front và show 2 side mode
+document.addEventListener("DOMContentLoaded", function () {
+    const frontSelect = document.querySelector(".option-item select");
+    const toggleSwitch = document.getElementById("toggleSwitch");
+    const flashcards = document.querySelectorAll(".flashcard");
+
+    let frontSide = localStorage.getItem("frontSide") || "definition";
+    let showBothSides = localStorage.getItem("showBothSides") === "true";
+
+    // 🛠 Hàm tự động điều chỉnh kích thước font chữ
+    function adjustFontSize() {
+        let termCards = document.querySelectorAll(".term-text");
+
+        termCards.forEach((term) => {
+            let textLength = term.innerHTML.split(/\s+/).length; // Giữ nguyên HTML (không đổi thành plain text)
+
+            if (textLength <= 10) {
+                term.style.fontSize = "36px"; // Nội dung ngắn -> Font to
+            } else if (textLength <= 20) {
+                term.style.fontSize = "30px"; // Nội dung trung bình -> Font vừa
+            } else {
+                term.style.fontSize = "24px"; // Nội dung dài -> Font nhỏ hơn
+            }
+        });
+    }
+
+    // 🛠 Hàm cập nhật mặt trước của thẻ
+    function updateFrontSide() {
+        flashcards.forEach(flashcard => {
+            let front = flashcard.querySelector(".flashcard-front");
+            let back = flashcard.querySelector(".flashcard-back");
+
+            let term = back.dataset.term || front.querySelector(".term-text").innerHTML;
+            let definition = front.dataset.definition || back.querySelector(".term-text").innerHTML;
+
+            if (frontSide === "term") {
+                front.innerHTML = `<p class="term-text">${term}</p>`;
+                back.innerHTML = `<p class="term-text">${definition}</p>`;
+            } else {
+                front.innerHTML = `<p class="term-text">${definition}</p>`;
+                back.innerHTML = `<p class="term-text">${term}</p>`;
+            }
+        });
+
+        adjustFontSize(); // Gọi lại để giữ định dạng font chữ
+    }
+
+    // 🛠 Cập nhật hiển thị khi bật/tắt "Show both sides"
+    function updateShowBothSides() {
+        flashcards.forEach(flashcard => {
+            flashcard.classList.toggle("show-both", showBothSides);
+        });
+
+        // Cập nhật trạng thái của select
+        updateSelectState();
+    }
+
+    // 🛠 Cập nhật trạng thái select
+    function updateSelectState() {
+        if (showBothSides) {
+            frontSelect.disabled = true; // Vô hiệu hóa select
+            frontSelect.innerHTML = '<option selected>Both</option>'; // Thay đổi nội dung
+        } else {
+            frontSelect.disabled = false; // Bật lại select
+            frontSelect.innerHTML = `
+                <option value="definition" ${frontSide === "definition" ? "selected" : ""}>Definition</option>
+                <option value="term" ${frontSide === "term" ? "selected" : ""}>Term</option>
+            `; // Khôi phục tùy chọn
+        }
+    }
+
+    // 🛠 Xử lý sự kiện thay đổi "Front"
+    frontSelect.addEventListener("change", function () {
+        frontSide = frontSelect.value.toLowerCase();
+        localStorage.setItem("frontSide", frontSide);
+        updateFrontSide();
+    });
+
+    // 🛠 Xử lý sự kiện bật/tắt "Show both sides"
+    toggleSwitch.addEventListener("change", function () {
+        showBothSides = toggleSwitch.checked;
+        localStorage.setItem("showBothSides", showBothSides);
+        updateShowBothSides();
+    });
+
+    // 🛠 Khôi phục cài đặt khi tải trang
+    function loadSettings() {
+        frontSelect.value = frontSide.charAt(0).toUpperCase() + frontSide.slice(1);
+        toggleSwitch.checked = showBothSides;
+
+        // Gán giá trị gốc cho mỗi flashcard
+        flashcards.forEach(flashcard => {
+            let front = flashcard.querySelector(".flashcard-front p");
+            let back = flashcard.querySelector(".flashcard-back p");
+
+            flashcard.querySelector(".flashcard-front").dataset.definition = front.innerHTML;
+            flashcard.querySelector(".flashcard-back").dataset.term = back.innerHTML;
+        });
+
+        updateFrontSide();
+        updateShowBothSides();
+        updateSelectState(); // Cập nhật trạng thái select ngay khi tải trang
+    }
+
+    loadSettings();
+});
+
