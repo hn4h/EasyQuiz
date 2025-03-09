@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="upgrade-btn">
-                        <button>Upgrade: Free 7-day trial</button>
+                        <a href="upgrade">Upgrade your package</a>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
                         <img src="./images/avatar/default.png" alt="Not found">
@@ -52,12 +52,10 @@
                             </div>
                             <hr/>
                             <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
-                            <a href="#" class="user-menu-item">Upgrades</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
                 </c:if>
@@ -108,12 +106,6 @@
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <span class="material-symbols-rounded">person</span>
-                                <span class="nav-label">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>
@@ -128,30 +120,32 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <div class="recents-container">
-                    <h2>Recents</h2>
-                    <div class="recents-list">
-                        <c:forEach items="${quizSetHistoryTop4}" var="quizSet"> 
-                            <div class="recents-item">
-                                <div>
-                                    <i class="fa-solid fa-book"></i> 
-                                </div>
-                                <div>
-                                    <p><a href="quiz-set-details?quizSetId=${quizSet.quizSetId}">${quizSet.quizSetName}</a></p> 
+                <c:if test="${not empty sessionScope.account.userName and quizSetHistoryTop4Size != 0}">
+                    <div class="recents-container">
+                        <h2>Recents</h2>
+                        <div class="recents-list">
+                            <c:forEach items="${quizSetHistoryTop4}" var="quizSet"> 
+                                <div class="recents-item">
                                     <div>
-                                        Quiz Set - ${quizSet.numberOfQuiz} terms - by ${quizSet.author.userName} 
+                                        <i class="fa-solid fa-book"></i> 
+                                    </div>
+                                    <div>
+                                        <p><a href="quiz-set-details?quizSetId=${quizSet.quizSetId}">${quizSet.quizSetName}</a></p> 
+                                        <div>
+                                            Quiz Set - ${quizSet.numberOfQuiz} terms - by ${quizSet.author.userName} 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </c:forEach>
+                            </c:forEach>
+                        </div>
                     </div>
-                </div>
+                </c:if>
                 <div class="container swiper">
                     <h2>Popular Flashcard sets</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${popularQuizSet}" var="i">
-                                <li class="card-item swiper-slide">
+                                <li class="card-item swiper-slide" onclick="window.location.href='quizz?id=${i.quizSetId}'">
                                     <a href="#" class="card-link">
                                         <h2 class="card-title">${i.quizSetName}</h2>
                                         <p class="badge">${i.numberOfQuiz} terms</p>
@@ -179,7 +173,19 @@
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${popularBlog}" var="blog">
                                 <li class="card-item swiper-slide">
-                                    <a href="#" class="card-link">
+                                    <a href="javascript:void(0);" class="card-link"
+                                       data-blogid="${blog.blogId}"
+                                       data-title="${blog.blogTitle}"
+                                       data-author="${blog.author.userName}"
+                                       data-content="${fn:escapeXml(blog.blogContent)}"
+                                       data-date="${blog.createdDate}"
+                                       data-comments='[
+                                       <c:forEach items="${blog.comments}" var="comment" varStatus="loop">
+                                           {"userName": "${comment.userName}", "content": "${fn:escapeXml(comment.commentContent)}"}
+                                           <c:if test="${!loop.last}">,</c:if>
+                                       </c:forEach>
+                                       ]'
+                                       onclick="openBlogModal(this)">
                                         <h2 class="card-title">${blog.blogTitle}</h2>
                                         <p class="preview-content">
                                             <c:choose>
@@ -201,13 +207,39 @@
                                     </a>
                                 </li>
                             </c:forEach>
+
                         </ul>
                         <div class="swiper-pagination"></div>
                         <div class="swiper-button-prev"></div>
                         <div class="swiper-button-next"></div>
                     </div>
                 </div>
+                <div id="blogModal" class="blog-modal">
+                    <div class="blog-modal-content">
+                        <span class="blog-modal-close material-symbols-rounded">close</span>
+                        <div class="blog-card">
+                            <div class="content-header">
+                                <h2 id="modalTitle"></h2>
+                            </div>
+                            <div class="blog-header">
+                                <img id="modalAvatar" src="./images/avatar/default.png" alt="Avatar"/>
+                                <span id="modalAuthor" style="margin-right: 20px;"></span>
+                                <span class="material-symbols-rounded">update</span>
+                                <span id="modalCreatedDate"></span>
+                            </div>
+                            <div class="blog-content">
+                                <h3 id="modalContentTitle"></h3>
+                                <p style="font-size: 16px;" id="modalContent"></p>
+                            </div>
+                            <hr>
+                            <div class="comment-container">
+                                <h4>Comments</h4>
+                                <div id="modalComments"></div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
 
                 <div class="container swiper">
                     <h2>Top creator</h2>

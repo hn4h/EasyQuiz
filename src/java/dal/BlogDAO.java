@@ -35,6 +35,7 @@ public class BlogDAO extends DBContext {
                 a.setUserName(rs.getString("Author"));
                 b.setAuthor(a);
                 b.setCreatedDate(rs.getDate("Blog_Date"));
+                b.setComments(getCommentsByBlogId(b.getBlogId()));
                 list.add(b);
             }
             return list;

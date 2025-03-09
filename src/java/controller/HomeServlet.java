@@ -64,6 +64,7 @@ public class HomeServlet extends HttpServlet {
         Account a = (Account) request.getSession().getAttribute("account");
         if(a != null){
             request.setAttribute("quizSetHistoryTop4", hs.getQuizSetHistoryTop4ByUserName(a.getUserName()));
+            request.setAttribute("quizSetHistoryTop4Size", hs.getQuizSetHistoryTop4ByUserName(a.getUserName()).size());
         }
         request.getRequestDispatcher("home/home.jsp").forward(request, response);
     } 

@@ -118,3 +118,59 @@ closeBtn.addEventListener('click', () => {
     }, 200); // Thời gian khớp với animation fadeOut
 });
 
+//----------------Pop up blog
+function openBlogModal(element) {
+    event.preventDefault();
+
+    // Lấy thông tin từ data-attributes
+    const blogId = element.getAttribute("data-blogid");
+    const title = element.getAttribute("data-title");
+    const author = element.getAttribute("data-author");
+    const content = element.getAttribute("data-content");
+    const createdAt = element.getAttribute("data-date");
+    const comments = JSON.parse(element.getAttribute("data-comments"));
+
+    // Gán dữ liệu vào modal
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalAuthor").innerText = author;
+    document.getElementById("modalContent").innerHTML = content;
+    document.getElementById("modalCreatedDate").innerText = createdAt;
+
+    // Hiển thị danh sách comments
+    const modalComments = document.getElementById("modalComments");
+    modalComments.innerHTML = "";
+
+    if (comments.length > 0) {
+        comments.forEach(comment => {
+            const commentDiv = document.createElement("div");
+            commentDiv.classList.add("comment");
+
+            commentDiv.innerHTML = `
+                <img src="./images/avatar/default.png" alt="Avatar">
+                <div class="blog-comment-content">
+                    <p><strong>${comment.userName}</strong></p>
+                    <p style="font-size: 14px; font-weight: 500;">${comment.content}</p>
+                </div>
+            `;
+
+            modalComments.appendChild(commentDiv);
+        });
+    } else {
+        modalComments.innerHTML = "<p>Have no comments yet.</p>";
+    }
+    // Hiển thị modal
+    const modal = document.getElementById("blogModal");
+    modal.style.display = "flex";
+
+    // Đóng modal khi click ra ngoài
+    document.querySelector(".blog-modal-close").addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+}
+
