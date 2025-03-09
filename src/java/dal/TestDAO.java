@@ -9,13 +9,14 @@ import java.util.List;
 import model.Quiz;
 
 public class TestDAO {
+
     public List<Quiz> getAllQuizzes() {
         List<Quiz> quizzes = new ArrayList<>();
         String sql = "SELECT Quiz_ID, Quiz_set_ID, Quiz_content FROM Quiz";
 
         try {
             DBContext dbContext = new DBContext(); // Khởi tạo kết nối
-            Connection conn = dbContext.connection; 
+            Connection conn = dbContext.connection;
 
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
