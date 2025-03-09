@@ -5,12 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.Quiz" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Test</title>
-        <link rel="stylesheet" href="test.css">
+        <link rel="stylesheet" href="./test/test.css">
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -34,7 +37,7 @@
             <div class="test">
                 <div class="">
                     <div class="avatar-user"  id="avatarUser">
-                        <img class="test-img" src="../images/icon/test_icon.png">
+                        <img class="test-img" src="./images/icon/test_icon.png">
                         <span class="test-word">Test</span>
                         <div class="user-menu" id="userMenu">
 
@@ -44,7 +47,7 @@
                             <hr/>
 
                             <a href="#" class="user-menu-item">Home</a>
-                            <a href="#" class="user-menu-item">Search</a>
+<!--                            <a href="#" class="user-menu-item">Search</a>-->
                         </div>
                     </div>
 
@@ -56,36 +59,31 @@
         </div>
         <div class="body">
             <div class="container">
-                <div class="container1">
-                    <h3>Which way should be followed if you want to reduce integration and interface errors?</h3>
-                    <p>Select the correct definition</p>
-                    <div class="options1">
-                        <button>Allowing teams to define their own data standards</button>
-                        <button>Using outdated data definitions for legacy systems</button>
-                        <button>Implementing multiple data formats for flexibility</button>
-                        <button class="correct1">Using consistent data definitions across the enterprise</button>
-                    </div>
-                </div>
-                <div class="container1">
-                    <h3>Which way should be followed if you want to reduce integration and interface errors?</h3>
-                    <p>Select the correct definition</p>
-                    <div class="options1">
-                        <button>Allowing teams to define their own data standards</button>
-                        <button>Using outdated data definitions for legacy systems</button>
-                        <button>Implementing multiple data formats for flexibility</button>
-                        <button class="correct1">Using consistent data definitions across the enterprise</button>
-                    </div>
-                </div>
-                <div class="container1">
-                    <h3>Which way should be followed if you want to reduce integration and interface errors?</h3>
-                    <p>Select the correct definition</p>
-                    <div class="options1">
-                        <button>Allowing teams to define their own data standards</button>
-                        <button>Using outdated data definitions for legacy systems</button>
-                        <button>Implementing multiple data formats for flexibility</button>
-                        <button class="correct1">Using consistent data definitions across the enterprise</button>
-                    </div>
-                </div>
+                <%
+    List<Quiz> quizzes = (List<Quiz>) request.getAttribute("quizzes");
+
+    if (quizzes != null && !quizzes.isEmpty()) {
+        for (Quiz quiz : quizzes) {
+%>
+        <div class="container1">
+            <h3><%= quiz.getQuizContent() %></h3>
+            <p>Select the correct definition</p>
+            <div class="options1">
+                <button>Option 1</button>
+                <button>Option 2</button>
+                <button>Option 3</button>
+                <button class="correct1">Option 4</button>
+            </div>
+        </div>
+<%
+        }
+    } else {
+%>
+        <p>No quizzes available.</p>
+<%
+    }
+%>
+ 
                 <button class="submit" onclick="openPopup()">Submit test</button>
                 <!-- Hamburger button -->
                 <div class="hamburger" id="hamburgerBtn">
@@ -120,7 +118,7 @@
         </div>
         <!-- Linking SwiperJS script -->
         <!--        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>-->
-        <script src="test.js"></script>
+        <script src="./test/test.js"></script>
         <div id="flashcardContainer"></div> <!-- Đây là nơi để render nội dung -->
     </body>
     
