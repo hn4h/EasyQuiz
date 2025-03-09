@@ -80,7 +80,7 @@
                     <h2>Create a new folder</h2>
                     <input type="text" id="folderName" placeholder="Title" class="folder-input">
                     <div class="create-folder-btn">
-                        <button id="createFolderConfirm">Create folder</button>
+                        <button onclick="window.location.href='folderhistory'" id="createFolderConfirm">Create folder</button>
                     </div>
                 </div>
             </div>
