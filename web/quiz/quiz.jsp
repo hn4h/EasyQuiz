@@ -27,7 +27,7 @@
                 <input type="text" placeholder="Search for study guides" name="">
             </div>
             <div class="create-login">
-                <c:if test="${ empty sessionScope.account.userName}">
+                <c:if test="${not empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
@@ -36,26 +36,24 @@
                         </div>
                     </div>
                     <div class="upgrade-btn">
-                        <button>Upgrade: Free 7-day trial</button>
+                        <a href="upgrade">Upgrade your package</a>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
                         <img src="./images/avatar/default.png" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
-                                <img src="./images/avatar/default.png" alt="Not found"/>
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>Do Duc Anh</p>
-                                    <p>duca@gmail.com</p>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
                                 </div>
                             </div>
                             <hr/>
                             <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
-                            <a href="#" class="user-menu-item">Upgrades</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
                 </c:if>
@@ -128,9 +126,9 @@
             <div class="body-container">
                 <div class="flashcard-container">
                     <div class="flashcard-header">
-                        <h2>Title</h2>
+                        <h2>${requestScope.quizDetail.qs.quizSetName}</h2>
                         <div class="header-btn">
-                            <button class="btn"><span class="material-symbols-rounded">share</span>
+                            <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span>
                                 <p>Share</p>
                             </button>
                             <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
@@ -138,11 +136,7 @@
                                 <ul class="more-option-nav">
                                     <li class="nav-item">
                                         <span class="material-symbols-rounded">folder_open</span>
-                                        <a href="" class="nav-link">Flashcards</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <span class="material-symbols-rounded">quiz</span>
-                                        <a href="" class="nav-link">Make a copy</a>
+                                        <a href="" class="nav-link">Add to folder</a>
                                     </li>
                                     <li class="nav-item">
                                         <span class="material-symbols-rounded">report</span>
@@ -152,10 +146,11 @@
                             </div>
                         </div>
                     </div>
+                    <div id="copyMessage" class="copy-message">Link copied!</div>
                     <div class="flashcard-test">
-                        <button class="btn">
+                        <button class="btn" onclick="window.location.href = 'flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/flashcard_icon.png" alt="">
-                            <a href="">Flashcards</a>
+                            <a>Flashcards</a>
                         </button>
                         <button class="btn">
                             <img src="./images/icon/learn_icon.png" alt="">
@@ -172,10 +167,10 @@
                                 <div class="flashcard">
                                     <div class="flashcard-inner">
                                         <div class="flashcard-front">
-                                            <p>${q.definition}</p>
+                                            <p class="term-text">${q.definition}</p>
                                         </div>
                                         <div class="flashcard-back">
-                                            <p>${q.term}</p>
+                                            <p class="term-text">${q.term}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +205,12 @@
                     </div>
                     <!-- Màn hình hoàn thành -->
                     <div class="flashcard-complete" id="flashcardComplete" style="display: none">
-                        <h2>Congratulations! You've reviewed all the cards.</h2>
+                        <div class="flashcard-complete-header">
+                            <h2>Congratulations! You've reviewed all the cards.</h2>
+                            <div class="congratulations-icon">
+                                <img src="./images/icon/congratulations_icon.png" alt="alt"/>
+                            </div>
+                        </div>
                         <div class="progress-actions">
                             <div class="progress">
                                 <h3>How you're doing</h3>
@@ -227,7 +227,7 @@
                                 <h3>Next steps</h3>
                                 <div class="actions-info">
                                     <button id="nextSteps"><a href="#">Practice with questions</a></button>
-                                    <button id="restartFlashcards"><a href="#">Restart flashcards</a></button>
+                                    <button id="restartFlashcards"><a onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">Restart flashcards</a></button>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +239,7 @@
                             <div class="name-info">
                                 <p>Created by</p>
                                 <h3>${requestScope.quizDetail.qs.author.userName}</h3>
-                                <p>Created 3 years ago</p>
+                                <!--                                <p>Created 3 years ago</p>-->
                             </div>
                         </div>
                         <p class="flashcard-description">${requestScope.quizDetail.qs.quizSetDescription}</p>
@@ -283,11 +283,11 @@
                             <div class="more-mode">
                                 <ul class="study-mode-nav">
                                     <li class="nav-item">
-                                        <img src="../images/icon/flashcard_icon.png" alt="">
+                                        <img src="./images/icon/flashcard_icon.png" alt="">
                                         <a href="" class="nav-link">Flashcards</a>
                                     </li>
                                     <li class="nav-item">
-                                        <img src="../images/icon/test_icon.png" alt="">
+                                        <img src="./images/icon/test_icon.png" alt="">
                                         <a href="" class="nav-link">Test</a>
                                     </li>
                                 </ul>

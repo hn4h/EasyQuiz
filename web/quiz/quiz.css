@@ -63,17 +63,18 @@
     align-self: center;
 }
 
-.upgrade-btn button {
+.upgrade-btn a {
     border-radius: 5px;
     padding: 10px 15px;
     background-color: #ffbf00;
-    color: #000;
+    color: #640D5F;
     border: none;
     font-size: 16px;
     font-weight: bold;
+    text-decoration: none;
 }
 
-.upgrade-btn button:hover {
+.upgrade-btn a:hover {
     background-color: #f7cd51;
 }
 
@@ -121,7 +122,7 @@
     width: 100%;
     padding: 10px;
     padding-left: 30px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
@@ -129,11 +130,11 @@
 }
 
 .search input:focus {
-    border-color: #0077cc;
+    border-color: #640D5F;
     outline: none;
 }
 
-.avatar-user img{
+.avatar-user img:not(.user-info img){
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -163,7 +164,7 @@
 .create-menu {
     position: absolute;
     top: 60px;
-    right: 326px;
+    right: 310px;
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -206,6 +207,7 @@
 .user-info {
     display: flex;
     padding: 10px;
+    overflow: hidden;
 }
 
 .user-info img {
@@ -221,7 +223,6 @@
 .user-info p:first-child {
     font-weight: bold;
 }
-
 
 .folderPopup-container {
     padding: 2rem;
@@ -339,7 +340,6 @@
         opacity: 0;
     }
 }
-
 /*------------------------------------Body*/
 .body {
     display: flex;
@@ -497,12 +497,12 @@
 .flashcard-container,
 .term-container {
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 20px auto;
     background: #fff;
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .flashcard-header {
@@ -552,6 +552,19 @@
 
 .header-btn span {
     font-size: 22px;
+}
+
+.copy-message {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: rgba(100, 13, 95, 0.9);
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: none; /* Ẩn ban đầu */
+    transition: opacity 0.3s ease-in-out;
 }
 
 .btn:hover {
@@ -608,7 +621,7 @@
 
 .flashcard-test {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .flashcard-test .btn {
@@ -642,14 +655,14 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 250px;
+    height: 300px;
     position: relative;
     overflow: visible;
 }
 
 .flashcard {
     width: 100%;
-    height: 230px;
+    height: 280px;
     perspective: 1000px;
     position: absolute;
     transition: opacity 0.2s ease-in-out;
@@ -768,9 +781,10 @@
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 24px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    padding: 30px;
 }
 
 .flashcard-front {
@@ -793,6 +807,36 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     display: none;
+}
+
+.flashcard-complete-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.flashcard-complete-header h2 {
+    line-height: 1.25;
+    letter-spacing: normal;
+    -webkit-letter-spacing: normal;
+    font-size: 2rem;
+}
+
+.flashcard-complete-header img {
+    width: 100px;
+}
+
+.flashcard-complete-header .congratulations-icon {
+    display: flex;
+    justify-content: flex-end;
+    width: 45%;
+}
+
+.congratulations-icon {
+    display: flex;
+    justify-content: flex-end;
+    width: 45%;
 }
 
 .progress-actions {
@@ -1004,6 +1048,11 @@
     width: 54px;
     border-radius: 50%;
     border: 2px solid #e6e6e6;
+}
+
+.flashcard-description {
+    font-size: 16px;
+    font-weight: 500;
 }
 
 .name-info {
