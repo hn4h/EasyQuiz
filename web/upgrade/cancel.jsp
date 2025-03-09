@@ -79,7 +79,7 @@
                 If you have any questions, please send an email to
                 <a href="mailto:easiquiz@gmail.com">easiquiz@gmail.com</a>
             </p>
-            <a href="/" id="return-page-btn">Return to Payment Link Creation</a>
+            <a href="upgrade" id="return-page-btn">Return to Payment Link Creation</a>
         </div>
     </body>
 </html>

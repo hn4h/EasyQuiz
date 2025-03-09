@@ -58,15 +58,14 @@ public class StatisDAO extends DBContext {
         return 0;
     }
 
-    public double getTotalRevenue() {
+    public long getTotalRevenue() {
         try {
-            String sql = "SELECT sum(t.Transaction_Amount)\n"
-                    + "  FROM [EasyQuiz].[dbo].[Transaction_History] h\n"
-                    + "  join [Transaction] t on t.Transaction_ID = h.Transaction_ID";
+            String sql = "select sum(Amount) from Transaction_History\n"
+                    + "where Status = 'PAID'";
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                return rs.getDouble(1);
+                return rs.getLong(1);
             }
         } catch (SQLException e) {
             System.out.println(e);

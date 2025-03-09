@@ -34,4 +34,7 @@ public class HomeService {
         QuizSetHistoryDAO qshd = new QuizSetHistoryDAO();
         return qshd.getQuizSetHistoryTop4ByUserName(userName);
     }
+    public void Main(){
+        System.out.println(System.getenv(""));
+    }
 }
