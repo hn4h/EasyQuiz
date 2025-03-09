@@ -63,17 +63,18 @@
     align-self: center;
 }
 
-.upgrade-btn button {
+.upgrade-btn a {
     border-radius: 5px;
     padding: 10px 15px;
     background-color: #ffbf00;
-    color: #000;
+    color: #640D5F;
     border: none;
     font-size: 16px;
     font-weight: bold;
+    text-decoration: none;
 }
 
-.upgrade-btn button:hover {
+.upgrade-btn a:hover {
     background-color: #f7cd51;
 }
 
@@ -121,7 +122,7 @@
     width: 100%;
     padding: 10px;
     padding-left: 30px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
@@ -129,11 +130,11 @@
 }
 
 .search input:focus {
-    border-color: #0077cc;
+    border-color: #640D5F;
     outline: none;
 }
 
-.avatar-user img{
+.avatar-user img:not(.user-info img){
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -163,7 +164,7 @@
 .create-menu {
     position: absolute;
     top: 60px;
-    right: 326px;
+    right: 310px;
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -206,6 +207,7 @@
 .user-info {
     display: flex;
     padding: 10px;
+    overflow: hidden;
 }
 
 .user-info img {
@@ -512,7 +514,7 @@
     border-radius: 12px;
     text-decoration: none;
     border: 2px solid transparent;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     transition: 0.2s ease;
 }
 
@@ -711,4 +713,181 @@
     font-weight: 600;
     color: #718096;
     margin-top: 2px;
+}
+
+/*.blog-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.blog-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    max-width: 600px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}*/
+
+.blog-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.blog-modal-content {
+    background-color: #fff;
+    margin: 2rem auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    height: fit-content;
+    max-width: 800px;
+    position: relative;
+    color: #333;
+}
+
+.blog-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.blog-card {
+    padding: 20px;
+    border-radius: 10px;
+    color: #000;
+    max-width: 1100px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    display: flex;
+    background: #fff;
+    color: #333;
+    padding: 5px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.btn p {
+    align-self: center;
+    margin-left: 5px;
+}
+
+.header-btn {
+    display: flex;
+}
+
+.btn:hover {
+    background: #e6e6e6;
+}
+
+.blog-header {
+    display: flex;
+    align-items: center;
+}
+
+.blog-header span {
+    font-size: 17px;
+    font-weight: 600;
+    color: #666;
+    margin-right: 5px;
+}
+
+.blog-header img {
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.blog-content {
+    margin-top: 20px;
+}
+
+.blog-content p {
+    font-size: 15px;
+    font-weight: 600;
+    color: #666;
+    margin: 5px 0;
+}
+
+.blog-content h3 {
+    margin: 15px 0;
+}
+
+.blog-card hr {
+    border: none;
+    height: 2px;
+    background-color: #ddd;
+    margin: 10px 0;
+    border-radius: 1rem;
+}
+
+#modalComments {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-top: 15px;
+}
+
+/* Tùy chỉnh thanh cuộn cho đẹp hơn */
+#modalComments::-webkit-scrollbar {
+    width: 6px;
+}
+
+#modalComments::-webkit-scrollbar-thumb {
+    background-color: #888; /* Màu của thanh cuộn */
+    border-radius: 10px;
+}
+
+#modalComments::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+#modalComments img {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+}
+
+.comment {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.blog-comment-content {
+    display: flex;
+    flex-direction: column;
 }

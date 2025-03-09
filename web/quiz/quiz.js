@@ -87,6 +87,27 @@ closeBtn.addEventListener('click', () => {
         folderPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
+//----------------------------Share button
+document.getElementById("shareButton").addEventListener("click", function() {
+    // Lấy đường link hiện tại
+    const pageLink = window.location.href;
+
+    // Sao chép link vào clipboard
+    navigator.clipboard.writeText(pageLink).then(() => {
+        // Hiển thị thông báo
+        const message = document.getElementById("copyMessage");
+        message.style.display = "block";
+        message.style.opacity = "1";
+
+        // Ẩn sau 2 giây
+        setTimeout(() => {
+            message.style.opacity = "0";
+            setTimeout(() => message.style.display = "none", 300); // Đợi hiệu ứng mờ rồi ẩn
+        }, 2000);
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+});
 
 //---------------------------------More option header
 document.addEventListener("DOMContentLoaded", function () {
@@ -443,6 +464,24 @@ document.addEventListener("DOMContentLoaded", function () {
         window.scrollTo({top: 0, behavior: "smooth"});
     });
 });
+
+//-------------Tự điều chỉnh phông chữ
+document.addEventListener("DOMContentLoaded", function () {
+    let termCards = document.querySelectorAll(".term-text");
+
+    termCards.forEach((term) => {
+        let textLength = term.innerText.split(/\s+/).length;
+
+        if (textLength <= 10) {
+            term.style.fontSize = "28px"; // Nội dung ngắn -> Font to
+        } else if (textLength <= 20) {
+            term.style.fontSize = "24px"; // Nội dung trung bình -> Font vừa
+        } else {
+            term.style.fontSize = "20px"; // Nội dung dài -> Font nhỏ hơn
+        }
+    });
+});
+
 
 
 

@@ -63,17 +63,18 @@
     align-self: center;
 }
 
-.upgrade-btn button {
+.upgrade-btn a {
     border-radius: 5px;
     padding: 10px 15px;
     background-color: #ffbf00;
-    color: #000;
+    color: #640D5F;
     border: none;
     font-size: 16px;
     font-weight: bold;
+    text-decoration: none;
 }
 
-.upgrade-btn button:hover {
+.upgrade-btn a:hover {
     background-color: #f7cd51;
 }
 
@@ -121,7 +122,7 @@
     width: 100%;
     padding: 10px;
     padding-left: 30px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
@@ -129,11 +130,11 @@
 }
 
 .search input:focus {
-    border-color: #0077cc;
+    border-color: #640D5F;
     outline: none;
 }
 
-.avatar-user img{
+.avatar-user img:not(.user-info img){
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -163,7 +164,7 @@
 .create-menu {
     position: absolute;
     top: 60px;
-    right: 326px;
+    right: 310px;
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -206,6 +207,7 @@
 .user-info {
     display: flex;
     padding: 10px;
+    overflow: hidden;
 }
 
 .user-info img {
@@ -501,6 +503,8 @@
 
 .blog-container {
     margin: 20px auto;
+    max-width: 1100px;
+    width: 100%;
 }
 
 .blog-container h1 {
@@ -513,10 +517,9 @@
     padding: 20px;
     border-radius: 10px;
     color: #000;
-    max-width: 1100px;
+    width: 100%;
     margin-bottom: 20px;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .content-header {
@@ -545,6 +548,12 @@
 
 .header-btn {
     display: flex;
+}
+
+.header-blog {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .btn:hover {
@@ -630,4 +639,17 @@
 .send-btn:hover,
 .chat-btn:hover {
     background: #e6e6e6;
+}
+
+.copy-message {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: rgba(100, 13, 95, 0.9);
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: none; /* Ẩn ban đầu */
+    transition: opacity 0.3s ease-in-out;
 }

@@ -2,23 +2,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.quiz;
 
-import dal.TestDAO;
+import dal.QuizDAO;
+import model.Quiz;
+import java.util.List;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Quiz;
 
 /**
  *
- * @author 11
+ * @author DUCA
  */
-public class TestServlet extends HttpServlet {
+@WebServlet(name = "LearnQuizServlet", urlPatterns = {"/learnquiz"})
+public class LearnQuizServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +39,10 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");
+            out.println("<title>Servlet LearnQuizServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LearnQuizServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,15 +60,18 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        request.getRequestDispatcher("login/login.jsp").forward(request, response);
-        // Lấy danh sách câu hỏi từ database
-        TestDAO dao = new TestDAO();
-        List<Quiz> quizzes = dao.getAllQuizzes(); // Lấy danh sách câu hỏi từ DB
-
-        System.out.println("Số câu hỏi lấy được: " + quizzes.size()); // Kiểm tra số lượng dữ liệu
-
-        request.setAttribute("quizzes", quizzes); // Đưa vào request
-        request.getRequestDispatcher("./test/test.jsp").forward(request, response);
+        String quizSetIDParam = request.getParameter("quizSetID");
+        if (quizSetIDParam != null) {
+            try {
+                int quizSetID = Integer.parseInt(quizSetIDParam);
+                QuizDAO quizDAO = new QuizDAO();
+                List<Quiz> quizzes = quizDAO.getQuizzesByQuizSetID(quizSetID);
+                request.setAttribute("quizzes", quizzes);
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Invalid Quiz Set ID");
+            }
+        }
+        request.getRequestDispatcher("quiz/learnquiz.jsp").forward(request, response);
     }
 
     /**
