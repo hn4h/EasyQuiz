@@ -66,7 +66,7 @@
         for (Quiz quiz : quizzes) {
 %>
         <div class="container1">
-            <h3><%= quiz.getQuizContent() %></h3>
+            <h3><%= quiz.getContent() %></h3>
             <p>Select the correct definition</p>
             <div class="options1">
                 <button>Option 1</button>
