@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const learnMenuBtn = document.querySelector(".learn-icon button");
     const learnMenu = document.querySelector(".learn-menu");
+    const learnComplete = document.getElementById("learnComplete"); // Thêm div hoàn thành
 
     if (!learnMenuBtn || !learnMenu) {
         console.error("Learn menu button or menu not found!");
@@ -16,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
             learnMenu.classList.remove("show");
         }
     });
-    
+
     const quizzes = document.querySelectorAll(".quiz");
     const continueContainer = document.querySelector(".continue-container");
     const progressStart = document.querySelector(".progress-start p");
@@ -62,7 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 answerNumber.style.backgroundColor = "#e8e8e8";
             });
         } else {
-            alert("Quiz completed!");
+            document.querySelector(".progress").style.display = "none"; // Ẩn phần body chính
+            document.querySelector(".learn-container").style.display = "none";
+//          // Kích hoạt hiệu ứng fade up cho màn hình hoàn thành
+            learnComplete.style.display = "flex";
+            setTimeout(() => {
+                learnComplete.classList.add("show");
+            }, 50);
         }
     }
 
@@ -73,7 +80,8 @@ document.addEventListener("DOMContentLoaded", function () {
     answers.forEach(answer => {
         answer.addEventListener("click", function () {
             console.log("Answer clicked:", this);
-            if (continueContainer.classList.contains("show")) return;
+            if (continueContainer.classList.contains("show"))
+                return;
 
             const isCorrect = this.getAttribute("data-correct") === "true";
             const answerNumber = this.querySelector(".answer-number");
@@ -103,7 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
     dontKnowButtons.forEach(button => {
         button.addEventListener("click", function () {
             console.log("Don't know clicked:", this);
-            if (continueContainer.classList.contains("show")) return;
+            if (continueContainer.classList.contains("show"))
+                return;
 
             const correctAnswer = this.closest(".quiz").querySelector("[data-correct='true']");
             correctAnswer.querySelector(".answer-number").innerHTML = "✔";
