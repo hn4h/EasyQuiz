@@ -1,91 +1,83 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Lấy phần tử "test" và menu
-    let TestBtn = document.querySelector(".test-word");
-    let testImg = document.querySelector(".test-img");
-    let userMenu = document.querySelector(".user-menu");
+    document.querySelector(".test-word").addEventListener("click", toggleUserMenu);
+    document.querySelector(".test-img").addEventListener("click", toggleUserMenu);
+    document.getElementById("hamburgerBtn").addEventListener("click", toggleSidebar);
+    document.getElementById("closeBtn").addEventListener("click", closeSidebar);
+    document.getElementById("submit").addEventListener("click", submitTest);
+    document.querySelector(".open-popup")?.addEventListener("click", openPopup);
+    document.querySelector(".close-popup")?.addEventListener("click", closePopup);
+    document.getElementById("popupOverlay")?.addEventListener("click", closePopup);
 
-    if (TestBtn && testImg && userMenu) {
-        TestBtn.addEventListener("click", toggleUserMenu);
-        testImg.addEventListener("click", toggleUserMenu);
-    }
-
-    function toggleUserMenu(event) {
-        event.stopPropagation(); 
-        userMenu.classList.toggle("show");
-    }
-
-    // Ẩn menu khi click ra ngoài
     document.addEventListener("click", function (event) {
-        if (userMenu && !userMenu.contains(event.target) && event.target !== TestBtn && event.target !== testImg) {
+        let sidebar = document.getElementById("sidebar");
+        let userMenu = document.querySelector(".user-menu");
+
+        if (!sidebar.contains(event.target) && !event.target.closest("#hamburgerBtn")) {
+            closeSidebar();
+        }
+
+        if (userMenu && !userMenu.contains(event.target) &&
+                !event.target.classList.contains("test-word") &&
+                !event.target.classList.contains("test-img")) {
             userMenu.classList.remove("show");
         }
     });
-
-    // HAMBURGER SIDEBAR TOGGLE
-    const hamburgerBtn = document.getElementById("hamburgerBtn");
-    const sidebar = document.getElementById("sidebar");
-    const closeBtn = document.getElementById("closeBtn");
-
-    if (hamburgerBtn && sidebar && closeBtn) {
-        hamburgerBtn.addEventListener("click", function (e) {
-            e.stopPropagation();
-            toggleSidebar();
-        });
-
-        closeBtn.addEventListener("click", function (e) {
-            e.stopPropagation();
-            closeSidebar();
-        });
-
-        // Đóng sidebar khi click ra ngoài
-        document.addEventListener("click", function (event) {
-            if (!sidebar.contains(event.target) && !hamburgerBtn.contains(event.target)) {
-                closeSidebar();
-            }
-        });
-    }
-
-    function toggleSidebar() {
+});
+// Hàm toggle sidebar
+function toggleSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    if (sidebar) {
         sidebar.classList.toggle("show");
     }
+}
 
-    function closeSidebar() {
+// Hàm đóng sidebar
+function closeSidebar() {
+    let sidebar = document.getElementById("sidebar");
+    if (sidebar) {
         sidebar.classList.remove("show");
     }
+}
 
-    // Popup
-    function openPopup() {
-        document.getElementById("popup").classList.add("show");
-        document.getElementById("popupOverlay").classList.add("show");
-        document.querySelector(".header").classList.add("darken");
+
+// Hàm toggle user menu
+function toggleUserMenu(event) {
+    event.stopPropagation();
+    let userMenu = document.querySelector(".user-menu");
+    if (userMenu) {
+        userMenu.classList.toggle("show");
     }
+}
 
-    function closePopup() {
-        document.getElementById("popup").classList.remove("show");
-        document.getElementById("popupOverlay").classList.remove("show");
-        document.querySelector(".header").classList.remove("darken");
+// Hàm mở popup
+function openPopup() {
+    document.getElementById("popup").classList.add("show");
+    document.getElementById("popupOverlay").classList.add("show");
+}
+
+// Hàm đóng popup
+function closePopup() {
+    document.getElementById("popup").classList.remove("show");
+    document.getElementById("popupOverlay").classList.remove("show");
+}
+function closePopup1() {
+    let popup1 = document.getElementById("popup1");
+    let overlay1 = document.getElementById("popupOverlay1");
+
+    if (popup1 && overlay1) {
+        popup1.classList.add("hide");
+        overlay1.classList.add("hide");
+    } else {
+        console.error("Popup1 or Overlay1 not found!");
     }
+}
 
-    window.openPopup = openPopup;
-    window.closePopup = closePopup;
+window.closePopup1 = closePopup1;
 
-    function closePopup1() {
-        let popup1 = document.getElementById("popup1");
-        let overlay1 = document.getElementById("popupOverlay1");
+// Nút submit cập nhật giao diện
+function submitTest() {
 
-        if (popup1 && overlay1) {
-            popup1.classList.add("hide");
-            overlay1.classList.add("hide");
-        } else {
-            console.error("Popup1 or Overlay1 not found!");
-        }
-    }
-
-    window.closePopup1 = closePopup1;
-
-    // Nút submit cập nhật giao diện
-    document.getElementById("submit").addEventListener("click", function () {
-        document.body.innerHTML = `
+    document.body.innerHTML = `
             <div class="header">
                 <div class="test">
                     <div class="avatar-user" id="avatarUser">
@@ -97,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             <a href="#" class="user-menu-item">Flashcard</a>
                             <hr/>
                             <a href="#" class="user-menu-item">Home</a>
-                            <a href="#" class="user-menu-item">Search</a>
+                            
                         </div>
                     </div>
                 </div>
@@ -176,62 +168,16 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
 
-        document.body.classList.add("*");
-        document.body.classList.add("body");
+    document.body.classList.add("*");
+    document.body.classList.add("body");
 
-        // Gọi lại hàm để gắn sự kiện cho phần tử mới
-        initEventListeners();
-    });
+    // Gọi lại hàm để gắn sự kiện cho phần tử mới
+    document.querySelector(".test-word")?.addEventListener("click", toggleUserMenu);
+    document.querySelector(".test-img")?.addEventListener("click", toggleUserMenu);
+    document.getElementById("hamburgerBtn")?.addEventListener("click", toggleSidebar);
+    document.getElementById("closeBtn")?.addEventListener("click", closeSidebar);
+}
 
-    function initEventListeners() {
-         // ========== USER MENU ==========
-        const testBtn = document.querySelector(".test-word");
-        const testImg = document.querySelector(".test-img");
-        const userMenu = document.querySelector(".user-menu");
 
-        function toggleUserMenu(event) {
-            event.stopPropagation();
-            userMenu.classList.toggle("show");
-        }
 
-        function closeUserMenu() {
-            userMenu.classList.remove("show");
-        }
 
-        if (testBtn && testImg && userMenu) {
-            testBtn.addEventListener("click", toggleUserMenu);
-            testImg.addEventListener("click", toggleUserMenu);
-
-            document.addEventListener("click", function (event) {
-                if (!userMenu.contains(event.target) && event.target !== testBtn && event.target !== testImg) {
-                    closeUserMenu();
-                }
-            });
-        }
-        
-        // ========== SIDEBAR ==========
-        const newHamburgerBtn = document.getElementById("hamburgerBtn");
-        const newSidebar = document.getElementById("sidebar");
-        const newCloseBtn = document.getElementById("closeBtn");
-
-        if (newHamburgerBtn && newSidebar && newCloseBtn) {
-            newHamburgerBtn.addEventListener("click", function (e) {
-                e.stopPropagation();
-                newSidebar.classList.toggle("show");
-            });
-
-            newCloseBtn.addEventListener("click", function (e) {
-                e.stopPropagation();
-                newSidebar.classList.remove("show");
-            });
-
-            document.addEventListener("click", function (event) {
-                if (!newSidebar.contains(event.target) && !newHamburgerBtn.contains(event.target)) {
-                    newSidebar.classList.remove("show");
-                }
-            });
-        }
-    }
-
-    initEventListeners(); // Gọi lần đầu tiên
-});
