@@ -70,7 +70,8 @@ public class AddQuizServlet extends HttpServlet {
     throws ServletException, IOException {
        String title = request.getParameter("quizTitle");
        String description = request.getParameter("quizDescription");
-
+       String numberOfQuizRaw = request.getParameter("questionCount");
+       
     }
 
     /** 

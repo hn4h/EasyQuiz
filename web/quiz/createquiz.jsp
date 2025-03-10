@@ -124,6 +124,7 @@
                         <h1 class="form-title">Create a new quiz</h1>
                         <button type="submit" class="create-btn">Create</button>
                     </div>
+                    <input type="hidden" id="questionCount" name="questionCount">
                     <input type="text" placeholder="Enter a title" class="input" name="quizTitle">
                     <input type="text" placeholder="Add a description..." class="des input" name="quizDescription">
                     <!-- Quiz Items -->
