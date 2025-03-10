@@ -7,6 +7,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
@@ -204,18 +205,23 @@ public class HistoryDAO extends DBContext {
         return f;
     }
 
-    public void createFolder(String folderName, String userName) {
+    public int createFolder(String folderName, String userName) {
         String sql = "INSERT INTO Folder (Folder_Name, UserName, Folder_Description)  \n"
                 + "VALUES (?, ?, ?)";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             st.setString(1, folderName);
             st.setString(2, userName);
             st.setString(3, "");
             st.executeUpdate();
+            ResultSet rs = st.getGeneratedKeys();
+             if (rs.next()) {
+                return rs.getInt(1);
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
+        return -1;
     }
 
     public void deleteFolder(int folderId, String userName) {

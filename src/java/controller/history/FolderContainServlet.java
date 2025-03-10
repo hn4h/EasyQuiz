@@ -61,7 +61,27 @@ public class FolderContainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("account");
+        if (acc == null) {
+            response.sendRedirect("login");
+            return;
+        }
+        HistoryDAO dao = new HistoryDAO();
+        String folderIdRaw = request.getParameter("folderId");
+        int folderId = 0;
+        try{
+            folderId = Integer.parseInt(folderIdRaw);
+        }catch(NumberFormatException e){
+            System.out.println(e);
+        }
+        Folder f = dao.getFolderByFolderId(folderId);
+        List<QuizSet> list = dao.getAllQuizSetByFolderId(f.getFolderId());
+        List<QuizSet> allList = dao.getAllHistoryQuizSet(acc.getUserName());
+        request.setAttribute("allList", allList);
+        request.setAttribute("folder", f);
+        request.setAttribute("quiz", list);
+        request.getRequestDispatcher("history/foldercontain.jsp").forward(request, response);
     } 
 
     /** 

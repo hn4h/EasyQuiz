@@ -80,8 +80,8 @@ public class CreateFolderServlet extends HttpServlet {
         }
         HistoryDAO dao = new HistoryDAO();
         String folderName = request.getParameter("folderName");
-        dao.createFolder(folderName, acc.getUserName());
-        response.sendRedirect("foldercontain?folderId=");
+        int folderId = dao.createFolder(folderName, acc.getUserName());
+        response.sendRedirect("foldercontain?folderId=" + folderId);
     }
 
     /** 
