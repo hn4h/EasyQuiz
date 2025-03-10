@@ -259,8 +259,8 @@
                                 <h3>${blog.blogTitle}</h3>
                                 <p>${blog.blogContent}</p>
                                 <div class="blog-comment">
-                                    <input type="text" placeholder="Your comment here...">
-                                    <span class="send-btn material-symbols-rounded">send</span>
+                                    <input type="text" id="commentInput${blog.blogId}" placeholder="Your comment here...">
+                                    <span class="send-btn material-symbols-rounded" onclick="submitComment(${blog.blogId})">send</span>
                                     <span class="chat-btn material-symbols-rounded" id="chatBtn${blog.blogId}">chat</span>
                                 </div>
                                 <div class="comment-window" id="commentWindow${blog.blogId}" style="display: none;">
@@ -358,6 +358,63 @@
                 document.getElementById('overlay').style.display = 'none';
                 document.getElementById('blogTitle').value = '';
                 document.getElementById('blogContent').value = '';
+            }
+            function submitComment(blogId) {
+                let commentInput = document.getElementById('commentInput' + blogId);
+                let commentContent = commentInput.value.trim();
+
+                if (commentContent === '') {
+                    alert('Please enter a comment.');
+                    return;
+                }
+
+                // Get the username from the session (if available)
+                let userName = '${sessionScope.account.userName}';
+                if (!userName) {
+                    alert('You must be logged in to comment.');
+                    return;
+                }
+
+                // Send AJAX request to the servlet
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '${pageContext.request.contextPath}/addcomment', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // On success, append the new comment to the comment window
+                            let commentWindow = document.getElementById('commentWindow' + blogId);
+                            let newComment = document.createElement('div');
+                            newComment.classList.add('comment');
+                            console.log(userName);
+                            console.log(newComment);
+                            newComment.innerHTML = `
+    <img src="./images/avatar/default.png" alt="Avatar">
+    <p><strong>` + userName + `</strong>: ` + commentContent + `</p>
+`;
+                            console.log(newComment);
+
+
+                            commentWindow.insertBefore(newComment, commentWindow.firstChild);
+
+                            // Clear the input field
+                            commentInput.value = '';
+
+                            // Show the comment window if it's hidden
+                            if (commentWindow.style.display === 'none' || commentWindow.style.display === '') {
+                                commentWindow.style.display = 'block';
+                            }
+                        } else {
+                            alert('Failed to add comment. Please try again.');
+                        }
+                    }
+                };
+
+                // Send the comment data to the servlet
+                let data = 'blogId=' + encodeURIComponent(blogId) + '&commentContent=' + encodeURIComponent(commentContent);
+                xhr.send(data);
+
             }
         </script>
         <script src="./blog/blog.js"></script>
