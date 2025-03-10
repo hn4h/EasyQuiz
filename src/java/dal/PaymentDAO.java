@@ -11,7 +11,7 @@ public class PaymentDAO extends DBContext {
 
     // Method to save payment information
     public void savePayment(Payment payment) {
-        String sql = "INSERT INTO Transaction_History (transaction_id, order_code, amount, username, status, Description) " +
+        String sql = "INSERT INTO Transaction_History (transaction_id, order_code, amount, username, status, value_package, Description) " +
                     "VALUES (?, ?, ?, ?, ?, ?)";
         try ( 
              PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -20,7 +20,8 @@ public class PaymentDAO extends DBContext {
             stmt.setInt(3, payment.getAmount());
             stmt.setString(4, payment.getUserName());
             stmt.setString(5, payment.getStatus());
-            stmt.setString(6, payment.getDescription());
+            stmt.setInt(6, payment.getValue());
+            stmt.setString(7, payment.getDescription());
             stmt.executeUpdate();
             System.out.println("Payment saved successfully: " + payment.getTransactionId());
         } catch (SQLException e) {
@@ -112,6 +113,7 @@ public class PaymentDAO extends DBContext {
         payment.setDescription(rs.getString("description"));
         payment.setUserName(rs.getString("UserName"));
         payment.setCreatedDate(rs.getDate("Created_Date"));
+        payment.setValue(rs.getInt("value_package"));
         return payment;
     }
 

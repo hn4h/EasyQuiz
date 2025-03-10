@@ -111,8 +111,7 @@ public class AccountDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountDAO dao = new AccountDAO();
-        // dao.createAccount("admin", "", "easiquiz@gmail.com");
-        dao.createAccountByEmail("test12@gmail.com");
+        dao.updateExpiredDate("EasyQuiz124733", 1);
     }
 
     public void updateProfile(String userName, String profileImage) {
@@ -240,6 +239,38 @@ public class AccountDAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
             return false;
+        }
+    }
+
+    //return false if expiredDate < GETDATE()
+    public boolean checkPremium(String userName){
+        String sql = "Select * from Accounts where expiredDate < GETDATE() and username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            ResultSet rs = st.executeQuery();
+            return !rs.next();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return true;
+    }
+
+    public void updateExpiredDate(String userName, int value) {
+        String sql = "Update Accounts set expiredDate = ";
+        try {
+            
+            if(this.checkPremium(userName)){
+                sql+="DATEADD(DAY,"+ value + ", expiredDate)";
+            } else {
+                sql+="DATEADD(DAY,"+ value + ", GETDATE())";
+            }
+            sql +="where username = ?";  
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
         }
     }
 

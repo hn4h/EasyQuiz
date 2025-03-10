@@ -1,6 +1,5 @@
 package dal;
 
-import java.beans.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import model.Account;
 import model.FlashCard;
 import model.QuizSet;
 import model.QuizSetDetail;
-import java.sql.*;
 
 public class QuizSetDAO extends DBContext {
 
@@ -110,9 +108,24 @@ public class QuizSetDAO extends DBContext {
         return generatedKeys;
     }
 
+    public void addQuizHistory(int quizSetID, String userName) {
+        try {
+            String sql = "INSERT INTO Quiz_Set_History (Quiz_Set_ID, UserName) VALUES (?,?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, quizSetID);
+            ps.setString(2, userName);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    
+
     public static void main(String[] args) {
         QuizSetDAO d = new QuizSetDAO();
 
         System.out.println(d.getQuizDetailById(1).getQs().getQuizSetName());
     }
+    
 }

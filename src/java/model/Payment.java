@@ -10,6 +10,7 @@ public class Payment {
     private String orderCode;
     private String description;
     private String userName;
+    private int value;
     private Date createdDate;
 
     public Payment() {
@@ -18,6 +19,14 @@ public class Payment {
     public Payment(String transactionId, int amount) {
         this.transactionId = transactionId;
         this.amount = amount;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public Date getCreatedDate() {

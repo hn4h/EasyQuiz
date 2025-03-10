@@ -55,6 +55,7 @@
                         <form action="./order" method="post" id="paymentForm">
                             <input type="hidden" name="packageName" value="${p.name}">
                             <input type="hidden" name="price" value="${p.price}">
+                            <input type="hidden" name="value" value="${p.value}">
                             <!-- Return URLs will be set by the server -->
                             <button type="submit" id="plan-button secondary" class="plan-button secondary">Get EasyQuiz Premium</button>
                         </form>

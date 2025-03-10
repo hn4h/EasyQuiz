@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package controller.payment;
 
 import java.io.IOException;
@@ -26,7 +25,6 @@ import model.Payment;
 import dal.PaymentDAO;
 import jakarta.servlet.http.HttpSession;
 
-
 import vn.payos.PayOS;
 import vn.payos.type.CheckoutResponseData;
 import vn.payos.type.ItemData;
@@ -40,9 +38,9 @@ import model.Account;
  *
  * @author Asus
  */
-
 public class OrderServlet extends HttpServlet {
-   private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
     private final PayOS payOS;
     private final ObjectMapper objectMapper;
     private final PaymentDAO paymentDAO;
@@ -61,8 +59,7 @@ public class OrderServlet extends HttpServlet {
         Account account = (Account) session.getAttribute("account");
         if (account == null) {
             response.sendRedirect("login");
-        }
-        else if (pathInfo == null || pathInfo.equals("./")) {
+        } else if (pathInfo == null || pathInfo.equals("./")) {
             createPaymentLink(request, response);
         } else if (pathInfo.equals("./confirm-webhook")) {
             confirmWebhook(request, response);
@@ -96,7 +93,7 @@ public class OrderServlet extends HttpServlet {
     private void createPaymentLink(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
             CreatePaymentLinkRequestBody requestData;
-            
+
             // Get the base URL for the application
             String baseUrl = request.getScheme() + "://" + request.getServerName();
             if (request.getServerPort() != 80 && request.getServerPort() != 443) {
@@ -106,7 +103,7 @@ public class OrderServlet extends HttpServlet {
 
             // Check content type
             String contentType = request.getContentType();
-            
+
             if (contentType != null && contentType.contains("application/json")) {
                 // Handle JSON request
                 String requestBody = request.getReader().lines().collect(Collectors.joining());
@@ -114,21 +111,20 @@ public class OrderServlet extends HttpServlet {
             } else {
                 // Handle form data
                 requestData = new CreatePaymentLinkRequestBody();
-                
+
                 String packageName = request.getParameter("packageName");
                 String priceStr = request.getParameter("price");
-                
+                String valueStr = request.getParameter("value");
                 if (packageName == null || priceStr == null) {
                     throw new IllegalArgumentException("Product name and price are required");
                 }
-                
+
                 requestData.setPackageName(packageName);
                 requestData.setPrice(Integer.parseInt(priceStr));
-                
+
                 // Ensure description is not longer than 25 characters
                 requestData.setDescription(packageName + " Package");
 
-                
                 // Set absolute URLs for return and cancel
                 requestData.setReturnUrl(baseUrl + "/success");
                 requestData.setCancelUrl(baseUrl + "/cancel");
@@ -160,7 +156,7 @@ public class OrderServlet extends HttpServlet {
                     .build();
 
             CheckoutResponseData data = payOS.createPaymentLink(paymentData);
-
+            String valueStr = request.getParameter("value");
             // Save payment information to database
             Payment payment = new Payment();
             payment.setTransactionId(data.getPaymentLinkId());
@@ -171,7 +167,7 @@ public class OrderServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Account account = (Account) session.getAttribute("account");
             payment.setUserName(account.getUserName());
-
+            payment.setValue(Integer.parseInt(valueStr));
             try {
                 paymentDAO.savePayment(payment);
                 System.out.println("Payment saved to database with ID: " + payment.getTransactionId());
@@ -190,8 +186,8 @@ public class OrderServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/error.html?message=" + 
-                URLEncoder.encode(e.getMessage(), StandardCharsets.UTF_8));
+            response.sendRedirect(request.getContextPath() + "/error.html?message="
+                    + URLEncoder.encode(e.getMessage(), StandardCharsets.UTF_8));
         }
     }
 
@@ -262,5 +258,5 @@ public class OrderServlet extends HttpServlet {
     private void sendError(HttpServletResponse response, int status, String message) throws IOException {
         response.sendError(status, message);
     }
-    
+
 }
