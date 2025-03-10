@@ -1,5 +1,6 @@
 package dal;
 
+import java.beans.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import model.Account;
 import model.FlashCard;
 import model.QuizSet;
 import model.QuizSetDetail;
+import java.sql.*;
 
 public class QuizSetDAO extends DBContext {
 
@@ -86,6 +88,26 @@ public class QuizSetDAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+
+    public int addQuizSet(QuizSet qs) {
+        int generatedKeys = 1;
+        try {
+            String sql = "INSERT INTO Quiz_Set (Quiz_Set_Name, Author, Number_Of_Quiz, Quiz_Set_Description) VALUES (?,?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1, qs.getQuizSetName());
+            ps.setString(2, qs.getAuthor().getUserName());
+            ps.setInt(3, qs.getNumberOfQuiz());
+            ps.setString(4, qs.getQuizSetDescription());
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                generatedKeys = rs.getInt(1); // Lấy Quiz_Set_ID vừa tạo
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return generatedKeys;
     }
 
     public static void main(String[] args) {

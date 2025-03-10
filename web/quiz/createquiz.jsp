@@ -141,19 +141,19 @@
                                 <p class="text-gray">Answer</p>
                                 <div class="options">
                                     <div class="option">
-                                        <input type="radio" name="correct1" value="option1" class="form-radio">
+                                        <input type="radio" name="correct1" value="1" class="form-radio">
                                         <input type="text" placeholder="Option 1" name="answer1.1" class="option-input">
                                     </div>
                                     <div class="option">
-                                        <input type="radio" name="correct1" value="option2" class="form-radio">
+                                        <input type="radio" name="correct1" value="2" class="form-radio">
                                         <input type="text" placeholder="Option 2" name="answer1.2" class="option-input">
                                     </div>
                                     <div class="option">
-                                        <input type="radio" name="correct1" value="option3" class="form-radio">
+                                        <input type="radio" name="correct1" value="3" class="form-radio">
                                         <input type="text" placeholder="Option 3" name="answer1.3" class="option-input">
                                     </div>
                                     <div class="option">
-                                        <input type="radio" name="correct1" value="option4" class="form-radio">
+                                        <input type="radio" name="correct1" value="4" class="form-radio">
                                         <input type="text" placeholder="Option 4" name="answer1.4" class="option-input">
                                     </div>
                                 </div>

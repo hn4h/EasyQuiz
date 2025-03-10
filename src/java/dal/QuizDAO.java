@@ -7,8 +7,8 @@ package dal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import model.Quiz;
 import model.Answer;
+import model.Quiz;
 
 public class QuizDAO extends DBContext {
 
@@ -51,5 +51,32 @@ public class QuizDAO extends DBContext {
             e.printStackTrace();
         }
         return quizzes;
+    }
+   
+    public int addQuiz(int quizSetID, String content) {
+        String sql = "INSERT INTO Quiz (Quiz_Set_ID, Quiz_content) VALUES (?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, quizSetID);
+            ps.setString(2, content);
+            ps.executeUpdate();
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    public void addAnswer(int quizID, String content, boolean isCorrect) {
+        String sql = "INSERT INTO Answer (Quiz_ID, Answer_Content, Is_Correct) VALUES (?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, quizID);
+            ps.setString(2, content);
+            ps.setBoolean(3, isCorrect);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
