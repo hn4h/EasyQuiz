@@ -68,7 +68,10 @@ public class AddQuizServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       String title = request.getParameter("quizTitle");
+       String description = request.getParameter("quizDescription");
+       String numberOfQuizRaw = request.getParameter("questionCount");
+       
     }
 
     /** 

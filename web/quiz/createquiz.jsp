@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create Quiz</title>
         <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-        <link rel="stylesheet" href="createquiz.css">
+        <link rel="stylesheet" href="./quiz/createquiz.css">
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -119,11 +119,12 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <form id="quizForm">
+                <form action="addquiz" method="post" id="quizForm">
                     <div class="quiz-header">
                         <h1 class="form-title">Create a new quiz</h1>
                         <button type="submit" class="create-btn">Create</button>
                     </div>
+                    <input type="hidden" id="questionCount" name="questionCount">
                     <input type="text" placeholder="Enter a title" class="input" name="quizTitle">
                     <input type="text" placeholder="Add a description..." class="des input" name="quizDescription">
                     <!-- Quiz Items -->
@@ -166,6 +167,6 @@
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script src="createquiz.js"></script>
+        <script src="./quiz/createquiz.js"></script>
     </body>
 </html>
