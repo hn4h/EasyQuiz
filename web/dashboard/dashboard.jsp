@@ -197,56 +197,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">Monthly</span>
-                                        </td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">1.99$</span>
-                                        </td>
-                                        <td><span style="color: #000;">01-01-2025</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">Monthly</span>
-                                        </td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">1.99$</span>
-                                        </td>
-                                        <td><span style="color: #000;">01-01-2025</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">Monthly</span>
-                                        </td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">1.99$</span>
-                                        </td>
-                                        <td><span style="color: #000;">01-01-2025</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">Monthly</span>
-                                        </td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">1.99$</span>
-                                        </td>
-                                        <td><span style="color: #000;">01-01-2025</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Airi Satou</td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">Monthly</span>
-                                        </td>
-                                        <td><span
-                                                style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">1.99$</span>
-                                        </td>
-                                        <td><span style="color: #000;">01-01-2025</span></td>
-                                    </tr>
+                                    <c:forEach items="${requestScope.newTransaction}" var="t">
+                                        <tr>
+                                            <td>${t.userName}</td>
+                                            <td><span
+                                                    style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">${t.description}</span>
+                                            </td>
+                                            <td><span
+                                                    style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">${t.amount}</span>
+                                            </td>
+                                            <td><span style="color: #000;">${t.createdDate}</span></td>
+                                        </tr>
+                                    </c:forEach>
+
                                 </tbody>
                             </table>
                         </div>

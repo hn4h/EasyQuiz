@@ -5,6 +5,7 @@
 
 package controller.dashboard;
 
+import dal.PaymentDAO;
 import dal.StatisDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,8 +57,9 @@ public class ManageTransactionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        StatisDAO dao = new StatisDAO();
-//        request.setAttribute("users", dao.getAllUserStatistics());
+        PaymentDAO paymentDAO = new PaymentDAO();
+        System.out.println(paymentDAO.getAllPayments().get(0).getOrderCode());
+        request.setAttribute("transactions", paymentDAO.getAllPayments());
         request.getRequestDispatcher("dashboard/transaction.jsp").forward(request, response);
     } 
 

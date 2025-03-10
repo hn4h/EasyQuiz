@@ -33,7 +33,7 @@ public class PaymentDAO extends DBContext {
     // Method to get all payments
     public List<Payment> getAllPayments() {
         List<Payment> payments = new ArrayList<>();
-        String sql = "SELECT * FROM Transaction_History ORDER BY created_at DESC";
+        String sql = "SELECT * FROM Transaction_History ORDER BY Created_Date DESC";
         try (
              PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -110,6 +110,8 @@ public class PaymentDAO extends DBContext {
         payment.setAmount(rs.getInt("amount"));
         payment.setStatus(rs.getString("status"));
         payment.setDescription(rs.getString("description"));
+        payment.setUserName(rs.getString("UserName"));
+        payment.setCreatedDate(rs.getDate("Created_Date"));
         return payment;
     }
 

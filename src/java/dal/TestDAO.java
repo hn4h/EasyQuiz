@@ -25,8 +25,8 @@ public class TestDAO {
                 int setId = rs.getInt("Quiz_set_ID");
                 String content = rs.getString("Quiz_content");
 
-                Quiz quiz = new Quiz(id, setId, content);
-                quizzes.add(quiz);
+//                Quiz quiz = new Quiz(id, setId, content);
+//                quizzes.add(quiz);
             }
 
             rs.close();

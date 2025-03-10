@@ -5,6 +5,7 @@
 
 package controller.dashboard;
 
+import dal.PaymentDAO;
 import dal.StatisDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,6 +63,7 @@ public class DashBoardServlet extends HttpServlet {
         request.setAttribute("numOfTransaction", db.getNumberOfTransaction());
         request.setAttribute("totalRevenue", db.getTotalRevenue());
         request.setAttribute("newUser", db.getNewCreatedUser());
+        request.setAttribute("newTransaction", db.getNewPayments());
         request.getRequestDispatcher("dashboard/dashboard.jsp").forward(request, response);
     } 
 

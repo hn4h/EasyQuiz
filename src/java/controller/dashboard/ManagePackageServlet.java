@@ -5,6 +5,7 @@
 
 package controller.dashboard;
 
+import dal.PackageDAO;
 import dal.StatisDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,7 +57,8 @@ public class ManagePackageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-//        request.setAttribute("packages", dao.getAllPackages());
+        PackageDAO packageDAO = new PackageDAO();
+        request.setAttribute("packages", packageDAO.getAllPackages());
         request.getRequestDispatcher("dashboard/package.jsp").forward(request, response);
     } 
 

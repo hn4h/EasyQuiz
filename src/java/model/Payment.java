@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Date;
+
 public class Payment {
 
     private String transactionId;
@@ -8,6 +10,7 @@ public class Payment {
     private String orderCode;
     private String description;
     private String userName;
+    private Date createdDate;
 
     public Payment() {
     }
@@ -15,6 +18,14 @@ public class Payment {
     public Payment(String transactionId, int amount) {
         this.transactionId = transactionId;
         this.amount = amount;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public String getUserName() {

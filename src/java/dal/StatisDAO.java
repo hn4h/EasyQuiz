@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
+import model.Payment;
 import model.UserStatis;
 
 /**
@@ -119,6 +120,33 @@ public class StatisDAO extends DBContext {
             System.out.println(e);
         }
         return list;
+    }
+    public List<Payment> getNewPayments() {
+        List<Payment> payments = new ArrayList<>();
+        String sql = "SELECT Top(6) * FROM Transaction_History where Status = 'PAID' ORDER BY Created_Date DESC";
+        try (
+             PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                payments.add(mapPayment(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving payments: " + e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Error retrieving payments: " + e.getMessage(), e);
+        }
+        return payments;
+    }
+    private Payment mapPayment(ResultSet rs) throws SQLException {
+        Payment payment = new Payment();
+        payment.setTransactionId(rs.getString("transaction_id"));
+        payment.setOrderCode(rs.getString("order_code"));
+        payment.setAmount(rs.getInt("amount"));
+        payment.setStatus(rs.getString("status"));
+        payment.setDescription(rs.getString("description"));
+        payment.setUserName(rs.getString("UserName"));
+        payment.setCreatedDate(rs.getDate("Created_Date"));
+        return payment;
     }
     // public static void main(String[] args) {
     // StatisDAO d = new StatisDAO();
