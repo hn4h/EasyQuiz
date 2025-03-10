@@ -2,16 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
  */
-// createquiz.js
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.querySelector('.add-btn');
     const bodyContainer = document.querySelector('.body-container');
+    const quizForm = document.querySelector('#quizForm'); // Reference the form
     let questionCount = 1; // Initialize count with existing question
 
     // Function to update all question names and inputs based on their current position
     function updateQuestionNames() {
-        const quizItems = bodyContainer.querySelectorAll('.quiz-item');
+        const quizItems = quizForm.querySelectorAll('.quiz-item'); // Scope to form
         questionCount = quizItems.length; // Update total count
         
         quizItems.forEach((item, index) => {
@@ -34,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
         
-        // Update total questions counter (you can use this variable as needed)
         console.log(`Total questions: ${questionCount}`); // For debugging
     }
 
@@ -43,7 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const newQuizItem = document.createElement('div');
         newQuizItem.className = 'quiz-item';
         
-        // Use questionCount + 1 for new item naming
         const newQuestionNum = questionCount + 1;
         
         newQuizItem.innerHTML = `
@@ -60,19 +59,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="options">
                         <div class="option">
                             <input type="radio" name="correct${newQuestionNum}" value="option1" class="form-radio">
-                            <input type="text" placeholder = "Option 1" name="answer${newQuestionNum}.1" class="option-input">
+                            <input type="text" placeholder="Option 1" name="answer${newQuestionNum}.1" class="option-input">
                         </div>
                         <div class="option">
                             <input type="radio" name="correct${newQuestionNum}" value="option2" class="form-radio">
-                            <input type="text" placeholder = "Option 2" name="answer${newQuestionNum}.2" class="option-input">
+                            <input type="text" placeholder="Option 2" name="answer${newQuestionNum}.2" class="option-input">
                         </div>
                         <div class="option">
                             <input type="radio" name="correct${newQuestionNum}" value="option3" class="form-radio">
-                            <input type="text" placeholder = "Option 3" name="answer${newQuestionNum}.3" class="option-input">
+                            <input type="text" placeholder="Option 3" name="answer${newQuestionNum}.3" class="option-input">
                         </div>
                         <div class="option">
                             <input type="radio" name="correct${newQuestionNum}" value="option4" class="form-radio">
-                            <input type="text" placeholder = "Option 4" name="answer${newQuestionNum}.4" class="option-input">
+                            <input type="text" placeholder="Option 4" name="answer${newQuestionNum}.4" class="option-input">
                         </div>
                     </div>
                 </div>
@@ -86,10 +85,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Add new quiz item
-    addButton.addEventListener('click', function() {
+    addButton.addEventListener('click', function(e) {
+        e.preventDefault(); // Prevent any accidental form submission
         const newQuizItem = createNewQuizItem();
-        const centerBtn = document.querySelector('.center-btn');
-        bodyContainer.insertBefore(newQuizItem, centerBtn);
+        quizForm.appendChild(newQuizItem); // Append new quiz item inside the form
         questionCount++; // Increment counter
         updateQuestionNames(); // Update all names
     });
@@ -135,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (draggedItem) {
             const targetItem = event.target.closest('.quiz-item');
             if (targetItem && targetItem !== draggedItem) {
-                const allItems = Array.from(bodyContainer.querySelectorAll('.quiz-item'));
+                const allItems = Array.from(quizForm.querySelectorAll('.quiz-item')); // Scope to form
                 const draggedIndex = allItems.indexOf(draggedItem);
                 const targetIndex = allItems.indexOf(targetItem);
 
@@ -157,77 +156,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initial name update for existing items
     updateQuestionNames();
-});
 
-//Toggle the visibility of a dropdown menu
-const toggleDropdown = (dropdown, menu, isOpen) => {
-    dropdown.classList.toggle("open", isOpen);
-    menu.style.height = isOpen ? `${menu.scrollHeight}px` : 0;
-};
-
-const closeAllDropdowns = () => {
-    document.querySelectorAll(".dropdown-container.open").forEach(openDropdown => {
-        toggleDropdown(openDropdown, openDropdown.querySelector(".dropdown-subject"), false);
-    });
-};
-//Attach click event to all dropdown toggles
-document.querySelectorAll(".dropdown-toggle").forEach(dropdownToggle => {
-    dropdownToggle.addEventListener("click", e => {
-        e.preventDefault();
-
-        const dropdown = e.target.closest(".dropdown-container");
-        const menu = dropdown.querySelector(".dropdown-subject");
-        const isOpen = dropdown.classList.contains("open");
-
-        closeAllDropdowns();//Close all open dropdowns
-
-        toggleDropdown(dropdown, menu, !isOpen); //Toggle current dropdown visibility
+    // Handle form submission
+    quizForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Remove this if you want to submit to a server
+        console.log('Form submitted!');
+        // Add your form submission logic here (e.g., send data to a server)
     });
 });
-
-document.querySelector(".sidebar-toggler").addEventListener("click", () => {
-    closeAllDropdowns();
-
-    // Toggle collapsed class on sidebar
-    document.querySelector(".sidebar").classList.toggle("collapsed");
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector(".sidebar").classList.toggle("collapsed");
-});
-//------------------------Menu of avatar
-// Get elements
-const avatarUser = document.getElementById('avatarUser');
-const dropdownMenu = document.getElementById('userMenu');
-
-// Toggle dropdown menu on click
-avatarUser.addEventListener('click', (e) => {
-    dropdownMenu.classList.toggle('show');
-    e.stopPropagation(); // Prevent click from closing immediately
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', () => {
-    if (dropdownMenu.classList.contains('show')) {
-        dropdownMenu.classList.remove('show');
-    }
-});
-//----------------------Menu of create button
-// Get elements
-const createButton = document.getElementById('createButton');
-const dropdownCreateMenu = document.getElementById('createMenu');
-
-// Toggle dropdown menu on click
-createButton.addEventListener('click', (e) => {
-    dropdownCreateMenu.classList.toggle('show');
-    e.stopPropagation(); // Prevent click from closing immediately
-});
-
-// Close menu when clicking outside
-document.addEventListener('click', () => {
-    if (dropdownCreateMenu.classList.contains('show')) {
-        dropdownCreateMenu.classList.remove('show');
-    }
-});
-
 

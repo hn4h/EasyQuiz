@@ -119,47 +119,49 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <div class="quiz-header">
-                    <h1 class="form-title">Create a new quiz</h1>
-                    <button class="create-btn">Create</button>
-                </div>
-                <input type="text" placeholder="Enter a title" class="input">
-                <input type="text" placeholder="Add a description..." class="des input">
-                <!-- Quiz Items -->
-                <div class="quiz-item">
-                    <div class="quiz-content">
-                        <i class="fas fa-grip-vertical drag-handle"></i>
-                        <div class="question">
-                            <div class="question-header">
-                                <input class="question-text input" type="text" name="question${questionCount}" placeholder="Enter question here">
-                                <div class="actions">  
-                                    <i class="fas fa-trash"></i>
+                <form id="quizForm">
+                    <div class="quiz-header">
+                        <h1 class="form-title">Create a new quiz</h1>
+                        <button type="submit" class="create-btn">Create</button>
+                    </div>
+                    <input type="text" placeholder="Enter a title" class="input" name="quizTitle">
+                    <input type="text" placeholder="Add a description..." class="des input" name="quizDescription">
+                    <!-- Quiz Items -->
+                    <div class="quiz-item">
+                        <div class="quiz-content">
+                            <i class="fas fa-grip-vertical drag-handle"></i>
+                            <div class="question">
+                                <div class="question-header">
+                                    <input class="question-text input" type="text" name="question1" placeholder="Enter question here">
+                                    <div class="actions">  
+                                        <i class="fas fa-trash"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="text-gray">Answer</p>
-                            <div class="options">
-                                <div class="option">
-                                    <input type="radio" name="correct1" value="option1" class="form-radio">
-                                    <input type="text" placeholder = "Option 1" name="Answer1.1" class="option-input">
-                                </div>
-                                <div class="option">
-                                    <input type="radio" name="correct1" value="option2" class="form-radio">
-                                    <input type="text" placeholder = "Option 2" name="Answer1.2" class="option-input">
-                                </div>
-                                <div class="option">
-                                    <input type="radio" name="correct1" value="option3" class="form-radio">
-                                    <input type="text" placeholder = "Option 3" name="Answer1.3" class="option-input">
-                                </div>
-                                <div class="option">
-                                    <input type="radio" name="correct1" value="option4" class="form-radio">
-                                    <input type="text" placeholder = "Option 4" name="Answer1.4" class="option-input">
+                                <p class="text-gray">Answer</p>
+                                <div class="options">
+                                    <div class="option">
+                                        <input type="radio" name="correct1" value="option1" class="form-radio">
+                                        <input type="text" placeholder="Option 1" name="answer1.1" class="option-input">
+                                    </div>
+                                    <div class="option">
+                                        <input type="radio" name="correct1" value="option2" class="form-radio">
+                                        <input type="text" placeholder="Option 2" name="answer1.2" class="option-input">
+                                    </div>
+                                    <div class="option">
+                                        <input type="radio" name="correct1" value="option3" class="form-radio">
+                                        <input type="text" placeholder="Option 3" name="answer1.3" class="option-input">
+                                    </div>
+                                    <div class="option">
+                                        <input type="radio" name="correct1" value="option4" class="form-radio">
+                                        <input type="text" placeholder="Option 4" name="answer1.4" class="option-input">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="center-btn">
-                    <button class="add-btn">+ Add a quiz</button>
+                    <button class="add-btn">+ Add a Quiz</button>
                 </div>
             </div>
         </div>
