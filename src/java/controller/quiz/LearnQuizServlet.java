@@ -15,7 +15,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import model.Account;
 
 /**
  *
@@ -60,33 +62,39 @@ public class LearnQuizServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String quizSetIDParam = request.getParameter("quizSetID");
-    QuizSetDAO qsd = new QuizSetDAO();
-    if (quizSetIDParam != null) {
-        try {
-            int quizSetID = Integer.parseInt(quizSetIDParam);
-            QuizDAO quizDAO = new QuizDAO();
-            List<Quiz> quizzes = quizDAO.getQuizzesByQuizSetID(quizSetID);
-            if (quizzes == null || quizzes.isEmpty()) {
-                request.setAttribute("error", "No quizzes found for quizSetID: " + quizSetID);
-            } else {
-                // Kiểm tra và đảm bảo answers không null
-                for (Quiz quiz : quizzes) {
-                    if (quiz.getAnswers() == null) {
-                        quiz.setAnswers(new ArrayList<>());
-                    }
-                }
-                request.setAttribute("quizDetail", qsd.getQuizDetailById(quizSetID));
-                request.setAttribute("quizzes", quizzes);
-            }
-        } catch (NumberFormatException e) {
-            request.setAttribute("error", "Invalid Quiz Set ID");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String quizSetIDParam = request.getParameter("quizSetID");
+        QuizSetDAO qsd = new QuizSetDAO();
+        HttpSession session = request.getSession();
+        Account a = (Account) session.getAttribute("account");
+        if(a == null){
+            response.sendRedirect("login");
+            return;
         }
+        if (quizSetIDParam != null) {
+            try {
+                int quizSetID = Integer.parseInt(quizSetIDParam);
+                QuizDAO quizDAO = new QuizDAO();
+                List<Quiz> quizzes = quizDAO.getQuizzesByQuizSetID(quizSetID);
+                if (quizzes == null || quizzes.isEmpty()) {
+                    request.setAttribute("error", "No quizzes found for quizSetID: " + quizSetID);
+                } else {
+                    // Kiểm tra và đảm bảo answers không null
+                    for (Quiz quiz : quizzes) {
+                        if (quiz.getAnswers() == null) {
+                            quiz.setAnswers(new ArrayList<>());
+                        }
+                    }
+                    request.setAttribute("quizDetail", qsd.getQuizDetailById(quizSetID));
+                    request.setAttribute("quizzes", quizzes);
+                }
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Invalid Quiz Set ID");
+            }
+        }
+        request.getRequestDispatcher("quiz/learnquiz.jsp").forward(request, response);
     }
-    request.getRequestDispatcher("quiz/learnquiz.jsp").forward(request, response);
-}
 
     /**
      * Handles the HTTP <code>POST</code> method.
