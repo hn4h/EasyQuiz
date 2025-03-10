@@ -80,40 +80,6 @@ public class HistoryDAO extends DBContext {
         return list;
     }
 
-    public List<QuizSet> getCreatedQuiz(String userName) {
-        List<QuizSet> list = new ArrayList<>();
-        String sql = "SELECT \n"
-                + "    qs.Quiz_Set_ID,\n"
-                + "    qs.Quiz_Set_Name,\n"
-                + "    qs.Author,\n"
-                + "    qs.Number_Of_Quiz,\n"
-                + "    qs.Created_Date,\n"
-                + "    qs.Quiz_Set_Description\n"
-                + "FROM \n"
-                + "    Quiz_Set qs\n"
-                + "WHERE \n"
-                + "    qs.Author = ?";
-        try {
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, userName);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                QuizSet qs = new QuizSet();
-                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
-                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
-                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
-                Account a = new Account();
-                a.setUserName(rs.getString("Author"));
-                qs.setAuthor(a);
-                list.add(qs);
-            }
-            return list;
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return list;
-    }
-
     public List<Folder> getAllFolderByUserName(String userName) {
         List<Folder> list = new ArrayList<>();
         String sql = "SELECT \n"
@@ -145,11 +111,11 @@ public class HistoryDAO extends DBContext {
                 + "    a.Email\n"
                 + "ORDER BY \n"
                 + "    f.Folder_Date DESC";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, userName);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Folder f = new Folder();
                 f.setFolderId(rs.getInt("Folder_ID"));
                 f.setFolderName(rs.getString("Folder_Name"));
@@ -158,20 +124,20 @@ public class HistoryDAO extends DBContext {
                 f.setQuizSetCount(rs.getInt("QuizSetCount"));
                 list.add(f);
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
     }
-    
-    public List<QuizSet> getAllCreatedQuizSet(String userName){
+
+    public List<QuizSet> getAllCreatedQuizSet(String userName) {
         List<QuizSet> list = new ArrayList<>();
         String sql = "select * from Quiz_Set where Author = ?";
-        try{
+        try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, userName);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 QuizSet qs = new QuizSet();
                 qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
                 qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
@@ -181,16 +147,80 @@ public class HistoryDAO extends DBContext {
                 qs.setAuthor(a);
                 list.add(qs);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return list;
     }
 
+    public List<QuizSet> getAllQuizSetByFolderId(int foldeId) {
+        List<QuizSet> list = new ArrayList<>();
+        String sql = "select f.Folder_ID, f.Folder_Name, count(fc.Quiz_Set_ID) as QuizSetCount from Folder f\n"
+                + "left join Folder_Contain fc on fc.Folder_ID = f.Folder_ID\n"
+                + "where f.Folder_ID = 4\n"
+                + "group by f.Folder_ID, f.Folder_Name";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, foldeId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                QuizSet qs = new QuizSet();
+                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
+                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
+                Account a = new Account();
+                a.setUserName(rs.getString("Author"));
+                qs.setAuthor(a);
+                list.add(qs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
+    public Folder getFolderByFolderId(int folderId) {
+        Folder f = new Folder();
+        String sql = "select f.Folder_ID, f.Folder_Name, f.Folder_Date, f.UserName, f.Folder_Description, "
+                + "count(fc.Quiz_Set_ID) as QuizSetCount from Folder f\n"
+                + "left join Folder_Contain fc on fc.Folder_ID = f.Folder_ID\n"
+                + "where f.Folder_ID = ?\n"
+                + "group by f.Folder_ID, f.Folder_Name, f.Folder_Date, f.Folder_Description, f.UserName";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                f.setFolderId(rs.getInt("Folder_Id"));
+                f.setFolderName(rs.getString("Folder_Name"));
+                f.setFolderDate(rs.getDate("Folder_Date"));
+                f.setFolderDescription("Folder_Description");
+                f.setQuizSetCount(rs.getInt("QuizSetCount"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return f;
+    }
+
+    public void createFolder(String folderName, String userName) {
+        String sql = "INSERT INTO Folder (Folder_Name, UserName, Folder_Description)  \n"
+                + "VALUES (?, ?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, folderName);
+            st.setString(2, userName);
+            st.setString(3, "");
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         HistoryDAO d = new HistoryDAO();
-        List<Folder> list = d.getAllFolderByUserName("EasyQuiz343293");
-        System.out.println(list.size());
+        List<Folder> list = d.getAllFolderByUserName("EasyQuiz870949");
+        System.out.println(list.get(0).getFolderName());
     }
 
 }

@@ -196,20 +196,22 @@ body {
 
 .line-1 {
     position: absolute;
-    width: 10%;
+    width: 0%;
     height: 100%;
     border-radius: 12.5rem;
-    background-color: #640D5F;
+    background-color: #640D5F; /* Xanh nhạt cho câu đúng */
     z-index: 102;
+    transition: width 0.3s ease;
 }
 
 .line-2 {
     position: absolute;
-    width: 50%;
+    width: 0%;
     height: 100%;
     border-radius: 12.5rem;
-    background-color: #ffbcfb;
+    background-color: #ffbcfb; /* Xanh đậm cho câu sai */
     z-index: 101;
+    transition: width 0.3s ease, left 0.3s ease;
 }
 
 .line-3 {
@@ -217,7 +219,7 @@ body {
     width: 100%;
     height: 100%;
     border-radius: 12.5rem;
-    background-color: #e6e6e6;
+    background-color: #e6e6e6; /* Xám cho chưa làm */
     z-index: 100;
 }
 
@@ -261,11 +263,12 @@ body {
     border-radius: 8px;
     align-items: center;
     min-height: 4rem;
+    cursor: pointer;
+    pointer-events: auto; /* Đảm bảo có thể click */
 }
 
 .answer:hover {
     border-color: #333;
-    cursor: pointer;
 }
 
 .answer-number {
@@ -298,13 +301,19 @@ body {
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    pointer-events: auto; /* Đảm bảo có thể click */
 }
 
 .suggest-btn button:hover {
     background: #ffbcfb;
 }
 
+.quiz {
+    display: none;
+}
+
 .continue-container {
+    display: flex;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -313,6 +322,10 @@ body {
     z-index: 401;
     padding: 0 1.5rem;
     width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+    overflow: hidden;
 }
 
 .continue-content {
@@ -320,7 +333,7 @@ body {
     justify-content: space-between;
     align-items: center;
     margin: auto;
-    max-width: 52.5rem;
+    min-width: 60rem;
     height: 100%;
 }
 
@@ -338,8 +351,18 @@ body {
     cursor: pointer;
 }
 
+.continue-content button:hover {
+    background-color: #2A004E;
+}
+
 .continue-content button span {
     font-size: 16px;
     font-weight: 600;
     color: #fff;
+}
+
+.continue-container.show {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
 }

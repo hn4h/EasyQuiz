@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package controller.history;
 
 import dal.HistoryDAO;
 import java.io.IOException;
@@ -70,7 +70,7 @@ public class HistoryFolderServlet extends HttpServlet {
             return;
         }
         HistoryDAO dao = new HistoryDAO();
-        List<Folder> list = dao.getAllFolderByUserName(acc.getUserName()); // Fixed typo
+        List<Folder> list = dao.getAllFolderByUserName(acc.getUserName());
         request.setAttribute("folder", list);
         request.getRequestDispatcher("history/folders.jsp").forward(request, response);
     }

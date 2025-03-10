@@ -1,9 +1,9 @@
 <%-- 
-    Document   : folders
-    Created on : Mar 1, 2025, 4:09:37 AM
+    Document   : addquiztofolder
+    Created on : Mar 5, 2025, 12:28:08 AM
     Author     : Lenovo
 --%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -11,8 +11,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Folder</title>
-        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-        <link rel="stylesheet" href="./history/history.css">
+        <link rel="stylesheet" href="./history/foldercontain.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <script src="https://cdn.tailwindcss.com"></script>
@@ -85,6 +84,31 @@
                 </div>
             </div>
         </form>
+        <div class="popup-overlay" id="popup-folder">
+            <div class="popup-content">
+                <button class="btn-close" id="closePopup">&times;</button>
+                <h2 class="add-folder">Add Quiz Set to folder</h2>
+                
+                <div class="item-list">
+                    <div class="item">
+                        <div class="item-info">
+                            <img class="item-icon" src="https://placehold.co/40x40" alt="C3-W1 icon" />
+                            <div>
+                                <p class="item-name">C3-W1</p>
+                                <p class="item-meta">Quiz set · 10 terms · Author: khanhhuyen0810</p>
+                            </div>
+                        </div>
+                        <button class="add-button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button class="submit-button">Complete</button>
+                </div>
+            </div>
+
+        </div>
         <div class="body">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
@@ -133,36 +157,55 @@
                 </nav>
             </aside> 
             <div class="body-container">
-                <h1 class="text-2xl font-bold mb-4">History</h1>
-                <div class="history-card">
-                    <div class="button2" style="margin-bottom: 50px;">
-                        <a href="quizhistory" class="folders-button">Quiz</a>
-                        <a href="folderhistory" class="quiz-button">Folders</a>
-                    </div>
-                    <div>
-                        <c:if test="${not empty folder}">
-                            <c:forEach var="folder" items="${requestScope.folder}" >
-                                <div onclick="window.location.href = 'foldercontain?folderId=${folder.folderId}'" class="folder-card bg-white-100 rounded mb-4">
-                                    <div class=" quiz-title flex">
-                                        <div>
-                                            <p class="set-num">${folder.quizSetCount} Quiz Set</p>
-                                        </div>
-                                        <span class="title-text text-gray-600 mt-1"><i class="fa-solid fa-folder"></i>&nbsp;${folder.folderName}</span>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                        </c:if>
-                        <c:if test="${empty folder}">
-                            <div class="empty-quiz" style="margin-top: 160px">
-                                <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">You haven't created any folder before</p>
-                                <img style="margin: 0 auto; width: 150px;" src="./images/history/folders_empty.png" alt="Not found">
-                            </div>
-                        </c:if>
+                <div class="content">
+                    <h1 class="folder-title">${folder.folderName}</h1>
+                    <div class="btn-area">
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                        <button class="option-btn"><i class="fa-solid fa-ellipsis"></i></button>
                     </div>
                 </div>
+                <c:if test="${empty requestScope.quiz}">
+                    <div class="empty-folder">
+                        Empty folder
+                    </div>
+                </c:if>
+                <c:forEach items="${requestScope.quiz}" var="quiz">
+                    <div class="quiz-card bg-white-100 rounded mb-4">
+                        <div class="quiz-title flex">
+                            <div>
+                                <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                <span class="text-sm text-gray-600 ml-2">|</span>
+                                <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                            </div>
+                            <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                        </div>
+                    </div>
+                </c:forEach>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./history/history.js"></script>
+        <script>
+            const popup = document.getElementById("popup-folder");
+            const openBtn = document.querySelector(".add-btn");
+            const closeFolderBtn = document.getElementById("closePopup");
+
+            // Hiện popup
+            openBtn.addEventListener("click", () => {
+                popup.style.display = "flex";
+            });
+
+            // Đóng popup khi nhấn nút X
+            closeFolderBtn.addEventListener("click", () => {
+                popup.style.display = "none";
+            });
+
+            // Đóng popup khi nhấn ra ngoài
+            window.addEventListener("click", (e) => {
+                if (e.target === popup) {
+                    popup.style.display = "none";
+                }
+            });
+        </script>
     </body>
 </html>

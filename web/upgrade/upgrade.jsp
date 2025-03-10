@@ -56,7 +56,7 @@
                             <input type="hidden" name="packageName" value="${p.name}">
                             <input type="hidden" name="price" value="${p.price}">
                             <!-- Return URLs will be set by the server -->
-                            <button type="submit" id="plan-button secondary">Get EasyQuiz Premium</button>
+                            <button type="submit" id="plan-button secondary" class="plan-button secondary">Get EasyQuiz Premium</button>
                         </form>
                     </div>
                 </c:forEach>
