@@ -88,21 +88,25 @@
             <div class="popup-content">
                 <button class="btn-close" id="closePopup">&times;</button>
                 <h2 class="add-folder">Add Quiz Set to folder</h2>
-                
-                <div class="item-list">
-                    <div class="item">
-                        <div class="item-info">
-                            <img class="item-icon" src="https://placehold.co/40x40" alt="C3-W1 icon" />
-                            <div>
-                                <p class="item-name">C3-W1</p>
-                                <p class="item-meta">Quiz set · 10 terms · Author: khanhhuyen0810</p>
+                <c:if test="${empty requestScope.allList}">
+                    <div class="empty-item">
+                        <p>You haven't created or studied any items yet.</p>
+                        <button class="create-item" type="button">Create Quiz Set</button>
+                    </div>
+                </c:if>
+                <c:forEach items="${requestScope.allList}" var="quizItem">
+                    <div class="item-list">
+                        <div class="item">
+                            <div class="item-info">
+                                <img class="item-icon" src="./images/icon/flashcard_icon.png" alt="Not Found" />
+                                <div>
+                                    <p class="item-name">${quizItem.quizSetName}</p>
+                                    <p class="item-meta">Quiz set · ${quizItem.numberOfQuiz} terms · Author: ${quizItem.author}</p>
+                                </div>
                             </div>
                         </div>
-                        <button class="add-button">
-                            <i class="fas fa-plus"></i>
-                        </button>
                     </div>
-                </div>
+                </c:forEach>
                 <div class="footer">
                     <button class="submit-button">Complete</button>
                 </div>
@@ -121,7 +125,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="quiz" class="nav-link-actived">
+                            <a href="quizhistory" class="nav-link-actived">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>
@@ -161,7 +165,7 @@
                     <h1 class="folder-title">${folder.folderName}</h1>
                     <div class="btn-area">
                         <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
-                        <button class="option-btn"><i class="fa-solid fa-ellipsis"></i></button>
+                        <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
                 <c:if test="${empty requestScope.quiz}">
@@ -185,27 +189,6 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./history/history.js"></script>
-        <script>
-            const popup = document.getElementById("popup-folder");
-            const openBtn = document.querySelector(".add-btn");
-            const closeFolderBtn = document.getElementById("closePopup");
-
-            // Hiện popup
-            openBtn.addEventListener("click", () => {
-                popup.style.display = "flex";
-            });
-
-            // Đóng popup khi nhấn nút X
-            closeFolderBtn.addEventListener("click", () => {
-                popup.style.display = "none";
-            });
-
-            // Đóng popup khi nhấn ra ngoài
-            window.addEventListener("click", (e) => {
-                if (e.target === popup) {
-                    popup.style.display = "none";
-                }
-            });
-        </script>
+        <script src="./history/foldercontain.js"></script>
     </body>
 </html>

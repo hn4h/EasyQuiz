@@ -14,17 +14,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 import model.Account;
 import model.Folder;
-import model.QuizSet;
 
 /**
  *
  * @author Lenovo
  */
-@WebServlet(name="FolderContainServlet", urlPatterns={"/foldercontain"})
-public class FolderContainServlet extends HttpServlet {
+@WebServlet(name="CreateFolderServlet", urlPatterns={"/createfolder"})
+public class CreateFolderServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +39,10 @@ public class FolderContainServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FolderContainServlet</title>");  
+            out.println("<title>Servlet CreateFolderServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FolderContainServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet CreateFolderServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -81,20 +79,9 @@ public class FolderContainServlet extends HttpServlet {
             return;
         }
         HistoryDAO dao = new HistoryDAO();
-        String folderIdRaw = request.getParameter("folderId");
-        int folderId = 0;
-        try{
-            folderId = Integer.parseInt(folderIdRaw);
-        }catch(NumberFormatException e){
-            System.out.println(e);
-        }
-        Folder f = dao.getFolderByFolderId(folderId);
-        List<QuizSet> list = dao.getAllQuizSetByFolderId(f.getFolderId());
-        List<QuizSet> allList = dao.getAllHistoryQuizSet(acc.getUserName());
-        request.setAttribute("allList", allList);
-        request.setAttribute("folder", f);
-        request.setAttribute("quiz", list);
-        request.getRequestDispatcher("history/foldercontain.jsp").forward(request, response);
+        String folderName = request.getParameter("folderName");
+        dao.createFolder(folderName, acc.getUserName());
+        response.sendRedirect("foldercontain?folderId=");
     }
 
     /** 

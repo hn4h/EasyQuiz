@@ -71,7 +71,7 @@
                 </c:if>
             </div>
         </div>
-        <form action="foldercontain" method="get">
+        <form action="createfolder" method="post">
             <div class="folderPopup-container">
                 <div id="folderPopup" class="folder-popup">
                     <div class="folder-popup-content">
@@ -97,7 +97,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="quiz" class="nav-link-actived">
+                            <a href="quizhistory" class="nav-link-actived">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>

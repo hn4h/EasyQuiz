@@ -132,7 +132,8 @@ public class HistoryDAO extends DBContext {
 
     public List<QuizSet> getAllCreatedQuizSet(String userName) {
         List<QuizSet> list = new ArrayList<>();
-        String sql = "select * from Quiz_Set where Author = ?";
+        String sql = "select * from Quiz_Set where Author = 'EasyQuiz343293'\n"
+                + "order by Created_Date";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, userName);
@@ -217,10 +218,80 @@ public class HistoryDAO extends DBContext {
         }
     }
 
+    public void deleteFolder(int folderId, String userName) {
+        String sql1 = "DELETE FROM Folder_Contain WHERE Folder_ID = ?";
+        String sql2 = "DELETE FROM Folder WHERE Folder_ID = ? AND UserName = ?";
+        try {
+            PreparedStatement st1 = connection.prepareStatement(sql1);
+            st1.setInt(1, folderId);
+            st1.executeUpdate();
+
+            PreparedStatement st2 = connection.prepareStatement(sql2);
+            st2.setInt(1, folderId);
+            st2.setString(2, userName);
+            st2.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public List<QuizSet> getAllHistoryQuizSet(String userName) {
+        List<QuizSet> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    Quiz_Set_ID, \n"
+                + "    Quiz_Set_Name, \n"
+                + "	Number_Of_Quiz,\n"
+                + "	Author,\n"
+                + "    MAX(Activity_Date) AS Activity_Date, \n"
+                + "    STRING_AGG(Activity_Type, ', ') AS Activity_Type\n"
+                + "FROM (\n"
+                + "    SELECT \n"
+                + "        qs.Quiz_Set_ID, \n"
+                + "        qs.Quiz_Set_Name,\n"
+                + "		qs.Number_Of_Quiz,\n"
+                + "		qs.Author,\n"
+                + "        qs.Created_Date AS Activity_Date, \n"
+                + "        'Created' AS Activity_Type\n"
+                + "    FROM Quiz_Set qs\n"
+                + "    WHERE qs.Author = ?\n"
+                + "    UNION \n"
+                + "    SELECT \n"
+                + "        qsh.Quiz_Set_ID, \n"
+                + "        qs.Quiz_Set_Name, \n"
+                + "		qs.Number_Of_Quiz,\n"
+                + "		qs.Author,\n"
+                + "        qsh.Quiz_Date AS Activity_Date, \n"
+                + "        'Studied' AS Activity_Type\n"
+                + "    FROM Quiz_Set_History qsh\n"
+                + "    JOIN Quiz_Set qs ON qsh.Quiz_Set_ID = qs.Quiz_Set_ID\n"
+                + "    WHERE qsh.UserName = ?\n"
+                + ") AS Combined\n"
+                + "GROUP BY Quiz_Set_ID, Quiz_Set_Name, Number_Of_Quiz, Author\n"
+                + "ORDER BY Activity_Date DESC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            st.setString(2, userName);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                QuizSet qs = new QuizSet();
+                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
+                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
+                Account a = new Account();
+                a.setUserName(rs.getString("Author"));
+                qs.setAuthor(a);
+                list.add(qs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         HistoryDAO d = new HistoryDAO();
-        List<Folder> list = d.getAllFolderByUserName("EasyQuiz870949");
-        System.out.println(list.get(0).getFolderName());
+        d.deleteFolder(1, "EasyQuiz422457");
     }
 
 }

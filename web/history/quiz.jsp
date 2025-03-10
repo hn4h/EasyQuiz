@@ -73,18 +73,20 @@
                 </c:if>
             </div>
         </div>
-        <div class="folderPopup-container">
-            <div id="folderPopup" class="folder-popup">
-                <div class="folder-popup-content">
-                    <span class="close-btn material-symbols-rounded">close</span>
-                    <h2>Create a new folder</h2>
-                    <input type="text" id="folderName" placeholder="Title" class="folder-input">
-                    <div class="create-folder-btn">
-                        <button onclick="window.location.href='folderhistory'" id="createFolderConfirm">Create folder</button>
+        <form action="createfolder" method="get">
+            <div class="folderPopup-container">
+                <div id="folderPopup" class="folder-popup">
+                    <div class="folder-popup-content">
+                        <span class="close-btn material-symbols-rounded">close</span>
+                        <h2>Create a new folder</h2>
+                        <input type="text" id="folderName" name="folderName" placeholder="Title" class="folder-input">
+                        <div class="create-folder-btn">
+                            <button type="submit" id="createFolderConfirm">Create folder</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="body">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
@@ -97,7 +99,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="quiz" class="nav-link-actived">
+                            <a href="quizhistory" class="nav-link-actived">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>
