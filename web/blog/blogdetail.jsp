@@ -1,0 +1,224 @@
+<%-- 
+    Document   : blogdetail
+    Created on : Mar 10, 2025, 9:36:26 PM
+    Author     : DUCA
+--%>
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${requestScope.blogDetail.blogTitle}</title>
+        <link rel="stylesheet" href="./blog/blogdetail.css"> 
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    </head>
+    <body>
+        <div class="header">
+            <div class="logo">
+                <div class="menu-btn">
+                    <button class="sidebar-toggler" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <a href="home"><span>EasyQuiz</span></a>
+            </div>
+            <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search for blogs" name="">
+            </div>
+            <div class="create-login">
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                        </div>
+                    </div>
+                    <div class="upgrade-btn">
+                        <a href="upgrade">Upgrade your package</a>
+                    </div>
+                    <div class="avatar-user" id="avatarUser">
+                        <img src="./images/avatar/default.png" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
+                                <div>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+        <div class="body">
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <ul class="nav-list primary-nav">
+                        <li class="nav-item">
+                            <a href="home" class="nav-link">
+                                <span class="material-symbols-rounded">home</span>
+                                <span class="nav-label">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="quizhistory" class="nav-link">
+                                <span class="material-symbols-rounded">history</span>
+                                <span class="nav-label">History</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="blog" class="nav-link-actived">
+                                <span class="material-symbols-rounded">rss_feed</span>
+                                <span class="nav-label">Blog</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav-list secondary-nav">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="material-symbols-rounded">settings</span>
+                                <span class="nav-label">Setting</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" class="nav-link">
+                                <span class="material-symbols-rounded">logout</span>
+                                <span class="nav-label">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <div class="body-container">
+                <div class="blog-detail-container">
+                    <div class="flashcard-header">
+                        <h2>${requestScope.blogDetail.blogTitle}</h2>
+                        <div class="header-btn">
+                            <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span><p>Share</p></button>
+                            <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>
+                            <div class="more-option" id="moreOption">
+                                <ul class="more-option-nav">
+                                    <li class="nav-item">
+                                        <span class="material-symbols-rounded">report</span>
+                                        <a href="#" class="nav-link">Report</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="copyMessage" class="copy-message">Link copied!</div>
+                    <div class="blog-content">
+                        <div class="blog-header">
+                            <img alt="" src="./images/avatar/default.png"/> 
+                            <span style="margin-right: 20px;">${requestScope.blogDetail.author.userName}</span>
+                            <span class="material-symbols-rounded">update</span>
+                            <span>Created ${requestScope.blogDetail.createdDate}</span>
+                        </div>
+                        <p>${requestScope.blogDetail.blogContent}</p>
+                        <div class="comment-title">
+                            <h3>Comments</h3>
+                        </div>
+                        <div class="blog-comment">                            
+                            <div class="comment-input-container">
+                                <input type="text" id="commentInput${requestScope.blogDetail.blogId}" placeholder="Your comment here...">
+                                <span class="send-btn material-symbols-rounded" onclick="submitComment(${requestScope.blogDetail.blogId})">send</span>
+                            </div>
+                        </div>
+
+                        <div class="comment-window">
+                            <div class="comment-content">
+                                <c:forEach var="comment" items="${requestScope.blogDetail.comments}">
+                                    <div class="comment">
+                                        <img src="./images/avatar/default.png" alt="Avatar">
+                                        <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Toggle more options
+            document.getElementById('moreButton').addEventListener('click', function () {
+                const moreOption = document.getElementById('moreOption');
+                moreOption.classList.toggle('show');
+            });
+
+            // Share button functionality (copy link to clipboard)
+            document.getElementById('shareButton').addEventListener('click', function () {
+                const blogUrl = window.location.href;
+                navigator.clipboard.writeText(blogUrl).then(() => {
+                    const copyMessage = document.getElementById('copyMessage');
+                    copyMessage.style.display = 'block';
+                    setTimeout(() => {
+                        copyMessage.style.display = 'none';
+                    }, 2000);
+                });
+            });
+
+            // Submit comment function (giữ nguyên từ blog.jsp)
+            function submitComment(blogId) {
+                let commentInput = document.getElementById('commentInput' + blogId);
+                let commentContent = commentInput.value.trim();
+
+                if (commentContent === '') {
+                    alert('Please enter a comment.');
+                    return;
+                }
+
+                let userName = '${sessionScope.account.userName}';
+                if (!userName) {
+                    alert('You must be logged in to comment.');
+                    return;
+                }
+
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '${pageContext.request.contextPath}/addcomment', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            let commentWindow = document.querySelector('.comment-window');
+                            let newComment = document.createElement('div');
+                            newComment.classList.add('comment');
+                            newComment.innerHTML = `
+        <img src="./images/avatar/default.png" alt="Avatar">
+        <p><strong>` + userName + `</strong>: ` + commentContent + `</p>
+    `;
+                            commentWindow.insertBefore(newComment, commentWindow.firstChild);
+                            commentInput.value = '';
+                        } else {
+                            alert('Failed to add comment. Please try again.');
+                        }
+                    }
+                };
+
+                let data = 'blogId=' + encodeURIComponent(blogId) + '&commentContent=' + encodeURIComponent(commentContent);
+                xhr.send(data);
+            }
+        </script>
+        <script src="./blog/blog.js"></script>
+    </body>
+</html>
