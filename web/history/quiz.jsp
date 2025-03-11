@@ -237,8 +237,8 @@
                                 <div class="quiz-title flex">
                                     <div>
                                         <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
-<!--                                        <span class="text-sm text-gray-600 ml-2">|</span>
-                                        <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>-->
+                                        <!--                                        <span class="text-sm text-gray-600 ml-2">|</span>
+                                                                                <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>-->
                                     </div>
                                     <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
                                 </div>
@@ -250,6 +250,36 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./history/history.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const searchInput = document.querySelector("input[placeholder='Search for a quiz']");
+                const quizCards = Array.from(document.querySelectorAll(".quiz-card"));
+
+                const quizzes = quizCards.map(card => ({
+                        element: card,
+                        name: card.querySelector(".title-text").innerText.trim()
+                    }));
+                const fuse = new Fuse(quizzes, {
+                    keys: ["name"], 
+                    threshold: 0.3  
+                });
+
+                searchInput.addEventListener("input", function () {
+                    const query = this.value.trim().toLowerCase();
+
+                    if (!query) {
+                        quizCards.forEach(card => card.style.display = "block");
+                        return;
+                    }
+
+                    const results = fuse.search(query).map(result => result.item.element);
+                    quizCards.forEach(card => card.style.display = "none");
+                    results.forEach(card => card.style.display = "block");
+                });
+            });
+        </script>
+
     </body>
 
 </html>
