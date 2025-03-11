@@ -222,7 +222,7 @@
                     <div class="blog-modal-content">
                         <span class="blog-modal-close material-symbols-rounded">close</span>
                         <div class="blog-card">
-                            <div class="content-header">
+                            <div class="content-header" style="cursor: pointer">
                                 <h2 id="modalTitle"></h2>
                             </div>
                             <div class="blog-header">

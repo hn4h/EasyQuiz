@@ -55,7 +55,7 @@
             }
 
             .save-btn {
-                background-color: #5D8736;
+                background-color: #007f00;
                 color: #fff;
                 padding: 5px 15px;
                 border-style: none;
@@ -189,47 +189,63 @@
                             <div class="vertical-line"></div>
                             <p>Packages</p>
                         </div>
+                        <div class="new-package">
+                            <button id="newPackageBtn" style="font-size: 14px; font-weight: bold;"><i
+                                    class="fa-solid fa-plus"></i> New package</button>
+                        </div>
                     </div>
                 </div>
                 <div class="user-table">
                     <table id="packageTable">
                         <thead>
                             <tr>
-                                <th>ID <i class="fas fa-sort"></i></th>
-                                <th>Name of package <i class="fas fa-sort"></i></th>
-                                <th>Value <i class="fas fa-sort"></i></th>
-                                <th>Price <i class="fas fa-sort"></i></th>
-                                <th>Description <i class="fas fa-sort"></i></th>
-                                <th>Action <i class="fas fa-sort"></i></th>
+                                <th>ID</th>
+                                <th>Name of package</th>
+                                <th>Value</th>
+                                <th>Price</th>
+                                <th>Description</th>
+                                <th style="text-align: center;">Status</th>
+                                <th style="text-align: center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${requestScope.packages}" var="p">
-                                <tr>
+                            <c:forEach items="${requestScope.packages}" var="p" varStatus="status">
+                                <tr class="user-row ${status.index % 2 == 0 ? 'even' : 'odd'}" id="row-${status.index}">
                                     <td>${p.id}</td>
                                     <td>${p.name}</td>
                                     <td>${p.value} days</td>
                                     <td>${p.price} VND</td>
                                     <td>${p.description}</td>
-                                    <td>
+                                    <td style="text-align: center;">
+                                        <select onchange="changeRowColor(this)" class="select-active">
+                                            <option value="Active" selected>Active</option>
+                                            <option value="Ban">Ban</option>
+                                        </select>
+                                    </td>
+                                    <td style="text-align: center;">
                                         <button class="edit-btn">Edit</button>
-                                        <button class="delete-btn">Delete</button>
+                                        <!--                                        <button class="delete-btn">Delete</button>-->
                                     </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <div>
-                            <button id="newPackageBtn" style="font-size: 14px; font-weight: bold;"><i
-                                    class="fa-solid fa-plus"></i> New package</button>
+                        <div class="pagination-options">
+                            <select>
+                                <option>5</option>
+                                <option>10</option>
+                                <option>15</option>
+                                <option>20</option>
+                                <option>25</option>
+                            </select>
+                            <span>entries per page</span>
                         </div>
-                        <div>
-                            <nav>
-                                <a href="#">Previous</a>
-                                <a href="#">1</a>
-                                <a href="#">Next</a>
-                            </nav>
+                        <span class="pagination-text">Showing ? to ?? of ?? entries</span>
+                        <div class="pagination-number">
+                            <button id="prev-page" class="disabled">Previous</button>
+                            <div id="page-numbers" class=".page-btn"></div>
+                            <button id="next-page" class="disabled">Next</button>
                         </div>
                     </div>
                 </div>

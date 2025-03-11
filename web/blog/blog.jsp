@@ -260,20 +260,15 @@
                                 <h3>${blog.blogTitle}</h3>
                                 <p>${blog.blogContent}</p>
                                 <div class="blog-comment">
-                                    <input type="text" id="commentInput${blog.blogId}" placeholder="Your comment here...">
-                                    <span class="send-btn material-symbols-rounded" onclick="submitComment(${blog.blogId})">send</span>
-                                    <span class="chat-btn material-symbols-rounded" id="chatBtn${blog.blogId}">chat</span>
+                                    <h3>Comments</h3>
                                 </div>
-                                <div class="comment-window" id="commentWindow${blog.blogId}" style="display: none;">
+                                <div class="comment-window" id="commentWindow${blog.blogId}">
                                     <c:forEach var="comment" items="${blog.comments}" varStatus="status">
                                         <div class="comment ${status.index >= 3 ? 'hidden-comment' : ''}" id="comment-${blog.blogId}-${status.index}">
                                             <img src="./images/avatar/default.png" alt="Avatar">
                                             <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
                                         </div>
                                     </c:forEach>
-                                    <c:if test="${fn:length(blog.comments) > 3}">
-                                        <a href="#" class="view-more" data-blogid="${blog.blogId}">View more comment...</a>
-                                    </c:if>
                                 </div>
                             </div>
                         </div>

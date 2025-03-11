@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 import model.Blog;
 
 /**
@@ -74,6 +75,7 @@ public class BlogDetailServlet extends HttpServlet {
             return;
         }
 
+        // Fetch the blog details
         Blog blog = blogDAO.getBlogById(blogId);
 
         if (blog == null) {
@@ -81,15 +83,21 @@ public class BlogDetailServlet extends HttpServlet {
             return;
         }
 
-        request.setAttribute("blogDetail", blog);
+        // Fetch popular blogs for the "Related Blogs" section
+        List<Blog> popularBlogs = blogDAO.getSomePopularBlog();
 
+        // Set attributes for JSP
+        request.setAttribute("blogDetail", blog);
+        request.setAttribute("popularBlogs", popularBlogs);
+
+        // Forward to JSP
         request.getRequestDispatcher("blog/blogdetail.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Nếu cần xử lý POST (ví dụ: thêm comment), bạn có thể thêm logic ở đây
+        // Handle POST requests (e.g., for comments) if needed, otherwise call doGet
         doGet(request, response); 
     }
 
