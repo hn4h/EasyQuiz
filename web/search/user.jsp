@@ -131,60 +131,26 @@
                 <div class="search-container">
                     <h2>Result for "${requestScope.input}"</h2>
                     <div class="search-header">
-                        <a href="searchall" class="search-item">All results</a>
-                        <a href="searchquizset" class="search-item">Flashcard sets</a>
-                        <a href="searchuser" class="search-item-actived">Users</a>
+                        <a href="searchall?input=${input}" class="search-item">All results</a>
+                        <a href="searchquizset?input=${input}" class="search-item">Flashcard sets</a>
+                        <a href="searchuser?input=${input}" class="search-item-actived">Users</a>
                     </div>
                     <div class="user-container">
                         <ul class="card-list">
-                            <li class="card-item">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="${creator.account.profileImage}" alt="Avatar"> 
-                                        <p>${creator.account.userName}</p> 
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="${creator.account.profileImage}" alt="Avatar"> 
-                                        <p>${creator.account.userName}</p> 
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="${creator.account.profileImage}" alt="Avatar"> 
-                                        <p>${creator.account.userName}</p> 
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="card-item">
-                                <a href="#" class="card-link">
-                                    <div class="card-avt">
-                                        <img src="${creator.account.profileImage}" alt="Avatar"> 
-                                        <p>${creator.account.userName}</p> 
-                                    </div>
-                                    <div class="card-username">
-                                        <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
-                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                    </div>
-                                </a>
-                            </li>
+                            <c:forEach items="${requestScope.creator}" var="creator">
+                                    <li class="card-item">
+                                        <a href="#" class="card-link">
+                                            <div class="card-avt">
+                                                <img src="${creator.account.profileImage}" alt="Avatar"> 
+                                                <p>${creator.account.userName}</p> 
+                                            </div>
+                                            <div class="card-username">
+                                                <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
+                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                            </div>
+                                        </a>
+                                    </li>
+                                </c:forEach>
                         </ul>
                         <div class="number-page">
                             <button>

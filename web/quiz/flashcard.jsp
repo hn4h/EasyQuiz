@@ -155,14 +155,6 @@
                                     <p class="term-text">${q.term}</p>
                                 </div>
                             </div>
-                            <div class="flashcard-inner2">
-                                <div class="flashcard-front2">
-                                    <p class="term-text">${q.definition}</p>
-                                </div>
-                                <div class="flashcard-back2">
-                                    <p class="term-text">${q.term}</p>
-                                </div>
-                            </div>
                         </div>
                     </c:forEach>
                 </div>

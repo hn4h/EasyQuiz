@@ -31,7 +31,7 @@
                     <span><button><i class="fa-solid fa-plus"></i></button></span>
                     <div class="create-menu" id="createMenu">
                         <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                        <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i>
+                        <a href="" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i>
                             Folder</a>
                     </div>
                 </div>
@@ -128,9 +128,9 @@
                 <div class="search-container">
                     <h2>Result for "${requestScope.input}"</h2>
                     <div class="search-header">
-                        <a href="searchall" class="search-item-actived">All results</a>
-                        <a href="searchquizset" class="search-item">Flashcard sets</a>
-                        <a href="searchuser" class="search-item">Users</a>
+                        <a href="searchall?input=${input}" class="search-item-actived">All results</a>
+                        <a href="searchquizset?input=${input}" class="search-item">Flashcard sets</a>
+                        <a href="searchuser?input=${input}" class="search-item">Users</a>
                     </div>
                     <div class="search-result">
                         <div class="result-container">
@@ -139,8 +139,8 @@
                                 <a href="">View all</a>
                             </div>
                             <ul class="card-list">
-                                <li class="card-item">
-                                    <c:forEach begin="0" end="2" step="1" items="${quizSet}" var="i">
+                                <c:forEach begin="0" end="2" step="1" items="${quizSet}" var="i">
+                                    <li class="card-item" onclick="window.location.href = 'quizz?id=${i.quizSetId}'">
                                         <a href="#" class="card-link">
                                             <h2 class="card-title">${i.quizSetName}</h2>
                                             <p class="badge">${i.numberOfQuiz} terms</p>
@@ -152,8 +152,8 @@
                                                 <button class="card-button material-symbols-rounded">arrow_forward</button>
                                             </div>
                                         </a>
-                                    </c:forEach>
-                                </li>
+                                    </li>
+                                </c:forEach>
                             </ul>
                         </div>
                         <div class="result-container">
@@ -185,7 +185,7 @@
                             </div>
                             <ul class="card-list">
                                 <c:forEach begin="0" end="2" step="1" items="${blog}" var="blog">
-                                    <li class="card-item swiper-slide">
+                                    <li class="card-item swiper-slide" onclick="window.location.href = 'blogdetail?blogId=${blog.blogId}'">
                                         <a href="javascript:void(0);" class="card-link"
                                            data-blogid="${blog.blogId}"
                                            data-title="${blog.blogTitle}"

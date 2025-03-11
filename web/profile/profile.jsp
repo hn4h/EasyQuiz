@@ -20,10 +20,12 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <div class="search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for study guides" name="">
-            </div>
+            <form action="searchall">
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search for study" name="input">
+                </div>
+            </form>
             <div class="create-login">
                 <div class="create-btn-icon" id="createButton">
                     <span><button><i class="fa-solid fa-plus"></i></button></span>

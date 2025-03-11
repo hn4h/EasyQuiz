@@ -128,11 +128,11 @@
             </aside>
             <div class="body-container">
                 <div class="search-container">
-                    <h2>Result for "???"</h2>
+                    <h2>Result for "${input}"</h2>
                     <div class="search-header">
-                        <a href="#" class="search-item">All results</a>
-                        <a href="#" class="search-item-actived">Flashcard sets</a>
-                        <a href="#" class="search-item">Users</a>
+                        <a href="searchall?input=${input}" class="search-item">All results</a>
+                        <a href="searchquizset?input=${input}" class="search-item-actived">Flashcard sets</a>
+                        <a href="searchuser?input=${input}" class="search-item">Users</a>
                     </div>
                     <div class="search-filter">
                         <h3>Filters</h3>
@@ -148,87 +148,24 @@
                             <h2>Flashcard sets</h2>
                             <div class="flashcard-sets-list">
                                 <ul class="card-list">
-                                    <li class="card-item">
-                                        <a href="#" class="card-link">
-                                            <div class="previewBtn">
-                                                <h2 class="card-title">${i.quizSetName}</h2>
-                                                <button>Preview</button>
-                                            </div>
-                                            <p class="badge">${i.numberOfQuiz} terms</p>
-                                            <div class="card-username">
-                                                <span style="display: flex; align-items: center;">
-                                                    <img src="${i.author.profileImage}" alt="Avatar">
-                                                    <span>${i.author.userName}</span>
-                                                </span>
-                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="card-item">
-                                        <a href="#" class="card-link">
-                                            <h2 class="card-title">${i.quizSetName}</h2>
-                                            <p class="badge">${i.numberOfQuiz} terms</p>
-                                            <div class="card-username">
-                                                <span style="display: flex; align-items: center;">
-                                                    <img src="${i.author.profileImage}" alt="Avatar">
-                                                    <span>${i.author.userName}</span>
-                                                </span>
-                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="card-item">
-                                        <a href="#" class="card-link">
-                                            <h2 class="card-title">${i.quizSetName}</h2>
-                                            <p class="badge">${i.numberOfQuiz} terms</p>
-                                            <div class="card-username">
-                                                <span style="display: flex; align-items: center;">
-                                                    <img src="${i.author.profileImage}" alt="Avatar">
-                                                    <span>${i.author.userName}</span>
-                                                </span>
-                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="card-item">
-                                        <a href="#" class="card-link">
-                                            <h2 class="card-title">${i.quizSetName}</h2>
-                                            <p class="badge">${i.numberOfQuiz} terms</p>
-                                            <div class="card-username">
-                                                <span style="display: flex; align-items: center;">
-                                                    <img src="${i.author.profileImage}" alt="Avatar">
-                                                    <span>${i.author.userName}</span>
-                                                </span>
-                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="card-item">
-                                        <a href="#" class="card-link">
-                                            <h2 class="card-title">${i.quizSetName}</h2>
-                                            <p class="badge">${i.numberOfQuiz} terms</p>
-                                            <div class="card-username">
-                                                <span style="display: flex; align-items: center;">
-                                                    <img src="${i.author.profileImage}" alt="Avatar">
-                                                    <span>${i.author.userName}</span>
-                                                </span>
-                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li class="card-item">
-                                        <a href="#" class="card-link">
-                                            <h2 class="card-title">${i.quizSetName}</h2>
-                                            <p class="badge">${i.numberOfQuiz} terms</p>
-                                            <div class="card-username">
-                                                <span style="display: flex; align-items: center;">
-                                                    <img src="${i.author.profileImage}" alt="Avatar">
-                                                    <span>${i.author.userName}</span>
-                                                </span>
-                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    <c:forEach items="${quizSet}" var="i">
+                                        <li class="card-item" onclick="window.location.href = 'quizz?id=${i.quizSetId}'">
+                                            <a href="#" class="card-link">
+                                                <div class="previewBtn">
+                                                    <h2 class="card-title">${i.quizSetName}</h2>
+                                                    <button onclick="window.location.href='searchquizset?input=${input}&quizId=${i.quizSetId}'">Preview</button>
+                                                </div>
+                                                <p class="badge">${i.numberOfQuiz} terms</p>
+                                                <div class="card-username">
+                                                    <span style="display: flex; align-items: center;">
+                                                        <img src="${i.author.profileImage}" alt="Avatar">
+                                                        <span>${i.author.userName}</span>
+                                                    </span>
+                                                    <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                             </div>
 
@@ -253,78 +190,12 @@
                                     <button><a href="">Study</a></button>
                                 </div>
                                 <div class="preview-list">
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
-
-                                    <div class="preview-item">
-                                        <strong>What is the capital of France?\nA. Hanoi\nB. Paris\nC. London\nD. New
-                                            York</strong>
-                                        <p>A. Hanoi</p>
-                                    </div>
+                                    <c:forEach items="${requestScope.preview.flashCards}" var="q">
+                                        <div class="preview-item">
+                                            <strong>${q.definition}</strong>
+                                            <p>${q.term}</p>
+                                        </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
