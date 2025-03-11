@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import model.Account;
 import model.QuizHistory;
+import model.QuizSet;
 
 /**
  *
@@ -76,7 +77,7 @@ public class HistoryQuizServlet extends HttpServlet {
 
         HistoryDAO dao = new HistoryDAO();
         List<QuizHistory> historyList = dao.getHistoryQuizSet(acc.getUserName());
-
+        List<QuizSet> createdList = dao.getAllCreatedQuizSet(acc.getUserName());
         List<QuizHistory> todayQuizzes = new ArrayList<>();
         List<QuizHistory> weekQuizzes = new ArrayList<>();
         Map<String, List<QuizHistory>> monthlyQuizzes = new LinkedHashMap<>();
@@ -106,7 +107,7 @@ public class HistoryQuizServlet extends HttpServlet {
             request.setAttribute("weekQuizzes", weekQuizzes);
             request.setAttribute("monthlyQuizzes", monthlyQuizzes);
         }
-
+        request.setAttribute("createdList", createdList);
         request.setAttribute("hasData", hasData);
         request.getRequestDispatcher("history/quiz.jsp").forward(request, response);
     }

@@ -167,3 +167,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    const selectElement = document.querySelector("select");
+    const recentDiv = document.querySelector(".recent");
+    const createdDiv = document.querySelector(".created");
+
+    // Ẩn `created` mặc định, chỉ hiển thị `recent`
+    createdDiv.style.display = "none";
+
+    selectElement.addEventListener("change", function () {
+        if (this.value === "Created") {
+            recentDiv.style.display = "none";
+            createdDiv.style.display = "block";
+        } else {
+            recentDiv.style.display = "block";
+            createdDiv.style.display = "none";
+        }
+    });
+});

@@ -26,10 +26,12 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <div class="search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for study guides" name="">
-            </div>
+            <form action="searchall">
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search for study" name="input">
+                </div>
+            </form>
             <div class="create-login">
                 <c:if test="${not empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">
@@ -70,7 +72,7 @@
                 </c:if>
             </div>
         </div>
-        <form action="foldercontain" method="get">
+        <form action="createfolder" method="post">
             <div class="folderPopup-container">
                 <div id="folderPopup" class="folder-popup">
                     <div class="folder-popup-content">

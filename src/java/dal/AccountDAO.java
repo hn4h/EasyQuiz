@@ -357,7 +357,7 @@ public class AccountDAO extends DBContext {
         return list;
     }
 
-    public List<Creator> searchAllCreater(String input) {
+    public List<Creator> searchAllCreator(String input) {
         List<Creator> list = new ArrayList<>();
         String sql = "SELECT a.UserName, a.ProfileImage, count(qs.Quiz_Set_ID) as NumberOfQuizSet\n"
                 + "FROM Accounts a\n"
@@ -386,7 +386,7 @@ public class AccountDAO extends DBContext {
     
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
-        System.out.println(d.searchAllCreater("e").size());
+        System.out.println(d.searchAllCreator("e").size());
     }
 
 }

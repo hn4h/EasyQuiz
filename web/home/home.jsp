@@ -24,10 +24,12 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <div class="search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for study guides" name="">
-            </div>
+            <form action="searchall">
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search for study" name="input">
+                </div>
+            </form>
             <div class="create-login">
                 <c:if test="${not empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">
@@ -66,7 +68,7 @@
                 </c:if>
             </div>
         </div>
-        <form action="foldercontain" method="get">
+        <form action="createfolder" method="post">
             <div class="folderPopup-container">
                 <div id="folderPopup" class="folder-popup">
                     <div class="folder-popup-content">
@@ -147,7 +149,7 @@
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${popularQuizSet}" var="i">
-                                <li class="card-item swiper-slide" onclick="window.location.href='quizz?id=${i.quizSetId}'">
+                                <li class="card-item swiper-slide" onclick="window.location.href = 'quizz?id=${i.quizSetId}'">
                                     <a href="#" class="card-link">
                                         <h2 class="card-title">${i.quizSetName}</h2>
                                         <p class="badge">${i.numberOfQuiz} terms</p>
@@ -261,7 +263,7 @@
                                     </a>
                                 </li>
                             </c:forEach>
-                                <c:forEach items="${topAuthors}" var="creator"> 
+                            <c:forEach items="${topAuthors}" var="creator"> 
                                 <li class="card-item swiper-slide">
                                     <a href="#" class="card-link">
                                         <div class="card-avt">
@@ -275,7 +277,7 @@
                                     </a>
                                 </li>
                             </c:forEach>
-                                <c:forEach items="${topAuthors}" var="creator"> 
+                            <c:forEach items="${topAuthors}" var="creator"> 
                                 <li class="card-item swiper-slide">
                                     <a href="#" class="card-link">
                                         <div class="card-avt">

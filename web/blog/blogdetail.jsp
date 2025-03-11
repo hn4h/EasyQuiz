@@ -26,10 +26,12 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <div class="search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for blogs" name="">
-            </div>
+            <form action="searchBlog" method="get">
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" name="keyword" placeholder="Search for blog">
+                </div>
+            </form>
             <div class="create-login">
                 <c:if test="${not empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">

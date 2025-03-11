@@ -29,10 +29,12 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <div class="search">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" placeholder="Search for study guides" name="">
-            </div>
+            <form action="searchall">
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search for study" name="input">
+                </div>
+            </form>
             <div class="create-login">
                 <c:if test="${not empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">
@@ -73,7 +75,7 @@
                 </c:if>
             </div>
         </div>
-        <form action="createfolder" method="get">
+        <form action="createfolder" method="post">
             <div class="folderPopup-container">
                 <div id="folderPopup" class="folder-popup">
                     <div class="folder-popup-content">
@@ -155,9 +157,9 @@
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div class="recent">
                         <c:if test="${hasData}">
-                            
+
                             <c:if test="${not empty todayQuizzes}">
                                 <h2 class="text-lg font-bold mb-2">TODAY</h2>
                                 <c:forEach var="quiz" items="${todayQuizzes}">
@@ -174,7 +176,7 @@
                                 </c:forEach>
                             </c:if>
 
-                            
+
                             <c:if test="${not empty weekQuizzes}">
                                 <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
                                 <c:forEach var="quiz" items="${weekQuizzes}">
@@ -191,7 +193,7 @@
                                 </c:forEach>
                             </c:if>
 
-                            
+
                             <c:if test="${not empty monthlyQuizzes}">
                                 <c:forEach var="entry" items="${monthlyQuizzes}">
                                     <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
@@ -211,7 +213,7 @@
                             </c:if>
                         </c:if>
 
-                        
+
                         <c:if test="${not hasData}">
                             <div class="empty-quiz" style="margin-top: 140px">
                                 <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">
@@ -220,6 +222,28 @@
                                 <img style="margin: 0 auto; width: 150px;" src="./images/icon/flashcard_icon.png" alt="Not found">
                             </div>
                         </c:if>
+                    </div>
+                    <div class="created">
+                        <c:if test="${empty createdList}">
+                            <div class="empty-quiz" style="margin-top: 140px">
+                                <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">
+                                    You haven't created any quiz set before
+                                </p>
+                                <img style="margin: 0 auto; width: 150px;" src="./images/icon/flashcard_icon.png" alt="Not found">
+                            </div>
+                        </c:if>
+                        <c:forEach var="quiz" items="${createdList}">
+                            <div class="quiz-card bg-white-100 rounded mb-4">
+                                <div class="quiz-title flex">
+                                    <div>
+                                        <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+<!--                                        <span class="text-sm text-gray-600 ml-2">|</span>
+                                        <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>-->
+                                    </div>
+                                    <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

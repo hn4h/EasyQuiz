@@ -27,8 +27,8 @@
                 <span class="close-button1" onclick="closePopup1()">×</span>
                 <h3 style="color: #000">Test</h3>
                 <h2>Set up your test</h2>
-                
-                
+
+
                 <label for="questionCount">Questions (max ???)</label>
                 <input class="questionCount" type="number" id="questionCount" value="20" min="1" max="999">
                 <br>
@@ -47,7 +47,7 @@
                             <hr/>
 
                             <a href="#" class="user-menu-item">Home</a>
-<!--                            <a href="#" class="user-menu-item">Search</a>-->
+                            <!--                            <a href="#" class="user-menu-item">Search</a>-->
                         </div>
                     </div>
 
@@ -64,26 +64,26 @@
 
     if (quizzes != null && !quizzes.isEmpty()) {
         for (Quiz quiz : quizzes) {
-%>
-        <div class="container1">
-            <h3><%= quiz.getContent() %></h3>
-            <p>Select the correct definition</p>
-            <div class="options1">
-                <button>Option 1</button>
-                <button>Option 2</button>
-                <button>Option 3</button>
-                <button class="correct1">Option 4</button>
-            </div>
-        </div>
-<%
-        }
-    } else {
-%>
-        <p>No quizzes available.</p>
-<%
-    }
-%>
- 
+                %>
+                <div class="container1">
+                    <h3><%= quiz.getContent() %></h3>
+                    <p>Select the correct definition</p>
+                    <div class="options1">
+                        <button>Option 1</button>
+                        <button>Option 2</button>
+                        <button>Option 3</button>
+                        <button class="correct1">Option 4</button>
+                    </div>
+                </div>
+                <%
+                        }
+                    } else {
+                %>
+                <p>No quizzes available.</p>
+                <%
+                    }
+                %>
+
                 <button class="submit" onclick="openPopup()">Submit test</button>
                 <!-- Hamburger button -->
                 <div class="hamburger" id="hamburgerBtn">
@@ -121,5 +121,5 @@
         <script src="./test/test.js"></script>
         <div id="flashcardContainer"></div> <!-- Đây là nơi để render nội dung -->
     </body>
-    
+
 </html>
