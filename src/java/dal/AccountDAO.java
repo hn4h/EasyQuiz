@@ -70,9 +70,9 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
-    public void createAccount(String username, String password, String email) {
+    public void createAccountWithRandomImage(String username, String password, String email) {
         String hashedPassword = PasswordUtil.hashPassword(password);
-        String sql = "INSERT INTO Accounts(UserName, HashedPassword, email) values (?,?,?)";
+        String sql = "INSERT INTO Accounts(UserName, HashedPassword, email, profileImage) values (?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, username);
@@ -84,7 +84,40 @@ public class AccountDAO extends DBContext {
         }
     }
 
-    public void createAccountByEmail(String email) {
+    public void createAccount(String username, String password, String email) {
+        String hashedPassword = PasswordUtil.hashPassword(password);
+        Random random = new Random();
+        int randomNumber = random.nextInt(14) + 1;
+        String imageLink = "./images/avatar/avt" + randomNumber + ".";
+        String sql = "INSERT INTO Accounts(UserName, HashedPassword, email, profileImage) values (?,?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, hashedPassword);
+            st.setString(3, email);
+            st.setString(4, imageLink);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createAccountWithGoogle(String username, String password, String email, String image) {
+        String hashedPassword = PasswordUtil.hashPassword(password);
+        String sql = "INSERT INTO Accounts(UserName, HashedPassword, email, profileImage) values (?,?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, username);
+            st.setString(2, hashedPassword);
+            st.setString(3, email);
+            st.setString(4, image);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createAccountByEmail(String email, String image) {
         String prefix = "EasyQuiz";
         Random random = new Random();
         int randomNumber = 100000 + random.nextInt(900000); // Generates a 4-digit random number
@@ -93,7 +126,7 @@ public class AccountDAO extends DBContext {
             randomNumber = 100000 + random.nextInt(900000);
             username = prefix + randomNumber;
         }
-        this.createAccount(username, "", email);
+        this.createAccountWithGoogle(username, "", email, image);
     }
 
     public boolean checkUsername(String username) {
@@ -108,7 +141,7 @@ public class AccountDAO extends DBContext {
         }
         return false;
     }
-    
+
     public void updateProfile(String userName, String profileImage) {
         String sql = "Update Accounts set userName = ?, profileImage = ? where userName = ?";
         try {
@@ -238,7 +271,7 @@ public class AccountDAO extends DBContext {
     }
 
     //return false if expiredDate < GETDATE()
-    public boolean checkPremium(String userName){
+    public boolean checkPremium(String userName) {
         String sql = "Select * from Accounts where expiredDate < GETDATE() and username = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -254,13 +287,13 @@ public class AccountDAO extends DBContext {
     public void updateExpiredDate(String userName, int value) {
         String sql = "Update Accounts set expiredDate = ";
         try {
-            
-            if(this.checkPremium(userName)){
-                sql+="DATEADD(DAY,"+ value + ", expiredDate)";
+
+            if (this.checkPremium(userName)) {
+                sql += "DATEADD(DAY," + value + ", expiredDate)";
             } else {
-                sql+="DATEADD(DAY,"+ value + ", GETDATE())";
+                sql += "DATEADD(DAY," + value + ", GETDATE())";
             }
-            sql +="where username = ?";  
+            sql += "where username = ?";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, userName);
             st.executeUpdate();
@@ -383,7 +416,7 @@ public class AccountDAO extends DBContext {
         }
         return list;
     }
-    
+
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
         System.out.println(d.searchAllCreator("e").size());

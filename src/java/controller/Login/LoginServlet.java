@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 
             Account a = d.checkEmail(acc.getEmail());
             if (a == null) {
-                d.createAccountByEmail(acc.getEmail());
+                d.createAccountByEmail(acc.getEmail(), acc.getPicture());
                 a = d.checkEmail(acc.getEmail());
             }
             HttpSession session = request.getSession();
