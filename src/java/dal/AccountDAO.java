@@ -70,25 +70,11 @@ public class AccountDAO extends DBContext {
         return null;
     }
 
-    public void createAccountWithRandomImage(String username, String password, String email) {
-        String hashedPassword = PasswordUtil.hashPassword(password);
-        String sql = "INSERT INTO Accounts(UserName, HashedPassword, email, profileImage) values (?,?,?,?)";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, username);
-            st.setString(2, hashedPassword);
-            st.setString(3, email);
-            st.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
-
     public void createAccount(String username, String password, String email) {
         String hashedPassword = PasswordUtil.hashPassword(password);
         Random random = new Random();
         int randomNumber = random.nextInt(14) + 1;
-        String imageLink = "./images/avatar/avt" + randomNumber + ".";
+        String imageLink = "./images/avatar/avt" + randomNumber + ".jpg";
         String sql = "INSERT INTO Accounts(UserName, HashedPassword, email, profileImage) values (?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);

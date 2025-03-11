@@ -136,7 +136,7 @@
                         <div class="result-container">
                             <div class="result-header">
                                 <h4>Flashcard sets</h4>
-                                <a href="">View all</a>
+                                <a href="searchquizset?input=${input}">View all</a>
                             </div>
                             <ul class="card-list">
                                 <c:forEach begin="0" end="2" step="1" items="${quizSet}" var="i">
@@ -159,7 +159,7 @@
                         <div class="result-container">
                             <div class="result-header">
                                 <h4>Users</h4>
-                                <a href="">View all</a>
+                                <a href="searchuser?input=${input}">View all</a>
                             </div>
                             <ul class="card-list">
                                 <c:forEach begin="0" end="2" step="1" items="${requestScope.creator}" var="creator">

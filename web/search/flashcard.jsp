@@ -136,12 +136,15 @@
                     </div>
                     <div class="search-filter">
                         <h3>Filters</h3>
-                        <select name="" id="">
-                            <option value="">Number of terms: All</option>
-                            <option value="">&lt; 19</option>
-                            <option value="">20 - 49 terms</option>
-                            <option value="">50+ terms</option>
-                        </select>
+                        <div class="filter-item">
+                            <span>Number of terms: </span>
+                            <select name="" id="">
+                                <option value="">All</option>
+                                <option value="">&lt; 19</option>
+                                <option value="">20 - 49</option>
+                                <option value="">50+</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="flashcard-container">
                         <div class="flashcard-sets">

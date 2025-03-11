@@ -43,7 +43,7 @@
                         <a href="upgrade">Upgrade your package</a>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
-                        <img src="./images/avatar/default.png" alt="Not found">
+                        <img src="./images/avatar/avt1.jpg" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
