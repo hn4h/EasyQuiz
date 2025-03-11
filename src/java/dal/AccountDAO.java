@@ -208,10 +208,13 @@ public class AccountDAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, newUserName);
             st.setString(2, oldUserName);
+            System.out.println("Executing SQL: " + sql);
+            System.out.println("New UserName: " + newUserName + ", Old UserName: " + oldUserName);
             int rowsAffected = st.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println(e);
+            System.out.println("Error updating username: " + e.getMessage());
             return false;
         }
     }

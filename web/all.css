@@ -1,0 +1,72 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 11, 2025, 10:19:52 PM
+    Author     : DUCA
+*/
+
+:root {
+    /* Theme Light (mặc định) */
+    --background-color: #ffffff; /* Nền trắng */
+    --text-color: #000000;       /* Chữ đen */
+    --sidebar-bg: #f3f3f3;       /* Nền sidebar */
+    --button-bg: #640D5F;        /* Nền nút */
+    --button-text: #ffffff;      /* Chữ nút */
+}
+
+/* Theme Dark */
+body.dark-theme {
+    --background-color: #1a1a1a; /* Nền đen */
+    --text-color: #ffffff;       /* Chữ trắng */
+    --sidebar-bg: #1a1a1a;       /* Nền sidebar tối */
+    --button-bg: #2A004E;        /* Nền nút tối */
+    --button-text: #1a1a1a;     /* Chữ nút giữ nguyên */
+    --button-color: #1a1a1a;
+}
+
+/* Áp dụng các biến */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s; /* Hiệu ứng mượt */
+}
+
+.sidebar {
+    background-color: var(--sidebar-bg);
+}
+
+button, .create-folder-btn button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+/* Các phần khác cần thay đổi màu */
+.header {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.body-container {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.personal-setting-box {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+/* Đảm bảo các phần tử con cũng thừa hưởng màu */
+h1, h2, h3, p, a{
+    color: var(--text-color);
+}
+
+i {
+    color: var(--background-color);
+}
+
+i {
+    color: var(--button-color);
+}

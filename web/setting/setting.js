@@ -52,3 +52,21 @@ document.addEventListener('click', () => {
         dropdownMenu.classList.remove('show');
     }
 });
+
+function changeTheme(theme) {
+    if (theme === "dark") {
+        document.body.classList.add("dark-theme");
+    } else {
+        document.body.classList.remove("dark-theme");
+    }
+    // Lưu theme vào localStorage để áp dụng trên toàn hệ thống
+    localStorage.setItem("theme", theme);
+}
+
+window.onload = function() {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+        document.getElementById("theme").value = savedTheme;
+        changeTheme(savedTheme);
+    }
+};

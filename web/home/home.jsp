@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Home</title>
         <link rel="stylesheet" href="./home/home.css">
+        <link rel="stylesheet" href="<%=request.getContextPath()%>/all.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
@@ -299,7 +300,14 @@
                 </div>
             </div>
         </div>
-
+        <script>
+            window.onload = function () {
+                const savedTheme = localStorage.getItem("theme");
+                if (savedTheme) {
+                    document.body.classList.toggle("dark-theme", savedTheme === "dark");
+                }
+            };
+        </script>
         <!-- Linking SwiperJS script -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./home/home.js"></script>
