@@ -67,7 +67,7 @@ public class QuizSetDAO extends DBContext {
     public QuizSet getQuizSetById(int id) {
         try {
             String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, "
-                    + "q.Author, q.Number_Of_Quiz, q.Created_Date, q.Quiz_Set_Description,a.ProfileImage FROM Quiz_Set q"
+                    + "q.Author, q.Number_Of_Quiz, q.Created_Date, q.Quiz_Set_Description,a.ProfileImage FROM Quiz_Set q "
                     + "join Accounts a on a.UserName = q.Author "
                     + "WHERE Quiz_Set_ID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -90,6 +90,11 @@ public class QuizSetDAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    
+    public static void main(String[] args) {
+        QuizSetDAO d = new QuizSetDAO();
+        System.out.println(d.getQuizDetailById(1).getFlashCards().get(0).getDefinition());
     }
 
     public int addQuizSet(QuizSet qs) {

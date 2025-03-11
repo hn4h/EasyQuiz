@@ -37,9 +37,8 @@
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-user-group"></i> Class</a>
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Quiz set</a>
+                            <a href="" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -62,7 +61,7 @@
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
                             <a href="#" class="user-menu-item">Help and feedback</a>
-                            <a href="#" class="user-menu-item">Upgrades</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
                 </c:if>
@@ -79,19 +78,19 @@
                     <!--Top nav-->
                     <ul class="nav-list primary-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link-actived">
+                            <a href="home" class="nav-link-actived">
                                 <span class="material-symbols-rounded">home</span>
                                 <span class="nav-label">Home</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="quizhistory" class="nav-link">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="blog" class="nav-link">
                                 <span class="material-symbols-rounded">rss_feed</span>
                                 <span class="nav-label">Blog</span>
                             </a>

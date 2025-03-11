@@ -13,19 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import java.util.stream.Collectors;
-import model.Account;
-import model.Folder;
-import model.QuizSet;
 
 /**
  *
  * @author Lenovo
  */
-@WebServlet(name="FolderContainServlet", urlPatterns={"/foldercontain"})
-public class FolderContainServlet extends HttpServlet {
+@WebServlet(name="DeleteFromFolderServlet", urlPatterns={"/deletefromfolder"})
+public class DeleteFromFolderServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -42,10 +36,10 @@ public class FolderContainServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FolderContainServlet</title>");  
+            out.println("<title>Servlet DeleteFromFolderServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FolderContainServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet DeleteFromFolderServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,32 +56,7 @@ public class FolderContainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
-        if (acc == null) {
-            response.sendRedirect("login");
-            return;
-        }
-        HistoryDAO dao = new HistoryDAO();
-        String folderIdRaw = request.getParameter("folderId");
-        int folderId = 0;
-        try{
-            folderId = Integer.parseInt(folderIdRaw);
-        }catch(NumberFormatException e){
-            response.sendRedirect("home");
-            System.out.println(e);
-        }
-        Folder f = dao.getFolderByFolderId(folderId);
-        List<QuizSet> list = dao.getAllQuizSetByFolderId(f.getFolderId());
-        List<QuizSet> allList = dao.getAllHistoryQuizSet(acc.getUserName());
-        List<Integer> quizIds = list.stream()
-                                .map(QuizSet::getQuizSetId) // Lấy danh sách ID
-                                .collect(Collectors.toList());
-        request.setAttribute("allList", allList);
-        request.setAttribute("folder", f);
-        request.setAttribute("quiz", list);
-        request.setAttribute("quizIds", quizIds);
-        request.getRequestDispatcher("history/foldercontain.jsp").forward(request, response);
+        doPost(request, response);
     } 
 
     /** 
@@ -100,27 +69,31 @@ public class FolderContainServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("account");
-        if (acc == null) {
-            response.sendRedirect("login");
+        String quizSetIdStr = request.getParameter("quizSetId");
+        String folderIdStr = request.getParameter("folderId");
+        if (folderIdStr == null || quizSetIdStr == null) {
+            response.sendRedirect("home");
             return;
         }
-        HistoryDAO dao = new HistoryDAO();
-        String folderIdRaw = request.getParameter("folderId");
         int folderId = 0;
-        try{
-            folderId = Integer.parseInt(folderIdRaw);
-        }catch(NumberFormatException e){
+        try {
+            folderId = Integer.parseInt(folderIdStr);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("home");
             System.out.println(e);
         }
-        Folder f = dao.getFolderByFolderId(folderId);
-        List<QuizSet> list = dao.getAllQuizSetByFolderId(f.getFolderId());
-        List<QuizSet> allList = dao.getAllHistoryQuizSet(acc.getUserName());
-        request.setAttribute("allList", allList);
-        request.setAttribute("folder", f);
-        request.setAttribute("quiz", list);
-        request.getRequestDispatcher("history/foldercontain.jsp").forward(request, response);
+        int quizSetId = 0;
+        try {
+            quizSetId = Integer.parseInt(quizSetIdStr);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("home");
+            System.out.println(e);
+        }
+        HistoryDAO dao = new HistoryDAO();
+        boolean success = dao.deleteQuizSetFromFolder(folderId, quizSetId);
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(success ? "success" : "fail");
     }
 
     /** 

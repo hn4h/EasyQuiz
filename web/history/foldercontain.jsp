@@ -3,6 +3,7 @@
     Created on : Mar 5, 2025, 12:28:08 AM
     Author     : Lenovo
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -88,7 +89,7 @@
         </form>
         <div class="popup-overlay" id="popup-folder">
             <div class="popup-content">
-                <button class="btn-close" id="closePopup">&times;</button>
+                <button class="btn-close" id="closePopup"><span class="close-btn material-symbols-rounded">close</span></button>
                 <h2 class="add-folder">Add Quiz Set to folder</h2>
                 <c:if test="${empty requestScope.allList}">
                     <div class="empty-item">
@@ -97,20 +98,22 @@
                     </div>
                 </c:if>
                 <c:forEach items="${requestScope.allList}" var="quizItem">
+                    <input type="hidden" id="folderId" value="${folder.folderId}">
                     <div class="item-list">
-                        <div class="item">
+                        <div class="item ${fn:contains(quizIds, quizItem.quizSetId) ? 'selected' : ''}" data-id="${quizItem.quizSetId}">
                             <div class="item-info">
                                 <img class="item-icon" src="./images/icon/flashcard_icon.png" alt="Not Found" />
                                 <div>
                                     <p class="item-name">${quizItem.quizSetName}</p>
-                                    <p class="item-meta">Quiz set · ${quizItem.numberOfQuiz} terms · Author: ${quizItem.author}</p>
+                                    <p class="item-meta">Quiz set · ${quizItem.numberOfQuiz} terms · Author: ${quizItem.author.userName}</p>
                                 </div>
                             </div>
+                            <div class="ticked"><i class="fa-solid fa-check"></i></div>
                         </div>
                     </div>
                 </c:forEach>
                 <div class="footer">
-                    <button class="submit-button">Complete</button>
+                    <button onclick="window.location.href='foldercontain?folderId=${folder.folderId}'" class="submit-button">Complete</button>
                 </div>
             </div>
 
@@ -167,7 +170,7 @@
                     <h1 class="folder-title">${folder.folderName}</h1>
                     <div class="btn-area">
                         <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
-                        <button class="delete-btn"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="window.location.href = 'deletefolder?folderId=${folder.folderId}'" class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
                 <c:if test="${empty requestScope.quiz}">
@@ -181,7 +184,7 @@
                             <div>
                                 <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
                                 <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                <span class="text-sm text-gray-600 ml-2">${quiz.author.userName}</span>
                             </div>
                             <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
                         </div>

@@ -91,7 +91,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="history" class="nav-link">
+                            <a href="quizhistory" class="nav-link">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>
@@ -152,11 +152,11 @@
                             <div class="flashcard-sets-list">
                                 <ul class="card-list">
                                     <c:forEach items="${quizSet}" var="i">
-                                        <li class="card-item" onclick="window.location.href = 'quizz?id=${i.quizSetId}'">
-                                            <a href="#" class="card-link">
+                                        <li class="card-item">
+                                            <a href="quizz?id=${i.quizSetId}" class="card-link">
                                                 <div class="previewBtn">
                                                     <h2 class="card-title">${i.quizSetName}</h2>
-                                                    <button onclick="window.location.href='searchquizset?input=${input}&quizId=${i.quizSetId}'">Preview</button>
+                                                    <button onclick="event.stopPropagation(); window.location.href='searchquizset?input=${input}&quizId=${i.quizSetId}'; return false;">Preview</button>
                                                 </div>
                                                 <p class="badge">${i.numberOfQuiz} terms</p>
                                                 <div class="card-username">

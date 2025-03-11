@@ -437,6 +437,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .quiz-title{
     flex-direction: column;
     align-items: start;
+    
 }
 
 .quiz-card:hover{
@@ -521,7 +522,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .item-list {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
     position: sticky;
     overflow-y: auto;
     max-height: 840px;
@@ -537,6 +537,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: #fff;
     border-radius: 0.5rem;
     color: #333;
+    margin-bottom: 10px;
 }
 
 .item.selected{
@@ -602,6 +603,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background-color: rgba(127, 17, 224, 0.5);
 }
 
+.submit-button.disabled{
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
 .empty-item{
     display: flex;
     flex-direction: column;
@@ -619,4 +625,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     border-radius: 5px;
     border: none;
     color: white;
+}
+
+.ticked{
+    display: none;
+}
+
+.item.selected .ticked {
+    display: block; 
 }

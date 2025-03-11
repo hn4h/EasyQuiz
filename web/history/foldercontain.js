@@ -1,36 +1,67 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/javascript.js to edit this template
- */
-
-
-const popup = document.getElementById("popup-folder");
-const openBtn = document.querySelector(".add-btn");
-const closeFolderBtn = document.getElementById("closePopup");
-
-// Hiện popup
-openBtn.addEventListener("click", () => {
-    popup.style.display = "flex";
-});
-
-// Đóng popup khi nhấn nút X
-closeFolderBtn.addEventListener("click", () => {
-    popup.style.display = "none";
-});
-
-// Đóng popup khi nhấn ra ngoài
-window.addEventListener("click", (e) => {
-    if (e.target === popup) {
-        popup.style.display = "none";
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
+// foldercontain.js
+document.addEventListener('DOMContentLoaded', () => {
+    const popup = document.getElementById("popup-folder");
+    const openBtn = document.querySelector(".add-btn");
+    const closeFolderBtn = document.getElementById("closePopup");
+    const completeBtn = document.querySelector(".submit-button");
     const items = document.querySelectorAll(".item");
+    const folderId = document.getElementById("folderId").value;
 
+    // Show popup
+    openBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        popup.style.display = "flex";
+    });
+
+    // Close popup when clicking X
+    closeFolderBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+    });
+
+    // Close popup when clicking Complete
+//    completeBtn.addEventListener("click", () => {
+//        popup.style.display = "none";
+//    });
+
+    // Close popup when clicking outside
+    window.addEventListener("click", (e) => {
+        if (e.target === popup) {
+            popup.style.display = "none";
+        }
+    });
+
+    // Handle quiz set selection
     items.forEach(item => {
-        item.addEventListener("click", function () {
-            this.classList.toggle("selected");
+        item.addEventListener("click", (e) => {
+            e.preventDefault();
+            const quizSetId = item.getAttribute("data-id");
+            const isSelected = item.classList.contains("selected");
+
+            if (!isSelected) {
+                // Add to folder
+                fetch(`addtofolder?folderId=${folderId}&quizSetId=${quizSetId}`, {
+                    method: 'GET'
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                item.classList.add("selected");
+                                item.querySelector(".ticked").style.display = "block";
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+            } else {
+                // Remove from folder
+                fetch(`deletefromfolder?folderId=${folderId}&quizSetId=${quizSetId}`, {
+                    method: 'GET'
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                item.classList.remove("selected");
+                                item.querySelector(".ticked").style.display = "none";
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+            }
         });
     });
 });

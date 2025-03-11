@@ -133,20 +133,25 @@ public class HistoryDAO extends DBContext {
 
     public List<QuizSet> getAllCreatedQuizSet(String userName) {
         List<QuizSet> list = new ArrayList<>();
-        String sql = "select * from Quiz_Set where Author = 'EasyQuiz343293'\n"
-                + "order by Created_Date";
+        String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, "
+                + "q.Author, q.Number_Of_Quiz, q.Created_Date, q.Quiz_Set_Description,a.ProfileImage FROM Quiz_Set q "
+                + "join Accounts a on a.UserName = q.Author "
+                + "WHERE Author = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, userName);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 QuizSet qs = new QuizSet();
-                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
+                qs.setQuizSetId(rs.getInt("Quiz_Set_ID"));
                 qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
                 qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
                 Account a = new Account();
                 a.setUserName(rs.getString("Author"));
+                a.setProfileImage(rs.getString("ProfileImage"));
                 qs.setAuthor(a);
+                qs.setCreatedDate(rs.getDate("Created_Date"));
+                qs.setQuizSetDescription(rs.getString("Quiz_Set_Description"));
                 list.add(qs);
             }
         } catch (SQLException e) {
@@ -157,22 +162,27 @@ public class HistoryDAO extends DBContext {
 
     public List<QuizSet> getAllQuizSetByFolderId(int foldeId) {
         List<QuizSet> list = new ArrayList<>();
-        String sql = "select f.Folder_ID, f.Folder_Name, count(fc.Quiz_Set_ID) as QuizSetCount from Folder f\n"
-                + "left join Folder_Contain fc on fc.Folder_ID = f.Folder_ID\n"
-                + "where f.Folder_ID = 4\n"
-                + "group by f.Folder_ID, f.Folder_Name";
+        String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, q.Author, q.Number_Of_Quiz, "
+                + "q.Created_Date, q.Quiz_Set_Description, a.ProfileImage "
+                + "FROM Folder_Contain fc "
+                + "JOIN Quiz_Set q ON fc.Quiz_Set_ID = q.Quiz_Set_ID "
+                + "JOIN Accounts a ON q.Author = a.UserName "
+                + "WHERE fc.Folder_ID = ? AND fc.Is_Deleted = 0";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, foldeId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 QuizSet qs = new QuizSet();
-                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
+                qs.setQuizSetId(rs.getInt("Quiz_Set_ID"));
                 qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
                 qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
                 Account a = new Account();
                 a.setUserName(rs.getString("Author"));
+                a.setProfileImage(rs.getString("ProfileImage"));
                 qs.setAuthor(a);
+                qs.setCreatedDate(rs.getDate("Created_Date"));
+                qs.setQuizSetDescription(rs.getString("Quiz_Set_Description"));
                 list.add(qs);
             }
         } catch (SQLException e) {
@@ -209,13 +219,13 @@ public class HistoryDAO extends DBContext {
         String sql = "INSERT INTO Folder (Folder_Name, UserName, Folder_Description)  \n"
                 + "VALUES (?, ?, ?)";
         try {
-            PreparedStatement st = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, folderName);
             st.setString(2, userName);
             st.setString(3, "");
             st.executeUpdate();
             ResultSet rs = st.getGeneratedKeys();
-             if (rs.next()) {
+            if (rs.next()) {
                 return rs.getInt(1);
             }
         } catch (SQLException e) {
@@ -295,9 +305,39 @@ public class HistoryDAO extends DBContext {
         return list;
     }
 
+    public boolean addQuizSetToFolder(int folderId, int quizSetId) {
+        String sql = "INSERT INTO Folder_Contain (Folder_ID, Quiz_Set_ID) VALUES (?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, folderId);
+            ps.setInt(2, quizSetId);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteQuizSetFromFolder(int folderId, int quizSetId) {
+        String sql = "DELETE FROM Folder_Contain WHERE Folder_ID = ? AND Quiz_Set_ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, folderId);
+            ps.setInt(2, quizSetId);
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu có bản ghi bị xóa
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Trả về false nếu có lỗi
+        }
+    }
+
     public static void main(String[] args) {
         HistoryDAO d = new HistoryDAO();
-        d.deleteFolder(1, "EasyQuiz422457");
+        QuizSetDAO q = new QuizSetDAO();
+        System.out.println(d.deleteQuizSetFromFolder(33, 3));
+        System.out.println(d.deleteQuizSetFromFolder(33, 2));
+        System.out.println(d.deleteQuizSetFromFolder(33, 1));
+        
     }
 
 }
