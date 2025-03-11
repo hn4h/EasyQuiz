@@ -58,7 +58,6 @@ public class ManageTransactionServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         PaymentDAO paymentDAO = new PaymentDAO();
-        System.out.println(paymentDAO.getAllPayments().get(0).getOrderCode());
         request.setAttribute("transactions", paymentDAO.getAllPayments());
         request.getRequestDispatcher("dashboard/transaction.jsp").forward(request, response);
     } 

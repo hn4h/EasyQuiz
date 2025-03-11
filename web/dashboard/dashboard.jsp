@@ -113,7 +113,7 @@
                             <span class="material-symbols-rounded">receipt_long</span>
                             <div>
                                 <p style="font-weight: 600;">Total Transaction</p>
-                                <p style="font-weight: bold; font-size: 30px;" id="transactions">${requestScope.numOfQuizSet}</p>
+                                <p style="font-weight: bold; font-size: 30px;" id="transactions">${requestScope.numOfTransaction}</p>
                             </div>
                         </div>
                     </div>
