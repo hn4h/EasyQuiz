@@ -149,6 +149,7 @@ body {
     position: relative;
     top: 30px;
     left: 20%;
+    margin-bottom: 2rem;
 }
 
 .summary {
@@ -177,6 +178,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.new-package button{
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #640D5F;
+    font-size: 16px;
+    color: #fff;
+}
+
+.new-package button:hover {
+    background: #2A004E;
+    cursor: pointer;
 }
 
 .title p,
@@ -248,16 +263,39 @@ table {
     font-size: 16px;
 }
 
+.user-row.odd {
+    background-color: #f9f9f9;
+}
+
+.user-row.even {
+    background-color: #ffffff;
+}
+
+.user-details {
+    background-color: #f3f3f3;
+}
+
+thead tr {
+    background-color: #f9f9f9;
+}
+
 th,
 td {
     padding: 10px;
     /* border: 1px solid #e2e8f0; */
     text-align: left;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 th {
-    font-weight: 800;
+    font-weight: bold;
+}
+
+.th-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 th i {
@@ -345,10 +383,11 @@ td img {
 
 .title2 label {
     margin-right: 8px;
+    font-weight: bold;
 }
 
 .title2 input {
-    border: 1px solid #cbd5e0;
+    border: 2px solid #e6e6e6;
     border-radius: 4px;
     padding: 4px 8px;
 }
@@ -366,49 +405,69 @@ td img {
     justify-content: space-between;
     align-items: center;
     margin-top: 16px;
+    font-weight: bold;
 }
 
-.pagination p {
-    margin: 0;
+.pagination select{
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    font-weight: bold;
 }
 
-.pagination nav {
+.pagination-number {
     display: flex;
+    gap: 5px;
 }
 
-.pagination a,
 .pagination button {
     padding: 8px 12px;
-    border: 1px solid #cbd5e0;
+    border: 2px solid #ccc;
     border-radius: 4px;
-    margin-left: -1px;
-    text-decoration: none;
-    color: #4a5568;
-    cursor: pointer;
     background-color: #fff;
+    cursor: pointer;
+    color: #4a5568;
+    font-weight: bold;
 }
 
-.pagination a:hover,
 .pagination button:hover {
-    background-color: #edf2f7;
+    background-color: #640D5F;
+    color: #fff;
 }
 
-.pagination a:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+.pagination button.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 
-.pagination a:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
+
+
+.page-btn {
+    padding: 6px 10px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    cursor: pointer;
+    color: #4a5568;
+    font-weight: bold;
+}
+
+.page-btn:hover {
+    background-color: #640D5F;
+    color: white;
+}
+
+.page-btn.active {
+    background-color: #640D5F;
+    color: #fff;
+    font-weight: bold;
 }
 
 .edit-btn {
-    background-color: #5D8736;
+    background-color: #007f00;
     color: #fff;
     padding: 5px 15px;
     border-style: none;
-    border-radius: 20px;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
     font-size: 14px;
@@ -444,7 +503,7 @@ td img {
     justify-content: space-between;
     gap: 20px;
     padding: 15px;
-    background: #fafafa;
+    background: #fff;
 }
 
 .column {
@@ -466,5 +525,47 @@ td img {
 }
 
 .selected {
-    background-color: #fafafa !important; /* Màu xanh nhạt */
+    background-color: #f3f3f3 !important; /* Màu xanh nhạt */
 }
+
+.select-active option {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Màu nền khi bị ban */
+.select-banned {
+    background-color: #d8000c !important;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Màu nền khi active */
+.select-active {
+    background-color: #007f00;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.fas {
+    color: gray;
+    transition: color 0.3s;
+}
+
+.sort-asc {
+    color: black; /* Mũi tên trên đậm */
+}
+
+.sort-desc {
+    color: black; /* Mũi tên dưới đậm */
+    transform: rotate(180deg); /* Lật icon */
+}
+
