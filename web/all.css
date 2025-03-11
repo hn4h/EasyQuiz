@@ -25,7 +25,6 @@ body.dark-theme {
     --button-text: #1a1a1a;     /* Chữ nút giữ nguyên */
     --button-color: #1a1a1a;
 }
-
 /* Áp dụng các biến */
 body {
     background-color: var(--background-color);
@@ -53,13 +52,18 @@ button, .create-folder-btn button {
     color: var(--text-color);
 }
 
+.body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
 .personal-setting-box {
     background-color: var(--background-color);
     color: var(--text-color);
 }
 
 /* Đảm bảo các phần tử con cũng thừa hưởng màu */
-h1, h2, h3, p, a{
+h1, h2, h3, p, a, .nav-label{
     color: var(--text-color);
 }
 
@@ -69,4 +73,92 @@ i {
 
 i {
     color: var(--button-color);
+}
+
+.sidebar-nav .nav-item a {
+    background-color: var(--button-bg); /* Sử dụng button-bg để đồng bộ */
+    color: var(--button-text); /* Đảm bảo nhãn trắng */
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    width: 100%;
+}
+
+.sidebar-nav .nav-item a:hover,
+.sidebar-nav .nav-item a.nav-link-actived {
+    background-color: #444444; /* Màu hover hoặc active trong dark mode */
+    color: var(--button-text); /* Giữ nhãn trắng khi hover/active */
+}
+
+.sidebar-nav .nav-item a .material-symbols-rounded,
+.sidebar-nav .nav-item a .nav-label,
+.sidebar-nav .nav-item a i { /* Đảm bảo icon (Font Awesome) cũng trắng */
+    color: inherit; /* Kế thừa màu từ a */
+}
+
+.menu-btn .sidebar-toggler {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.menu-btn .sidebar-toggler:hover {
+    background-color: #333333; /* Màu hover tối hơn trong dark mode */
+    color: var(--button-text);
+}
+
+.menu-btn .sidebar-toggler i {
+    color: inherit; /* Đảm bảo biểu tượng kế thừa màu từ nút */
+}
+
+.user-menu {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.user-menu a, .user-menu p {
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    padding: 5px 10px;
+    transition: color 0.3s;
+}
+
+.user-menu a:hover, .user-menu p:hover {
+    color: #333333; /* Màu hover nhạt hơn trong dark mode */
+}
+
+.user-menu img {
+    filter: none; /* Giữ nguyên màu avatar, không áp dụng thay đổi */
+}
+
+.search {
+    background-color: var(--search-bg);
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.search input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: var(--search-text);
+    width: 100%;
+}
+
+.search i {
+    color: var(--search-text);
+    margin-right: 5px;
 }

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Settings</title>
         <link rel="stylesheet" href="./setting/setting.css">
-        <link rel="stylesheet" href="<%=request.getContextPath()%>/all.css">
+<!--        <link rel="stylesheet" href="<!--%=request.getContextPath()%>/all.css">-->
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
