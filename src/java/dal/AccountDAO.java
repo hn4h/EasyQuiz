@@ -162,62 +162,10 @@ public class AccountDAO extends DBContext {
             System.out.println(e);
         }
     }
-    // public List<Account> getAccountOfCustomerByAdmin(){
-    // List<Account> accounts = new ArrayList<>();
-    // String sql = "Select * from Accounts where role = 1 or role = 0";
-    // try {
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // ResultSet rs = st.executeQuery();
-    // while (rs.next()) {
-    // Account account = new Account();
-    // account.setUserName(rs.getString("username"));
-    // account.setHashedPassword(rs.getString("HashedPassword"));
-    // account.setAccountID(rs.getInt("accountID"));
-    // account.setCreatedDate(rs.getDate("createdDate"));
-    // account.setProfileImage(rs.getString("profileImage"));
-    // account.setRole(rs.getInt("role"));
-    // account.setPhoneNumber(rs.getString("phoneNumber"));
-    // account.setAddress(rs.getString("address"));
-    // account.setEmail(rs.getString("email"));
-    // account.setFirstName(rs.getString("firstName"));
-    // account.setLastName(rs.getString("lastName"));
-    // accounts.add(account);
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    // return accounts;
-    // }
-    // public Account getAccountByID(int accountID) {
-    // String sql = "Select * from Accounts where AccountID = ?";
-    // try {
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // st.setInt(1, accountID);
-    // ResultSet rs = st.executeQuery();
-    // if (rs.next()) {
-    // Account account = new Account();
-    // account.setUserName(rs.getString("username"));
-    // account.setHashedPassword(rs.getString("HashedPassword"));
-    // account.setAccountID(rs.getInt("accountID"));
-    // account.setCreatedDate(rs.getDate("createdDate"));
-    // account.setProfileImage(rs.getString("profileImage"));
-    // account.setRole(rs.getInt("role"));
-    // account.setPhoneNumber(rs.getString("phoneNumber"));
-    // account.setAddress(rs.getString("address"));
-    // account.setEmail(rs.getString("email"));
-    // account.setFirstName(rs.getString("firstName"));
-    // account.setLastName(rs.getString("lastName"));
-    // return account;
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    // return null;
-    // }
 
     public Account getAccountByUserName(String userName) {
         try {
-            String sql = "Select * from Accounts where UserName = ?";
+            String sql = "Select * from Accounts where UserName = ? AND is_deleted = 0";
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, userName);
             ResultSet rs = st.executeQuery();
@@ -235,6 +183,37 @@ public class AccountDAO extends DBContext {
             System.out.println(e);
         }
         return null;
+    }
+    
+    public boolean updateProfileImage(String userName, String profileImage) {
+        String sql = "UPDATE Accounts SET ProfileImage = ? WHERE UserName = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, profileImage);
+            st.setString(2, userName);
+            System.out.println("Executing SQL: " + sql);
+            System.out.println("ProfileImage: " + profileImage + ", UserName: " + userName);
+            int rowsAffected = st.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error updating profile image: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean updateUsername(String oldUserName, String newUserName) {
+        String sql = "UPDATE Accounts SET UserName = ? WHERE UserName = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, newUserName);
+            st.setString(2, oldUserName);
+            int rowsAffected = st.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println(e);
+            return false;
+        }
     }
 
     public boolean changePassword(String username, String oldPassword, String newPassword) {
@@ -288,32 +267,6 @@ public class AccountDAO extends DBContext {
         }
     }
 
-    // public boolean updateProfileImage(InputStream inputStream, Part filePart, int
-    // accountID) {
-    // String sql = "Update Accounts set profileImage = ? where AccountID = ?";
-    // try {
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // if (inputStream != null) {
-    // // Check if the size is within the int range
-    // if (filePart.getSize() <= Integer.MAX_VALUE) {
-    // st.setBinaryStream(1, inputStream, (int) filePart.getSize());
-    // } else {
-    // return false;
-    // }
-    // }
-    // st.setInt(2, accountID);
-    //
-    // // Execute the SQL statement
-    // int row = st.executeUpdate();
-    // if (row > 0) {
-    // return true;
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    // return false;
-    // }
-    // Hello
     public Account checkEmail(String email) {
         String sql = "Select * from Accounts where email = ?";
         try {

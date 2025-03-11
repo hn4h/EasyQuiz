@@ -1,0 +1,135 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+
+package controller;
+
+import dal.AccountDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Account;
+
+/**
+ *
+ * @author DUCA
+ */
+@WebServlet(name="SettingServlet", urlPatterns={"/setting"})
+public class SettingServlet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SettingServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SettingServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    } 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /** 
+     * Handles the HTTP <code>GET</code> method.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    private AccountDAO accountDAO;
+
+    @Override
+    public void init() throws ServletException {
+        accountDAO = new AccountDAO();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+
+        if (account == null) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        account = accountDAO.getAccountByUserName(account.getUserName());
+        if (account == null) {
+            response.sendRedirect("login");
+            return;
+        }
+        session.setAttribute("account", account);
+
+        request.getRequestDispatcher("/setting/setting.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+
+        if (account == null) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        String action = request.getParameter("action");
+        System.out.println("Action received: " + action);
+
+        if ("updateAvatar".equals(action)) {
+            String newAvatar = request.getParameter("avatar");
+            System.out.println("Received avatar path: " + newAvatar);
+
+            // Normalize the path by removing './' if present
+            if (newAvatar != null) {
+                newAvatar = newAvatar.replace("./", "");
+                System.out.println("Normalized avatar path: " + newAvatar);
+
+                // Attempt to update the database
+                if (accountDAO.updateProfileImage(account.getUserName(), newAvatar)) {
+                    account.setProfileImage(newAvatar);
+                    session.setAttribute("account", account);
+                    System.out.println("Avatar updated successfully to: " + newAvatar);
+                } else {
+                    System.out.println("Failed to update avatar in database for: " + newAvatar);
+                }
+            } else {
+                System.out.println("Avatar parameter is null");
+            }
+        }
+
+        response.sendRedirect("setting");
+    }
+
+
+    /** 
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}
