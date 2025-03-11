@@ -243,9 +243,8 @@
                     <c:forEach var="blog" items="${blogs}">
                         <div class="blog-card">
                             <div class="content-header">
-                                <h2>${blog.blogTitle}</h2>
-                                <div class="header-btn">
-                                    <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span><p>Share</p></button>
+                                <h2><a href="blogdetail?blogId=${blog.blogId}" style="color: black;text-decoration: none">${blog.blogTitle}</a></h2>
+                                <div class="header-btn">                               
                                     <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
                                 </div>
                             </div>

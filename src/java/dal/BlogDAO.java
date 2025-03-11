@@ -185,4 +185,30 @@ public class BlogDAO extends DBContext {
             return false;
         }
     }
+    
+    public Blog getBlogById(int blogId) {
+        String sql = "SELECT Blog_ID, Blog_Content, Blog_Title, Author, Blog_Date, Is_Deleted " +
+                     "FROM Blog WHERE Blog_ID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, blogId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Blog blog = new Blog();
+                blog.setBlogId(rs.getInt("Blog_ID"));
+                blog.setBlogContent(rs.getString("Blog_Content"));
+                blog.setBlogTitle(rs.getString("Blog_Title"));
+                Account author = new Account();
+                author.setUserName(rs.getString("Author"));
+                blog.setAuthor(author);
+                blog.setCreatedDate(rs.getDate("Blog_Date"));
+                blog.setIsDeleted(rs.getBoolean("Is_Deleted"));
+                blog.setComments(getCommentsByBlogId(blogId)); 
+                return blog;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting blog by ID: " + e.getMessage());
+        }
+        return null;
+    }
 }

@@ -108,12 +108,7 @@ public class AccountDAO extends DBContext {
         }
         return false;
     }
-
-    public static void main(String[] args) {
-        AccountDAO dao = new AccountDAO();
-        dao.updateExpiredDate("EasyQuiz124733", 1);
-    }
-
+    
     public void updateProfile(String userName, String profileImage) {
         String sql = "Update Accounts set userName = ?, profileImage = ? where userName = ?";
         try {
@@ -201,7 +196,7 @@ public class AccountDAO extends DBContext {
     // return null;
     // }
 
-    public Account getAccountByUserName(String userName){
+    public Account getAccountByUserName(String userName) {
         try {
             String sql = "Select * from Accounts where UserName = ?";
             PreparedStatement st = connection.prepareStatement(sql);
@@ -361,5 +356,37 @@ public class AccountDAO extends DBContext {
         }
         return list;
     }
+
+    public List<Creator> searchAllCreater(String input) {
+        List<Creator> list = new ArrayList<>();
+        String sql = "SELECT a.UserName, a.ProfileImage, count(qs.Quiz_Set_ID) as NumberOfQuizSet\n"
+                + "FROM Accounts a\n"
+                + "left join Quiz_Set qs on qs.Author = a.UserName\n"
+                + "where UserName like '%' + ? + '%'"
+                + "group by a.UserName, a.ProfileImage\n"
+                + "order by count(qs.Quiz_Set_ID) desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, input);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Account a = new Account();
+                a.setUserName(rs.getString("UserName"));
+                a.setProfileImage(rs.getString("ProfileImage"));
+                Creator c = new Creator();
+                c.setAccount(a);
+                c.setNumberOfQuizSet(rs.getInt("NumberOfQuizSet"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
     
+    public static void main(String[] args) {
+        AccountDAO d = new AccountDAO();
+        System.out.println(d.searchAllCreater("e").size());
+    }
+
 }

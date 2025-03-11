@@ -1,4 +1,3 @@
-
 document.querySelector(".sidebar-toggler").addEventListener("click", () => {
     closeAllDropdowns();
 
@@ -9,6 +8,12 @@ document.querySelector(".sidebar-toggler").addEventListener("click", () => {
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector(".sidebar").classList.toggle("collapsed");
 });
+
+const closeAllDropdowns = () => {
+    document.querySelectorAll(".dropdown-container.open").forEach(openDropdown => {
+        toggleDropdown(openDropdown, openDropdown.querySelector(".dropdown-subject"), false);
+    });
+};
 //------------------------Menu of avatar
 // Get elements
 const avatarUser = document.getElementById('avatarUser');

@@ -2,6 +2,7 @@ package dal;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
@@ -65,7 +66,10 @@ public class QuizSetDAO extends DBContext {
 
     public QuizSet getQuizSetById(int id) {
         try {
-            String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, q.Author, q.Number_Of_Quiz, q.Created_Date, q.Quiz_Set_Description,a.ProfileImage FROM Quiz_Set q join Accounts a on a.UserName = q.Author WHERE Quiz_Set_ID = ?";
+            String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, "
+                    + "q.Author, q.Number_Of_Quiz, q.Created_Date, q.Quiz_Set_Description,a.ProfileImage FROM Quiz_Set q"
+                    + "join Accounts a on a.UserName = q.Author "
+                    + "WHERE Quiz_Set_ID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
@@ -107,7 +111,6 @@ public class QuizSetDAO extends DBContext {
         }
         return generatedKeys;
     }
-
     public void addQuizHistory(int quizSetID, String userName) {
         try {
             String sql = "INSERT INTO Quiz_Set_History (Quiz_Set_ID, UserName) VALUES (?,?)";
@@ -121,11 +124,52 @@ public class QuizSetDAO extends DBContext {
     }
 
     
-
-    public static void main(String[] args) {
-        QuizSetDAO d = new QuizSetDAO();
-
-        System.out.println(d.getQuizDetailById(1).getQs().getQuizSetName());
+    public List<QuizSet> searchAllQuizSetByName(String quizSetName) {
+        List<QuizSet> list = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "    q.Quiz_Set_ID, \n"
+                + "    q.Quiz_Set_Name, \n"
+                + "    COUNT(distinct qsh.UserName) AS Popular,\n"
+                + "    q.Author, \n"
+                + "    q.Number_Of_Quiz, \n"
+                + "    q.Created_Date, \n"
+                + "    q.Quiz_Set_Description, \n"
+                + "    a.ProfileImage \n"
+                + "FROM Quiz_Set q\n"
+                + "left JOIN Accounts a ON a.UserName = q.Author\n"
+                + "left JOIN Quiz_Set_History qsh ON qsh.Quiz_Set_ID = q.Quiz_Set_ID\n"
+                + "WHERE q.Quiz_Set_Name LIKE '%' + ? + '%'\n"
+                + "GROUP BY \n"
+                + "    q.Quiz_Set_ID, \n"
+                + "    q.Quiz_Set_Name, \n"
+                + "    q.Author, \n"
+                + "    q.Number_Of_Quiz, \n"
+                + "    q.Created_Date, \n"
+                + "    q.Quiz_Set_Description, \n"
+                + "    a.ProfileImage\n"
+                + "ORDER BY Popular DESC;";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, quizSetName);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                QuizSet qs = new QuizSet();
+                qs.setQuizSetId(rs.getInt("Quiz_Set_ID"));
+                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
+                Account a = new Account();
+                a.setUserName(rs.getString("Author"));
+                a.setProfileImage(rs.getString("ProfileImage"));
+                qs.setAuthor(a);
+                qs.setCreatedDate(rs.getDate("Created_Date"));
+                qs.setQuizSetDescription(rs.getString("Quiz_Set_Description"));
+                list.add(qs);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
     }
-    
 }
+
+
