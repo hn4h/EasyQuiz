@@ -44,6 +44,34 @@ public class BlogDAO extends DBContext {
         }
         return list;
     }
+    
+    public List<Blog> getSomePopularBlog() {
+        List<Blog> list = new ArrayList<>();
+        String sql = "SELECT Top(3) b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, b.Blog_Date FROM Blog b\n"
+                + "join Comment c on c.Blog_ID = b.Blog_ID\n"
+                + "group by b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, b.Blog_Date\n"
+                + "order by count(c.Comment_ID) desc";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog b = new Blog();
+                b.setBlogId(rs.getInt("Blog_ID"));
+                b.setBlogContent(rs.getString("Blog_Content"));
+                b.setBlogTitle(rs.getString("Blog_Title"));
+                Account a = new Account();
+                a.setUserName(rs.getString("Author"));
+                b.setAuthor(a);
+                b.setCreatedDate(rs.getDate("Blog_Date"));
+                b.setComments(getCommentsByBlogId(b.getBlogId()));
+                list.add(b);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
 
     public List<Blog> getAllBlogs() {
         List<Blog> list = new ArrayList<>();
@@ -62,7 +90,7 @@ public class BlogDAO extends DBContext {
                 author.setUserName(rs.getString("Author"));
                 blog.setAuthor(author);
 
-                blog.setComments(getCommentsByBlogId(blog.getBlogId()));
+                blog.setComments(getTopCommentsByBlogId(blog.getBlogId()));
                 list.add(blog);
             }
         } catch (SQLException e) {
@@ -73,7 +101,29 @@ public class BlogDAO extends DBContext {
 
     public List<Comment> getCommentsByBlogId(int blogId) {
         List<Comment> comments = new ArrayList<>();
-        String sql = "SELECT TOP 100 * FROM Comment WHERE Blog_ID = ? ORDER BY Comment_Date DESC";
+        String sql = "SELECT * FROM Comment WHERE Blog_ID = ? ORDER BY Comment_Date DESC";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, blogId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Comment c = new Comment();
+                c.setCommentId(rs.getInt("Comment_ID"));
+                c.setUserName(rs.getString("UserName"));
+                c.setBlogId(rs.getInt("Blog_ID"));
+                c.setCommentContent(rs.getString("Comment_Content"));
+                c.setCreatedDate(rs.getDate("Comment_Date"));
+                comments.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return comments;
+    }
+    
+    public List<Comment> getTopCommentsByBlogId(int blogId) {
+        List<Comment> comments = new ArrayList<>();
+        String sql = "SELECT TOP 3 * FROM Comment WHERE Blog_ID = ? ORDER BY Comment_Date DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, blogId);
@@ -110,7 +160,7 @@ public class BlogDAO extends DBContext {
                 author.setUserName(rs.getString("Author"));
                 blog.setAuthor(author);
                 blog.setCreatedDate(rs.getDate("Blog_Date"));
-                blog.setComments(getCommentsByBlogId(blog.getBlogId()));
+                blog.setComments(getTopCommentsByBlogId(blog.getBlogId()));
                 list.add(blog);
             }
         } catch (SQLException e) {

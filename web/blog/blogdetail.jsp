@@ -155,6 +155,30 @@
                                 </c:forEach>
                             </div>
                         </div>
+
+                        <!-- Related Blogs Section -->
+                        <div class="related-blogs">
+                            <h3>Related Blogs</h3>
+                            <div class="related-blogs-list">
+                                <c:forEach var="relatedBlog" items="${requestScope.popularBlogs}">
+                                    <div class="related-blog-item">
+                                        <a href="blogdetail?blogId=${relatedBlog.blogId}">
+                                            <h4>${relatedBlog.blogTitle}</h4>
+                                            <p class="blog-snippet">
+                                                <c:set var="snippet" value="${fn:substring(relatedBlog.blogContent, 0, 50)}" />
+                                                ${snippet}${fn:length(relatedBlog.blogContent) > 50 ? '...' : ''}
+                                            </p>
+                                            <div class="blog-meta">
+                                                <img src="./images/logo/Easyquiz_logo.png" alt="EasyQuiz Logo" class="blog-logo">
+                                                <span class="author-name">${relatedBlog.author.userName}</span>
+                                                <span class="view-icon material-symbols-rounded">arrow_outward</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

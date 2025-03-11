@@ -12,7 +12,7 @@ public class PaymentDAO extends DBContext {
     // Method to save payment information
     public void savePayment(Payment payment) {
         String sql = "INSERT INTO Transaction_History (transaction_id, order_code, amount, username, status, value_package, Description) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try ( 
              PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, payment.getTransactionId());

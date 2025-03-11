@@ -135,6 +135,8 @@ function openBlogModal(element) {
     document.getElementById("modalAuthor").innerText = author;
     document.getElementById("modalContent").innerHTML = content;
     document.getElementById("modalCreatedDate").innerText = createdAt;
+    
+    document.getElementById("modalTitle").setAttribute("onclick", `window.location.href='blogdetail?blogId=${blogId}'`);
 
     // Hiển thị danh sách comments
     const modalComments = document.getElementById("modalComments");
