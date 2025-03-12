@@ -22,6 +22,31 @@ document.addEventListener("DOMContentLoaded", function () {
             userMenu.classList.remove("show");
         }
     });
+    
+    // Lấy tất cả các nhóm câu hỏi
+    const questions = document.querySelectorAll(".container1");
+    let userAnswers = {}; // Lưu trạng thái lựa chọn của người dùng
+    questions.forEach((question, index) => {
+        const answers = question.querySelectorAll(".options1 button");
+
+        answers.forEach(answer => {
+            answer.addEventListener("click", function () {
+                // Loại bỏ lớp 'selected' khỏi tất cả đáp án trong câu hỏi hiện tại
+                answers.forEach(btn => btn.classList.remove("selected"));
+                
+                // Thêm lớp 'selected' vào đáp án được chọn
+                this.classList.add("selected");
+                 // Lưu kết quả của câu hỏi
+                const isCorrect = this.getAttribute("data-correct") === "true";
+                userAnswers[index] = isCorrect;
+                // Chuyển xuống câu hỏi tiếp theo (nếu có)
+                const nextQuestion = questions[index + 1];
+                if (nextQuestion) {
+                    nextQuestion.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            });
+        });
+    });
 });
 // Hàm toggle sidebar
 function toggleSidebar() {
@@ -74,9 +99,29 @@ function closePopup1() {
 
 window.closePopup1 = closePopup1;
 
+
 // Nút submit cập nhật giao diện
 function submitTest() {
+    // Lấy danh sách tất cả câu hỏi
+    const questions = document.querySelectorAll(".container1");
 
+    let correctCount = 0;
+    let totalQuestions = questions.length;
+
+    // Kiểm tra từng câu hỏi
+    questions.forEach((question) => {
+        let selectedAnswer = question.querySelector(".options1 .selected"); // Lấy đáp án người dùng chọn
+        let correctAnswer = question.querySelector(".options1 .correct1"); // Lấy đáp án đúng
+
+        if (selectedAnswer && correctAnswer) {
+            if (selectedAnswer === correctAnswer) {
+                correctCount++; // Nếu đúng, tăng số câu đúng
+            }
+        }
+    });
+
+    let incorrectCount = totalQuestions - correctCount;
+    let correctPercentage = ((correctCount / totalQuestions) * 100).toFixed(1);
     document.body.innerHTML = `
             <div class="header">
                 <div class="test">
@@ -102,10 +147,10 @@ function submitTest() {
                     <div class="progress">
                         <h3>Your time: 1 min.</h3>
                         <div class="progress-info">
-                            <span class="circle"></span>
+                            <span class="circle">${correctPercentage}%</span>
                             <div class="progress-info-complete">
-                                <p class="correct">Correct:<span id="correctCount">0</span></p>
-                                <p class="incorrect">Incorrect:<span id="incorrectCount">0</span></p>
+                                <p class="correct">Correct:<span id="correctCount">${correctCount}</span></p>
+                                <p class="incorrect">Incorrect:<span id="incorrectCount">${incorrectCount}</span></p>
                             </div>
                         </div>
                     </div>

@@ -258,6 +258,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .options1 button:hover {
     background: #ffbcfb;
 }
+.options1 button.selected {
+    background-color: #ffbcfb; 
+   
+}
 
 .correct1 {
     background-color: #d4edda;
@@ -494,26 +498,26 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin: 10px 0;
 }
 .circle {
-    width: 80px;
+/*    width: 80px;
     height: 80px;
     border-radius: 50%;
-    border: 10px solid #ff6b6b;
+    border: 10px solid #ff6b6b;*/
     display: flex;
     align-items: center;
     margin: 10px 0;
     font-size: 18px;
     font-weight: bold;
-    color: #ff7873;
+    color: #28a745;
     position: relative;
 
 }
-.circle::after {
+/*.circle::after {
     content: "0%";
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
+}*/
 
 .progress-info-complete {
     flex: 1;

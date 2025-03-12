@@ -69,10 +69,11 @@
                     <h3><%= quiz.getContent() %></h3>
                     <p>Select the correct definition</p>
                     <div class="options1">
-                        <button>Option 1</button>
-                        <button>Option 2</button>
-                        <button>Option 3</button>
-                        <button class="correct1">Option 4</button>
+                        <% for (model.Answer answer : quiz.getAnswers()) { %>
+                        <button data-correct="<%= answer.isCorrect() %>">
+                            <%= answer.getContent() %>
+                        </button>
+                        <% } %>
                     </div>
                 </div>
                 <%

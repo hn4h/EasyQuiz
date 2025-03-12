@@ -4,7 +4,9 @@
  */
 package controller;
 
+import com.google.gson.Gson;
 import dal.TestDAO;
+import dal.QuizDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -58,14 +60,39 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        request.getRequestDispatcher("login/login.jsp").forward(request, response);
-        // Lấy danh sách câu hỏi từ database
-        TestDAO dao = new TestDAO();
-        List<Quiz> quizzes = dao.getAllQuizzes(); // Lấy danh sách câu hỏi từ DB
+        String action = request.getParameter("action");
 
-        System.out.println("Số câu hỏi lấy được: " + quizzes.size()); // Kiểm tra số lượng dữ liệu
+        if ("getQuizzesByQuizSetID".equals(action)) {
+            String idParam = request.getParameter("quizSetID");
+            int quizSetId = Integer.parseInt(idParam);
 
-        request.setAttribute("quizzes", quizzes); // Đưa vào request
+            QuizDAO dao = new QuizDAO();
+            List<Quiz> correctAnswers = dao.getQuizzesByQuizSetID(quizSetId);
+
+            // Trả về JSON
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(new Gson().toJson(correctAnswers));
+            return;
+        }
+        // Lấy tham số quizSetId từ request
+        String idParam = request.getParameter("quizSetID");
+        int quizSetId = 1; // Giá trị mặc định nếu không có tham số
+
+        if (idParam != null) {
+            try {
+                quizSetId = Integer.parseInt(idParam); // Chuyển chuỗi sang số nguyên
+            } catch (NumberFormatException e) {
+                e.printStackTrace(); // Debug lỗi nếu giá trị không hợp lệ
+            }
+        }
+
+        // Gọi DAO để lấy danh sách quiz theo quizSetId
+        QuizDAO dao = new QuizDAO();
+        List<Quiz> quizzes = dao.getQuizzesByQuizSetID(quizSetId);
+
+        // Gửi danh sách quiz đến JSP
+        request.setAttribute("quizzes", quizzes);
         request.getRequestDispatcher("./test/test.jsp").forward(request, response);
     }
 
