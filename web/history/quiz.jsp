@@ -144,7 +144,7 @@
                         <a href="folderhistory" class="folders-button">Folders</a>
                     </div>
                     <div style="margin-top: 20px;" class="flex justify-between items-center mb-4">
-                        <select class="border border-gray-300 px-4 py-2 rounded">
+                        <select class="option-select border border-gray-300 px-4 py-2 rounded">
                             <option>Recent</option>
                             <option>Created</option>
                         </select>

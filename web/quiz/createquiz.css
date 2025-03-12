@@ -386,12 +386,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .quiz-header .create-btn{
     padding: 0.5rem 1rem;
-    background-color: blueviolet;
-    border-radius: 10px;
+    background-color: #640D5F;
+    border-radius: 5px;
+    color: #fff;
 }
 
 .quiz-header .create-btn:hover{
-    background-color: lightpink;
+    opacity: 0.5;
 }
 
 .flex {

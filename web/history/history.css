@@ -758,3 +758,19 @@
         opacity: 0;
     }
 }
+
+.option-select{
+    background-color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    /*border-style: none;*/
+    border-radius: 10px;
+    color: #640D5F;
+}
+
+.option-select option{
+    border: solid 1px;
+    border-color: #640D5F;
+    border-radius: 5px;
+}

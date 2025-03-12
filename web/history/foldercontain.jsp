@@ -38,8 +38,8 @@
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -94,18 +94,25 @@
                 <c:if test="${empty requestScope.allList}">
                     <div class="empty-item">
                         <p>You haven't created or studied any items yet.</p>
-                        <button class="create-item" type="button">Create Quiz Set</button>
+                        <button onclick="window.location.href = 'addquiz'" class="create-item" type="button">Create Quiz Set</button>
                     </div>
                 </c:if>
                 <c:forEach items="${requestScope.allList}" var="quizItem">
-                    <input type="hidden" id="folderId" value="${folder.folderId}">
                     <div class="item-list">
                         <div class="item ${fn:contains(quizIds, quizItem.quizSetId) ? 'selected' : ''}" data-id="${quizItem.quizSetId}">
                             <div class="item-info">
                                 <img class="item-icon" src="./images/icon/flashcard_icon.png" alt="Not Found" />
                                 <div>
                                     <p class="item-name">${quizItem.quizSetName}</p>
-                                    <p class="item-meta">Quiz set · ${quizItem.numberOfQuiz} terms · Author: ${quizItem.author.userName}</p>
+                                    <p class="item-meta">Quiz set · ${quizItem.numberOfQuiz} terms · Author: 
+                                        <c:choose>
+                                            <c:when test="${quizItem.author.userName eq account.userName}">
+                                                You
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${quizItem.author.userName}
+                                            </c:otherwise>
+                                        </c:choose></p>
                                 </div>
                             </div>
                             <div class="ticked"><i class="fa-solid fa-check"></i></div>
@@ -113,7 +120,7 @@
                     </div>
                 </c:forEach>
                 <div class="footer">
-                    <button onclick="window.location.href='foldercontain?folderId=${folder.folderId}'" class="submit-button">Complete</button>
+                    <button onclick="window.location.href = 'foldercontain?folderId=${folder.folderId}'" class="submit-button">Complete</button>
                 </div>
             </div>
 
@@ -168,6 +175,7 @@
             <div class="body-container">
                 <div class="content">
                     <h1 class="folder-title">${folder.folderName}</h1>
+                    <input type="hidden" id="folderId" value="${folder.folderId}">
                     <div class="btn-area">
                         <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
                         <button onclick="window.location.href = 'deletefolder?folderId=${folder.folderId}'" class="delete-btn"><i class="fa-solid fa-trash"></i></button>
@@ -184,7 +192,16 @@
                             <div>
                                 <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
                                 <span class="text-sm text-gray-600 ml-2">|</span>
-                                <span class="text-sm text-gray-600 ml-2">${quiz.author.userName}</span>
+                                <span class="text-sm text-gray-600 ml-2">
+                                    <c:choose>
+                                        <c:when test="${quiz.author.userName eq account.userName}">
+                                            You
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${quiz.author.userName}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </div>
                             <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
                         </div>

@@ -1,3 +1,70 @@
+// SwiperJS pagination
+const swiper = new Swiper('.card-wrapper', {
+    loop: true,
+    spaceBetween: 20,
+
+    // Pagination bullets
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+        dynamicBullets: true
+    },
+
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+
+    breakpoints: {
+        0: {
+            slidesPerView: 1
+        },
+        768: {
+            slidesPerView: 2
+        },
+        1024: {
+            slidesPerView: 3
+        },
+    }
+});
+//Toggle the visibility of a dropdown menu
+const toggleDropdown = (dropdown, menu, isOpen) => {
+    dropdown.classList.toggle("open", isOpen);
+    menu.style.height = isOpen ? `${menu.scrollHeight}px` : 0;
+}
+
+const closeAllDropdowns = () => {
+    document.querySelectorAll(".dropdown-container.open").forEach(openDropdown => {
+        toggleDropdown(openDropdown, openDropdown.querySelector(".dropdown-subject"), false);
+    });
+}
+//Attach click event to all dropdown toggles
+document.querySelectorAll(".dropdown-toggle").forEach(dropdownToggle => {
+    dropdownToggle.addEventListener("click", e => {
+        e.preventDefault();
+
+        const dropdown = e.target.closest(".dropdown-container");
+        const menu = dropdown.querySelector(".dropdown-subject");
+        const isOpen = dropdown.classList.contains("open");
+
+        closeAllDropdowns();//Close all open dropdowns
+
+        toggleDropdown(dropdown, menu, !isOpen); //Toggle current dropdown visibility
+    });
+});
+
+document.querySelector(".sidebar-toggler").addEventListener("click", () => {
+    closeAllDropdowns();
+
+    // Toggle collapsed class on sidebar
+    document.querySelector(".sidebar").classList.toggle("collapsed");
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector(".sidebar").classList.toggle("collapsed");
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const addButton = document.querySelector('.add-btn');
     const bodyContainer = document.querySelector('.body-container');
