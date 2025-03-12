@@ -87,3 +87,22 @@ closeBtn.addEventListener('click', () => {
         folderPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search");
+    const items = document.querySelectorAll(".term-item");
+
+    searchInput.addEventListener("input", function () {
+        const filter = searchInput.value.trim().toLowerCase();
+
+        items.forEach(item => {
+            const title = item.querySelector("h3").textContent.toLowerCase();
+
+            if (title.includes(filter)) {
+                item.style.display = "";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    });
+});

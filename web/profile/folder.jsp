@@ -1,12 +1,14 @@
+
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Name of user</title>
-        <link rel="stylesheet" href="profile.css">
-        <link rel="shortcut icon" href="../images/logo/Easyquiz_logo.png">
+        <title>${username}</title>
+        <link rel="stylesheet" href="./profile/profile.css">
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -20,47 +22,50 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchall">
+            <form action="searchall" style="width: 100%; max-width: 450px;">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search for study" name="input">
                 </div>
             </form>
             <div class="create-login">
-                <div class="create-btn-icon" id="createButton">
-                    <span><button><i class="fa-solid fa-plus"></i></button></span>
-                    <div class="create-menu" id="createMenu">
-                        <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                        <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i>
-                            Folder</a>
-                    </div>
-                </div>
-                <div class="upgrade-btn">
-                    <button>Upgrade: Free 7-day trial</button>
-                </div>
-                <div class="avatar-user" id="avatarUser">
-                    <img src="../images/avatar/default.png" alt="Not found">
-                    <div class="user-menu" id="userMenu">
-                        <div class="user-info">
-                            <img src="${sessionScope.account.profileImage}" alt="Not found"/>
-                            <div>
-                                <p>${sessionScope.account.userName}</p>
-                                <p>${sessionScope.account.email}</p>
-                            </div>
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
-                        <hr />
-                        <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                        <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
-                        <hr />
-                        <a href="logout" class="user-menu-item">Logout</a>
-                        <hr />
-                        <a href="#" class="user-menu-item">Help and feedback</a>
-                        <a href="#" class="user-menu-item">Upgrades</a>
                     </div>
-                </div>
-                <div class="login-btn">
-                    <a href="login"><button>Log in</button></a>
-                </div>
+                    <div class="upgrade-btn">
+                        <a href="upgrade">Upgrade your package</a>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="${sessionScope.account.profileImage}" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
+                                <div>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
             </div>
         </div>
         <form action="createfolder" method="post">
@@ -89,7 +94,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="history" class="nav-link">
+                            <a href="quizhistory" class="nav-link">
                                 <span class="material-symbols-rounded">history</span>
                                 <span class="nav-label">History</span>
                             </a>
@@ -104,13 +109,7 @@
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <span class="material-symbols-rounded">person</span>
-                                <span class="nav-label">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="setting" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>
@@ -126,56 +125,43 @@
             </aside>
             <div class="body-container">
                 <div class="user-container">
-                    <img src="../images/avatar/default.png" alt="">
+                    <img src="${user.profileImage}" alt="">
                     <div class="user-name">
-                        <h2>Name</h2>
-                        <p>Email name</p>
+                        <h2>${user.userName}</h2>
+                        <p>${user.email}</p>
                     </div>
                 </div>
                 <div class="flashcard-folder">
                     <div class="flashcard-folder-header">
-                        <a href="#" class="flashcard-folder-item">Flashcard sets</a>
-                        <a href="#" class="flashcard-folder-item-actived">Folders</a>
+                        <a href="user?username=${username}&type=sets" class="flashcard-folder-item">Flashcard sets</a>
+                        <a href="user?username=${username}&type=folder" class="flashcard-folder-item-actived">Folders</a>
                     </div>
                     <div class="search-user">
-                        <input type="text" placeholder="Search your folders" name="">
+                        <input id="search" type="text" placeholder="Search your folders" name="">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                     <div class="folder-container">
                         <ul class="folder-list">
-                            <li class="folder-item">
-                                <a href="" class="folder-link">
-                                    <p>15 terms</p>
-                                    <div class="title-icon">
-                                        <span class="material-symbols-rounded">folder</span>
-                                        <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h3>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="folder-item">
-                                <a href="" class="folder-link">
-                                    <p>15 terms</p>
-                                    <div class="title-icon">
-                                        <span class="material-symbols-rounded">folder</span>
-                                        <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h3>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="folder-item">
-                                <a href="" class="folder-link">
-                                    <p>15 terms</p>
-                                    <div class="title-icon">
-                                        <span class="material-symbols-rounded">folder</span>
-                                        <h3>Lorem ipsum, dolor sit amet consectetur adipisicing elit. </h3>
-                                    </div>
-                                </a>
-                            </li>
+                            <c:forEach var="f" items="${folderList}">
+                                <li class="folder-item">
+                                    <a href="" class="folder-link">
+                                        <p>${f.quizSetCount} ${f.quizSetCount == 1 ? "item" : "items"}</p>
+                                        <div class="title-icon">
+                                            <span class="material-symbols-rounded">folder</span>
+                                            <h3>${f.folderName} </h3>
+                                        </div>
+                                    </a>
+                                </li>
+                            </c:forEach>
+                            <c:if test="${empty folderList}">
+                                <p style="color: #333; text-align: center; font-weight: bold;">No folders found.</p>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="profile.js"></script>
+        <script src="./profile/profile.js"></script>
     </body>
 
 </html>

@@ -24,7 +24,7 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchall">
+            <form action="searchall" style="width: 100%; max-width: 450px;">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search for study" name="input">
@@ -43,7 +43,7 @@
                         <a href="upgrade">Upgrade your package</a>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
-                        <img src="./images/avatar/avt1.jpg" alt="Not found">
+                        <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
@@ -250,7 +250,7 @@
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${topAuthors}" var="creator"> 
-                                <li class="card-item swiper-slide">
+                                <li class="card-item swiper-slide" onclick="window.location.href = 'user?username=${creator.account.userName}&type=sets'">
                                     <a href="#" class="card-link">
                                         <div class="card-avt">
                                             <img src="${creator.account.profileImage}" alt="Avatar"> 

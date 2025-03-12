@@ -92,9 +92,38 @@ public class QuizSetDAO extends DBContext {
         return null;
     }
     
+    public List<QuizSet> getAllQuizSetByUsername(String username) {
+        List<QuizSet> list = new ArrayList<>();
+        try {
+            String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, q.Number_Of_Quiz, q.Created_Date,\n" +
+"                     a.UserName, a.ProfileImage, a.Email\n" +
+"                     FROM Quiz_Set q JOIN Accounts a ON q.Author = a.UserName \n" +
+"                     WHERE q.Author = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                QuizSet qs = new QuizSet();
+                qs.setQuizSetId(rs.getInt("quiz_Set_ID"));
+                qs.setQuizSetName(rs.getString("Quiz_Set_Name"));
+                qs.setNumberOfQuiz(rs.getInt("Number_Of_Quiz"));
+                qs.setCreatedDate(rs.getDate("Created_Date"));
+                Account a = new Account();
+                a.setUserName(rs.getString("UserName"));
+                a.setEmail(rs.getString("Email"));
+                a.setProfileImage(rs.getString("ProfileImage"));
+                qs.setAuthor(a);
+                list.add(qs);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
         QuizSetDAO d = new QuizSetDAO();
-        System.out.println(d.getQuizDetailById(1).getFlashCards().get(0).getDefinition());
+        System.out.println(d.getAllQuizSetByUsername("EasyQuiz343293").get(0).getAuthor().getProfileImage());
     }
 
     public int addQuizSet(QuizSet qs) {

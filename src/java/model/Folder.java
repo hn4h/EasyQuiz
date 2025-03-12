@@ -17,7 +17,7 @@ public class Folder {
     private Date folderDate;
     private String folderDescription;
     private int quizSetCount;
-
+    
     public Folder() {
     }
 

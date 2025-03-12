@@ -17,6 +17,7 @@ public class QuizSet {
     private Date createdDate;
     private int numberOfQuiz;
     private String quizSetDescription;
+    private String formattedDate;
 
     public QuizSet() {
     }
@@ -54,8 +55,6 @@ public class QuizSet {
         this.author = author;
     }
 
-
-
     public int getNumberOfQuiz() {
         return numberOfQuiz;
     }
@@ -63,8 +62,6 @@ public class QuizSet {
     public void setNumberOfQuiz(int numberOfQuiz) {
         this.numberOfQuiz = numberOfQuiz;
     }
-
-    
 
     public Date getCreatedDate() {
         return createdDate;
@@ -80,6 +77,14 @@ public class QuizSet {
 
     public void setQuizSetDescription(String quizSetDescription) {
         this.quizSetDescription = quizSetDescription;
+    }
+    
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(String formattedDate) {
+        this.formattedDate = formattedDate;
     }
     
 }
