@@ -9,9 +9,177 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Edit Quiz</title>
+        <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+        <link rel="stylesheet" href="./quiz/createquiz.css">
+        <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <div class="header">
+            <div class="logo">
+                <div class="menu-btn">
+                    <button class="sidebar-toggler" id="menuToggle"><i class="fa-solid fa-bars"></i></button>
+                </div>
+                <a href="home"><span>EasyQuiz</span></a>
+            </div>
+            <form action="searchall">
+                <div class="search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search for study" name="input">
+                </div>
+            </form>
+            <div class="create-login">
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Quiz set</a>
+                            <a href="" class="create-menu-item"><i class="fa-solid fa-folder"></i> Folder</a>
+                        </div>
+                    </div>
+                    <div class="upgrade-btn">
+                        <button>Upgrade: Free 7-day trial</button>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="./images/avatar/default.png" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
+                                <div>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
+            </div>
+        </div>
+        <div class="body">
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <!--Top nav-->
+                    <ul class="nav-list primary-nav">
+                        <li class="nav-item">
+                            <a href="home" class="nav-link-actived">
+                                <span class="material-symbols-rounded">home</span>
+                                <span class="nav-label">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="quizhistory" class="nav-link">
+                                <span class="material-symbols-rounded">history</span>
+                                <span class="nav-label">History</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="blog" class="nav-link">
+                                <span class="material-symbols-rounded">rss_feed</span>
+                                <span class="nav-label">Blog</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!--Bottom nav-->
+                    <ul class="nav-list secondary-nav">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="material-symbols-rounded">person</span>
+                                <span class="nav-label">Profile</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="material-symbols-rounded">settings</span>
+                                <span class="nav-label">Setting</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="material-symbols-rounded">logout</span>
+                                <span class="nav-label">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+            <div class="body-container">
+                <form action="addquiz" method="post" id="quizForm">
+                    <div class="quiz-header">
+                        <h1 class="form-title">Edit quiz</h1>
+                        <button type="submit" class="create-btn">Save changes</button>
+                    </div>
+                    <input type="hidden" id="questionCount" name="questionCount">
+                    <input type="text" value="${requestScope.quizset.quizSetName}" placeholder="Enter a title" class="input" name="quizTitle">
+                    <input type="text" value="${requestScope.quizset.quizSetDescription}" placeholder="Add a description..." class="des input" name="quizDescription">
+                    <!-- Quiz Items -->
+                    <c:forEach var="quiz" items="${quizzes}">
+                        <div class="quiz-item">
+                            <div class="quiz-content">
+                                <i class="fas fa-grip-vertical drag-handle"></i>
+                                <div class="question">
+                                    <div class="question-header">
+                                        <input class="question-text input" type="text" value="${quiz.content}" name="question1" placeholder="Enter question here">
+                                        <div class="actions">  
+                                            <i class="fas fa-trash"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray">Answer</p>
+                                    <div class="options">
+                                        <c:forEach var="a" items="${quiz.answers}" varStatus="status">
+                                            <div class="option">
+                                                <input type="radio" name="correct${a.quizID}" value="${status.index + 1}"
+                                                       <c:if test="${a.isCorrect}">checked</c:if> class="form-radio">
+                                                <input type="text" value="${a.content}" placeholder="Option ${status.index + 1}" name="answer${a.quizID}.${status.index + 1}" class="option-input">
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </form>
+                <div class="center-btn">
+                    <button class="add-btn">+ Add a Quiz</button>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="./quiz/createquiz.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".quiz-item").forEach((quizItem, quizIndex) => {
+                    let options = quizItem.querySelectorAll(".option");
+
+                    options.forEach((option, optionIndex) => {
+                        let radio = option.querySelector("input[type='radio']");
+                        let textInput = option.querySelector("input[type='text']");
+//                        let isCorrect = textInput.dataset.correct === "true";
+
+                        radio.value = optionIndex + 1;
+                        textInput.placeholder = `Option ${optionIndex + 1}`;
+                        radio.checked = isCorrect;
+                    });
+                });
+            });
+
+
+        </script>
     </body>
 </html>

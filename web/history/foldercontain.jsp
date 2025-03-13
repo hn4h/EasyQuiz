@@ -187,7 +187,7 @@
                     </div>
                 </c:if>
                 <c:forEach items="${requestScope.quiz}" var="quiz">
-                    <div class="quiz-card bg-white-100 rounded mb-4">
+                    <div onclick="window.location.href='quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
                         <div class="quiz-title flex">
                             <div>
                                 <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>

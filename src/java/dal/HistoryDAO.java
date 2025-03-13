@@ -136,7 +136,8 @@ public class HistoryDAO extends DBContext {
         String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, "
                 + "q.Author, q.Number_Of_Quiz, q.Created_Date, q.Quiz_Set_Description,a.ProfileImage FROM Quiz_Set q "
                 + "join Accounts a on a.UserName = q.Author "
-                + "WHERE Author = ?";
+                + "WHERE Author = ? "
+                + "order by Created_Date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, userName);
@@ -167,7 +168,8 @@ public class HistoryDAO extends DBContext {
                 + "FROM Folder_Contain fc "
                 + "JOIN Quiz_Set q ON fc.Quiz_Set_ID = q.Quiz_Set_ID "
                 + "JOIN Accounts a ON q.Author = a.UserName "
-                + "WHERE fc.Folder_ID = ? AND fc.Is_Deleted = 0";
+                + "WHERE fc.Folder_ID = ? AND fc.Is_Deleted = 0 "
+                + "order by Created_Date desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, foldeId);
@@ -324,10 +326,10 @@ public class HistoryDAO extends DBContext {
             ps.setInt(1, folderId);
             ps.setInt(2, quizSetId);
             int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Trả về true nếu có bản ghi bị xóa
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false; // Trả về false nếu có lỗi
+            return false; 
         }
     }
 

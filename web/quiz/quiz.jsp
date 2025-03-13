@@ -231,7 +231,7 @@
                                 <h3>Next steps</h3>
                                 <div class="actions-info">
                                     <button id="nextSteps"><a href="#">Practice with questions</a></button>
-                                    <button id="restartFlashcards"><a onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">Restart flashcards</a></button>
+                                    <button onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'" id="restartFlashcards"><a>Restart flashcards</a></button>
                                 </div>
                             </div>
                         </div>
@@ -269,12 +269,14 @@
                             </div>
                         </c:forEach>
                     </div>
-                    <div class="edit-term">
-                        <button class="btn">
-                            <a href="#">Edit terms</a>
-                            <span class="material-symbols-rounded">edit</span>
-                        </button>
-                    </div>
+                    <c:if test="${requestScope.quizDetail.qs.author.userName eq sessionScope.account.userName}">
+                        <div class="edit-term">
+                            <button class="btn">
+                                <a href="editquiz?id=${requestScope.quizDetail.qs.quizSetId}">Edit terms</a>
+                                <span class="material-symbols-rounded">edit</span>
+                            </button>
+                        </div>
+                    </c:if>
                     <div class="mode-btn">
                         <div class="show-hide">
                             <div class="mode-content">Hide definitions</div>
@@ -291,7 +293,7 @@
                                         <a href="" class="nav-link">Flashcards</a>
                                     </li>
                                     <li class="nav-item">
-                                        <img src="./images/icon/test_icon.png" alt="">
+                                        <img srcF="./images/icon/test_icon.png" alt="">
                                         <a href="" class="nav-link">Test</a>
                                     </li>
                                 </ul>
