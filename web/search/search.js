@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const prevBtn = document.querySelector(".previous-btn");
     const nextBtn = document.querySelector(".next-btn");
     const cardList = document.querySelectorAll(".card-item");
-    const itemsPerPage = 3;
+    const itemsPerPage = 6;
 
     let currentPage = 1;
     let totalPages = Math.ceil(cardList.length / itemsPerPage);

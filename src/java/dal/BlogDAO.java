@@ -46,7 +46,7 @@ public class BlogDAO extends DBContext {
         }
         return list;
     }
-    
+
     public List<Blog> getSomePopularBlog() {
         List<Blog> list = new ArrayList<>();
         String sql = "SELECT Top(3) b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, a.ProfileImage, b.Blog_Date FROM Blog b\n"
@@ -79,7 +79,10 @@ public class BlogDAO extends DBContext {
 
     public List<Blog> getAllBlogs() {
         List<Blog> list = new ArrayList<>();
-        String sql = "SELECT Blog_ID, Blog_Content, Blog_Title, Author, Blog_Date FROM Blog WHERE Is_Deleted = 0";
+        String sql = "SELECT b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, a.ProfileImage, b.Blog_Date "
+                + "FROM Blog b "
+                + "JOIN Accounts a ON a.UserName = b.Author "
+                + "WHERE b.Is_Deleted = 0";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -92,6 +95,7 @@ public class BlogDAO extends DBContext {
 
                 Account author = new Account();
                 author.setUserName(rs.getString("Author"));
+                author.setProfileImage(rs.getString("ProfileImage")); // Thêm ProfileImage
                 blog.setAuthor(author);
 
                 blog.setComments(getTopCommentsByBlogId(blog.getBlogId()));
@@ -105,7 +109,11 @@ public class BlogDAO extends DBContext {
 
     public List<Comment> getCommentsByBlogId(int blogId) {
         List<Comment> comments = new ArrayList<>();
-        String sql = "SELECT * FROM Comment WHERE Blog_ID = ? ORDER BY Comment_Date DESC";
+        String sql = "SELECT c.Comment_ID, c.UserName, c.Blog_ID, c.Comment_Content, c.Comment_Date, a.ProfileImage "
+                + "FROM Comment c "
+                + "JOIN Accounts a ON a.UserName = c.UserName "
+                + "WHERE c.Blog_ID = ? "
+                + "ORDER BY c.Comment_Date DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, blogId);
@@ -117,6 +125,7 @@ public class BlogDAO extends DBContext {
                 c.setBlogId(rs.getInt("Blog_ID"));
                 c.setCommentContent(rs.getString("Comment_Content"));
                 c.setCreatedDate(rs.getDate("Comment_Date"));
+                c.setProfileImage(rs.getString("ProfileImage")); // Gán ProfileImage
                 comments.add(c);
             }
         } catch (SQLException e) {
@@ -124,10 +133,14 @@ public class BlogDAO extends DBContext {
         }
         return comments;
     }
-    
+
     public List<Comment> getTopCommentsByBlogId(int blogId) {
         List<Comment> comments = new ArrayList<>();
-        String sql = "SELECT TOP 3 * FROM Comment WHERE Blog_ID = ? ORDER BY Comment_Date DESC";
+        String sql = "SELECT TOP 3 c.Comment_ID, c.UserName, c.Blog_ID, c.Comment_Content, c.Comment_Date, a.ProfileImage "
+                + "FROM Comment c "
+                + "JOIN Accounts a ON a.UserName = c.UserName "
+                + "WHERE c.Blog_ID = ? "
+                + "ORDER BY c.Comment_Date DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, blogId);
@@ -139,6 +152,7 @@ public class BlogDAO extends DBContext {
                 c.setBlogId(rs.getInt("Blog_ID"));
                 c.setCommentContent(rs.getString("Comment_Content"));
                 c.setCreatedDate(rs.getDate("Comment_Date"));
+                c.setProfileImage(rs.getString("ProfileImage")); // Thêm ProfileImage
                 comments.add(c);
             }
         } catch (SQLException e) {
@@ -149,7 +163,11 @@ public class BlogDAO extends DBContext {
 
     public List<Blog> getBlogsByPage(int page, int pageSize) {
         List<Blog> list = new ArrayList<>();
-        String sql = "SELECT * FROM Blog ORDER BY Blog_Date DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT b.Blog_ID, b.Blog_Title, b.Blog_Content, b.Author, a.ProfileImage, b.Blog_Date "
+                + "FROM Blog b "
+                + "JOIN Accounts a ON a.UserName = b.Author "
+                + "ORDER BY b.Blog_Date DESC "
+                + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, (page - 1) * pageSize);
@@ -162,6 +180,7 @@ public class BlogDAO extends DBContext {
                 blog.setBlogContent(rs.getString("Blog_Content"));
                 Account author = new Account();
                 author.setUserName(rs.getString("Author"));
+                author.setProfileImage(rs.getString("ProfileImage")); // Thêm ProfileImage
                 blog.setAuthor(author);
                 blog.setCreatedDate(rs.getDate("Blog_Date"));
                 blog.setComments(getTopCommentsByBlogId(blog.getBlogId()));
@@ -189,7 +208,11 @@ public class BlogDAO extends DBContext {
 
     public List<Blog> searchBlogsByTitle(String keyword) {
         List<Blog> list = new ArrayList<>();
-        String sql = "SELECT * FROM Blog WHERE Blog_Title LIKE ? ORDER BY Blog_Date DESC";
+        String sql = "SELECT b.Blog_ID, b.Blog_Title, b.Blog_Content, b.Author, a.ProfileImage, b.Blog_Date "
+                + "FROM Blog b "
+                + "JOIN Accounts a ON a.UserName = b.Author "
+                + "WHERE b.Blog_Title LIKE ? "
+                + "ORDER BY b.Blog_Date DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, "%" + keyword + "%");
@@ -201,6 +224,7 @@ public class BlogDAO extends DBContext {
                 blog.setBlogContent(rs.getString("Blog_Content"));
                 Account author = new Account();
                 author.setUserName(rs.getString("Author"));
+                author.setProfileImage(rs.getString("ProfileImage")); // Thêm ProfileImage
                 blog.setAuthor(author);
                 blog.setCreatedDate(rs.getDate("Blog_Date"));
                 blog.setComments(getCommentsByBlogId(blog.getBlogId()));
@@ -225,7 +249,7 @@ public class BlogDAO extends DBContext {
             return false;
         }
     }
-    
+
     public boolean addComment(int blogId, String userName, String commentContent) {
         String sql = "INSERT INTO Comment (BlogId, UserName, CommentContent, CommentDate) VALUES (?, ?, ?, GETDATE())";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -239,10 +263,12 @@ public class BlogDAO extends DBContext {
             return false;
         }
     }
-    
+
     public Blog getBlogById(int blogId) {
-        String sql = "SELECT Blog_ID, Blog_Content, Blog_Title, Author, Blog_Date, Is_Deleted " +
-                     "FROM Blog WHERE Blog_ID = ?";
+        String sql = "SELECT b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, a.ProfileImage, b.Blog_Date, b.Is_Deleted "
+                + "FROM Blog b "
+                + "JOIN Accounts a ON a.UserName = b.Author "
+                + "WHERE b.Blog_ID = ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, blogId);
@@ -254,10 +280,11 @@ public class BlogDAO extends DBContext {
                 blog.setBlogTitle(rs.getString("Blog_Title"));
                 Account author = new Account();
                 author.setUserName(rs.getString("Author"));
+                author.setProfileImage(rs.getString("ProfileImage")); // Thêm ProfileImage
                 blog.setAuthor(author);
                 blog.setCreatedDate(rs.getDate("Blog_Date"));
                 blog.setIsDeleted(rs.getBoolean("Is_Deleted"));
-                blog.setComments(getCommentsByBlogId(blogId)); 
+                blog.setComments(getCommentsByBlogId(blogId));
                 return blog;
             }
         } catch (SQLException e) {

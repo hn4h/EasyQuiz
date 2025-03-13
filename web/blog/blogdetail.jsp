@@ -131,7 +131,7 @@
                     <div id="copyMessage" class="copy-message">Link copied!</div>
                     <div class="blog-content">
                         <div class="blog-header">
-                            <img alt="" src="./images/avatar/default.png"/> 
+                            <img alt="" src="${requestScope.blogDetail.author.profileImage}"/> 
                             <span style="margin-right: 20px;">${requestScope.blogDetail.author.userName}</span>
                             <span class="material-symbols-rounded">update</span>
                             <span>Created ${requestScope.blogDetail.createdDate}</span>
@@ -151,7 +151,7 @@
                             <div class="comment-content">
                                 <c:forEach var="comment" items="${requestScope.blogDetail.comments}">
                                     <div class="comment">
-                                        <img src="./images/avatar/default.png" alt="Avatar">
+                                        <img src="${comment.profileImage}" alt="Avatar">
                                         <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
                                     </div>
                                 </c:forEach>
@@ -232,7 +232,7 @@
                             let newComment = document.createElement('div');
                             newComment.classList.add('comment');
                             newComment.innerHTML = `
-        <img src="./images/avatar/default.png" alt="Avatar">
+        <img src="${requestScope.blogDetail.author.profileImage}" alt="Avatar">
         <p><strong>` + userName + `</strong>: ` + commentContent + `</p>
     `;
                             commentWindow.insertBefore(newComment, commentWindow.firstChild);

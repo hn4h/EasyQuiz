@@ -267,7 +267,7 @@
                                 <div class="comment-window" id="commentWindow${blog.blogId}">
                                     <c:forEach var="comment" items="${blog.comments}" varStatus="status">
                                         <div class="comment ${status.index >= 3 ? 'hidden-comment' : ''}" id="comment-${blog.blogId}-${status.index}">
-                                            <img src="./images/avatar/default.png" alt="Avatar">
+                                            <img src="${comment.profileImage}" alt="Avatar">
                                             <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
                                         </div>
                                     </c:forEach>

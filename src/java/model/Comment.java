@@ -11,24 +11,14 @@ import java.sql.Date;
  * @author 11
  */
 public class Comment {
-
     private int commentId;
     private String userName;
     private int blogId;
     private String commentContent;
     private Date createdDate;
+    private String profileImage; // Thêm thuộc tính profileImage
 
-    public Comment(int commentId, String userName, int blogId, String commentContent, Date createdDate) {
-        this.commentId = commentId;
-        this.userName = userName;
-        this.blogId = blogId;
-        this.commentContent = commentContent;
-        this.createdDate = createdDate;
-    }
-
-    public Comment() {
-    }
-
+    // Getter và Setter cho các thuộc tính hiện có
     public int getCommentId() {
         return commentId;
     }
@@ -69,4 +59,12 @@ public class Comment {
         this.createdDate = createdDate;
     }
 
+    // Getter và Setter cho profileImage
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 }
