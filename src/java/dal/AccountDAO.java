@@ -285,7 +285,11 @@ public class AccountDAO extends DBContext {
                 boolean isAdmin = rs.getInt("is_admin") == 1;
                 account.setIsAdmin(isAdmin);
                 account.setEmail(rs.getString("email"));
-                return account;
+                    if (rs.getInt("is_deleted") == 1) {
+                        return null;
+                    } else {
+                        return account;
+                    }
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -357,6 +361,17 @@ public class AccountDAO extends DBContext {
             System.out.println(e);
         }
         return list;
+    }
+
+    public void deleteAccount(String userName) {
+        String sql = "Update Accounts set is_deleted = 1 where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
     public static void main(String[] args) {

@@ -2,12 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package Blog_comment;
 
-import dal.BlogDAO;
 import dal.DBContext;
+import dal.FeedbackDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,16 +24,8 @@ import model.Account;
  *
  * @author DUCA
  */
-@WebServlet(name = "CreateBlogServlet", urlPatterns = {"/createblog"})
-public class CreateBlogServlet extends HttpServlet {
-
-    private static final long serialVersionUID = 1L;
-    private BlogDAO blogDAO; // Add BlogDAO instance
-
-    @Override
-    public void init() throws ServletException {
-        blogDAO = new BlogDAO(); // Initialize BlogDAO
-    }
+@WebServlet(name = "ProcessFeedback", urlPatterns = {"/feedback"})
+public class ProcessFeedback extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,10 +44,10 @@ public class CreateBlogServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateBlogServlet</title>");
+            out.println("<title>Servlet ProcessFeedback</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateBlogServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProcessFeedback at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,7 +65,7 @@ public class CreateBlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
     }
 
     /**
@@ -83,45 +79,29 @@ public class CreateBlogServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get session and account
+        String feedbackContent = request.getParameter("feedbackContent");
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
 
-        // Check if user is logged in
         if (account == null) {
-            request.setAttribute("errorMessage", "You must log in before creating a blog.");
-            request.getRequestDispatcher("blog/blog.jsp").forward(request, response);
+            //handle no username
+            request.setAttribute("errorMessage", "You must log in before performing this action.");
+            request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
             return;
         }
 
-        // Get form parameters
-        String title = request.getParameter("title");
-        String content = request.getParameter("content");
-        String author = account.getUserName();
-
-        // Debug output to verify values
-        System.out.println("Title: " + title);
-        System.out.println("Content: " + content);
-        System.out.println("Author: " + author);
-
-        // Validate parameters
-        if (title == null || title.trim().isEmpty() || content == null || content.trim().isEmpty()) {
-            request.setAttribute("errorMessage", "You must complete all fields before creating a blog.");
-            request.getRequestDispatcher("blog/blog.jsp").forward(request, response);
+        if (feedbackContent == null || feedbackContent.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "You must complete the content before performing this action.");
+            request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
             return;
         }
 
-        // Add blog to database
-        boolean success = blogDAO.addBlog(title, content, author);
-        if (success) {
-            System.out.println("Blog created successfully.");
-            request.setAttribute("successMessage", "Blog created successfully.");
-            response.sendRedirect(request.getContextPath() + "/blog");
-        } else {
-            request.setAttribute("errorMessage", "Failed to create blog. Please try again.");
-            request.getRequestDispatcher("blog/blog.jsp").forward(request, response);
-        }
-
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        feedbackDAO.addFeedback(account.getUserName(), feedbackContent);
+        //send success
+        System.out.println("Send feedback successfully.");
+        request.setAttribute("successMessage", "Send feedback successfully.");
+        request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
     }
 
     /**
@@ -133,4 +113,5 @@ public class CreateBlogServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

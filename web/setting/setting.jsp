@@ -232,7 +232,7 @@
 
             function deleteAccount() {
                 // Gửi yêu cầu xóa tài khoản (có thể gọi servlet)
-                window.location.href = "/deleteaccount"; // Giả sử bạn có servlet để xử lý xóa tài khoản
+                window.location.href = "deleteaccount"; // Giả sử bạn có servlet để xử lý xóa tài khoản
             }
         </script>
     </body>
