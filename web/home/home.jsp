@@ -203,7 +203,7 @@
                                         </p>
                                         <div class="card-username">
                                             <span style="display: flex; align-items: center;">
-                                                <img src="default-avatar.jpg" alt="Avatar">
+                                                <img src="${blog.author.profileImage}" alt="Avatar">
                                                 <span>${blog.author.userName}</span>
                                             </span>
                                             <button class="card-button material-symbols-rounded">arrow_forward</button>
