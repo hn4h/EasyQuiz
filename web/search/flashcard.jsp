@@ -22,47 +22,48 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchall">
+            <form action="searchall" style="width: 100%; max-width: 450px;">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search for study" name="input">
                 </div>
             </form>
             <div class="create-login">
-                <div class="create-btn-icon" id="createButton">
-                    <span><button><i class="fa-solid fa-plus"></i></button></span>
-                    <div class="create-menu" id="createMenu">
-                        <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                        <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i>
-                            Folder</a>
-                    </div>
-                </div>
-                <div class="upgrade-btn">
-                    <button>Upgrade: Free 7-day trial</button>
-                </div>
-                <div class="avatar-user" id="avatarUser">
-                    <img src="../images/avatar/default.png" alt="Not found">
-                    <div class="user-menu" id="userMenu">
-                        <div class="user-info">
-                            <img src="${sessionScope.account.profileImage}" alt="Not found"/>
-                            <div>
-                                <p>${sessionScope.account.userName}</p>
-                                <p>${sessionScope.account.email}</p>
-                            </div>
+                <c:if test="${not empty sessionScope.account.userName}">
+                    <div class="create-btn-icon" id="createButton">
+                        <span><button><i class="fa-solid fa-plus"></i></button></span>
+                        <div class="create-menu" id="createMenu">
+                            <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
-                        <hr />
-                        <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                        <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
-                        <hr />
-                        <a href="logout" class="user-menu-item">Logout</a>
-                        <hr />
-                        <a href="#" class="user-menu-item">Help and feedback</a>
-                        <a href="#" class="user-menu-item">Upgrades</a>
                     </div>
-                </div>
-                <div class="login-btn">
-                    <a href="login"><button>Log in</button></a>
-                </div>
+                    <div class="upgrade-btn">
+                        <a href="upgrade">Upgrade your package</a>
+                    </div>
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="${sessionScope.account.profileImage}" alt="Not found">
+                        <div class="user-menu" id="userMenu">
+                            <div class="user-info">
+                                <img src="${sessionScope.account.profileImage}" alt="Not found"/>
+                                <div>
+                                    <p>${sessionScope.account.userName}</p>
+                                    <p>${sessionScope.account.email}</p>
+                                </div>
+                            </div>
+                            <hr/>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <hr/>
+                            <a href="logout" class="user-menu-item">Logout</a>
+                            <hr/>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${empty sessionScope.account.userName}">
+                    <div class="login-btn">
+                        <a href="login"><button>Log in</button></a>
+                    </div>
+                </c:if>
             </div>
         </div>
         <form action="createfolder" method="post">
@@ -156,7 +157,8 @@
                                             <a href="quizz?id=${i.quizSetId}" class="card-link">
                                                 <div class="previewBtn">
                                                     <h2 class="card-title">${i.quizSetName}</h2>
-                                                    <button onclick="event.stopPropagation(); window.location.href='searchquizset?input=${input}&quizId=${i.quizSetId}'; return false;">Preview</button>
+                                                    <button onclick="event.stopPropagation(); window.location.href = 'searchquizset?input=${input}&quizId=${i.quizSetId}';
+                                                            return false;">Preview</button>
                                                 </div>
                                                 <p class="badge">${i.numberOfQuiz} terms</p>
                                                 <div class="card-username">
@@ -171,15 +173,13 @@
                                     </c:forEach>
                                 </ul>
                             </div>
-
-
                             <div class="number-page">
-                                <button>
+                                <button class="previous-btn">
                                     <span class="material-symbols-rounded">chevron_left</span>
                                     <span>Previous</span>
                                 </button>
-                                <span>Page ? of ???</span>
-                                <button>
+                                <span class="page-span">Page ? of ???</span>
+                                <button class="next-btn">
                                     <span>Next</span>
                                     <span class="material-symbols-rounded">chevron_right</span>
                                 </button>
