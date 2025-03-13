@@ -132,6 +132,7 @@
                         <a href="searchall?input=${input}" class="search-item-actived">All results</a>
                         <a href="searchquizset?input=${input}" class="search-item">Flashcard sets</a>
                         <a href="searchuser?input=${input}" class="search-item">Users</a>
+                        <a href="searchBlog?input=${input}" class="search-item">Blogs</a>
                     </div>
                     <div class="search-result">
                         <div class="result-container">

@@ -58,13 +58,13 @@ public class SearchBlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String keyword = request.getParameter("keyword");
+        String input = request.getParameter("input");
         BlogDAO blogDAO = new BlogDAO();
-        List<Blog> blogs = blogDAO.searchBlogsByTitle(keyword);
+        List<Blog> bList = blogDAO.searchBlogsByTitle(input);
 
-        request.setAttribute("blogs", blogs);
-        request.setAttribute("keyword", keyword);
-        request.getRequestDispatcher("blog/search_blog.jsp").forward(request, response);
+        request.setAttribute("blogs", bList);
+        request.setAttribute("input", input);
+        request.getRequestDispatcher("search/blog.jsp").forward(request, response);
     }
 
     /** 

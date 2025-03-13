@@ -67,13 +67,20 @@ public class SearchQuizSetServlet extends HttpServlet {
 
         QuizSetDAO qsDao = new QuizSetDAO();
         List<QuizSet> qList = qsDao.searchAllQuizSetByName(input);
-        if (quizId == null) {
-            id = qList.get(0).getQuizSetId();
-        }else{
-            try {
-                id = Integer.parseInt(quizId);
-            } catch (NumberFormatException e) {
-                System.out.println(e);
+        if (qList == null || qList.isEmpty()) {
+            request.setAttribute("quizSet", qList);
+            request.setAttribute("input", input);
+            request.getRequestDispatcher("search/flashcard.jsp").forward(request, response);
+            return;
+        } else {
+            if (quizId == null) {
+                id = qList.get(0).getQuizSetId();
+            } else {
+                try {
+                    id = Integer.parseInt(quizId);
+                } catch (NumberFormatException e) {
+                    System.out.println(e);
+                }
             }
         }
         QuizSetDetail quizDetail = qsDao.getQuizDetailById(id);

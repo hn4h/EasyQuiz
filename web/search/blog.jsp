@@ -1,4 +1,8 @@
-
+<%-- 
+    Document   : blog
+    Created on : Mar 13, 2025, 10:34:52 PM
+    Author     : DUCA
+--%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
@@ -41,7 +45,7 @@
                     <div class="upgrade-btn">
                         <a href="upgrade">Upgrade your package</a>
                     </div>
-                    <div class="avatar-user"  id="avatarUser">
+                    <div class="avatar-user" id="avatarUser">
                         <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
@@ -134,25 +138,32 @@
                     <div class="search-header">
                         <a href="searchall?input=${input}" class="search-item">All results</a>
                         <a href="searchquizset?input=${input}" class="search-item">Flashcard sets</a>
-                        <a href="searchuser?input=${input}" class="search-item-actived">Users</a>
-                        <a href="searchBlog?input=${input}" class="search-item">Blogs</a>
+                        <a href="searchuser?input=${input}" class="search-item">Users</a>
+                        <a href="searchBlog?input=${input}" class="search-item-actived">Blogs</a>
                     </div>
                     <div class="user-container">
                         <ul class="card-list">
-                            <c:forEach items="${requestScope.creator}" var="creator">
+                            <c:forEach items="${requestScope.blogs}" var="blog">
                                 <li class="card-item">
-                                    <a href="#" class="card-link">
+                                    <a href="blogdetail?blogId=${blog.blogId}" class="card-link">
                                         <div class="card-avt">
-                                            <img src="${creator.account.profileImage}" alt="Avatar"> 
-                                            <p>${creator.account.userName}</p> 
+                                            <p class="card-title">${blog.blogTitle}</p>
                                         </div>
                                         <div class="card-username">
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
+                                            <p class="badge2"><i class="fa-solid fa-user"></i> ${blog.author.userName} | ${blog.createdDate}</p>
                                             <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                        </div>
+                                        <div class="preview-content">
+                                            ${fn:substring(blog.blogContent, 0, 100)}...
                                         </div>
                                     </a>
                                 </li>
                             </c:forEach>
+                            <c:if test="${empty requestScope.blogs}">
+                                <li class="card-item">
+                                    <p>No blogs found matching "${requestScope.input}".</p>
+                                </li>
+                            </c:if>
                         </ul>
                         <div class="number-page">
                             <button class="previous-btn">
@@ -166,7 +177,6 @@
                             </button>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

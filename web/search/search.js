@@ -34,6 +34,51 @@ document.querySelector(".sidebar-toggler").addEventListener("click", () => {
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector(".sidebar").classList.toggle("collapsed");
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const pageSpan = document.querySelector(".page-span");
+    const prevBtn = document.querySelector(".previous-btn");
+    const nextBtn = document.querySelector(".next-btn");
+    const cardList = document.querySelectorAll(".card-item");
+    const itemsPerPage = 3;
+
+    let currentPage = 1;
+    let totalPages = Math.ceil(cardList.length / itemsPerPage);
+
+    function updatePageDisplay() {
+        pageSpan.textContent = `Page ${currentPage} of ${totalPages}`;
+        prevBtn.disabled = (currentPage <= 1);
+        nextBtn.disabled = (currentPage >= totalPages);
+    }
+
+    function showPage(page) {
+        let startIndex = (page - 1) * itemsPerPage;
+        let endIndex = startIndex + itemsPerPage;
+
+        cardList.forEach((card, index) => {
+            card.style.display = (index >= startIndex && index < endIndex) ? "block" : "none";
+        });
+    }
+    prevBtn.addEventListener("click", function () {
+        if (currentPage > 1) {
+            currentPage--;
+            showPage(currentPage);
+            updatePageDisplay();
+        }
+    });
+
+    nextBtn.addEventListener("click", function () {
+        if (currentPage < totalPages) {
+            currentPage++;
+            showPage(currentPage);
+            updatePageDisplay();
+        }
+    });
+
+    showPage(currentPage);
+    updatePageDisplay();
+});
+
 //------------------------Menu of avatar
 // Get elements
 const avatarUser = document.getElementById('avatarUser');
@@ -86,49 +131,4 @@ closeBtn.addEventListener('click', () => {
     setTimeout(() => {
         folderPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
-});
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    const pageSpan = document.querySelector(".page-span");
-    const prevBtn = document.querySelector(".previous-btn");
-    const nextBtn = document.querySelector(".next-btn");
-    const cardList = document.querySelectorAll(".card-item");
-    const itemsPerPage = 6;
-
-    let currentPage = 1;
-    let totalPages = Math.ceil(cardList.length / itemsPerPage);
-
-    function updatePageDisplay() {
-        pageSpan.textContent = `Page ${currentPage} of ${totalPages}`;
-        prevBtn.disabled = (currentPage <= 1);
-        nextBtn.disabled = (currentPage >= totalPages);
-    }
-
-    function showPage(page) {
-        let startIndex = (page - 1) * itemsPerPage;
-        let endIndex = startIndex + itemsPerPage;
-
-        cardList.forEach((card, index) => {
-            card.style.display = (index >= startIndex && index < endIndex) ? "block" : "none";
-        });
-    }
-    prevBtn.addEventListener("click", function () {
-        if (currentPage > 1) {
-            currentPage--;
-            showPage(currentPage);
-            updatePageDisplay();
-        }
-    });
-
-    nextBtn.addEventListener("click", function () {
-        if (currentPage < totalPages) {
-            currentPage++;
-            showPage(currentPage);
-            updatePageDisplay();
-        }
-    });
-
-    showPage(currentPage);
-    updatePageDisplay();
 });
