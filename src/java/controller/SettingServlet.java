@@ -95,28 +95,28 @@ public class SettingServlet extends HttpServlet {
         }
 
         String action = request.getParameter("action");
-        System.out.println("Action received: " + action);
+//        System.out.println("Action received: " + action);
 
         if ("updateAvatar".equals(action)) {
             String newAvatar = request.getParameter("avatar");
             System.out.println("Received avatar path: " + newAvatar);
             if (newAvatar != null) {
                 newAvatar = newAvatar.replace("./", "");
-                System.out.println("Normalized avatar path: " + newAvatar);
+//                System.out.println("Normalized avatar path: " + newAvatar);
                 if (accountDAO.updateProfileImage(account.getUserName(), newAvatar)) {
                     account.setProfileImage(newAvatar);
                     session.setAttribute("account", account);
-                    System.out.println("Avatar updated successfully to: " + newAvatar);
+//                    System.out.println("Avatar updated successfully to: " + newAvatar);
                 } else {
-                    System.out.println("Failed to update avatar in database for: " + newAvatar);
+//                    System.out.println("Failed to update avatar in database for: " + newAvatar);
                 }
             } else {
-                System.out.println("Avatar parameter is null");
+//                System.out.println("Avatar parameter is null");
             }
         } else if ("updateUsername".equals(action)) {
             String newUsername = request.getParameter("newUsername");
-            System.out.println("Received new username: " + newUsername);
-            System.out.println("Current username: " + account.getUserName());
+//            System.out.println("Received new username: " + newUsername);
+//            System.out.println("Current username: " + account.getUserName());
 
             if (newUsername != null && !newUsername.trim().isEmpty()) {
                 if (!newUsername.equals(account.getUserName())) { // Check if it's actually different
@@ -124,30 +124,30 @@ public class SettingServlet extends HttpServlet {
                         if (accountDAO.updateUsername(account.getUserName(), newUsername)) {
                             account.setUserName(newUsername);
                             session.setAttribute("account", account);
-                            System.out.println("Username updated successfully to: " + newUsername);
+//                            System.out.println("Username updated successfully to: " + newUsername);
                         } else {
-                            System.out.println("Failed to update username in database for: " + newUsername);
+//                            System.out.println("Failed to update username in database for: " + newUsername);
                             request.setAttribute("error", "Failed to update username. Please try again.");
                             request.getRequestDispatcher("/setting/setting.jsp").forward(request, response);
                             return;
                         }
                     } else {
-                        System.out.println("Username already exists: " + newUsername);
+//                        System.out.println("Username already exists: " + newUsername);
                         request.setAttribute("error", "Username already taken. Please choose another.");
                         request.getRequestDispatcher("/setting/setting.jsp").forward(request, response);
                         return;
                     }
                 } else {
-                    System.out.println("New username is the same as current: " + newUsername);
+//                    System.out.println("New username is the same as current: " + newUsername);
                 }
             } else {
-                System.out.println("Invalid username (null or empty): " + newUsername);
+//                System.out.println("Invalid username (null or empty): " + newUsername);
                 request.setAttribute("error", "Username cannot be empty.");
                 request.getRequestDispatcher("/setting/setting.jsp").forward(request, response);
                 return;
             }
         } else {
-            System.out.println("Unknown action: " + action);
+//            System.out.println("Unknown action: " + action);
         }
 
         response.sendRedirect("setting?t=" + System.currentTimeMillis());

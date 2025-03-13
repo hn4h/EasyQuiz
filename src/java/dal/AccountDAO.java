@@ -219,8 +219,8 @@ public class AccountDAO extends DBContext {
         }
     }
 
-    public boolean changePassword(String username, String oldPassword, String newPassword) {
-        Account account = checkAuthen(username, oldPassword);
+    public boolean changePassword(String email, String oldPassword, String newPassword) {
+        Account account = checkAuthen(email, oldPassword);
         if (account == null) {
             return false;
         }
@@ -229,7 +229,7 @@ public class AccountDAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, hashedPassword);
-            st.setString(2, username);
+            st.setString(2, account.getUserName());
             st.executeUpdate();
             return true;
         } catch (SQLException e) {
