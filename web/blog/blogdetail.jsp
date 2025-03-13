@@ -55,10 +55,12 @@
                                 </div>
                             </div>
                             <hr/>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
+                            <a href="feedback" class="user-menu-item">Help and feedback</a>
                             <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>

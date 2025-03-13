@@ -56,7 +56,7 @@
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="feedback" class="user-menu-item">Help and feedback</a>
                             <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>

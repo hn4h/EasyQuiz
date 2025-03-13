@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Settings</title>
         <link rel="stylesheet" href="./setting/setting.css">
-<!--        <link rel="stylesheet" href="<!--%=request.getContextPath()%>/all.css">-->
+        <!--        <link rel="stylesheet" href="<!--%=request.getContextPath()%>/all.css">-->
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
@@ -34,12 +34,13 @@
                                 </div>
                             </div>
                             <hr/>
-                            <a href="#" class="user-menu-item">Profile</a>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
-                            <a href="#" class="user-menu-item">Upgrades</a>
+                            <a href="feedback" class="user-menu-item">Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
                 </c:if>
@@ -128,7 +129,7 @@
                     <div class="personal-setting-box">
                         <div class="attribute-box">
                             <h3>Change password</h3>
-                            <button>Change</button>
+                            <button onclick="showChangePasswordPopup()">Change</button>
                         </div>
                         <div class="attribute-box">
                             <div>
@@ -155,15 +156,60 @@
                 </form>
             </div>
         </div>
+        <!-- Change Password Popup -->
+        <div id="changePasswordPopup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h2>Change Password</h2>
+                <form id="changePasswordForm" action="changepassword" method="post">
+                    <label for="oldPassword">Old Password:</label>
+                    <input type="password" id="oldPassword" name="oldpassword" required>
+
+                    <label for="newPassword">New Password:</label>
+                    <input type="password" id="newPassword" name="newpassword" required>
+
+                    <label for="confirmPassword">Confirm New Password:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+                    <button type="submit">Change</button>
+                    <button type="button" onclick="hideChangePasswordPopup()">Cancel</button>
+                </form>
+                <p id="errorMessage" style="color: red; display: none;"></p>
+            </div>
+        </div>
         <script src="./setting/setting.js"></script>
         <script>
-                function showUsernamePopup() {
-                    document.getElementById("usernamePopup").style.display = "block";
-                }
+                        function showUsernamePopup() {
+                            document.getElementById("usernamePopup").style.display = "block";
+                        }
 
-                function hideUsernamePopup() {
-                    document.getElementById("usernamePopup").style.display = "none";
+                        function hideUsernamePopup() {
+                            document.getElementById("usernamePopup").style.display = "none";
+                        }
+        </script>
+        <script>
+            function showChangePasswordPopup() {
+                document.getElementById("changePasswordPopup").style.display = "flex";
+                document.getElementById("errorMessage").style.display = "none"; // Ẩn thông báo lỗi khi mở popup
+            }
+
+            function hideChangePasswordPopup() {
+                document.getElementById("changePasswordPopup").style.display = "none";
+                document.getElementById("changePasswordForm").reset(); // Xóa dữ liệu form khi đóng
+            }
+
+            // Kiểm tra xác nhận mật khẩu trước khi submit
+            document.getElementById("changePasswordForm").onsubmit = function (event) {
+                const newPassword = document.getElementById("newPassword").value;
+                const confirmPassword = document.getElementById("confirmPassword").value;
+                const errorMessage = document.getElementById("errorMessage");
+
+                if (newPassword !== confirmPassword) {
+                    event.preventDefault();
+                    errorMessage.textContent = "New password and confirmation do not match!";
+                    errorMessage.style.display = "block";
+                    return false;
                 }
+            };
         </script>
     </body>
 </html>
