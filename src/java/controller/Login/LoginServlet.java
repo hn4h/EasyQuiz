@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 
             Account a = d.checkEmail(acc.getEmail());
             if (a == null) {
-                d.createAccountByEmail(acc.getEmail());
+                d.createAccountByEmail(acc.getEmail(),acc.getPicture());
                 a = d.checkEmail(acc.getEmail());
             }
             HttpSession session = request.getSession();
@@ -99,17 +99,17 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            Account a = accountDAO.checkAuthen(email, password);
-            if (a == null) {
-                request.setAttribute("error", "Invalid username or password");
-                request.getRequestDispatcher("login/login.jsp").forward(request, response);
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("account", a);
-                response.sendRedirect("home");
-            }
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        Account a = accountDAO.checkAuthen(email, password);
+        if (a == null) {
+            request.setAttribute("error", "Invalid username or password");
+            request.getRequestDispatcher("login/login.jsp").forward(request, response);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("account", a);
+            response.sendRedirect("home");
+        }
     }
 
     /**

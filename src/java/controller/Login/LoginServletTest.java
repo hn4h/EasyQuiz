@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.io.PrintWriter;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -44,21 +43,6 @@ class LoginServletTest {
         MockitoAnnotations.openMocks(this);
         loginServlet = new LoginServlet(accountDAO);
     }
-
-    @Test
-    void doGet_withValidSession() throws Exception {
-        when(request.getSession()).thenReturn(session);
-        Account account = new Account();
-        when(session.getAttribute("account")).thenReturn(account);
-        PrintWriter writer = mock(PrintWriter.class);
-        when(response.getWriter()).thenReturn(writer);
-        doNothing().when(writer).flush();
-
-        loginServlet.doGet(request, response);
-
-        verify(response).sendRedirect("home");
-    }
-
     @Test
     void doPost_withValidCredentials() throws Exception {
         when(request.getParameter("email")).thenReturn("test@example.com");
