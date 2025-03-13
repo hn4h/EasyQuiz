@@ -253,7 +253,7 @@
                                 </div>
                             </div>
                             <div class="blog-header">
-                                <img alt="" src="./images/avatar/default.png"/> 
+                                <img alt="" src="${blog.author.profileImage}"/> 
                                 <span style="margin-right: 20px;">${blog.author.userName}</span>
                                 <span class="material-symbols-rounded">update</span>
                                 <span>Created ${blog.createdDate}</span>

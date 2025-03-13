@@ -136,7 +136,7 @@
                                 <h3>Delete your account</h3>
                                 <p>This will delete all your data and cannot be undone.</p>
                             </div>
-                            <button style="color: #fff; background-color: #970000;">Delete account</button>
+                            <button onclick="showDeleteAccountPopup()" style="color: #fff; background-color: #970000;">Delete account</button>
                         </div>
                     </div>
                 </div>
@@ -170,10 +170,21 @@
                     <label for="confirmPassword">Confirm New Password:</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" required>
 
-                    <button type="submit">Change</button>
-                    <button type="button" onclick="hideChangePasswordPopup()">Cancel</button>
+                    <button type="submit" class="change-btn">Change</button>
+                    <button type="button" class="cancel-btn" onclick="hideChangePasswordPopup()">Cancel</button>
                 </form>
                 <p id="errorMessage" style="color: red; display: none;"></p>
+            </div>
+        </div>
+
+        <div id="deleteAccountPopup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <span class="close-btn" onclick="hideDeleteAccountPopup()">×</span>
+                <h2>Are you sure?</h2>
+                <p class="popup-message">This action will delete all information about your account and cannot be recovered.</p>
+                <div class="button-container">
+                    <button class="delete-btn" onclick="deleteAccount()">Delete</button>
+                </div>
             </div>
         </div>
         <script src="./setting/setting.js"></script>
@@ -210,6 +221,19 @@
                     return false;
                 }
             };
+
+            function showDeleteAccountPopup() {
+                document.getElementById("deleteAccountPopup").style.display = "flex";
+            }
+
+            function hideDeleteAccountPopup() {
+                document.getElementById("deleteAccountPopup").style.display = "none";
+            }
+
+            function deleteAccount() {
+                // Gửi yêu cầu xóa tài khoản (có thể gọi servlet)
+                window.location.href = "/deleteaccount"; // Giả sử bạn có servlet để xử lý xóa tài khoản
+            }
         </script>
     </body>
 </html>

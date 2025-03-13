@@ -171,7 +171,7 @@
                                                 ${snippet}${fn:length(relatedBlog.blogContent) > 50 ? '...' : ''}
                                             </p>
                                             <div class="blog-meta">
-                                                <img src="./images/logo/Easyquiz_logo.png" alt="EasyQuiz Logo" class="blog-logo">
+                                                <img src="${relatedBlog.author.profileImage}" alt="avatar" class="blog-logo">
                                                 <span class="author-name">${relatedBlog.author.userName}</span>
                                                 <span class="view-icon material-symbols-rounded">arrow_outward</span>
                                             </div>

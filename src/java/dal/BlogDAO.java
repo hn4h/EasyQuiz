@@ -49,9 +49,10 @@ public class BlogDAO extends DBContext {
     
     public List<Blog> getSomePopularBlog() {
         List<Blog> list = new ArrayList<>();
-        String sql = "SELECT Top(3) b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, b.Blog_Date FROM Blog b\n"
+        String sql = "SELECT Top(3) b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, a.ProfileImage, b.Blog_Date FROM Blog b\n"
                 + "join Comment c on c.Blog_ID = b.Blog_ID\n"
-                + "group by b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, b.Blog_Date\n"
+                + "join Accounts a on a.userName = b.Author\n"
+                + "group by b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, b.Blog_Date, a.ProfileImage\n"
                 + "order by count(c.Comment_ID) desc";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -63,6 +64,7 @@ public class BlogDAO extends DBContext {
                 b.setBlogTitle(rs.getString("Blog_Title"));
                 Account a = new Account();
                 a.setUserName(rs.getString("Author"));
+                a.setProfileImage(rs.getString("ProfileImage"));
                 b.setAuthor(a);
                 b.setCreatedDate(rs.getDate("Blog_Date"));
                 b.setComments(getCommentsByBlogId(b.getBlogId()));
