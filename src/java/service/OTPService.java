@@ -58,7 +58,7 @@ public class OTPService {
         
         try {
             msg.addHeader("Content-type", "text/html; charset=UTF-8");
-            msg.setFrom(from);
+            msg.setFrom(new InternetAddress(from));
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
              msg.setSubject("Your OTP is: " + otp, "UTF-8");
             String content = "<p>Don't share your code with anyone.</p>";

@@ -93,4 +93,7 @@ public class QuizHistory {
         SimpleDateFormat monthYearFormat = new SimpleDateFormat("MM-yyyy");
         return monthYearFormat.format(quizDate);
     }
+    public void setMonthYear() {
+        this.createdDate = createdDate;
+    }
 }

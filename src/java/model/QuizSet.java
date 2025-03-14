@@ -30,7 +30,12 @@ public class QuizSet {
         this.numberOfQuiz = numberOfQuiz;
         this.quizSetDescription = quizSetDescription;
     }
-    
+    public QuizSet(int id, String name, String quizSetDescription) {
+        this.quizSetId = quizSetId;
+        this.quizSetName = quizSetName;
+        this.quizSetDescription = quizSetDescription;
+    }
+
     public int getQuizSetId() {
         return quizSetId;
     }
