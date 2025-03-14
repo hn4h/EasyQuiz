@@ -125,6 +125,7 @@
                         <h1 class="form-title">Edit quiz</h1>
                         <button type="submit" class="create-btn">Save changes</button>
                     </div>
+                    <input type="hidden" name="quizSetId" value="${requestScope.quizset.quizSetId}">
                     <input type="hidden" id="questionCount" name="questionCount">
                     <input type="text" value="${requestScope.quizset.quizSetName}" placeholder="Enter a title" class="input" name="quizTitle">
                     <input type="text" value="${requestScope.quizset.quizSetDescription}" placeholder="Add a description..." class="des input" name="quizDescription">
@@ -135,6 +136,7 @@
                                 <i class="fas fa-grip-vertical drag-handle"></i>
                                 <div class="question">
                                     <div class="question-header">
+                                        <input class="question-id" type="hidden" name="quizId1" value="${quiz.quizID}">
                                         <input class="question-text input" type="text" value="${quiz.content}" name="question1" placeholder="Enter question here">
                                         <div class="actions">  
                                             <i class="fas fa-trash"></i>
@@ -144,6 +146,7 @@
                                     <div class="options">
                                         <c:forEach var="a" items="${quiz.answers}" varStatus="status">
                                             <div class="option">
+                                                <input type="hidden" name="answerId_${quizLoop.index}_${answerLoop.index}" value="${a.answerID}">
                                                 <input type="radio" name="correct${a.quizID}" value="${status.index + 1}"
                                                        <c:if test="${a.isCorrect}">checked</c:if> class="form-radio">
                                                 <input type="text" value="${a.content}" placeholder="Option ${status.index + 1}" name="answer${a.quizID}.${status.index + 1}" class="option-input">

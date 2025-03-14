@@ -26,6 +26,22 @@ public class Answer {
         return answerID;
     }
 
+    public void setAnswerID(int answerID) {
+        this.answerID = answerID;
+    }
+
+    public void setQuizID(int quizID) {
+        this.quizID = quizID;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setIsCorrect(boolean isCorrect) {
+        this.isCorrect = isCorrect;
+    }
+
     public int getQuizID() {
         return quizID;
     }

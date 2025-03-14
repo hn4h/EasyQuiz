@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         quizItems.forEach((item, index) => {
             const questionNumber = index + 1;
             item.querySelector(".question-text").name = `question${questionNumber}`;
-
+            item.querySelector(".question-id").name = `quizId${questionNumber}`;
             item.querySelectorAll(".form-radio").forEach(button => {
                 button.name = `correct${questionNumber}`;
             });
@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <i class="fas fa-grip-vertical drag-handle" draggable="true"></i>
                 <div class="question">
                     <div class="question-header">
+                        <input type="hidden" name="quizId${newQuestionNum}" value="new" class="question-id">
                         <input class="question-text input" type="text" name="question${newQuestionNum}" placeholder="Enter question here">
                         <div class="actions">
                             <i class="fas fa-trash"></i>

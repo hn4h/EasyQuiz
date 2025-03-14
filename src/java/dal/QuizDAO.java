@@ -52,7 +52,7 @@ public class QuizDAO extends DBContext {
         }
         return quizzes;
     }
-   
+
     public int addQuiz(int quizSetID, String content) {
         String sql = "INSERT INTO Quiz (Quiz_Set_ID, Quiz_content) VALUES (?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -68,6 +68,7 @@ public class QuizDAO extends DBContext {
         }
         return -1;
     }
+
     public void addAnswer(int quizID, String content, boolean isCorrect) {
         String sql = "INSERT INTO Answer (Quiz_ID, Answer_Content, Is_Correct) VALUES (?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -79,4 +80,47 @@ public class QuizDAO extends DBContext {
             e.printStackTrace();
         }
     }
+
+    public Quiz getQuizById(int quizId) {
+        String sql = "SELECT q.Quiz_ID, q.Quiz_Set_ID, q.Quiz_content, "
+                + "a.Answer_ID, a.Answer_Content, a.Is_Correct "
+                + "FROM Quiz q JOIN Answer a ON q.Quiz_ID = a.Quiz_ID "
+                + "WHERE q.quiz_ID = ?";
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, quizId);
+            ResultSet rs = ps.executeQuery();
+            List<Answer> currentAnswers = new ArrayList<>();
+            if (rs.next()) {
+                Quiz quiz = new Quiz(quizId, rs.getInt("Quiz_Set_ID"), rs.getString("Quiz_content"));
+
+                currentAnswers = new ArrayList<>();
+                Answer answer = new Answer(rs.getInt("Answer_ID"), quizId, rs.getString("Answer_Content"), rs.getBoolean("Is_Correct"));
+                currentAnswers.add(answer);
+                quiz.setAnswers(currentAnswers);
+                return quiz;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public void updateQuiz(Quiz quiz) {
+        String sql = "UPDATE Quiz SET Quiz_content = ? WHERE Quiz_ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, quiz.getContent());
+            ps.setInt(2, quiz.getQuizID());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void deleteQuiz(int quizID) {
+        String sql = "DELETE FROM Quiz WHERE Quiz_ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, quizID);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();}
+        }
 }

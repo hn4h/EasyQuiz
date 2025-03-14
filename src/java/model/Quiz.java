@@ -40,6 +40,18 @@ public class Quiz {
         return answers;
     }
 
+    public void setQuizID(int quizID) {
+        this.quizID = quizID;
+    }
+
+    public void setQuizSetID(int quizSetID) {
+        this.quizSetID = quizSetID;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public void setAnswers(List<Answer> answers) {
         this.answers = answers;
     }

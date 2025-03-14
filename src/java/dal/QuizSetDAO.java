@@ -204,6 +204,19 @@ public class QuizSetDAO extends DBContext {
         }
         return list;
     }
+    public void updateQuizSet(int quizSetId, String title, String description, int numberOfQuestions) {
+        try {
+            String sql = "UPDATE Quiz_Set SET Quiz_Set_Name = ?, Number_Of_Quiz = ?, Quiz_Set_Description = ? WHERE Quiz_Set_ID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setInt(2, numberOfQuestions);
+            ps.setString(3, description);
+            ps.setInt(4, quizSetId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
 
 
