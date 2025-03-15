@@ -7,6 +7,7 @@ package dal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import model.Account;
 import model.Answer;
 import model.Quiz;
 
@@ -123,4 +124,49 @@ public class QuizDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();}
         }
+    
+    public Quiz getQuizById(int id) {
+        try {
+            String sql = "select q.Quiz_ID, q.Quiz_content from Quiz q where Quiz_ID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Quiz q = new Quiz();
+                q.setQuizID(rs.getInt("Quiz_ID"));
+                q.setContent(rs.getString("Quiz_content"));
+                return q;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public Answer getAnswerById(int id) {
+        try {
+            String sql = "select a.Answer_ID, a.Answer_content, a.Is_Correct from Answer a where Answer_ID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Answer a = new Answer();
+                a.setAnswerID(rs.getInt("Answer_ID"));
+                a.setContent(rs.getString("Answer_Content"));
+                a.setIsCorrect(rs.getBoolean("Is_Correct"));
+                return a;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public static void main(String[] args) {
+        QuizDAO qd = new QuizDAO();
+        Quiz q = qd.getQuizById(1);
+        Answer a = qd.getAnswerById(1);
+        System.out.println(q);
+        System.out.println(a);
+    }
 }

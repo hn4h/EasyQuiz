@@ -4,6 +4,9 @@
  */
 package controller.quiz;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import dal.QuizDAO;
 import dal.QuizSetDAO;
 import model.Quiz;
@@ -16,9 +19,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import model.Account;
+import model.UserAnswer;
 
 /**
  *
@@ -131,7 +137,60 @@ public class TestQuizServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        // Đọc JSON từ request
+        BufferedReader reader = request.getReader();
+        StringBuilder jsonData = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            jsonData.append(line);
+        }
+
+        // Kiểm tra nếu request rỗng
+        if (jsonData.length() == 0) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Dữ liệu JSON trống!");
+            return;
+        }
+
+        try {
+            // Chuyển JSON thành danh sách UserAnswer
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<UserAnswer>>() {
+            }.getType();
+            List<UserAnswer> userAnswers = gson.fromJson(jsonData.toString(), listType);
+
+            // Kiểm tra nếu danh sách userAnswers rỗng hoặc null
+            if (userAnswers == null || userAnswers.isEmpty()) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("Danh sách UserAnswer trống hoặc không hợp lệ!");
+                return;
+            }
+            QuizDAO qd = new QuizDAO();
+            // Debug: In ra console để kiểm tra
+            System.out.println("Received userAnswers: " + userAnswers);
+            for (UserAnswer user : userAnswers) {
+                if (user.getQuiz() != null) {
+                    user.setQuiz(qd.getQuizById(user.getQuiz().getQuizID()));
+                }
+                if (user.getUserAnswer() != null) {
+                    user.setUserAnswer(qd.getAnswerById(user.getUserAnswer().getAnswerID()));
+                }
+            }
+            // Lưu vào session để dùng ở trang testresult.jsp
+            session.setAttribute("userAnswers", userAnswers);
+
+            // Trả về trạng thái thành công
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.getWriter().write("Dữ liệu đã được lưu thành công!");
+
+        } catch (JsonSyntaxException e) {
+            // Bắt lỗi nếu JSON không hợp lệ
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Lỗi định dạng JSON: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     /**

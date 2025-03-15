@@ -17,6 +17,9 @@ public class Quiz {
     private String content;
     private List<Answer> answers;
 
+    public Quiz() {
+    }
+    
     public Quiz(int quizID, int quizSetID, String content, List<Answer> answers) {
         this.quizID = quizID;
         this.quizSetID = quizSetID;

@@ -15,6 +15,9 @@ public class Answer {
     private String content;
     private boolean isCorrect;
 
+    public Answer() {
+    }
+
     public Answer(int answerID, int quizID, String content, boolean isCorrect) {
         this.answerID = answerID;
         this.quizID = quizID;
@@ -57,5 +60,23 @@ public class Answer {
     public boolean getIsCorrect() {
         return isCorrect;
     }
+
+    public void setAnswerID(int answerID) {
+        this.answerID = answerID;
+    }
+
+    public void setQuizID(int quizID) {
+        this.quizID = quizID;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setIsCorrect(boolean isCorrect) {
+        this.isCorrect = isCorrect;
+    }
+    
+    
 
 }
