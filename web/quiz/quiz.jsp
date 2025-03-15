@@ -66,6 +66,29 @@
                 </c:if>
             </div>
         </div>
+        <form action="testquiz">
+            <div class="optionPopup-container">
+                <div id="optionPopup" class="option-popup">
+                    <div class="option-popup-content">
+                        <input name="quizSetID" type="hidden" value="${requestScope.quizDetail.qs.quizSetId}">
+                        <span class="closetest-btn material-symbols-rounded">close</span>
+                        <h2>Options</h2>
+                        <div class="option-list">
+                            <div class="option-item">
+                                <span class="option-name">Questions (max 10)</span>
+                                <input name="numberQuiz" min="5" max="10" type="number"/>
+                                <span class="option-name">Time (max ${requestScope.quizDetail.qs.numberOfQuiz + 20})</span>
+                                <input name="timeLimit" min="5" max="20" type="number"/>
+                            </div>
+                        </div>
+                        <div class="option-btn">
+                            <button type="button" class="cancel-btn"><span>Cancel</span></button>
+                            <button type="submit" class="create-btn"><span>Create new test</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> 
         <form action="createfolder" method="post">
             <div class="folderPopup-container">
                 <div id="folderPopup" class="folder-popup">
@@ -160,7 +183,7 @@
                             <img src="./images/icon/learn_icon.png" alt="">
                             <a href="">Learn</a>
                         </button>
-                        <button class="btn"  onclick="window.location.href = 'testquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
+                        <button class="btn test-btn">
                             <img src="./images/icon/test_icon.png" alt="">
                             <a href="">Test</a>
                         </button>

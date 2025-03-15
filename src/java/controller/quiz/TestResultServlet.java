@@ -19,9 +19,13 @@ import jakarta.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import model.Account;
+import model.Answer;
 import model.Quiz;
+import model.TestSession;
 import model.UserAnswer;
 
 /**
@@ -69,36 +73,7 @@ public class TestResultServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        List<UserAnswer> userAnswers = (List<UserAnswer>) session.getAttribute("userAnswers");
-        if (userAnswers == null) {
-            response.sendRedirect("testquiz"); // Nếu chưa có dữ liệu, chuyển về trang test
-            return;
-        }
-
-        int correctCount = 0;
-        int incorrectCount = 0;
-
-        for (UserAnswer userAnswer : userAnswers) {
-            if (userAnswer.getUserAnswer() != null && userAnswer.getUserAnswer().isCorrect()) {
-                correctCount++;
-            } else {
-                incorrectCount++;
-            }
-        }
-
-        int totalQuestions = userAnswers.size();
-        int percentage = (int) ((correctCount * 100.0) / totalQuestions);
-        
-        request.setAttribute("userAnswers", userAnswers);
-        request.setAttribute("correctCount", correctCount);
-        request.setAttribute("incorrectCount", incorrectCount);
-        request.setAttribute("percentage", percentage);
-        request.setAttribute("demo", session.getAttribute("demo"));
-        System.out.println(userAnswers);
-
-        request.getRequestDispatcher("quiz/testresult.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -112,7 +87,36 @@ public class TestResultServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        TestSession test = (TestSession) session.getAttribute("testSession");
+        if (test == null) {
+            response.sendRedirect("home");
+            return;
+        }
+        int correctCount = 0;
+        List<UserAnswer> userAnswers = new ArrayList<>();
+
+        for (Quiz quiz : test.getQuestions()) {
+            String answerParam = request.getParameter("userAnswer_" + quiz.getQuizID());
+            if (answerParam != null && !answerParam.trim().isEmpty()) {
+                int selectedAnswerID = Integer.parseInt(answerParam);
+                UserAnswer userAnswer = new UserAnswer(quiz.getQuizID(), selectedAnswerID);
+                userAnswers.add(userAnswer);
+
+                for (Answer a : quiz.getAnswers()) {
+                    if (a.getAnswerID() == selectedAnswerID && a.isCorrect()) {
+                        correctCount++;
+                    }
+                }
+            }
+        }
+        int incorrectCount = test.getTotalQuestions() - correctCount;
+        int percentage = (int) ((correctCount * 100.0) / test.getTotalQuestions());
+        test.setUserAnswers(userAnswers);
+        request.setAttribute("percentage", percentage);
+        request.setAttribute("incorrectCount", incorrectCount);
+        request.setAttribute("correctCount", correctCount);
+        request.getRequestDispatcher("quiz/testresult.jsp").forward(request, response);
     }
 
     /**

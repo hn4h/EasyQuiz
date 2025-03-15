@@ -40,13 +40,13 @@
                     </ul>
                 </div>
             </div>
-            <div class="title">
-                <span class="page-number" id="pageIndicator">0 / ${quizDetail.flashCards.size()}</span>
-                <span>${quizDetail.qs.quizSetName}</span>
-            </div>
+            <!--            <div class="title">
+                            <span class="page-number" id="pageIndicator">0 / ${quizDetail.flashCards.size()}</span>
+                            <span>${quizDetail.qs.quizSetName}</span>
+                        </div>-->
             <div class="close">
-                <button class="printBtn"><span>Print test</span></button>
-                <button onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
+                <!--                <button class="printBtn"><span>Print test</span></button>-->
+                <button id="remove-session" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
             </div>
         </div>
         <div class="body">
@@ -59,8 +59,8 @@
                     </div>
                     <div class="question-number">
                         <h4>Multiple choice</h4>
-                        <c:forEach begin="1" end="${quizDetail.flashCards.size()}" var="i">
-                            <p class="answered" onclick="scrollToQuestion(${i})">${i}</p>
+                        <c:forEach begin="1" end="${testSession.totalQuestions}" var="i">
+                            <p class="answered answered-question" onclick="scrollToQuestion(${i})">${i}</p>
                         </c:forEach>
                     </div>
                 </div>
@@ -69,7 +69,9 @@
                 <h1>Congratulations! You have completed your test.</h1>
                 <div class="result-content">
                     <div class="result-percentage">
-                        <h3>Your time: ?</h3>
+                        <input type="hidden" class="duration" value="${sessionScope.testSession.timeLimit}">
+                        <h3 id="timer">Your time: ${sessionScope.testSession.timeLimit }</h3>
+                        <h3 id="time-remain" >Time remaining: ${sessionScope.testSession.timeLimit}</h3>
                         <div class="result-percentage-content">
                             <div class="percentage-circle">
                                 <svg viewBox="0 0 36 36" class="circular-chart">
@@ -132,26 +134,39 @@
             </div>
             <div class="test-container">
                 <h3>Your answers</h3>
-                <c:forEach var="ua" items="${userAnswers}">
-                    <p>UserAnswer: ${ua}</p>
-                    <p>Quiz: ${ua.quiz}</p>
-                </c:forEach>
-                <c:forEach var="quiz" items="${sessionScope.userAnswers}" varStatus="quizLoop">
+
+                <c:forEach var="quiz" items="${sessionScope.testSession.questions}" varStatus="quizLoop">
                     <div class="quiz" id="question-${quizLoop.index + 1}">
                         <div class="definition">
                             <div class="definition-header">
                                 <h4>Definition</h4>
-                                <span class="question-index">${quizLoop.index + 1} of ${fn:length(userAnswers)}</span>
+                                <span class="question-index">${quizLoop.index + 1} of ${fn:length(sessionScope.testSession.questions)}</span>
                             </div>
                             <div class="definition-content">
-                                <p>${quiz.quiz.content}</p>
+                                <p>${quiz.content}</p>
                             </div>
                         </div>
+
                         <div class="term">
                             <h4>Select the correct term</h4>
                             <div class="term-content">
-                                <c:forEach var="answer" items="${quiz.quiz.answers}" varStatus="answerLoop">
-                                    <div class="answer ${answer.correct ? 'correct-answer' : (quiz.userAnswer eq answer.content ? 'wrong-answer' : '')}">
+                                <c:set var="userSelectedAnswerID" value="-1" />
+                                <c:forEach var="userAnswer" items="${sessionScope.testSession.userAnswers}">
+                                    <c:if test="${userAnswer.quizID eq quiz.quizID}">
+                                        <c:set var="userSelectedAnswerID" value="${userAnswer.selectedAnswerID}" />
+                                    </c:if>
+                                </c:forEach>
+
+                                <c:forEach var="answer" items="${quiz.answers}">
+                                    <c:set var="answerClass" value="" />
+                                    <c:if test="${answer.correct}">
+                                        <c:set var="answerClass" value="correct-answer" />
+                                    </c:if>
+                                    <c:if test="${userSelectedAnswerID eq answer.answerID and not answer.correct}">
+                                        <c:set var="answerClass" value="wrong-answer" />
+                                    </c:if>
+
+                                    <div class="answer ${answerClass}">
                                         <p class="answer-content">${answer.content}</p>
                                     </div>
                                 </c:forEach>

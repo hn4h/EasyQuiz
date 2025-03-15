@@ -37,14 +37,15 @@
                     </ul>
                 </div>
             </div>
+            <input id="time-left" type="hidden" value="${sessionScope.testSession.timeLimit}">
             <div class="title">
-                <span class="page-number" id="pageIndicator">0 / ${quizDetail.flashCards.size()}</span>
+                <span class="page-number" id="pageIndicator">0 / ${testSession.totalQuestions}</span>
                 <span>${quizDetail.qs.quizSetName}</span>
             </div>
             <div class="close">
-                <button class="printBtn"><span>Print test</span></button>
+                <div id="timer" style="font-weight: bold; color: red;">Time remaining: 00:00</div>
                 <button class="optionBtn"><span class="material-symbols-rounded">settings</span></button>
-                <button onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
+                <button id="cancel-test" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
             </div>
         </div>
         <div class="optionPopup-container">
@@ -75,117 +76,62 @@
                     </div>
                     <div class="question-number">
                         <h4>Multiple choice</h4>
-                        <c:forEach begin="1" end="${quizDetail.flashCards.size()}" var="i">
+                        <c:forEach begin="1" end="${testSession.totalQuestions}" var="i">
                             <p class="answered" onclick="scrollToQuestion(${i})">${i}</p>
                         </c:forEach>
                     </div>
                 </div>
             </div>
-            <div class="test-container">
-                <c:forEach var="quiz" items="${quizzes}" varStatus="quizLoop">
-                    <div class="quiz" id="question-${quizLoop.index + 1}">
-                        <div class="definition">
-                            <div class="definition-header">
-                                <h4>Definition</h4>
-                                <span class="question-index">${quizLoop.index + 1} of ${fn:length(quizzes)}</span>
+            <form id="quizForm" action="testresult" method="post">
+                <div class="test-container">
+                    <c:forEach var="quiz" items="${quizzes}" varStatus="quizLoop">
+                        <div class="quiz" id="question-${quizLoop.index + 1}">
+                            <div class="definition">
+                                <div class="definition-header">
+                                    <h4>Definition</h4>
+                                    <span class="question-index">${quizLoop.index + 1} of ${fn:length(quizzes)}</span>
+                                </div>
+                                <div class="definition-content">
+                                    <p>${quiz.content}</p>
+                                </div>
                             </div>
-                            <div class="definition-content">
-                                <p>${quiz.content}</p>
+                            <div class="term">
+                                <h4>Select the correct term</h4>
+                                <div class="term-content">
+                                    <c:forEach var="answer" items="${quiz.answers}" varStatus="answerLoop" >
+                                        <div class="answer" data-correct="${answer.correct}" data-quiz-id="${quiz.quizID}" data-answer-id="${answer.answerID}">
+                                            <span class="answer-number">${answerLoop.count}</span>
+                                            <p>${answer.content}</p>
+                                        </div>
+                                    </c:forEach>
+                                </div>
                             </div>
+                            <input type="hidden" name="userAnswer_${quiz.quizID}" id="answerInput_${quiz.quizID}" value="">
                         </div>
-                        <div class="term">
-                            <h4>Select the correct term</h4>
-                            <div class="term-content">
-                                <c:forEach var="answer" items="${quiz.answers}" varStatus="answerLoop" >
-                                    <div class="answer" data-correct="${answer.correct}" data-quiz-id="${quiz.quizID}" data-answer-id="${answer.answerID}">
-                                        <span class="answer-number">${answerLoop.count}</span>
-                                        <p>${answer.content}</p>
-                                    </div>
-                                </c:forEach>
+                    </c:forEach>
+                    <div class="submit-btn">
+                        <img src="./images/icon/submit_icon.png" alt="alt"/>
+                        <span>All done! Ready to submit your test?</span>
+                        <button type="button" class="submitBtn">Submit test</button>
+                    </div>
+                    <div class="confirmSubmitPopup-container">
+                        <div id="confirmSubmitPopup" class="confirmSubmit-popup">
+                            <div class="confirmSubmit-popup-content">
+                                <h2>Are you sure to submit your test?</h2>
+                                <p>Number of questions you completed: ?</p>
+                                <p>Number of questions you have not completed: ?</p>
+                                <div class="confirmSubmit-btn">
+                                    <button type="button" class="cancelSubmit-btn"><span>Cancel</span></button>
+                                    <button type="submit" class="submitTest-btn" id="submitQuiz"><span>Submit test</span></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </c:forEach>
-                <div class="submit-btn">
-                    <img src="./images/icon/submit_icon.png" alt="alt"/>
-                    <span>All done! Ready to submit your test?</span>
-                    <button class="submitBtn">Submit test</button>
                 </div>
-                <div class="confirmSubmitPopup-container">
-                    <div id="confirmSubmitPopup" class="confirmSubmit-popup">
-                        <div class="confirmSubmit-popup-content">
-                            <h2>Are you sure to submit your test?</h2>
-                            <p>Number of questions you completed: ?</p>
-                            <p>Number of questions you have not completed: ?</p>
-                            <div class="confirmSubmit-btn">
-                                <button class="cancelSubmit-btn"><span>Cancel</span></button>
-                                <button class="submitTest-btn" id="submitQuiz"><span>Submit test</span></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </form>
+
         </div>
         <script src="./quiz/testquiz.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-                                $(document).ready(function () {
-                                    let userAnswers = [];
-
-                                    // Khi chọn đáp án
-                                    $(".answer").click(function () {
-                                        let quizID = $(this).data("quiz-id"); // Lấy ID câu hỏi
-                                        let answerID = $(this).data("answer-id"); // Lấy ID đáp án
-                                        console.log("Clicked answer:", {quizID, answerID});
-
-                                        // Cập nhật danh sách lựa chọn
-                                        let found = false;
-                                        for (let i = 0; i < userAnswers.length; i++) {
-                                            if (userAnswers[i].quiz.id === quizID) {
-                                                userAnswers[i].userAnswer.id = answerID; // Cập nhật đáp án mới
-                                                found = true;
-                                                break;
-                                            }
-                                        }
-                                        if (!found) {
-                                            userAnswers.push({
-                                                quiz: {id: quizID}, // Định dạng đúng
-                                                userAnswer: {id: answerID} // Định dạng đúng
-                                            });
-                                        }
-                                        console.log("Updated userAnswers:", userAnswers);
-                                    });
-
-                                    // Khi ấn "Nộp bài"
-                                    $("#submitQuiz").click(function () {
-                                        if (userAnswers.length < $(".question").length) {
-                                            alert("Bạn chưa trả lời hết tất cả các câu hỏi!");
-                                            return;
-                                        }
-
-                                        // Gửi dữ liệu qua Servlet
-                                        $.ajax({
-                                            url: "testquiz",
-                                            type: "POST",
-                                            contentType: "application/json",
-                                            data: JSON.stringify(userAnswers), // Dữ liệu đã đúng format
-                                            success: function (response) {
-                                                console.log("✅ Success:", response);
-                                                if (response.trim() === "Dữ liệu đã được lưu thành công!") {
-                                                    window.location.href = "testresult";
-                                                } else {
-                                                    alert("Phản hồi không hợp lệ từ server: " + response);
-                                                }
-                                            },
-                                            error: function (xhr, status, error) {
-                                                console.log("❌ Error Status:", xhr.status);
-                                                console.log("❌ Error Response:", xhr.responseText);
-                                                alert("Có lỗi xảy ra khi gửi bài! Chi tiết: " + xhr.responseText);
-                                            }
-                                        });
-                                    });
-                                });
-
-        </script>
     </body>
 </html>

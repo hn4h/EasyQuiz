@@ -48,6 +48,28 @@ function updateCircle(correct, incorrect) {
     document.getElementById("incorrect").textContent = incorrect;
 }
 
+function scrollToQuestion(questionNumber) {
+    let targetQuestion = document.getElementById(`question-${questionNumber}`);
+    if (targetQuestion) {
+        targetQuestion.scrollIntoView({behavior: 'smooth', block: 'center'});
+    }
+}
+let duration = document.querySelector(".duration").value * 60;
+let timeLeft = sessionStorage.getItem("quizTimeLeft");
+const timerDisplay = document.getElementById("timer");
+const timeRemain = document.getElementById("time-remain");
+    function updateTimerDisplay() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        let minute = Math.floor(duration / 60);
+        let second = duration % 60;
+        timerDisplay.textContent = `Your time: ${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
+        timeRemain.textContent = `Time remaining: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
 
+updateTimerDisplay();
 
+document.getElementById("remove-session").addEventListener("click", function () {
+        sessionStorage.removeItem("quizTimeLeft");
+    });
 

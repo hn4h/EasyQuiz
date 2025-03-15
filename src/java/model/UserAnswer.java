@@ -4,37 +4,37 @@
  */
 package model;
 
-import java.util.List;
-
 /**
  *
  * @author admin
  */
 public class UserAnswer {
-    private Quiz quiz;
-    private Answer userAnswer;
+    private int quizID;
+    private int selectedAnswerID;
 
     public UserAnswer() {
     }
 
-    public UserAnswer(Quiz quiz, Answer userAnswer) {
-        this.quiz = quiz;
-        this.userAnswer = userAnswer;
+    public UserAnswer(int quizID, int selectedAnswerID) {
+        this.quizID = quizID;
+        this.selectedAnswerID = selectedAnswerID;
     }
 
-    public Quiz getQuiz() {
-        return quiz;
+    public int getQuizID() {
+        return quizID;
     }
 
-    public void setQuiz(Quiz quiz) {
-        this.quiz = quiz;
+    public int getSelectedAnswerID() {
+        return selectedAnswerID;
     }
 
-    public Answer getUserAnswer() {
-        return userAnswer;
+    public void setQuizID(int quizID) {
+        this.quizID = quizID;
     }
 
-    public void setUserAnswer(Answer userAnswer) {
-        this.userAnswer = userAnswer;
+    public void setSelectedAnswerID(int selectedAnswerID) {
+        this.selectedAnswerID = selectedAnswerID;
     }
+
+    
 }

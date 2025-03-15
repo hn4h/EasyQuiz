@@ -4,9 +4,6 @@
  */
 package controller.quiz;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import dal.QuizDAO;
 import dal.QuizSetDAO;
 import model.Quiz;
@@ -19,12 +16,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.BufferedReader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.Collections;
 import model.Account;
-import model.UserAnswer;
+import model.TestSession;
 
 /**
  *
@@ -72,11 +66,12 @@ public class TestQuizServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String quizSetIDParam = request.getParameter("quizSetID");
-        String numberQuizParam = request.getParameter("numberQuiz"); // lay so luong quiz
+        String numberQuizParam = request.getParameter("numberQuiz"); 
+        int timeLimit = Integer.parseInt(request.getParameter("timeLimit"));
         QuizSetDAO qsd = new QuizSetDAO();
         HttpSession session = request.getSession();
         Account a = (Account) session.getAttribute("account");
-
+        
         if (a == null) {
             response.sendRedirect("login");
             return;
@@ -87,20 +82,19 @@ public class TestQuizServlet extends HttpServlet {
                 int quizSetID = Integer.parseInt(quizSetIDParam);
                 QuizDAO quizDAO = new QuizDAO();
                 List<Quiz> quizzes = quizDAO.getQuizzesByQuizSetID(quizSetID);
-
+                
                 if (quizzes == null || quizzes.isEmpty()) {
                     request.setAttribute("error", "No quizzes found for quizSetID: " + quizSetID);
                 } else {
-                    for (Quiz quiz : quizzes) {
-                        if (quiz.getAnswers() == null) {
-                            quiz.setAnswers(new ArrayList<>());
-                        }
-                    }
-
+                    TestSession test = new TestSession();
+                    test.setQuizSetID(quizSetID);
+                    test.setTimeLimit(timeLimit);
+                    session.setAttribute("testSession", test);
                     // xu ly so quiz ngau nhien voi so number quiz duoc cung cap
                     if (numberQuizParam != null) {
                         try {
                             int numberQuiz = Integer.parseInt(numberQuizParam);
+                            test.setTotalQuestions(numberQuiz);
                             if (numberQuiz > 0 && numberQuiz <= quizzes.size()) {
                                 // tron ngau nhien danh sach quiz va lay so luong can thiet
                                 Collections.shuffle(quizzes);
@@ -115,7 +109,7 @@ public class TestQuizServlet extends HttpServlet {
                             request.setAttribute("error", "Invalid numberQuiz parameter");
                         }
                     }
-
+                    test.setQuestions(quizzes);
                     request.setAttribute("quizDetail", qsd.getQuizDetailById(quizSetID));
                     request.setAttribute("quizzes", quizzes);
                 }
@@ -137,62 +131,8 @@ public class TestQuizServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        // Đọc JSON từ request
-        BufferedReader reader = request.getReader();
-        StringBuilder jsonData = new StringBuilder();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            jsonData.append(line);
-        }
-
-        // Kiểm tra nếu request rỗng
-        if (jsonData.length() == 0) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Dữ liệu JSON trống!");
-            return;
-        }
-
-        try {
-            // Chuyển JSON thành danh sách UserAnswer
-            Gson gson = new Gson();
-            Type listType = new TypeToken<List<UserAnswer>>() {
-            }.getType();
-            List<UserAnswer> userAnswers = gson.fromJson(jsonData.toString(), listType);
-
-            // Kiểm tra nếu danh sách userAnswers rỗng hoặc null
-            if (userAnswers == null || userAnswers.isEmpty()) {
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.getWriter().write("Danh sách UserAnswer trống hoặc không hợp lệ!");
-                return;
-            }
-            QuizDAO qd = new QuizDAO();
-            // Debug: In ra console để kiểm tra
-            System.out.println("Received userAnswers: " + userAnswers);
-            for (UserAnswer user : userAnswers) {
-                if (user.getQuiz() != null) {
-                    user.setQuiz(qd.getQuizById(user.getQuiz().getQuizID()));
-                }
-                if (user.getUserAnswer() != null) {
-                    user.setUserAnswer(qd.getAnswerById(user.getUserAnswer().getAnswerID()));
-                }
-            }
-            // Lưu vào session để dùng ở trang testresult.jsp
-            session.setAttribute("userAnswers", userAnswers);
-
-            // Trả về trạng thái thành công
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Dữ liệu đã được lưu thành công!");
-
-        } catch (JsonSyntaxException e) {
-            // Bắt lỗi nếu JSON không hợp lệ
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Lỗi định dạng JSON: " + e.getMessage());
-            e.printStackTrace();
-        }
+        processRequest(request, response);
     }
-
     /**
      * Returns a short description of the servlet.
      *

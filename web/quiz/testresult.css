@@ -480,12 +480,12 @@ body {
     pointer-events: auto; /* Đảm bảo có thể click */
 }
 
-.answer:hover {
+/*.answer:hover {
     border-color: #640D5F;
     background: #ffbcfb;
     color: #640D5F;
     font-weight: bold;
-}
+}*/
 
 .answer.selected {
     background: #ffbcfb;
@@ -547,4 +547,14 @@ body {
     cursor: pointer;
 }
 
+.correct-answer {
+    background-color: #d4edda; /* Xanh nhạt */
+    border: 1px solid #155724;
+    color: #155724;
+}
 
+.wrong-answer {
+    background-color: #f8d7da; /* Đỏ nhạt */
+    border: 1px solid #721c24;
+    color: #721c24;
+}

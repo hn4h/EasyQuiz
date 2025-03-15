@@ -368,7 +368,8 @@
 
                 // Get the username from the session (if available)
                 let userName = '${sessionScope.account.userName}';
-                let profileImage = '${sessionScope.account.profileImage}';
+                let profile = '${sessionScope.account.profileImage}';
+                console.log(profile);
                 if (!userName) {
                     alert('You must be logged in to comment.');
                     return;

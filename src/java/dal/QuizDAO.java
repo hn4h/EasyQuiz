@@ -7,7 +7,6 @@ package dal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import model.Account;
 import model.Answer;
 import model.Quiz;
 
@@ -94,7 +93,6 @@ public class QuizDAO extends DBContext {
             List<Answer> currentAnswers = new ArrayList<>();
             if (rs.next()) {
                 Quiz quiz = new Quiz(quizId, rs.getInt("Quiz_Set_ID"), rs.getString("Quiz_content"));
-
                 currentAnswers = new ArrayList<>();
                 Answer answer = new Answer(rs.getInt("Answer_ID"), quizId, rs.getString("Answer_Content"), rs.getBoolean("Is_Correct"));
                 currentAnswers.add(answer);
@@ -124,6 +122,8 @@ public class QuizDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();}
         }
+    
+    
     
     public Answer getAnswerById(int id) {
         try {

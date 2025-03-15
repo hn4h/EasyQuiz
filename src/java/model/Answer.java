@@ -9,7 +9,6 @@ package model;
  * @author DUCA
  */
 public class Answer {
-
     private int answerID;
     private int quizID;
     private String content;
@@ -59,5 +58,6 @@ public class Answer {
 
     public boolean getIsCorrect() {
         return isCorrect;
-    } 
+    }
+
 }
