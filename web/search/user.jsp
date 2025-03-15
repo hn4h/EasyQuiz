@@ -137,10 +137,11 @@
                         <a href="searchuser?input=${input}" class="search-item-actived">Users</a>
                         <a href="searchBlog?input=${input}" class="search-item">Blogs</a>
                     </div>
+                    <c:if test="${not empty creator}">
                     <div class="user-container">
                         <ul class="card-list">
                             <c:forEach items="${requestScope.creator}" var="creator">
-                                <li class="card-item">
+                                <li class="card-item" onclick="window.location.href='user?username=${creator.account.userName}'">
                                     <a href="#" class="card-link">
                                         <div class="card-avt">
                                             <img src="${creator.account.profileImage}" alt="Avatar"> 
@@ -166,6 +167,12 @@
                             </button>
                         </div>
                     </div>
+                    </c:if>
+                    <c:if test="${empty creator}">
+                        <div class="empty-result">
+                            <p>No result founded</p>
+                        </div>
+                    </c:if>
 
                 </div>
             </div>

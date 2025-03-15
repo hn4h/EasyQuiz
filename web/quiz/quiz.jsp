@@ -257,6 +257,7 @@
                             <option value="alphabetical">Alphabetical</option>
                         </select>
                     </div>
+                    <input type="hidden" id="account-check" value="${sessionScope.account.userName}">
                     <div class="term-content">
                         <c:forEach items="${requestScope.quizDetail.flashCards}" var="q">
                             <div class="term-card">

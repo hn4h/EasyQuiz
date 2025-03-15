@@ -630,14 +630,22 @@
 
 .card-list {
     display: flex;
-    justify-content: space-between;
     width: 100%;
     gap: 20px;
     margin-top: 20px;
+    list-style: none;
 }
 
 .card-list .card-item {
     list-style: none;
+}
+
+.card-list .empty-card-item {
+    text-align: center;
+    padding: 60px 0;
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .card-list .card-item .card-link {
@@ -695,7 +703,7 @@
     max-height: 100px; /* Giới hạn chiều cao */
     overflow: hidden; /* Ẩn phần nội dung vượt quá */
     text-overflow: ellipsis; /* Thêm dấu "..." khi bị cắt */
-    display: -webkit-box; 
+    display: -webkit-box;
     -webkit-line-clamp: 3; /* Giới hạn số dòng hiển thị */
     -webkit-box-orient: vertical; /* Hiển thị nội dung theo chiều dọc */
     word-break: break-word; /* Đảm bảo từ không bị tràn ra ngoài */
@@ -803,6 +811,22 @@
     gap: 2rem;
 }
 
+.empty-result{
+    height: 400px;
+    display: flex;
+    margin: 130px auto 0 auto;
+}
+
+.empty-result p{
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.flashcard-sets{
+    position: relative;
+    padding-bottom: 50px; 
+}
+
 .flashcard-sets-list {
     overflow-y: auto;
     max-height: 100vh;
@@ -818,11 +842,14 @@
 }
 
 .number-page {
+    position: absolute;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 20px;
     z-index: 10;
+    bottom: 10px;
+    width: 100%;
 }
 
 .number-page button {
@@ -921,3 +948,7 @@
     gap: 20px;
 }
 
+.user-container{
+    position: relative;
+    padding-bottom: 50px;
+}

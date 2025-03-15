@@ -72,8 +72,8 @@ public class ProfileServlet extends HttpServlet {
         FolderDAO fd = new FolderDAO();
         AccountDAO ad = new AccountDAO();
 
-        if (username != null && type != null) {
-            if ("sets".equals(type)) {
+        if (username != null) {
+            if ("sets".equals(type) || type == null) {
                 request.setAttribute("username", username);
 
                 List<QuizSet> quizSetList = qsd.getAllQuizSetByUsername(username);
@@ -82,9 +82,7 @@ public class ProfileServlet extends HttpServlet {
                     quizSet.setFormattedDate(displayDate);
                 }
                 request.setAttribute("listQuiz", quizSetList);
-                if (!quizSetList.isEmpty()) {
-                    request.setAttribute("quizSet", quizSetList.get(0));
-                }
+                request.setAttribute("creator", ad.getAccountByUserName(username));
                 request.getRequestDispatcher("profile/profile.jsp").forward(request, response);
             } else if ("folder".equals(type)) {
                 request.setAttribute("username", username);

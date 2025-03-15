@@ -91,14 +91,14 @@ public class QuizSetDAO extends DBContext {
         }
         return null;
     }
-    
+
     public List<QuizSet> getAllQuizSetByUsername(String username) {
         List<QuizSet> list = new ArrayList<>();
         try {
-            String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, q.Number_Of_Quiz, q.Created_Date,\n" +
-"                     a.UserName, a.ProfileImage, a.Email\n" +
-"                     FROM Quiz_Set q JOIN Accounts a ON q.Author = a.UserName \n" +
-"                     WHERE q.Author = ?";
+            String sql = "SELECT q.Quiz_Set_ID, q.Quiz_Set_Name, q.Number_Of_Quiz, q.Created_Date,\n"
+                    + "                     a.UserName, a.ProfileImage, a.Email\n"
+                    + "                     FROM Quiz_Set q JOIN Accounts a ON q.Author = a.UserName \n"
+                    + "                     WHERE q.Author = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
@@ -120,11 +120,8 @@ public class QuizSetDAO extends DBContext {
         }
         return list;
     }
+
     
-    public static void main(String[] args) {
-        QuizSetDAO d = new QuizSetDAO();
-        System.out.println(d.getAllQuizSetByUsername("EasyQuiz343293").get(0).getAuthor().getProfileImage());
-    }
 
     public int addQuizSet(QuizSet qs) {
         int generatedKeys = 1;
@@ -145,19 +142,41 @@ public class QuizSetDAO extends DBContext {
         }
         return generatedKeys;
     }
+
     public void addQuizHistory(int quizSetID, String userName) {
         try {
-            String sql = "INSERT INTO Quiz_Set_History (Quiz_Set_ID, UserName) VALUES (?,?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, quizSetID);
-            ps.setString(2, userName);
-            ps.executeUpdate();
+            // Kiểm tra xem bản ghi đã tồn tại hay chưa
+            String checkSql = "SELECT COUNT(*) FROM Quiz_Set_History WHERE Quiz_Set_ID = ? AND UserName = ?";
+            PreparedStatement checkPs = connection.prepareStatement(checkSql);
+            checkPs.setInt(1, quizSetID);
+            checkPs.setString(2, userName);
+            ResultSet rs = checkPs.executeQuery();
+
+            if (rs.next() && rs.getInt(1) > 0) {
+                // Nếu đã tồn tại, cập nhật thời gian Quiz_Date
+                String updateSql = "UPDATE Quiz_Set_History SET Quiz_Date = GETDATE() WHERE Quiz_Set_ID = ? AND UserName = ?";
+                PreparedStatement updatePs = connection.prepareStatement(updateSql);
+                updatePs.setInt(1, quizSetID);
+                updatePs.setString(2, userName);
+                updatePs.executeUpdate();
+            } else {
+                // Nếu chưa tồn tại, thêm mới vào bảng
+                String insertSql = "INSERT INTO Quiz_Set_History (Quiz_Set_ID, UserName) VALUES (?,?)";
+                PreparedStatement insertPs = connection.prepareStatement(insertSql);
+                insertPs.setInt(1, quizSetID);
+                insertPs.setString(2, userName);
+                insertPs.executeUpdate();
+            }
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
-
     
+    public static void main(String[] args) {
+        QuizSetDAO d = new QuizSetDAO();
+        d.addQuizHistory(2, "EasyQuiz343293");
+    }
+
     public List<QuizSet> searchAllQuizSetByName(String quizSetName) {
         List<QuizSet> list = new ArrayList<>();
         String sql = "SELECT \n"
@@ -218,5 +237,3 @@ public class QuizSetDAO extends DBContext {
         }
     }
 }
-
-

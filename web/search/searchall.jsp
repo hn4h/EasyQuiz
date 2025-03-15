@@ -138,9 +138,9 @@
                         <div class="result-container">
                             <div class="result-header">
                                 <h4>Flashcard sets</h4>
-                                <a href="searchquizset?input=${input}">View all</a>
-                            </div>
-                            <ul class="card-list">
+                                <c:if test="${not empty quizSet}"><a href="searchquizset?input=${input}">View all</a></c:if>
+                                </div>
+                                <ul class="card-list">
                                 <c:forEach begin="0" end="2" step="1" items="${quizSet}" var="i">
                                     <li class="card-item" onclick="window.location.href = 'quizz?id=${i.quizSetId}'">
                                         <a href="#" class="card-link">
@@ -156,14 +156,19 @@
                                         </a>
                                     </li>
                                 </c:forEach>
+                                <c:if test="${empty blog}">
+                                    <li class="empty-card-item">
+                                        No result founded
+                                    </li>
+                                </c:if>
                             </ul>
                         </div>
                         <div class="result-container">
                             <div class="result-header">
                                 <h4>Users</h4>
-                                <a href="searchuser?input=${input}">View all</a>
-                            </div>
-                            <ul class="card-list">
+                                <c:if test="${not empty creator}"><a href="searchuser?input=${input}">View all</a></c:if>
+                                </div>
+                                <ul class="card-list">
                                 <c:forEach begin="0" end="2" step="1" items="${requestScope.creator}" var="creator">
                                     <li class="card-item">
                                         <a href="#" class="card-link">
@@ -178,16 +183,21 @@
                                         </a>
                                     </li>
                                 </c:forEach>
+                                <c:if test="${empty blog}">
+                                    <li class="empty-card-item">
+                                        No result founded
+                                    </li>
+                                </c:if>
                             </ul>
                         </div>
                         <div class="result-container">
                             <div class="result-header">
                                 <h4>Blogs</h4>
-                                <a href="">View all</a>
-                            </div>
-                            <ul class="card-list">
+                                <c:if test="${not empty blog}"><a href="searchBlog?input=${input}">View all</a></c:if>
+                                </div>
+                                <ul class="card-list">
                                 <c:forEach begin="0" end="2" step="1" items="${blog}" var="blog">
-                                    <li class="card-item swiper-slide" onclick="window.location.href = 'blogdetail?blogId=${blog.blogId}'">
+                                    <li class="card-item swiper-slide card-position" onclick="window.location.href = 'blogdetail?blogId=${blog.blogId}'">
                                         <a href="javascript:void(0);" class="card-link"
                                            data-blogid="${blog.blogId}"
                                            data-title="${blog.blogTitle}"
@@ -212,7 +222,7 @@
                                                     </c:otherwise>
                                                 </c:choose>
                                             </p>
-                                            <div class="card-username">
+                                            <div class="card-username blog-bottom">
                                                 <span style="display: flex; align-items: center;">
                                                     <img src="${blog.author.profileImage}" alt="Avatar">
                                                     <span>${blog.author.userName}</span>
@@ -222,6 +232,11 @@
                                         </a>
                                     </li>
                                 </c:forEach>
+                                <c:if test="${empty blog}">
+                                    <li class="empty-card-item">
+                                        No result founded
+                                    </li>
+                                </c:if>
                             </ul>
                         </div>
                     </div>

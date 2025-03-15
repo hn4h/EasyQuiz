@@ -125,10 +125,10 @@
             </aside>
             <div class="body-container">
                 <div class="user-container">
-                    <img src="${quizSet.author.profileImage}" alt="Not found">
+                    <img src="${creator.profileImage}" alt="Not found">
                     <div class="user-name">
-                        <h2>${quizSet.author.userName}</h2>
-                        <p>${quizSet.author.email}</p>
+                        <h2>${creator.userName}</h2>
+                        <p>${creator.email}</p>
                     </div>
                 </div>
                 <div class="flashcard-folder">

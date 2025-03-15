@@ -36,7 +36,7 @@
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
                             <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -131,13 +131,13 @@
                         <h2>Recents</h2>
                         <div class="recents-list">
                             <c:forEach items="${quizSetHistoryTop4}" var="quizSet"> 
-                                <div class="recents-item">
+                                <div class="recents-item" onclick="window.location.href='quizz?id=${quizSet.quizSetId}'">
                                     <div>
                                         <i class="fa-solid fa-book"></i> 
                                     </div>
                                     <div>
-                                        <p><a href="quiz-set-details?quizSetId=${quizSet.quizSetId}">${quizSet.quizSetName}</a></p> 
                                         <div>
+                                            <p>${quizSet.quizSetName}</p>
                                             Quiz Set - ${quizSet.numberOfQuiz} terms - by ${quizSet.author.userName} 
                                         </div>
                                     </div>
