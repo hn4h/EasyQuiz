@@ -55,14 +55,38 @@
             <aside class="sidebar">
                 <nav class="sidebar-nav">
                     <ul class="nav-list primary-nav">
-                        <li class="nav-item"><a href="home" class="nav-link-actived"><span class="material-symbols-rounded">home</span><span class="nav-label">Home</span></a></li>
-                        <li class="nav-item"><a href="quizhistory" class="nav-link"><span class="material-symbols-rounded">history</span><span class="nav-label">History</span></a></li>
-                        <li class="nav-item"><a href="blog" class="nav-link"><span class="material-symbols-rounded">rss_feed</span><span class="nav-label">Blog</span></a></li>
+                        <li class="nav-item">
+                            <a href="home" class="nav-link-actived">
+                                <span class="material-symbols-rounded">home</span>
+                                <span class="nav-label">Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="quizhistory" class="nav-link">
+                                <span class="material-symbols-rounded">history</span>
+                                <span class="nav-label">History</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="blog" class="nav-link">
+                                <span class="material-symbols-rounded">rss_feed</span>
+                                <span class="nav-label">Blog</span>
+                            </a>
+                        </li>
                     </ul>
                     <ul class="nav-list secondary-nav">
-                        <li class="nav-item"><a href="#" class="nav-link"><span class="material-symbols-rounded">person</span><span class="nav-label">Profile</span></a></li>
-                        <li class="nav-item"><a href="setting" class="nav-link"><span class="material-symbols-rounded">settings</span><span class="nav-label">Setting</span></a></li>
-                        <li class="nav-item"><a href="logout" class="nav-link"><span class="material-symbols-rounded">logout</span><span class="nav-label">Logout</span></a></li>
+                        <li class="nav-item">
+                            <a href="setting" class="nav-link">
+                                <span class="material-symbols-rounded">settings</span>
+                                <span class="nav-label">Setting</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="logout" class="nav-link">
+                                <span class="material-symbols-rounded">logout</span>
+                                <span class="nav-label">Logout</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </aside>

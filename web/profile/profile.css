@@ -140,10 +140,6 @@
     margin: 0 10px;
 }
 
-.avatar-user img{
-    border: 2px solid #ccc;
-}
-
 .avatar-user {
     cursor: pointer;
     align-self: center;
@@ -189,7 +185,7 @@
 
 .user-menu-item,
 .create-menu-item {
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .user-menu-item i,
@@ -343,6 +339,7 @@
         opacity: 0;
     }
 }
+
 /*------------------------------------Body*/
 .body {
     display: flex;

@@ -125,24 +125,6 @@ public class QuizDAO extends DBContext {
             e.printStackTrace();}
         }
     
-    public Quiz getQuizById(int id) {
-        try {
-            String sql = "select q.Quiz_ID, q.Quiz_content from Quiz q where Quiz_ID = ?";
-            PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Quiz q = new Quiz();
-                q.setQuizID(rs.getInt("Quiz_ID"));
-                q.setContent(rs.getString("Quiz_content"));
-                return q;
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
-    }
-    
     public Answer getAnswerById(int id) {
         try {
             String sql = "select a.Answer_ID, a.Answer_content, a.Is_Correct from Answer a where Answer_ID = ?";

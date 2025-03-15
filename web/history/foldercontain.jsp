@@ -27,7 +27,7 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchall">
+            <form action="searchall" style="width: 100%; max-width: 450px;">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search for study" name="input">
@@ -39,14 +39,14 @@
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
                             <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
-                        <button>Upgrade: Free 7-day trial</button>
+                        <a href="upgrade">Upgrade your package</a>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
-                        <img src="./images/avatar/default.png" alt="Not found">
+                        <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
@@ -56,13 +56,13 @@
                                 </div>
                             </div>
                             <hr/>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
-                            <a href="#" class="user-menu-item">Upgrades</a>
+                            <a href="feedback" class="user-menu-item">Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
                 </c:if>

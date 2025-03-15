@@ -29,7 +29,7 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchall">
+            <form action="searchall" style="width: 100%; max-width: 450px;">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search for study" name="input">
@@ -40,15 +40,15 @@
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
                             <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
-                        <button>Upgrade: Free 7-day trial</button>
+                        <a href="upgrade">Upgrade your package</a>
                     </div>
                     <div class="avatar-user"  id="avatarUser">
-                        <img src="./images/avatar/default.png" alt="Not found">
+                        <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
@@ -58,13 +58,13 @@
                                 </div>
                             </div>
                             <hr/>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-gear"></i> Settings</a>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
-                            <a href="#" class="user-menu-item">Upgrades</a>
+                            <a href="feedback" class="user-menu-item">Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
                 </c:if>
@@ -116,13 +116,7 @@
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <span class="material-symbols-rounded">person</span>
-                                <span class="nav-label">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="setting" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>
@@ -163,7 +157,7 @@
                             <c:if test="${not empty todayQuizzes}">
                                 <h2 class="text-lg font-bold mb-2">TODAY</h2>
                                 <c:forEach var="quiz" items="${todayQuizzes}">
-                                    <div onclick="window.location.href='quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                                    <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
                                         <div class="quiz-title flex">
                                             <div>
                                                 <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
@@ -180,7 +174,7 @@
                             <c:if test="${not empty weekQuizzes}">
                                 <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
                                 <c:forEach var="quiz" items="${weekQuizzes}">
-                                    <div onclick="window.location.href='quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                                    <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
                                         <div class="quiz-title flex">
                                             <div>
                                                 <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
@@ -198,7 +192,7 @@
                                 <c:forEach var="entry" items="${monthlyQuizzes}">
                                     <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
                                     <c:forEach var="quiz" items="${entry.value}">
-                                        <div onclick="window.location.href='quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                                        <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
                                             <div class="quiz-title flex">
                                                 <div>
                                                     <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
@@ -233,7 +227,7 @@
                             </div>
                         </c:if>
                         <c:forEach var="quiz" items="${createdList}">
-                            <div onclick="window.location.href='quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                            <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
                                 <div class="quiz-title flex">
                                     <div>
                                         <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
@@ -250,32 +244,32 @@
         <script src="./history/history.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                const searchInput = document.querySelector("input[placeholder='Search for a quiz']");
-                const quizCards = Array.from(document.querySelectorAll(".quiz-card"));
+                                document.addEventListener("DOMContentLoaded", function () {
+                                    const searchInput = document.querySelector("input[placeholder='Search for a quiz']");
+                                    const quizCards = Array.from(document.querySelectorAll(".quiz-card"));
 
-                const quizzes = quizCards.map(card => ({
-                        element: card,
-                        name: card.querySelector(".title-text").innerText.trim()
-                    }));
-                const fuse = new Fuse(quizzes, {
-                    keys: ["name"], 
-                    threshold: 0.3  
-                });
+                                    const quizzes = quizCards.map(card => ({
+                                            element: card,
+                                            name: card.querySelector(".title-text").innerText.trim()
+                                        }));
+                                    const fuse = new Fuse(quizzes, {
+                                        keys: ["name"],
+                                        threshold: 0.3
+                                    });
 
-                searchInput.addEventListener("input", function () {
-                    const query = this.value.trim().toLowerCase();
+                                    searchInput.addEventListener("input", function () {
+                                        const query = this.value.trim().toLowerCase();
 
-                    if (!query) {
-                        quizCards.forEach(card => card.style.display = "block");
-                        return;
-                    }
+                                        if (!query) {
+                                            quizCards.forEach(card => card.style.display = "block");
+                                            return;
+                                        }
 
-                    const results = fuse.search(query).map(result => result.item.element);
-                    quizCards.forEach(card => card.style.display = "none");
-                    results.forEach(card => card.style.display = "block");
-                });
-            });
+                                        const results = fuse.search(query).map(result => result.item.element);
+                                        quizCards.forEach(card => card.style.display = "none");
+                                        results.forEach(card => card.style.display = "block");
+                                    });
+                                });
         </script>
 
     </body>

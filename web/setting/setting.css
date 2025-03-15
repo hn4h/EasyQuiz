@@ -4,6 +4,7 @@
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 }
+
 .menu-btn button {
     background-color: #fff;
     font-size: 20px;
@@ -62,7 +63,7 @@
     align-self: center;
 }
 
-.upgrade-btn button {
+.upgrade-btn a {
     border-radius: 5px;
     padding: 10px 15px;
     background-color: #ffbf00;
@@ -74,7 +75,7 @@
     cursor: pointer;
 }
 
-.upgrade-btn button:hover {
+.upgrade-btn a:hover {
     background-color: #f7cd51;
 }
 
@@ -106,7 +107,6 @@
     align-items: center;
     padding: 10px;
     position: relative;
-    max-width: 450px;
     width: 100%;
 }
 
@@ -186,7 +186,7 @@
 
 .user-menu-item,
 .create-menu-item {
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .user-menu-item i,
@@ -340,6 +340,7 @@
         opacity: 0;
     }
 }
+
 /*------------------------------------Body*/
 .body {
     display: flex;

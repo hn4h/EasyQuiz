@@ -63,17 +63,18 @@
     align-self: center;
 }
 
-.upgrade-btn button {
+.upgrade-btn a {
     border-radius: 5px;
     padding: 10px 15px;
     background-color: #ffbf00;
-    color: #000;
+    color: #640D5F;
     border: none;
     font-size: 16px;
     font-weight: bold;
+    text-decoration: none;
 }
 
-.upgrade-btn button:hover {
+.upgrade-btn a:hover {
     background-color: #f7cd51;
 }
 
@@ -105,7 +106,6 @@
     align-items: center;
     padding: 10px;
     position: relative;
-    max-width: 450px;
     width: 100%;
 }
 
@@ -121,7 +121,7 @@
     width: 100%;
     padding: 10px;
     padding-left: 30px;
-    border: 1px solid #ddd;
+    border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
@@ -129,11 +129,11 @@
 }
 
 .search input:focus {
-    border-color: #0077cc;
+    border-color: #640D5F;
     outline: none;
 }
 
-.avatar-user img{
+.avatar-user img:not(.user-info img){
     height: 40px;
     width: 40px;
     border-radius: 50%;
@@ -163,7 +163,7 @@
 .create-menu {
     position: absolute;
     top: 60px;
-    right: 326px;
+    right: 310px;
     background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -185,7 +185,7 @@
 
 .user-menu-item,
 .create-menu-item {
-    padding: 10px;
+    padding: 10px 15px;
 }
 
 .user-menu-item i,
@@ -206,6 +206,7 @@
 .user-info {
     display: flex;
     padding: 10px;
+    overflow: hidden;
 }
 
 .user-info img {
@@ -220,6 +221,123 @@
 
 .user-info p:first-child {
     font-weight: bold;
+}
+
+.folderPopup-container {
+    padding: 2rem;
+}
+
+/* Popup styles */
+.folder-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+}
+
+.folder-popup-content {
+    background-color: #fff;
+    margin: 4rem auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    color: #333;
+}
+
+.folder-popup-content h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.folder-input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #e8e8e8;
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.create-folder-btn {
+    display: flex;
+    justify-content: end;
+}
+
+.create-folder-btn button{
+    padding: 10px 15px;
+    background-color: #640D5F;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-folder-btn button:hover {
+    background-color: #2A004E;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+/* Ensure the popup appears above other elements */
+#folderPopup {
+    z-index: 1001;
+    animation: fadeIn 0.2s ease-out forwards, slideDown 0.2s ease-out forwards;
+}
+
+/* Khi ẩn popup, sử dụng fadeOut */
+#folderPopup.hide {
+    animation: fadeOut 0.2s ease-out forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
 }
 /*------------------------------------Body*/
 .body {

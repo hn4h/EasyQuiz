@@ -34,7 +34,7 @@
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
                             <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -51,10 +51,12 @@
                                 </div>
                             </div>
                             <hr/>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
+                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
+                            <a href="feedback" class="user-menu-item">Help and feedback</a>
                             <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
@@ -107,13 +109,7 @@
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <span class="material-symbols-rounded">person</span>
-                                <span class="nav-label">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="setting" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>

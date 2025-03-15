@@ -26,10 +26,10 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchBlog" method="get">
+            <form action="searchall" style="width: 100%; max-width: 450px;">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" name="keyword" placeholder="Search for blog">
+                    <input type="text" placeholder="Search for study" name="input">
                 </div>
             </form>
             <div class="create-login">
@@ -37,15 +37,15 @@
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
                             <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
                         <a href="upgrade">Upgrade your package</a>
                     </div>
-                    <div class="avatar-user" id="avatarUser">
-                        <img src="./images/avatar/default.png" alt="Not found">
+                    <div class="avatar-user"  id="avatarUser">
+                        <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
@@ -97,7 +97,7 @@
                     </ul>
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="setting" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>
