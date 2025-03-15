@@ -13,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
@@ -56,15 +58,16 @@ public class QuizzServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String idRaw = request.getParameter("id");
         int id = 0;
         QuizSetDAO qsd = new QuizSetDAO();
-
+        Account acc = (Account) session.getAttribute("account");
         if (idRaw == null) {
             response.sendRedirect("home");
             return;
         }
-
+        
         try {
             id = Integer.parseInt(idRaw);
         } catch (NumberFormatException e) {
@@ -76,7 +79,9 @@ public class QuizzServlet extends HttpServlet {
             response.sendRedirect("home");
             return;
         }
-
+        if(acc != null){
+            qsd.addQuizHistory(id, acc.getUserName());
+        }
         request.setAttribute("quizDetail", qsd.getQuizDetailById(id));
         request.getRequestDispatcher("quiz/quiz.jsp").forward(request, response);
     }

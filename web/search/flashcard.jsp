@@ -136,74 +136,69 @@
                         <a href="searchuser?input=${input}" class="search-item">Users</a>
                         <a href="searchBlog?input=${input}" class="search-item">Blogs</a>
                     </div>
-                    <div class="search-filter">
-                        <h3>Filters</h3>
-                        <div class="filter-item">
-                            <span>Number of terms: </span>
-                            <select name="" id="">
-                                <option value="">All</option>
-                                <option value="">&lt; 19</option>
-                                <option value="">20 - 49</option>
-                                <option value="">50+</option>
-                            </select>
+                    <c:if test="${empty quizSet}">
+                        <div class="empty-result">
+                            <p>No result founded</p>
                         </div>
-                    </div>
-                    <div class="flashcard-container">
-                        <div class="flashcard-sets">
-                            <h2>Flashcard sets</h2>
-                            <div class="flashcard-sets-list">
-                                <ul class="card-list">
-                                    <c:forEach items="${quizSet}" var="i">
-                                        <li class="card-item">
-                                            <a href="quizz?id=${i.quizSetId}" class="card-link">
-                                                <div class="previewBtn">
-                                                    <h2 class="card-title">${i.quizSetName}</h2>
-                                                    <button onclick="event.stopPropagation(); window.location.href = 'searchquizset?input=${input}&quizId=${i.quizSetId}';
-                                                            return false;">Preview</button>
-                                                </div>
-                                                <p class="badge">${i.numberOfQuiz} terms</p>
-                                                <div class="card-username">
-                                                    <span style="display: flex; align-items: center;">
-                                                        <img src="${i.author.profileImage}" alt="Avatar">
-                                                        <span>${i.author.userName}</span>
-                                                    </span>
-                                                    <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    </c:forEach>
-                                </ul>
-                            </div>
-                            <div class="number-page">
-                                <button class="previous-btn">
-                                    <span class="material-symbols-rounded">chevron_left</span>
-                                    <span>Previous</span>
-                                </button>
-                                <span class="page-span">Page ? of ???</span>
-                                <button class="next-btn">
-                                    <span>Next</span>
-                                    <span class="material-symbols-rounded">chevron_right</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="preview-container">
-                            <h2>Preview</h2>
-                            <div class="preview-text">
-                                <div class="preview-header">
-                                    <h3>Title</h3>
-                                    <button><a href="">Study</a></button>
+                    </c:if>
+                    <c:if test="${not empty quizSet}">
+                        <div class="flashcard-container">
+                            <div class="flashcard-sets">
+                                <h2>Flashcard sets</h2>
+                                <div class="flashcard-sets-list">
+                                    <ul class="card-list">
+                                        <c:forEach items="${quizSet}" var="i">
+                                            <li class="card-item">
+                                                <a href="quizz?id=${i.quizSetId}" class="card-link">
+                                                    <div class="previewBtn">
+                                                        <h2 class="card-title">${i.quizSetName}</h2>
+                                                        <button onclick="event.stopPropagation(); window.location.href = 'searchquizset?input=${input}&quizId=${i.quizSetId}';
+                                                                return false;">Preview</button>
+                                                    </div>
+                                                    <p class="badge">${i.numberOfQuiz} terms</p>
+                                                    <div class="card-username">
+                                                        <span style="display: flex; align-items: center;">
+                                                            <img src="${i.author.profileImage}" alt="Avatar">
+                                                            <span>${i.author.userName}</span>
+                                                        </span>
+                                                        <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                                    </div>
+                                                </a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
                                 </div>
-                                <div class="preview-list">
-                                    <c:forEach items="${requestScope.preview.flashCards}" var="q">
-                                        <div class="preview-item">
-                                            <strong>${q.definition}</strong>
-                                            <p>${q.term}</p>
-                                        </div>
-                                    </c:forEach>
+                                <div class="number-page">
+                                    <button class="previous-btn">
+                                        <span class="material-symbols-rounded">chevron_left</span>
+                                        <span>Previous</span>
+                                    </button>
+                                    <span class="page-span">Page ? of ???</span>
+                                    <button class="next-btn">
+                                        <span>Next</span>
+                                        <span class="material-symbols-rounded">chevron_right</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="preview-container">
+                                <h2>Preview</h2>
+                                <div class="preview-text">
+                                    <div class="preview-header">
+                                        <h3>Title</h3>
+                                        <button><a href="">Study</a></button>
+                                    </div>
+                                    <div class="preview-list">
+                                        <c:forEach items="${requestScope.preview.flashCards}" var="q">
+                                            <div class="preview-item">
+                                                <strong>${q.definition}</strong>
+                                                <p>${q.term}</p>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </c:if>
                 </div>
             </div>
         </div>

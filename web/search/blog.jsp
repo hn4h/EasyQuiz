@@ -141,42 +141,44 @@
                         <a href="searchuser?input=${input}" class="search-item">Users</a>
                         <a href="searchBlog?input=${input}" class="search-item-actived">Blogs</a>
                     </div>
-                    <div class="user-container">
-                        <ul class="card-list">
-                            <c:forEach items="${requestScope.blogs}" var="blog">
-                                <li class="card-item">
-                                    <a href="blogdetail?blogId=${blog.blogId}" class="card-link">
-                                        <div class="card-avt">
-                                            <p class="card-title">${blog.blogTitle}</p>
-                                        </div>
-                                        <div class="card-username">
-                                            <p class="badge2"><i class="fa-solid fa-user"></i> ${blog.author.userName} | ${blog.createdDate}</p>
-                                            <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                        </div>
-                                        <div class="preview-content">
-                                            ${fn:substring(blog.blogContent, 0, 100)}...
-                                        </div>
-                                    </a>
-                                </li>
-                            </c:forEach>
-                            <c:if test="${empty requestScope.blogs}">
-                                <li class="card-item">
-                                    <p>No blogs found matching "${requestScope.input}".</p>
-                                </li>
-                            </c:if>
-                        </ul>
-                        <div class="number-page">
-                            <button class="previous-btn">
-                                <span class="material-symbols-rounded">chevron_left</span>
-                                <span>Previous</span>
-                            </button>
-                            <span class="page-span">Page ? of ???</span>
-                            <button class="next-btn">
-                                <span>Next</span>
-                                <span class="material-symbols-rounded">chevron_right</span>
-                            </button>
+                    <c:if test="${not empty blogs}">
+                        <div class="user-container">
+                            <ul class="card-list">
+                                <c:forEach items="${requestScope.blogs}" var="blog">
+                                    <li class="card-item">
+                                        <a href="blogdetail?blogId=${blog.blogId}" class="card-link">
+                                            <div class="card-avt">
+                                                <p class="card-title">${blog.blogTitle}</p>
+                                            </div>
+                                            <div class="card-username">
+                                                <p class="badge2"><i class="fa-solid fa-user"></i> ${blog.author.userName} | ${blog.createdDate}</p>
+                                                <button class="card-button material-symbols-rounded">arrow_forward</button>
+                                            </div>
+                                            <div class="preview-content">
+                                                ${fn:substring(blog.blogContent, 0, 100)}...
+                                            </div>
+                                        </a>
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                            <div class="number-page">
+                                <button class="previous-btn">
+                                    <span class="material-symbols-rounded">chevron_left</span>
+                                    <span>Previous</span>
+                                </button>
+                                <span class="page-span">Page ? of ???</span>
+                                <button class="next-btn">
+                                    <span>Next</span>
+                                    <span class="material-symbols-rounded">chevron_right</span>
+                                </button>
+                            </div>
                         </div>
-                    </div>
+                    </c:if>
+                    <c:if test="${empty blogs}">
+                        <div class="empty-result">
+                            <p>No result founded</p>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>

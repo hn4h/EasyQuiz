@@ -160,7 +160,7 @@
                             <img src="./images/icon/learn_icon.png" alt="">
                             <a href="">Learn</a>
                         </button>
-                        <button class="btn">
+                        <button class="btn"  onclick="window.location.href = 'testquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/test_icon.png" alt="">
                             <a href="">Test</a>
                         </button>
@@ -257,6 +257,7 @@
                             <option value="alphabetical">Alphabetical</option>
                         </select>
                     </div>
+                    <input type="hidden" id="account-check" value="${sessionScope.account.userName}">
                     <div class="term-content">
                         <c:forEach items="${requestScope.quizDetail.flashCards}" var="q">
                             <div class="term-card">
