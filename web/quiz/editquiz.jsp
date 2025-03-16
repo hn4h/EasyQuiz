@@ -120,7 +120,7 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <form action="addquiz" method="post" id="quizForm">
+                <form action="editquiz" method="post" id="quizForm">
                     <div class="quiz-header">
                         <h1 class="form-title">Edit quiz</h1>
                         <button type="submit" class="create-btn">Save changes</button>

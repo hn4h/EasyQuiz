@@ -101,6 +101,7 @@ public class EditQuizServlet extends HttpServlet {
                 String quizContent = request.getParameter("question" + quizIndex);
 
                 if ("new".equals(quizIdStr)) {
+                    System.out.println(quizContent);
                     String question = request.getParameter("question" + quizIndex);
                     int quizId = qDao.addQuiz(quizSetId, question);
                     String correctAnswer = request.getParameter("correct" + quizIndex);
@@ -115,12 +116,12 @@ public class EditQuizServlet extends HttpServlet {
                 } else {
                     // Cập nhật Quiz hiện có
                     int quizId = Integer.parseInt(quizIdStr);
+                    System.out.println(quizId);
                     submittedQuizIds.add(quizId);
                     String question = request.getParameter("question" + quizIndex);
                     quizId = qDao.addQuiz(quizSetId, question);
-                    System.out.println(question);
+//                    qDao.updateQuiz(quizId, question);
                     String correctAnswer = request.getParameter("correct" + quizIndex);
-                    System.out.println(correctAnswer);
                     for (int j = 1; j <= 4; j++) {
                         String answer = request.getParameter("answer" + quizIndex + "." + j);
                         boolean isCorrect = false;
@@ -156,13 +157,14 @@ public class EditQuizServlet extends HttpServlet {
                 }
                 quizIndex++;
             }
+                System.out.println("-----------");
 
             // 4. Xóa các Quiz không còn trong form
             for (int existingQuizId : existingQuizIds) {
-                if (!submittedQuizIds.contains(existingQuizId)) {
+//                if (!submittedQuizIds.contains(existingQuizId)) {
                     aDao.deleteAnswersByQuizId(existingQuizId); // Xóa Answers trước
                     qDao.deleteQuiz(existingQuizId); // Xóa Quiz
-                }
+                
             }
 
             // 5. Cập nhật Number_Of_Quiz trong Quiz_Set
