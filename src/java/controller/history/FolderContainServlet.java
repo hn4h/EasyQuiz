@@ -74,7 +74,7 @@ public class FolderContainServlet extends HttpServlet {
         try{
             folderId = Integer.parseInt(folderIdRaw);
         }catch(NumberFormatException e){
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             System.out.println(e);
         }
         Folder f = dao.getFolderByFolderId(folderId);

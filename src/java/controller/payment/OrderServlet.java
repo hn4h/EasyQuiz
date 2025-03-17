@@ -256,7 +256,7 @@ public class OrderServlet extends HttpServlet {
     }
 
     private void sendError(HttpServletResponse response, int status, String message) throws IOException {
-        response.sendError(status, message);
+        response.sendRedirect("error");
     }
 
 }

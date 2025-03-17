@@ -376,7 +376,7 @@ public class AccountDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
-        System.out.println(d.searchAllCreator("e").size());
+        System.out.println(d.checkEmail("hanh113004@gmail.com").getUserName());
     }
 
 }

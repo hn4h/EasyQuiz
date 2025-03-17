@@ -40,17 +40,17 @@ public class EditQuizServlet extends HttpServlet {
             int id = Integer.parseInt(idStr);
             QuizSetDAO qsDao = new QuizSetDAO();
             if (qsDao.getQuizSetById(id) == null) {
-                response.sendRedirect("home");
+                response.sendRedirect("error");
                 return;
             }
             quizset = qsDao.getQuizSetById(id);
             Account a = (Account) request.getSession().getAttribute("account");
             if (a == null) {
-                response.sendRedirect("home");
+                response.sendRedirect("login");
                 return;
             }
             if (quizset.getAuthor().getUserName().equals(a.getUserName()) == false) {
-                response.sendRedirect("home");
+                response.sendRedirect("error");
                 return;
             }
             request.setAttribute("quizset", quizset);
@@ -59,7 +59,7 @@ public class EditQuizServlet extends HttpServlet {
             request.setAttribute("quizzes", quizzes);
             request.getRequestDispatcher("quiz/editquiz.jsp").forward(request, response);
         } catch (NumberFormatException e) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
         }
     }
 

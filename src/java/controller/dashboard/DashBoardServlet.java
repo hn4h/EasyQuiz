@@ -59,6 +59,7 @@ public class DashBoardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String chartOption = request.getParameter("chartOption");
         StatisDAO db = new StatisDAO();
         request.setAttribute("numOfQuizSet", db.getNumberOfQuiz());

@@ -48,9 +48,10 @@ public class SuccessServlet extends HttpServlet {
             } else {
                 System.out.println("No payment found with transactionId: " + id);
             }
+            request.getRequestDispatcher("upgrade/cancel.jsp").forward(request, response);
+        } else {
+            response.sendRedirect("error");
         }
-        
-        request.getRequestDispatcher("upgrade/success.jsp").forward(request, response);
 
     }
 }
