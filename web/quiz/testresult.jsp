@@ -25,16 +25,16 @@
                 </button>
                 <div class="test-menu">
                     <ul class="test-menu-nav">
-                        <li class="nav-item" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item remove-session" onclick="window.location.href = 'quizz?id=${testSession.quizSetID}'">
                             <img src="./images/icon/flashcard_icon.png" alt="">
-                            <a href="" class="nav-link">Flashcards</a>
+                            <a class="nav-link">Flashcards</a>
                         </li>
-                        <li class="nav-item"  onclick="window.location.href = 'test?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item remove-session" onclick="window.location.href = 'learnquiz?quizSetID=${testSession.quizSetID}'">
                             <img src="./images/icon/test_icon.png" alt="">
                             <a href="" class="nav-link">Learn</a>
                         </li>
                         <hr>
-                        <li class="nav-item">
+                        <li class="nav-item remove-session">
                             <a href="home" class="nav-link">Home</a>
                         </li>
                     </ul>
@@ -46,9 +46,32 @@
                         </div>-->
             <div class="close">
                 <!--                <button class="printBtn"><span>Print test</span></button>-->
-                <button id="remove-session" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
+                <button class="remove-session" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
             </div>
         </div>
+        <form action="testquiz">
+            <div class="optionPopup-container">
+                <div id="optionPopup" class="option-popup">
+                    <div class="option-popup-content">
+                        <input name="quizSetID" type="hidden" value="${sessionScope.testSession.quizSetID}">
+                        <span class="closetest-btn material-symbols-rounded">close</span>
+                        <h2>Options</h2>
+                        <div class="option-list">
+                            <div class="option-item">
+                                <span class="option-name">Questions (max 10)</span>
+                                <input name="numberQuiz" min="5" max="10" type="number" value="${quizSetId.size()}"/>
+                                <span class="option-name">Time (minutes)</span>
+                                <input name="timeLimit" min="5" max="20" type="number" value="${quizSetId.size() + 10}"/>
+                            </div>
+                        </div>
+                        <div class="option-btn">
+                            <button type="button" class="cancel-btn"><span>Cancel</span></button>
+                            <button type="submit" class="create-btn"><span>Create new test</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> 
         <div class="body">
             <div class="question-list">
                 <span id="menuButton" class="menu-btn material-symbols-rounded">menu</span>
@@ -59,9 +82,43 @@
                     </div>
                     <div class="question-number">
                         <h4>Multiple choice</h4>
-                        <c:forEach begin="1" end="${testSession.totalQuestions}" var="i">
-                            <p class="answered answered-question" onclick="scrollToQuestion(${i})">${i}</p>
+                        <c:set var="totalQuiz" value="${sessionScope.testSession.questions.size()}" />
+
+                        <c:forEach var="question" items="${sessionScope.testSession.questions}" varStatus="quizLoop">
+                            <c:set var="userSelectedAnswerID" value="-1" />
+
+                            <!-- Lấy câu trả lời người dùng chọn -->
+                            <c:forEach var="userAnswer" items="${sessionScope.testSession.userAnswers}">
+                                <c:if test="${userAnswer.quizID eq question.quizID}">
+                                    <c:set var="userSelectedAnswerID" value="${userAnswer.selectedAnswerID}" />
+                                </c:if>
+                            </c:forEach>
+
+                            <!-- Kiểm tra câu trả lời có đúng không -->
+                            <c:set var="isCorrect" value="false" />
+                            <c:forEach var="answer" items="${question.answers}">
+                                <c:if test="${answer.correct and answer.answerID eq userSelectedAnswerID}">
+                                    <c:set var="isCorrect" value="true" />
+                                </c:if>
+                            </c:forEach>
+
+                            <!-- Hiển thị số thứ tự câu hỏi -->
+                            <p class="answered answered-question" onclick="scrollToQuestion(${quizLoop.index + 1})">
+                                ${quizLoop.index + 1}
+                                <c:choose>
+                                    <c:when test="${userSelectedAnswerID eq -1}">
+                                        <span class="incorrect-icon material-symbols-rounded">close</span> 
+                                    </c:when>
+                                    <c:when test="${isCorrect}">
+                                        <span class="correct-icon material-symbols-rounded">check</span>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <span class="incorrect-icon material-symbols-rounded">close</span>
+                                    </c:otherwise>
+                                </c:choose>
+                            </p>
                         </c:forEach>
+
                     </div>
                 </div>
             </div>
@@ -102,7 +159,7 @@
                     <div class="next-step">
                         <h3>Next steps</h3>
                         <div class="next-step-btn">
-                            <div class="next-step-learn">
+                            <div class="next-step-learn" onclick="window.location.href = 'learnquiz?quizSetID=${testSession.quizSetID}'">
                                 <div class="next-step-img">
                                     <img src="./images/icon/learn_icon.png" alt="alt"/>
                                 </div>
@@ -116,7 +173,7 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="next-step-test">
+                            <div class="next-step-test test-btn">
                                 <div class="next-step-img">
                                     <img src="./images/icon/test_icon.png" alt="alt"/>
                                 </div>
@@ -158,17 +215,47 @@
                                 </c:forEach>
 
                                 <c:forEach var="answer" items="${quiz.answers}">
-                                    <c:set var="answerClass" value="" />
-                                    <c:if test="${answer.correct}">
-                                        <c:set var="answerClass" value="correct-answer" />
-                                    </c:if>
-                                    <c:if test="${userSelectedAnswerID eq answer.answerID and not answer.correct}">
-                                        <c:set var="answerClass" value="wrong-answer" />
-                                    </c:if>
+                                    <c:choose>
+                                        <c:when test="${userSelectedAnswerID == -1}">
+                                            <c:if test="${answer.correct}">
+                                                <c:set var="answerClass" value="no-answer" />
+                                                <div class="answer ${answerClass}">
+                                                    <span class="check-icon material-symbols-rounded">check</span>
+                                                    <p class="answer-content">${answer.content}</p>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not answer.correct}">
+                                                <div class="answer">
+                                                    <p class="answer-content">${answer.content}</p>
+                                                </div>
+                                            </c:if>
+                                        </c:when>
 
-                                    <div class="answer ${answerClass}">
-                                        <p class="answer-content">${answer.content}</p>
-                                    </div>
+
+                                        <c:otherwise>
+                                            <c:if test="${answer.correct}">
+                                                <c:set var="answerClass" value="correct-answer" />
+                                                <div class="answer ${answerClass}">
+                                                    <span class="check-icon material-symbols-rounded">check</span>
+                                                    <p class="answer-content">${answer.content}</p>
+                                                </div>
+                                            </c:if>
+
+                                            <c:if test="${userSelectedAnswerID eq answer.answerID and not answer.correct}">
+                                                <c:set var="answerClass" value="wrong-answer" />
+                                                <div class="answer ${answerClass}">
+                                                    <span class="check-icon material-symbols-rounded">close</span>
+                                                    <p class="answer-content">${answer.content}</p>
+                                                </div>
+                                            </c:if>
+
+                                            <c:if test="${not answer.correct and userSelectedAnswerID ne answer.answerID}">
+                                                <div class="answer">
+                                                    <p class="answer-content">${answer.content}</p>
+                                                </div>
+                                            </c:if>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:forEach>
                             </div>
                         </div>

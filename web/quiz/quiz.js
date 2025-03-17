@@ -548,6 +548,14 @@ closeBtn.addEventListener('click', () => {
     }, 200); // Thời gian khớp với animation fadeOut
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Khi mở popup, đặt giá trị mặc định cho input
+    document.querySelector(".optionBtn").addEventListener("click", function () {
+        document.querySelector("input[name='numberQuiz']").value = 5;
+        document.querySelector("input[name='timeLimit']").value = 5;
+    });
+});
+
 
 
 

@@ -76,9 +76,9 @@
                         <div class="option-list">
                             <div class="option-item">
                                 <span class="option-name">Questions (max 10)</span>
-                                <input name="numberQuiz" min="5" max="10" type="number"/>
-                                <span class="option-name">Time (max ${requestScope.quizDetail.qs.numberOfQuiz + 20})</span>
-                                <input name="timeLimit" min="5" max="20" type="number"/>
+                                <input name="numberQuiz" min="5" max="10" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz}"/>
+                                <span class="option-name">Time (minutes)</span>
+                                <input name="timeLimit" min="5" max="20" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz + 10}"/>
                             </div>
                         </div>
                         <div class="option-btn">
@@ -136,7 +136,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="setting" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>
@@ -181,11 +181,11 @@
                         </button>
                         <button class="btn" onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/learn_icon.png" alt="">
-                            <a href="">Learn</a>
+                            <a>Learn</a>
                         </button>
                         <button class="btn test-btn">
                             <img src="./images/icon/test_icon.png" alt="">
-                            <a href="">Test</a>
+                            <a>Test</a>
                         </button>
                     </div>
                     <div class="flashcard-content">

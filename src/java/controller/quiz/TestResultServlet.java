@@ -93,6 +93,7 @@ public class TestResultServlet extends HttpServlet {
             response.sendRedirect("home");
             return;
         }
+        QuizDAO qd = new QuizDAO();
         int correctCount = 0;
         List<UserAnswer> userAnswers = new ArrayList<>();
 
@@ -113,6 +114,7 @@ public class TestResultServlet extends HttpServlet {
         int incorrectCount = test.getTotalQuestions() - correctCount;
         int percentage = (int) ((correctCount * 100.0) / test.getTotalQuestions());
         test.setUserAnswers(userAnswers);
+        request.setAttribute("quizSetId", qd.getQuizzesByQuizSetID(test.getQuizSetID()));
         request.setAttribute("percentage", percentage);
         request.setAttribute("incorrectCount", incorrectCount);
         request.setAttribute("correctCount", correctCount);

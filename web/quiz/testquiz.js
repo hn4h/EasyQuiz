@@ -89,6 +89,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const questionNumbers = document.querySelectorAll(".answered");
     const quizForm = document.getElementById("quizForm");
     const submitButton = document.getElementById("submitQuiz");
+    const numCompleted = document.getElementById("completed-num");
+    const numInCompleted = document.getElementById("incompleted-num");
     let answeredCount = 0;
     let totalQuestions = document.querySelectorAll(".quiz").length;
     let timeLeft = sessionStorage.getItem("quizTimeLeft");
@@ -111,8 +113,15 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!parentQuestion.classList.contains("answered")) {
                 answeredCount++;
                 pageIndicator.innerText = `${answeredCount} / ${totalQuestions}`;
+                numCompleted.innerText = `${answeredCount}`;
+                numInCompleted.innerText = `${totalQuestions - answeredCount}`;
                 parentQuestion.classList.add("answered");
                 questionNumbers[questionIndex].classList.add("answered-question");
+            }
+            if (totalQuestions - answeredCount > 0) {
+                numInCompleted.style.color = "red";  // Chưa hoàn thành -> màu đỏ
+            } else {
+                numInCompleted.style.color = "black"; // Hoàn thành hết -> màu đen
             }
         });
     });
@@ -153,29 +162,21 @@ document.addEventListener("DOMContentLoaded", function () {
     submitButton.addEventListener("click", function (event) {
         event.preventDefault(); // Ngăn form submit ngay lập tức
 
-        sessionStorage.removeItem("quizTimeLeft"); // Xóa sessionStorage
+        //ssessionStorage.removeItem("quizTimeLeft"); // Xóa sessionStorage
 
         setTimeout(() => {
             quizForm.submit(); // Chờ 100ms trước khi submit
-        }, 1000);
-    });
-
-    // Khi ấn "Nộp bài"
-    submitButton.addEventListener("click", function (event) {
-        if (answeredCount < totalQuestions) {
-            event.preventDefault(); // Ngăn form gửi ngay
-            // Hiển thị hộp thoại xác nhận
-            if (confirm("Bạn chưa trả lời hết tất cả các câu hỏi. Bạn có chắc chắn muốn nộp bài không?")) {
-                sessionStorage.removeItem("quizTimeLeft");
-                quizForm.submit();
-            }
-        } else {
-            sessionStorage.removeItem("quizTimeLeft");
-            quizForm.submit();
-        }
+        }, 0);
     });
 
 });
+
+document.querySelectorAll(".remove-session").forEach(element => {
+    element.addEventListener("click", function () {
+        sessionStorage.removeItem("quizTimeLeft");
+    });
+});
+
 
 
 

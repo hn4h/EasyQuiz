@@ -587,6 +587,8 @@ body {
 }
 
 .confirmSubmit-popup-content p {
+    display: flex;
+    justify-content: space-between;
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 15px;
@@ -626,3 +628,9 @@ body {
 .confirmSubmit-btn .submitTest-btn:hover {
     background: #2A004E;
 }
+
+.confirmSubmit-popup-content .number-quiz-complete {
+    max-width: 250px;
+    width: 100%;
+}
+

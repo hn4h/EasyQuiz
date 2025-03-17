@@ -22,16 +22,16 @@
                 </button>
                 <div class="test-menu">
                     <ul class="test-menu-nav">
-                        <li class="nav-item" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item remove-session" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/flashcard_icon.png" alt="">
-                            <a href="" class="nav-link">Flashcards</a>
+                            <a class="nav-link">Flashcards</a>
                         </li>
-                        <li class="nav-item"  onclick="window.location.href = 'test?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item remove-session"  onclick="window.location.href = 'test?id=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/test_icon.png" alt="">
-                            <a href="" class="nav-link">Learn</a>
+                            <a class="nav-link">Learn</a>
                         </li>
                         <hr>
-                        <li class="nav-item">
+                        <li class="nav-item remove-session">
                             <a href="home" class="nav-link">Home</a>
                         </li>
                     </ul>
@@ -118,8 +118,10 @@
                         <div id="confirmSubmitPopup" class="confirmSubmit-popup">
                             <div class="confirmSubmit-popup-content">
                                 <h2>Are you sure to submit your test?</h2>
-                                <p>Number of questions you completed: ?</p>
-                                <p>Number of questions you have not completed: ?</p>
+                                <div class="number-quiz-complete">
+                                    <p><span>Completed: </span><span id="completed-num" style="color:#000;">0</span></p>
+                                    <p><span>Not completed: </span><span id="incompleted-num" style="color:#000;">${testSession.totalQuestions}</span></p>
+                                </div>
                                 <div class="confirmSubmit-btn">
                                     <button type="button" class="cancelSubmit-btn"><span>Cancel</span></button>
                                     <button type="submit" class="submitTest-btn" id="submitQuiz"><span>Submit test</span></button>

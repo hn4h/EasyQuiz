@@ -23,12 +23,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const questionList = document.getElementById("questionList");
 
     menuButton.addEventListener("click", function () {
-        menuButton.style.display = "none"; 
+        menuButton.style.display = "none";
         questionList.classList.add("show");
     });
 
     hideButton.addEventListener("click", function () {
-        menuButton.style.display = "inline-block"; 
+        menuButton.style.display = "inline-block";
         questionList.classList.remove("show");
     });
 });
@@ -58,18 +58,48 @@ let duration = document.querySelector(".duration").value * 60;
 let timeLeft = sessionStorage.getItem("quizTimeLeft");
 const timerDisplay = document.getElementById("timer");
 const timeRemain = document.getElementById("time-remain");
-    function updateTimerDisplay() {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        let minute = Math.floor(duration / 60);
-        let second = duration % 60;
-        timerDisplay.textContent = `Your time: ${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
-        timeRemain.textContent = `Time remaining: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
+function updateTimerDisplay() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    let minute = Math.floor(duration / 60);
+    let second = duration % 60;
+    timerDisplay.textContent = `Your time: ${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
+    timeRemain.textContent = `Time remaining: ${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
 
 updateTimerDisplay();
 
-document.getElementById("remove-session").addEventListener("click", function () {
+document.querySelectorAll(".remove-session").forEach(element => {
+    element.addEventListener("click", function () {
         sessionStorage.removeItem("quizTimeLeft");
     });
+});
 
+//------------------------Pop up option
+const optionItem = document.querySelector('.test-btn');
+const optionPopup = document.getElementById('optionPopup');
+const closeTestBtn = document.querySelector('.closetest-btn');
+const cancelBtn = document.querySelector('.cancel-btn');
+
+// Hiển thị popup
+optionItem.addEventListener('click', (e) => {
+    optionPopup.style.display = "block";
+    optionPopup.classList.remove("hide");
+    e.stopPropagation();
+});
+
+// Ẩn popup với animation fadeOut
+closeTestBtn.addEventListener('click', () => {
+    optionPopup.classList.add("hide");
+    setTimeout(() => {
+        optionPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
+});
+
+// Ẩn popup với animation fadeOut
+cancelBtn.addEventListener('click', () => {
+    optionPopup.classList.add("hide");
+    setTimeout(() => {
+        optionPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
+});
