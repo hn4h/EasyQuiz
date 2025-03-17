@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
 
-    <body>
+    <body data-logged-in="${not empty sessionScope.account}">
         <div class="header">
             <div class="logo">
                 <div class="menu-btn">
@@ -22,7 +22,7 @@
                 </div>
                 <a href="home"><span>EasyQuiz</span></a>
             </div>
-            <form action="searchall">
+            <form action="searchall" style="width: 100%; max-width: 450px;">
                 <div class="search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" placeholder="Search for study" name="input">
@@ -130,12 +130,6 @@
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <span class="material-symbols-rounded">person</span>
-                                <span class="nav-label">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a href="setting" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
@@ -210,27 +204,37 @@
                                 <span class="material-symbols-rounded">arrow_back</span>
 
                             </button>
-                            <span class="page-number" id="pageIndicator">1 / 5</span>
+                            <span class="page-number" id="pageIndicator">? / ?</span>
                             <button class="btn" id="nextBtn">
                                 <span class="material-symbols-rounded">arrow_forward</span>
                             </button>
                         </div>
                         <div class="extra-controls">
-                            <button class="extra-btn" id="swapFaceBtn">
-                                <span class="material-symbols-rounded">swap_horiz</span>
-                                <span class="tooltip">Swap face</span>
-                            </button>
                             <button class="extra-btn" id="shuffleBtn">
                                 <span class="material-symbols-rounded">shuffle</span>
                                 <span class="tooltip">Shuffle</span>
                             </button>
-                            <button class="extra-btn" id="fullscreenBtn">
+                            <button class="extra-btn" id="fullscreenBtn" onclick="window.location.href = 'flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">
                                 <span class="material-symbols-rounded">fullscreen</span>
                                 <span class="tooltip">Fullscreen</span>
                             </button>
                         </div>
                     </div>
-                    <!-- Màn hình hoàn thành -->
+                    <c:if test="${empty sessionScope.account.userName}">
+                        <div class="login-required-container" id="loginRequired" style="display: none;">
+                            <h2>Log in or Sign up to see this flashcards. It's free!</h2>
+                            <div class="login-required">
+                                <a href="login">
+                                    <button>Log in</button>
+                                </a>
+                                <a href="signup">
+                                    <button>Sign up</button>
+                                </a>
+                            </div>
+                        </div>
+                    </c:if>
+
+                    <!-- Man hinh hoan thanh -->
                     <div class="flashcard-complete" id="flashcardComplete" style="display: none">
                         <div class="flashcard-complete-header">
                             <h2>Congratulations! You've reviewed all the cards.</h2>
@@ -312,13 +316,17 @@
                             <div class="arrowBtn"><span class="material-symbols-rounded">keyboard_arrow_down</span></div>
                             <div class="more-mode">
                                 <ul class="study-mode-nav">
-                                    <li class="nav-item">
+                                    <li class="nav-item" onclick="window.location.href = 'flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">
                                         <img src="./images/icon/flashcard_icon.png" alt="">
-                                        <a href="" class="nav-link">Flashcards</a>
+                                        <a class="nav-link">Flashcards</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <img srcF="./images/icon/test_icon.png" alt="">
-                                        <a href="" class="nav-link">Test</a>
+                                    <li class="nav-item" onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
+                                        <img src="./images/icon/learn_icon.png" alt="">
+                                        <a class="nav-link">Learn</a>
+                                    </li>
+                                    <li class="nav-item test-btn">
+                                        <img src="./images/icon/test_icon.png" alt="">
+                                        <a class="nav-link">Test</a>
                                     </li>
                                 </ul>
                             </div>

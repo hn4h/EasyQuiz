@@ -186,79 +186,57 @@ document.addEventListener("DOMContentLoaded", function () {
     shuffleBtn.addEventListener("click", shuffleFlashcards);
 });
 
- //---------------Swap face card 
-    document.addEventListener("DOMContentLoaded", function () {
-        const swapFaceBtn = document.getElementById("swapFaceBtn");
-        let isSwapped = false; // Trạng thái của nút
-
-        swapFaceBtn.addEventListener("click", function () {
-            isSwapped = !isSwapped; // Đảo trạng thái
-
-            // Lấy tất cả flashcard và thêm/xóa class 'flip'
-            document.querySelectorAll(".flashcard").forEach(card => {
-                if (isSwapped) {
-                    card.classList.add("flip");
-                } else {
-                    card.classList.remove("flip");
-                }
-            });
-
-            // Toggle trạng thái active
-            swapFaceBtn.classList.toggle("active", !isSwapped);
-        });
-    });
+//---------------Swap face card 
 
 //----------------------------------Complete flash card
 document.addEventListener("DOMContentLoaded", function () {
-    const swapFaceBtn = document.getElementById("swapFaceBtn");
     const flashcards = document.querySelectorAll(".flashcard");
     const flashcardSlide = document.getElementById("flashcardSlide");
     const flashcardComplete = document.getElementById("flashcardComplete");
     const nextButton = document.getElementById("nextBtn");
     const prevButton = document.getElementById("prevBtn");
     const pageIndicator = document.getElementById("pageIndicator");
-    const extraControls = document.querySelector(".extra-controls"); // Nhóm nút chức năng
-    const navControls = document.querySelector(".nav-controls"); // Nhóm nút điều hướng
+    const extraControls = document.querySelector(".extra-controls");
+    const navControls = document.querySelector(".nav-controls");
     const backToLastBtn = document.getElementById("backToLast");
+    const loginRequired = document.getElementById("loginRequired");
 
     let currentCard = 0;
     let totalCards = flashcards.length;
     let isAnimating = false;
-    let isSwapped = false;
+    let isSwapped = false; // Trạng thái swap toàn cục
+    const isLoggedIn = document.body.getAttribute("data-logged-in") === "true";
+    let flipStates = new Array(totalCards).fill(false); // Trạng thái flip riêng lẻ
 
     function showCard(index) {
-        if (isAnimating)
-            return; // Ngăn chặn nếu đang trong quá trình chuyển đổi
-        isAnimating = true; // Đánh dấu bắt đầu animation
+        if (isAnimating || index < 0)
+            return;
+        isAnimating = true;
+
+        if (!isLoggedIn && index >= 5) {
+            loginRequired.style.display = "flex";
+            flashcardSlide.style.display = "none";
+            navControls.style.display = "none";
+            extraControls.style.display = "none";
+            pageIndicator.style.display = "none";
+            isAnimating = false;
+            return;
+        }
 
         if (index < totalCards) {
-            flashcards.forEach((card, i) => {
-                card.style.display = i === index ? "block" : "none";
 
-                // Giữ nguyên trạng thái 'flip' khi chuyển đổi giữa các thẻ
-                if (isSwapped) {
-                    card.classList.add("flip");
-                } else {
-                    card.classList.remove("flip");
-                }
-            });
             pageIndicator.textContent = `${index + 1} / ${totalCards}`;
-
-            // Hiển thị giao diện flashcard
             flashcardSlide.style.display = "block";
             navControls.style.display = "flex";
             extraControls.style.display = "flex";
             pageIndicator.style.display = "inline-block";
             flashcardComplete.style.display = "none";
 
-            // Cho phép click tiếp sau một khoảng thời gian ngắn (tránh spam click)
             setTimeout(() => {
                 isAnimating = false;
-            }, 1000); // Độ trễ 300ms giúp tránh spam click
-
+            }, 100);
         } else {
             flashcardSlide.classList.add("fade-out");
-
             setTimeout(() => {
                 flashcardSlide.style.display = "none";
                 navControls.style.display = "none";
@@ -270,14 +248,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 document.getElementById("completedCount").innerText = totalCards;
 
-                isAnimating = false; // Cho phép tương tác lại sau khi hoàn tất chuyển đổi
-            }, 1000); // Đợi hiệu ứng fade-out hoàn thành
+                isAnimating = false;
+            }, 100);
         }
     }
 
-// Cập nhật các sự kiện click với kiểm tra isAnimating
+    // Flip riêng lẻ khi nhấn vào thẻ
+    flashcards.forEach((card, index) => {
+        card.addEventListener("click", function () {
+            flipStates[index] = !flipStates[index];
+            showCard(currentCard); // Cập nhật thẻ hiện tại
+        });
+    });
+
     nextButton.addEventListener("click", function () {
-        if (!isAnimating) {
+        if (!isAnimating && currentCard < totalCards) {
             currentCard++;
             showCard(currentCard);
         }
@@ -309,15 +294,13 @@ document.addEventListener("DOMContentLoaded", function () {
             flashcardSlide.classList.remove("fade-out");
             flashcardSlide.classList.add("fade-in");
 
-            isAnimating = false; // Kết thúc animation, cho phép tương tác lại
-        }, 1000);
+            isAnimating = false;
+        }, 100);
     });
 
-    
     // Hiển thị thẻ đầu tiên khi tải trang
     showCard(currentCard);
 });
-
 //------------------------------Sort terms 
 document.addEventListener("DOMContentLoaded", function () {
     const selectSort = document.querySelector(".term-header select");

@@ -22,28 +22,28 @@
                 </button>
                 <div class="flashcard-menu">
                     <ul class="flashcard-menu-nav">
-                        <li class="nav-item">
+                        <li class="nav-item" onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/learn_icon.png" alt="">
                             <a href="" class="nav-link">Learn</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item test-btn">
                             <img src="./images/icon/test_icon.png" alt="">
-                            <a href="" class="nav-link">Test</a>
+                            <a class="nav-link">Test</a>
                         </li>
                         <hr>
                         <li class="nav-item">
-                            <a href="" class="nav-link">Home</a>
+                            <a href="home" class="nav-link">Home</a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="title">
-                <span class="page-number" id="pageIndicator">1 / 5</span>
+                <span class="page-number" id="pageIndicator">? / ?</span>
                 <span>${requestScope.quizDetail.qs.quizSetName}</span>
             </div>
             <div class="close">
                 <button class="optionBtn"><span class="material-symbols-rounded">settings</span></button>
-                <button onclick="window.location.href='quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
+                <button onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
             </div>
         </div>
         <div class="optionPopup-container" onclose="saveSettings()">
@@ -95,24 +95,42 @@
                                     <span class="material-symbols-rounded">keyboard_arrow_down</span>
                                 </div>
                                 <div class="column-item">
-                                    <span>Swap</span>
-                                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
-                                </div>
-                                <div class="column-item">
                                     <span>Edit</span>
                                     <span class="material-symbols-rounded">keyboard_arrow_down</span>
                                 </div>
                             </div>
                         </div>
                         <hr/>
-                        <div class="option-item" onclick="window.location.href='flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <div class="option-item" onclick="window.location.href = 'flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">
                             <span class="option-name restart">Restart Flashcards</span>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
+        <form action="testquiz">
+            <div class="testPopup-container">
+                <div id="testPopup" class="test-popup">
+                    <div class="test-popup-content">
+                        <input name="quizSetID" type="hidden" value="${requestScope.quizDetail.qs.quizSetId}">
+                        <span class="closetest-btn material-symbols-rounded">close</span>
+                        <h2>Options</h2>
+                        <div class="test-list">
+                            <div class="test-item">
+                                <span class="test-name">Questions (max 10)</span>
+                                <input name="numberQuiz" min="5" max="10" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz}"/>
+                                <span class="test-name">Time (minutes)</span>
+                                <input name="timeLimit" min="5" max="20" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz + 10}"/>
+                            </div>
+                        </div>
+                        <div class="test-submit-btn">
+                            <button type="button" class="cancel-btn"><span>Cancel</span></button>
+                            <button type="submit" class="create-btn"><span>Create new test</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form> 
         <div class="body">
             <!-- Màn hình hoàn thành -->
             <div class="flashcard-complete" id="flashcardComplete" style="display: none">
@@ -168,10 +186,6 @@
                         </button>
                     </div>
                     <div class="extra-controls">
-                        <button class="extra-btn" id="swapFaceBtn">
-                            <span class="material-symbols-rounded">swap_horiz</span>
-                            <span class="tooltip">Swap face</span>
-                        </button>
                         <button class="extra-btn" id="shuffleBtn">
                             <span class="material-symbols-rounded">shuffle</span>
                             <span class="tooltip">Shuffle</span>
