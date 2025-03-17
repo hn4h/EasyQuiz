@@ -58,15 +58,7 @@ public class DeleteAccountServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        if(request.getSession().getAttribute("account") == null){
-            response.sendRedirect("home");
-            return;
-        }
-        AccountDAO aDao = new AccountDAO();
-        Account account = (Account) request.getSession().getAttribute("account");
-        aDao.deleteAccount(account.getUserName());
-        request.getSession().removeAttribute("account");
-        response.sendRedirect("home");
+        response.sendRedirect("error");
     } 
 
     /** 
@@ -80,7 +72,7 @@ public class DeleteAccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         if(request.getSession().getAttribute("account") == null){
-            response.sendRedirect("home");
+            response.sendRedirect("login");
             return;
         }
         AccountDAO aDao = new AccountDAO();

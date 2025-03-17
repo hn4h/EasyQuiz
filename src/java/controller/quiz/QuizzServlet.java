@@ -64,19 +64,19 @@ public class QuizzServlet extends HttpServlet {
         QuizSetDAO qsd = new QuizSetDAO();
         Account acc = (Account) session.getAttribute("account");
         if (idRaw == null) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             return;
         }
         
         try {
             id = Integer.parseInt(idRaw);
         } catch (NumberFormatException e) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             return;
         }
 
         if (qsd.getQuizSetById(id) == null) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             return;
         }
         if(acc != null){

@@ -70,19 +70,19 @@ public class FlashcardServlet extends HttpServlet {
             return;
         } 
         if (idRaw == null) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             return;
         }
 
         try {
             id = Integer.parseInt(idRaw);
         } catch (NumberFormatException e) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             return;
         }
 
         if (qsd.getQuizSetById(id) == null) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             return;
         }
 
@@ -101,7 +101,7 @@ public class FlashcardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect("error");
     }
 
     /**
