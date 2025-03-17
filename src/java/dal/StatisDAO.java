@@ -5,9 +5,14 @@
 package dal;
 
 import java.sql.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import model.Account;
+import model.ChartColumn;
 import model.Payment;
 import model.UserStatis;
 
@@ -121,12 +126,12 @@ public class StatisDAO extends DBContext {
         }
         return list;
     }
+
     public List<Payment> getNewPayments() {
         List<Payment> payments = new ArrayList<>();
         String sql = "SELECT Top(6) * FROM Transaction_History where Status = 'PAID' ORDER BY Created_Date DESC";
         try (
-             PreparedStatement stmt = connection.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+                PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 payments.add(mapPayment(rs));
             }
@@ -137,6 +142,7 @@ public class StatisDAO extends DBContext {
         }
         return payments;
     }
+
     private Payment mapPayment(ResultSet rs) throws SQLException {
         Payment payment = new Payment();
         payment.setTransactionId(rs.getString("transaction_id"));
@@ -148,214 +154,235 @@ public class StatisDAO extends DBContext {
         payment.setCreatedDate(rs.getDate("Created_Date"));
         return payment;
     }
-    // public static void main(String[] args) {
-    // StatisDAO d = new StatisDAO();
-    // for (ChartColumn c : d.getRevenueLast7Days()) {
-    // System.out.println(c.getColumnName() + " " + c.getValue());
-    // }
-    // }
-    //
-    // public List<ChartColumn> getRevenueThisYear() {
-    // List<ChartColumn> list = new ArrayList<>();
-    // try {
-    // String sql = "select MONTH(o.OrderedDate) as Month, sum(c.quantity * i.price)
-    // as Revenue\n"
-    // + "from Orders o\n"
-    // + "join OrderItems i on o.OrderID = i.OrderID\n"
-    // + "join CartItems c on c.CartItemID = i.CartItemID \n"
-    // + "where YEAR (o.OrderedDate) = YEAR(GETDATE()) and o.status =
-    // 'Successful'\n"
-    // + "group by MONTH(o.OrderedDate)";
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // ResultSet rs = st.executeQuery();
-    // while (rs.next()) {
-    // ChartColumn c = new ChartColumn(String.valueOf(rs.getInt(1)), rs.getInt(2));
-    // list.add(c);
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    // for (int i = 1; i <= 12; i++) {
-    // boolean check = false;
-    // for (ChartColumn c : list) {
-    // if (Integer.parseInt(c.getColumnName()) == i) {
-    // check = true;
-    // break;
-    // }
-    // }
-    // if (!check) {
-    // ChartColumn c = new ChartColumn(String.valueOf(i), 0);
-    // list.add(c);
-    // }
-    // }
-    // list.sort((a, b) -> Integer.parseInt(a.getColumnName()) -
-    // Integer.parseInt(b.getColumnName()));
-    // return list;
-    // }
-    //
-    // public List<ChartColumn> getRevenueLast7Days() {
-    // List<ChartColumn> list = new ArrayList<>();
-    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    //
-    // try {
-    // String sql = "select DATEDIFF(DAY, o.OrderedDate, GETDATE()) as DaysAgo, "
-    // + "sum(c.quantity * i.price) as Revenue "
-    // + "from Orders o "
-    // + "join OrderItems i on o.OrderID = i.OrderID "
-    // + "join CartItems c on c.CartItemID = i.CartItemID "
-    // + "where DATEDIFF(DAY, o.OrderedDate, GETDATE()) <= 6 and o.status =
-    // 'Successful' "
-    // + "group by DATEDIFF(DAY, o.OrderedDate, GETDATE())";
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // ResultSet rs = st.executeQuery();
-    // while (rs.next()) {
-    // int daysAgo = rs.getInt("DaysAgo");
-    // String columnName = LocalDate.now().minusDays(daysAgo).format(formatter);
-    // ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
-    // list.add(c);
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    //
-    // // Fill in any missing days in the last 7 days
-    // for (int i = 0; i <= 6; i++) { // Representing 0 to 6 days ago
-    // String columnName = LocalDate.now().minusDays(i).format(formatter);
-    // boolean check = false;
-    // for (ChartColumn c : list) {
-    // if (c.getColumnName().equals(columnName)) {
-    // check = true;
-    // break;
-    // }
-    // }
-    // if (!check) {
-    // ChartColumn c = new ChartColumn(columnName, 0);
-    // list.add(c);
-    // }
-    // }
-    //
-    // // Sort the list by date in ascending order
-    // list.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
-    // .compareTo(LocalDate.parse(b.getColumnName(), formatter)));i
-    //
-    // return list;
-    // }
-    // public List<ChartColumn> getRevenueLast30Days() {
-    // List<ChartColumn> list = new ArrayList<>();
-    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    //
-    // try {
-    // String sql = "select DATEDIFF(DAY, o.OrderedDate, GETDATE()) as DaysAgo, "
-    // + "sum(c.quantity * i.price) as Revenue "
-    // + "from Orders o "
-    // + "join OrderItems i on o.OrderID = i.OrderID "
-    // + "join CartItems c on c.CartItemID = i.CartItemID "
-    // + "where DATEDIFF(DAY, o.OrderedDate, GETDATE()) <= 29 and o.status =
-    // 'Successful' "
-    // + "group by DATEDIFF(DAY, o.OrderedDate, GETDATE())";
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // ResultSet rs = st.executeQuery();
-    // while (rs.next()) {
-    // int daysAgo = rs.getInt("DaysAgo");
-    // String columnName = LocalDate.now().minusDays(daysAgo).format(formatter);
-    // ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
-    // list.add(c);
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    //
-    // // Fill in any missing days in the last 30 days
-    // for (int i = 0; i <= 29; i++) { // Representing 0 to 29 days ago
-    // String columnName = LocalDate.now().minusDays(i).format(formatter);
-    // boolean check = false;
-    // for (ChartColumn c : list) {
-    // if (c.getColumnName().equals(columnName)) {
-    // check = true;
-    // break;
-    // }
-    // }
-    // if (!check) {
-    // ChartColumn c = new ChartColumn(columnName, 0);
-    // list.add(c);
-    // }
-    // }
-    //
-    // // Sort the list by date in ascending order
-    // list.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
-    // .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
-    //
-    // return list;
-    // }
-    // public List<ChartColumn> getRevenueLast90Days() {
-    // List<ChartColumn> list = new ArrayList<>();
-    // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    //
-    // try {
-    // String sql = "select DATEDIFF(DAY, o.OrderedDate, GETDATE()) as DaysAgo, "
-    // + "sum(c.quantity * i.price) as Revenue "
-    // + "from Orders o "
-    // + "join OrderItems i on o.OrderID = i.OrderID "
-    // + "join CartItems c on c.CartItemID = i.CartItemID "
-    // + "where DATEDIFF(DAY, o.OrderedDate, GETDATE()) <= 89 and o.status =
-    // 'Successful' "
-    // + "group by DATEDIFF(DAY, o.OrderedDate, GETDATE())";
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // ResultSet rs = st.executeQuery();
-    // while (rs.next()) {
-    // int daysAgo = rs.getInt("DaysAgo");
-    // String columnName = LocalDate.now().minusDays(daysAgo).format(formatter);
-    // ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
-    // list.add(c);
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    //
-    // // Fill in any missing days in the last 90 days
-    // for (int i = 0; i <= 89; i++) { // Representing 0 to 89 days ago
-    // String columnName = LocalDate.now().minusDays(i).format(formatter);
-    // boolean check = false;
-    // for (ChartColumn c : list) {
-    // if (c.getColumnName().equals(columnName)) {
-    // check = true;
-    // break;
-    // }
-    // }
-    // if (!check) {
-    // ChartColumn c = new ChartColumn(columnName, 0);
-    // list.add(c);
-    // }
-    // }
-    //
-    // // Sort the list by date in ascending order
-    // list.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
-    // .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
-    //
-    // return list;
-    // }
-    // public List<Account> getPotentialCustomers() {
-    // List<Account> list = new ArrayList<>();
-    // try {
-    // String sql = "select top 3 sum(c.quantity * i.price) as Revenue, a.UserName ,
-    // a.FirstName, a.LastName, a.ProfileImage from Orders o join OrderItems i on
-    // o.OrderID = i.OrderID join CartItems c on c.CartItemID = i.CartItemID join
-    // Accounts a on a.AccountID = o.AccountID where o.status = 'Successful' group
-    // by a.UserName, a.FirstName, a.LastName, a.ProfileImage order by Revenue
-    // desc";
-    // PreparedStatement st = connection.prepareStatement(sql);
-    // ResultSet rs = st.executeQuery();
-    // while (rs.next()) {
-    // Account a = new Account();
-    // a.setUserName(rs.getString("Username"));
-    // a.setFirstName(rs.getString("FirstName"));
-    // a.setLastName(rs.getString("LastName"));
-    // a.setProfileImage(rs.getString("ProfileImage"));
-    // list.add(a);
-    // }
-    // } catch (SQLException e) {
-    // System.out.println(e);
-    // }
-    // return list;
-    // }
+
+    public static void main(String[] args) {
+        StatisDAO d = new StatisDAO();
+        for (ChartColumn c : d.getRevenueLast90Days()) {
+            System.out.println(c.getColumnName() + " " + c.getValue());
+        }
+    }
+
+    public List<ChartColumn> getRevenueThisYear() {
+        List<ChartColumn> list = new ArrayList<>();
+        try {
+            String sql = "select MONTH(Created_Date) as Month, sum(Amount)as Revenue\n"
+                    + "from Transaction_History\n"
+                    + "where YEAR (Created_Date) = YEAR(GETDATE()) and status = 'PAID'\n"
+                    + "group by MONTH(Created_Date)";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ChartColumn c = new ChartColumn(String.valueOf(rs.getInt(1)), rs.getInt(2));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        for (int i = 1; i <= 12; i++) {
+            boolean check = false;
+            for (ChartColumn c : list) {
+                if (Integer.parseInt(c.getColumnName()) == i) {
+                    check = true;
+                    break;
+                }
+            }
+            if (!check) {
+                ChartColumn c = new ChartColumn(String.valueOf(i), 0);
+                list.add(c);
+            }
+        }
+        list.sort((a, b) -> Integer.parseInt(a.getColumnName())
+                - Integer.parseInt(b.getColumnName()));
+        return list;
+    }
+
+    public List<ChartColumn> getRevenueLast7Days() {
+        List<ChartColumn> list = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try {
+            String sql = "select DATEDIFF(DAY, Created_Date, GETDATE()) as DaysAgo, \n"
+                    + "sum(Amount) as Revenue \n"
+                    + "from Transaction_History\n"
+                    + "where DATEDIFF(DAY, Created_Date, GETDATE()) <= 6 and status = 'PAID' \n"
+                    + "group by DATEDIFF(DAY, Created_Date, GETDATE())";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int daysAgo = rs.getInt("DaysAgo");
+                String columnName = LocalDate.now().minusDays(daysAgo).format(formatter);
+                ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        // Fill in any missing days in the last 7 days
+        for (int i = 0; i <= 6; i++) { // Representing 0 to 6 days ago
+            String columnName = LocalDate.now().minusDays(i).format(formatter);
+            boolean check = false;
+            for (ChartColumn c : list) {
+                if (c.getColumnName().equals(columnName)) {
+                    check = true;
+                    break;
+                }
+            }
+            if (!check) {
+                ChartColumn c = new ChartColumn(columnName, 0);
+                list.add(c);
+            }
+        }
+
+        // Sort the list by date in ascending order
+        list.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
+                .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
+        return list;
+    }
+
+    public List<ChartColumn> getRevenueLast30Days() {
+        List<ChartColumn> list = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        try {
+            String sql = "select DATEDIFF(DAY, Created_Date, GETDATE()) as DaysAgo, \n"
+                    + "                    sum(Amount) as Revenue \n"
+                    + "                    from Transaction_History\n"
+                    + "                    where DATEDIFF(DAY, Created_Date, GETDATE()) <= 29 and status = 'PAID' \n"
+                    + "                    group by DATEDIFF(DAY, Created_Date, GETDATE())";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                int daysAgo = rs.getInt("DaysAgo");
+                String columnName = LocalDate.now().minusDays(daysAgo).format(formatter);
+                ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        // Fill in any missing days in the last 30 days
+        for (int i = 0; i <= 29; i++) { // Representing 0 to 29 days ago
+            String columnName = LocalDate.now().minusDays(i).format(formatter);
+            boolean check = false;
+            for (ChartColumn c : list) {
+                if (c.getColumnName().equals(columnName)) {
+                    check = true;
+                    break;
+                }
+            }
+            if (!check) {
+                ChartColumn c = new ChartColumn(columnName, 0);
+                list.add(c);
+            }
+        }
+
+        // Sort the list by date in ascending order
+        list.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
+                .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
+
+        return list;
+    }
+
+//    public List<ChartColumn> getRevenueLast90Days() {
+//        List<ChartColumn> list = new ArrayList<>();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//
+//        try {
+//            String sql = "SELECT \n"
+//                    + "    FLOOR(DATEDIFF(DAY, Created_Date, GETDATE()) / 7) AS DaysAgo,\n"
+//                    + "    SUM(Amount) AS Revenue\n"
+//                    + "FROM Transaction_History\n"
+//                    + "WHERE DATEDIFF(DAY, Created_Date, GETDATE()) <= 89 AND status = 'PAID'\n"
+//                    + "GROUP BY FLOOR(DATEDIFF(DAY, Created_Date, GETDATE()) / 7)\n"
+//                    + "ORDER BY DaysAgo;";
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                int daysAgo = rs.getInt("DaysAgo");
+//                String columnName = LocalDate.now().minusDays(daysAgo).format(formatter);
+//                ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
+//                list.add(c);
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//
+//        // Fill in any missing days in the last 90 days
+//        for (int i = 0; i <= 89; i++) { // Representing 0 to 89 days ago
+//            String columnName = LocalDate.now().minusDays(i).format(formatter);
+//            boolean check = false;
+//            for (ChartColumn c : list) {
+//                if (c.getColumnName().equals(columnName)) {
+//                    check = true;
+//                    break;
+//                }
+//            }
+//            if (!check) {
+//                ChartColumn c = new ChartColumn(columnName, 0);
+//                list.add(c);
+//            }
+//        }
+//
+//        // Sort the list by date in ascending order
+//        list.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
+//                .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
+//
+//        return list;
+//    }
+    public List<ChartColumn> getRevenueLast90Days() {
+    List<ChartColumn> list = new ArrayList<>();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    try {
+        // SQL query để lấy ngày đầu tuần và tổng doanh thu
+        String sql = "SELECT \n"
+                + "    DATEADD(DAY, -DATEDIFF(DAY, '1970-01-05', Created_Date) % 7, Created_Date) AS WeekStart,\n"
+                + "    SUM(Amount) AS Revenue\n"
+                + "FROM Transaction_History\n"
+                + "WHERE DATEDIFF(DAY, Created_Date, GETDATE()) <= 89 AND Status = 'PAID'\n"
+                + "GROUP BY DATEADD(DAY, -DATEDIFF(DAY, '1970-01-05', Created_Date) % 7, Created_Date)\n"
+                + "ORDER BY WeekStart;";
+        PreparedStatement st = connection.prepareStatement(sql);
+        ResultSet rs = st.executeQuery();
+
+        // Thêm dữ liệu từ database vào danh sách
+        while (rs.next()) {
+            LocalDate weekStart = rs.getDate("WeekStart").toLocalDate();
+            String columnName = weekStart.format(formatter);
+            ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
+            list.add(c);
+        }
+    } catch (SQLException e) {
+        System.out.println(e);
+    }
+
+    // Tạo danh sách đầy đủ 12 tuần gần nhất và điền giá trị mặc định 0 nếu tuần không có dữ liệu
+    LocalDate today = LocalDate.now();
+    LocalDate startDate = today.minusDays(83); // 12 tuần = 84 ngày
+    LocalDate firstMonday = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+
+    List<ChartColumn> fullList = new ArrayList<>();
+    for (LocalDate date = firstMonday; date.isBefore(today.plusDays(1)); date = date.plusWeeks(1)) {
+        String columnName = date.format(formatter);
+        boolean found = false;
+        for (ChartColumn c : list) {
+            if (c.getColumnName().equals(columnName)) {
+                fullList.add(c);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            fullList.add(new ChartColumn(columnName, 0));
+        }
+    }
+
+    // Sắp xếp lại theo ngày tăng dần
+    fullList.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
+            .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
+
+    return fullList;
+}
 }
