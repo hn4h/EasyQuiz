@@ -88,12 +88,12 @@ public class ChangePasswordServlet extends HttpServlet {
         System.out.println(account.getUserName());
         System.out.println(oldPassword);
         if (dao.changePassword(account.getEmail(), oldPassword, newPassword)) {
-            request.setAttribute("message", "Change password successfully");
-            System.out.println("Successully");
-            request.getRequestDispatcher("setting/setting.jsp").forward(request, response);
+            //request.setAttribute("message", "Change password successfully");
+            //request.getRequestDispatcher("setting/setting.jsp").forward(request, response);
+            request.getSession().setAttribute("successMessage", "Change password successfully");
+            response.sendRedirect("setting?t=" + System.currentTimeMillis());
         } else {
             request.setAttribute("error", "Change password failed(Old password is incorrect)");
-            System.out.println("Change password failed(Old password is incorrect)");
             request.getRequestDispatcher("setting/setting.jsp").forward(request, response);
         }
     }

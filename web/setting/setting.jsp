@@ -51,12 +51,59 @@
                 </c:if>
             </div>
         </div>
+        <%
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) {
+        %>
+        <div id="toastMessage1">
+            <span class="material-symbols-rounded">check</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast1 = document.getElementById("toastMessage1");
+                toast1.style.opacity = "0";
+                setTimeout(() => {
+                    toast1.style.display = "none";
+                }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("successMessage"); // Xóa sau khi hiển thị
+            }
+        %>
+
+
+        <%
+    String errorMessage = (String) request.getAttribute("error");
+    if (errorMessage == null) {
+        errorMessage = (String) session.getAttribute("error");
+    }
+    if (errorMessage != null) {
+        %>
+        <div id="toastMessage2">
+            <span class="material-symbols-rounded">close</span>
+            <span><%= errorMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast2 = document.getElementById("toastMessage2");
+                toast2.style.opacity = "0";
+                setTimeout(() => {
+                    toast2.style.display = "none";
+                }, 500);
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("error");
+            }
+        %>
         <div class="body">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
                     <ul class="nav-list primary-nav">
                         <li class="nav-item">
-                            <a href="home" class="nav-link-actived">
+                            <a href="home" class="nav-link">
                                 <span class="material-symbols-rounded">home</span>
                                 <span class="nav-label">Home</span>
                             </a>
@@ -76,7 +123,7 @@
                     </ul>
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
-                            <a href="setting" class="nav-link">
+                            <a href="setting" class="nav-link-actived">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>
@@ -97,7 +144,7 @@
                     <div class="personal-setting-box">
                         <div style="border-bottom: 2px solid #f3f3f3;">
                             <h3>Profile picture</h3>
-                            <div style="display: flex; align-items: center;">
+                            <div class="profile-picture">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found">
                                 <div class="avt-list">
                                     <c:forEach begin="1" end="14" var="i">
@@ -115,14 +162,14 @@
                             </div>
                         </div>
                         <div class="attribute-box">
-                            <div>
+                            <div class="attribute-box-item">
                                 <h3>Username</h3>
                                 <p>${sessionScope.account.userName}</p>
                             </div>
                             <button type="button" onclick="showUsernamePopup()">Edit</button>
                         </div>
                         <div class="attribute-box">
-                            <div>
+                            <div class="attribute-box-item">
                                 <h3>Email</h3>
                                 <p>${sessionScope.account.email}</p>
                             </div>
@@ -186,18 +233,28 @@
                 <h2>Change Password</h2>
                 <form id="changePasswordForm" action="changepassword" method="post">
                     <label for="oldPassword">Old Password:</label>
-                    <input type="password" id="oldPassword" name="oldpassword" required>
-
+                    <div class="input-wrapper">
+                        <input id="oldPassword" type="password" name="oldpassword" required>
+                        <button type="button" class="icon-eye" id="togglePassword1"><i class="fa-regular fa-eye"></i></button>
+                    </div>
+                    <div class="error-message" id="passwordError1"></div>
                     <label for="newPassword">New Password:</label>
-                    <input type="password" id="newPassword" name="newpassword" required>
-
+                    <div class="input-wrapper">
+                        <input id="newPassword" type="password" name="newpassword" required>
+                        <button type="button" class="icon-eye" id="togglePassword2"><i class="fa-regular fa-eye"></i></button>
+                    </div>
+                    <div class="error-message" id="passwordError2"></div>
                     <label for="confirmPassword">Confirm New Password:</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required>
-
-                    <button type="submit" class="change-btn">Change</button>
-                    <button type="button" class="cancel-btn" onclick="hideChangePasswordPopup()">Cancel</button>
+                    <div class="input-wrapper">
+                        <input id="confirmPassword" type="password" name="confirmPassword" required>
+                        <button type="button" class="icon-eye" id="togglePassword3"><i class="fa-regular fa-eye"></i></button>
+                    </div>
+                    <div class="error-message" id="passwordError3"></div>
+                    <div style="display: flex; justify-content: center;">
+                        <button type="submit" class="change-btn">Change</button>
+                        <button type="button" class="cancel-btn" onclick="hideChangePasswordPopup()">Cancel</button>
+                    </div>
                 </form>
-                <p id="errorMessage" style="color: red; display: none;"></p>
             </div>
         </div>
 

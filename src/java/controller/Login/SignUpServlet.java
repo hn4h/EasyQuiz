@@ -77,6 +77,9 @@ public class SignUpServlet extends HttpServlet {
         if (dao.checkUsername(username)) {
             request.setAttribute("error", "Username already exists");
             request.getRequestDispatcher("login/register.jsp").forward(request, response);
+        } else if (dao.checkEmail(email) != null) {
+            request.setAttribute("error", "Email already exists");
+            request.getRequestDispatcher("login/register.jsp").forward(request, response);
         } else if (!password.equals(rePassword)) {
             request.setAttribute("error", "Password and Repeat Password do not match");
             request.getRequestDispatcher("login/register.jsp").forward(request, response);
