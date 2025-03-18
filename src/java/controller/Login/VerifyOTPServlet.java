@@ -111,6 +111,7 @@ public class VerifyOTPServlet extends HttpServlet {
         session.removeAttribute("username");
         session.removeAttribute("password");
         session.removeAttribute("otp");
+        request.getSession().setAttribute("successMessage", "Register account successfully!");
         response.sendRedirect("login");
     }
 

@@ -17,6 +17,27 @@
     </head>
 
     <body>
+        <%
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) {
+        %>
+        <div id="toastMessage">
+            <span class="material-symbols-rounded">check</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast = document.getElementById("toastMessage");
+                toast.style.opacity = "0";
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("successMessage"); // Xóa sau khi hiển thị
+            }
+        %>
         <div class="header">
             <div class="logo">
                 <div class="menu-btn">
@@ -131,7 +152,7 @@
                         <h2>Recents</h2>
                         <div class="recents-list">
                             <c:forEach items="${quizSetHistoryTop4}" var="quizSet"> 
-                                <div class="recents-item" onclick="window.location.href='quizz?id=${quizSet.quizSetId}'">
+                                <div class="recents-item" onclick="window.location.href = 'quizz?id=${quizSet.quizSetId}'">
                                     <div>
                                         <i class="fa-solid fa-book"></i> 
                                     </div>

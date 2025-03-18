@@ -9,10 +9,32 @@
         <title>Login</title>
         <link rel="stylesheet" href="./login/style.css">
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
 
     <body>
+        <%
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) {
+        %>
+        <div id="toastMessage">
+            <span class="material-symbols-rounded">check</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast = document.getElementById("toastMessage");
+                toast.style.opacity = "0";
+                setTimeout(() => {
+                    toast.style.display = "none";
+                }, 500); // ?n hoàn toàn sau 0.5 giây sau khi m?
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("successMessage"); // Xóa sau khi hi?n th?
+            }
+        %>
         <div class="header">
             <div class="logo">
                 <a href="home"><span>EasyQuiz</span></a>
