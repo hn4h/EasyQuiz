@@ -156,6 +156,7 @@
     width: 40px;
     border-radius: 50%;
     margin: 0 10px;
+    border: 2px solid #e6e6e6;
 }
 
 .avatar-user {
@@ -203,12 +204,12 @@
 
 .user-menu-item,
 .create-menu-item {
-    padding: 10px 15px;
+    padding: 10px 5px;
 }
 
 .user-menu-item i,
 .create-menu-item i{
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .user-menu-item:hover,
@@ -231,6 +232,7 @@
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    border: 2px solid #e6e6e6;
 }
 
 .user-info div{
@@ -555,6 +557,7 @@
     font-size: 16px;
     font-weight: 500;
     margin-top: 20px;
+    height: 100%;
     max-height: 100px; /* Giới hạn chiều cao */
     overflow: hidden; /* Ẩn phần nội dung vượt quá */
     text-overflow: ellipsis; /* Thêm dấu "..." khi bị cắt */
@@ -562,6 +565,8 @@
     -webkit-line-clamp: 3; /* Giới hạn số dòng hiển thị */
     -webkit-box-orient: vertical; /* Hiển thị nội dung theo chiều dọc */
     word-break: break-word; /* Đảm bảo từ không bị tràn ra ngoài */
+    line-height: 1.5em; /* Điều chỉnh khoảng cách dòng */
+    min-height: calc(1.5em * 3); /* Chiều cao tối thiểu bằng 3 dòng */
 }
 
 .card-list .card-link .card-username span{

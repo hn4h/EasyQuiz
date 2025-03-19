@@ -22,11 +22,11 @@
                 </button>
                 <div class="test-menu">
                     <ul class="test-menu-nav">
-                        <li class="nav-item remove-session" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item remove-session" onclick="window.location.href = 'flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/flashcard_icon.png" alt="">
                             <a class="nav-link">Flashcards</a>
                         </li>
-                        <li class="nav-item remove-session"  onclick="window.location.href = 'test?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item remove-session"  onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/test_icon.png" alt="">
                             <a class="nav-link">Learn</a>
                         </li>

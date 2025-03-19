@@ -273,12 +273,14 @@ body {
 
 .flashcard.active {
     opacity: 1;
+    pointer-events: auto;
+    z-index: 1;
 }
 
 .flashcard.hidden {
-    visibility: hidden;
     opacity: 0;
     pointer-events: none;
+    z-index: 0;
 }
 
 /* Hiệu ứng xuất hiện khi NEXT */
@@ -772,6 +774,14 @@ input:checked + .slider::before {
     font-weight: 500; 
 }
 
+.keyboard-shortcut .column .column-item kbd {
+    background: #fff;
+    border-radius: 5px;
+    border: 2px solid #e6e6e6;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
 .keyboard-shortcut.show {
     display: block;
     opacity: 1;
@@ -782,11 +792,11 @@ input:checked + .slider::before {
     transition: transform 0.3s ease;
 }
 
-.show-both .flashcard-inner {
+/*.show-both .flashcard-inner {
     transform: none !important;
     display: flex;
     justify-content: space-between;
-}
+}*/
 
 .show-both .flashcard-front,
 .show-both .flashcard-back {
@@ -795,7 +805,7 @@ input:checked + .slider::before {
 }
 
 .flashcard-inner2 {
-    display: none;
+    display: none !important;
     flex-direction: column;
     gap: 20px;
     height: 100%;
@@ -815,12 +825,12 @@ input:checked + .slider::before {
 }
 
 /* Khi bật "Show both sides" */
-.flashcard.show-both .flashcard-inner {
-    display: none; /* Ẩn chế độ một mặt */
+.show-both .flashcard-inner {
+    display: none !important; /* Ẩn chế độ một mặt */
 }
 
-.flashcard.show-both .flashcard-inner2 {
-    display: flex; /* Hiển thị chế độ hai mặt */
+.show-both .flashcard-inner2 {
+    display: flex !important; /* Hiển thị chế độ hai mặt */
 }
 
 /* Popup styles */

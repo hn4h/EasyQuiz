@@ -25,7 +25,7 @@
                 </button>
                 <div class="test-menu">
                     <ul class="test-menu-nav">
-                        <li class="nav-item remove-session" onclick="window.location.href = 'quizz?id=${testSession.quizSetID}'">
+                        <li class="nav-item remove-session" onclick="window.location.href = 'flashcard?id=${testSession.quizSetID}'">
                             <img src="./images/icon/flashcard_icon.png" alt="">
                             <a class="nav-link">Flashcards</a>
                         </li>
@@ -46,7 +46,7 @@
                         </div>-->
             <div class="close">
                 <!--                <button class="printBtn"><span>Print test</span></button>-->
-                <button class="remove-session" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
+                <button class="remove-session" onclick="window.location.href = 'quizz?id=${testSession.quizSetID}'"><span class="material-symbols-rounded">close</span></button>
             </div>
         </div>
         <form action="testquiz">

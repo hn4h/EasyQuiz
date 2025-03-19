@@ -20,13 +20,13 @@
                 </button>
                 <div class="learn-menu">
                     <ul class="learn-menu-nav">
-                        <li class="nav-item" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item" onclick="window.location.href = 'flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/flashcard_icon.png" alt="">
-                            <a href="" class="nav-link">Flashcards</a>
+                            <a class="nav-link">Flashcards</a>
                         </li>
-                        <li class="nav-item"  onclick="window.location.href = 'test?id=${requestScope.quizDetail.qs.quizSetId}'">
+                        <li class="nav-item test-btn">
                             <img src="./images/icon/test_icon.png" alt="">
-                            <a href="" class="nav-link">Test</a>
+                            <a class="nav-link">Test</a>
                         </li>
                         <hr>
                         <li class="nav-item">
@@ -42,6 +42,29 @@
                 <button onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
             </div>
         </div>
+        <form action="testquiz">
+            <div class="testPopup-container">
+                <div id="testPopup" class="test-popup">
+                    <div class="test-popup-content">
+                        <input name="quizSetID" type="hidden" value="${requestScope.quizDetail.qs.quizSetId}">
+                        <span class="closetest-btn material-symbols-rounded">close</span>
+                        <h2>Options</h2>
+                        <div class="test-list">
+                            <div class="test-item">
+                                <span class="test-name">Questions (max 10)</span>
+                                <input name="numberQuiz" min="5" max="10" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz}"/>
+                                <span class="test-name">Time (minutes)</span>
+                                <input name="timeLimit" min="5" max="20" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz + 10}"/>
+                            </div>
+                        </div>
+                        <div class="test-submit-btn">
+                            <button type="button" class="cancel-btn"><span>Cancel</span></button>
+                            <button type="submit" class="create-btn"><span>Create new test</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         <div class="body">
             <!-- Màn hình hoàn thành -->
             <div class="learn-complete" id="learnComplete" style="display: none;">

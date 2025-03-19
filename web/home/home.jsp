@@ -57,7 +57,7 @@
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
                             <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -70,17 +70,24 @@
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
                                     <p>${sessionScope.account.userName}</p>
-                                    <p>${sessionScope.account.email}</p>
+                                    <p>
+                                        <c:choose>
+                                                    <c:when test="${fn:length(sessionScope.account.email) > 15}">
+                                                        ${fn:substring(sessionScope.account.email, 0, 15)}...
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${sessionScope.account.email}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                    </p>
                                 </div>
                             </div>
                             <hr/>
                             <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
+                            <a href="feedback" class="user-menu-item"><i class="fa-solid fa-circle-info"></i> Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item"><i class="fa-solid fa-crown"></i> Upgrades</a>
                             <hr/>
-                            <a href="logout" class="user-menu-item">Logout</a>
-                            <hr/>
-                            <a href="feedback" class="user-menu-item">Help and feedback</a>
-                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                            <a href="logout" class="user-menu-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
                         </div>
                     </div>
                 </c:if>
@@ -137,12 +144,14 @@
                                 <span class="nav-label">Setting</span>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="logout" class="nav-link">
-                                <span class="material-symbols-rounded">logout</span>
-                                <span class="nav-label">Logout</span>
-                            </a>
-                        </li>
+                        <c:if test="${not empty sessionScope.account.userName}">
+                            <li class="nav-item">
+                                <a href="logout" class="nav-link">
+                                    <span class="material-symbols-rounded">logout</span>
+                                    <span class="nav-label">Logout</span>
+                                </a>
+                            </li>
+                        </c:if>
                     </ul>
                 </nav>
             </aside>
@@ -158,8 +167,17 @@
                                     </div>
                                     <div>
                                         <div>
-                                            <p>${quizSet.quizSetName}</p>
-                                            Quiz Set - ${quizSet.numberOfQuiz} terms - by ${quizSet.author.userName} 
+                                            <p>
+                                                <c:choose>
+                                                    <c:when test="${fn:length(quizSet.quizSetName) > 40}">
+                                                        ${fn:substring(quizSet.quizSetName, 0, 40)}...
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${quizSet.quizSetName}
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </p>
+                                            <span>Quiz Set - ${quizSet.numberOfQuiz} terms - by ${quizSet.author.userName}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -174,7 +192,16 @@
                             <c:forEach items="${popularQuizSet}" var="i">
                                 <li class="card-item swiper-slide" onclick="window.location.href = 'quizz?id=${i.quizSetId}'">
                                     <a href="#" class="card-link">
-                                        <h2 class="card-title">${i.quizSetName}</h2>
+                                        <h2 class="card-title">
+                                            <c:choose>
+                                                <c:when test="${fn:length(i.quizSetName) > 25}">
+                                                    ${fn:substring(i.quizSetName, 0, 25)}...
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${i.quizSetName}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </h2>
                                         <p class="badge">${i.numberOfQuiz} terms</p>
                                         <div class="card-username">
                                             <span style="display: flex; align-items: center;">
@@ -213,7 +240,16 @@
                                        </c:forEach>
                                        ]'
                                        onclick="openBlogModal(this)">
-                                        <h2 class="card-title">${blog.blogTitle}</h2>
+                                        <h2 class="card-title">
+                                            <c:choose>
+                                                <c:when test="${fn:length(blog.blogTitle) > 25}">
+                                                    ${fn:substring(blog.blogTitle, 0, 25)}...
+                                                </c:when>
+                                                <c:otherwise>
+                                                    ${blog.blogTitle}
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </h2>
                                         <p class="preview-content">
                                             <c:choose>
                                                 <c:when test="${fn:length(blog.blogContent) > 100}">

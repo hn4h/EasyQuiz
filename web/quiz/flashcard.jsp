@@ -24,7 +24,7 @@
                     <ul class="flashcard-menu-nav">
                         <li class="nav-item" onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">
                             <img src="./images/icon/learn_icon.png" alt="">
-                            <a href="" class="nav-link">Learn</a>
+                            <a class="nav-link">Learn</a>
                         </li>
                         <li class="nav-item test-btn">
                             <img src="./images/icon/test_icon.png" alt="">
@@ -78,25 +78,21 @@
                             <div class="column">
                                 <div class="column-item">
                                     <span>Previous</span>
-                                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                                    <span><kbd>&larr;</kbd></span>
                                 </div>
                                 <div class="column-item">
                                     <span>Next</span>
-                                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
-                                </div>
-                                <div class="column-item">
-                                    <span>Flip</span>
-                                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                                    <span><kbd>&rarr;</kbd></span>
                                 </div>
                             </div>
                             <div class="column">
                                 <div class="column-item">
                                     <span>Shuffle</span>
-                                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                                    <span><kbd>S</kbd></span>
                                 </div>
                                 <div class="column-item">
-                                    <span>Edit</span>
-                                    <span class="material-symbols-rounded">keyboard_arrow_down</span>
+                                    <span>Flip</span>
+                                    <span><kbd>Space</kbd></span>
                                 </div>
                             </div>
                         </div>
@@ -155,8 +151,8 @@
                     <div class="actions">
                         <h3>Next steps</h3>
                         <div class="actions-info">
-                            <button id="nextSteps"><a href="#">Practice with questions</a></button>
-                            <button id="restartFlashcards"><a onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'">Restart flashcards</a></button>
+                            <button id="nextSteps"><a onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">Practice with questions</a></button>
+                            <button id="restartFlashcards"><a onclick="window.location.href = 'flashcard?id=${requestScope.quizDetail.qs.quizSetId}'">Restart flashcards</a></button>
                         </div>
                     </div>
                 </div>
@@ -170,6 +166,15 @@
                                     <p class="term-text">${q.definition}</p>
                                 </div>
                                 <div class="flashcard-back">
+                                    <p class="term-text">${q.term}</p>
+                                </div>
+                            </div>
+
+                            <div class="flashcard-inner2">
+                                <div class="flashcard-front2">
+                                    <p class="term-text">${q.definition}</p>
+                                </div>
+                                <div class="flashcard-back2">
                                     <p class="term-text">${q.term}</p>
                                 </div>
                             </div>

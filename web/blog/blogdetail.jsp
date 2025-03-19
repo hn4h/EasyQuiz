@@ -51,17 +51,24 @@
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
                                     <p>${sessionScope.account.userName}</p>
-                                    <p>${sessionScope.account.email}</p>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${fn:length(sessionScope.account.email) > 15}">
+                                                ${fn:substring(sessionScope.account.email, 0, 15)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${sessionScope.account.email}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </p>
                                 </div>
                             </div>
                             <hr/>
                             <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
+                            <a href="feedback" class="user-menu-item"><i class="fa-solid fa-circle-info"></i> Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item"><i class="fa-solid fa-crown"></i> Upgrades</a>
                             <hr/>
-                            <a href="logout" class="user-menu-item">Logout</a>
-                            <hr/>
-                            <a href="feedback" class="user-menu-item">Help and feedback</a>
-                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                            <a href="logout" class="user-menu-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
                         </div>
                     </div>
                 </c:if>
@@ -205,6 +212,18 @@
                 });
             });
 
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".comment-input-container input").forEach(input => {
+                    input.addEventListener("keydown", function (event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault(); // Ngăn chặn hành vi mặc định của Enter
+                            const blogId = this.id.replace("commentInput", ""); // Lấy blogId từ input ID
+                            submitComment(blogId);
+                        }
+                    });
+                });
+            });
+
             // Submit comment function (giữ nguyên từ blog.jsp)
             function submitComment(blogId) {
                 let commentInput = document.getElementById('commentInput' + blogId);
@@ -232,7 +251,7 @@
                             let newComment = document.createElement('div');
                             newComment.classList.add('comment');
                             newComment.innerHTML = `
-        <img src="${requestScope.blogDetail.author.profileImage}" alt="Avatar">
+        <img src="${sessionScope.account.profileImage}" alt="Avatar">
         <p><strong>` + userName + `</strong>: ` + commentContent + `</p>
     `;
                             commentWindow.insertBefore(newComment, commentWindow.firstChild);
@@ -246,6 +265,7 @@
                 let data = 'blogId=' + encodeURIComponent(blogId) + '&commentContent=' + encodeURIComponent(commentContent);
                 xhr.send(data);
             }
+
         </script>
         <script src="./blog/blog.js"></script>
     </body>
