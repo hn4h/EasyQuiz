@@ -177,25 +177,6 @@
                     </div>
                 </div>
                 <div class="personal-setting">
-                    <h2>Appearance</h2>
-                    <div class="personal-setting-box">
-                        <div class="attribute-box">
-                            <h3>Theme</h3>
-                            <select name="theme" id="theme" onchange="changeTheme(this.value)">
-                                <option value="light">Light</option>
-                                <option value="dark">Dark</option>
-                            </select>
-                        </div>
-                        <div class="attribute-box">
-                            <h3>Language</h3>
-                            <select name="language" id="language">
-                                <option value="english">English</option>
-                                <option value="vietnamese">Vietnamese</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="personal-setting">
                     <h2>Account</h2>
                     <div class="personal-setting-box">
                         <div class="attribute-box">
