@@ -6,7 +6,45 @@
         <title>Register</title>
         <link rel="stylesheet" href="./login/style.css">
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <style>
+            #toastMessage1 {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #007f00;
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 15px 20px;
+                border-radius: 5px;
+                opacity: 1;
+                transition: opacity 0.5s;
+                z-index: 1010;
+            }
+
+            #toastMessage2 {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #d32f2f;
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 15px 20px;
+                border-radius: 5px;
+                opacity: 1;
+                transition: opacity 0.5s;
+                z-index: 1010;
+            }
+        </style>
     </head>
 
     <body>
@@ -103,6 +141,30 @@
                 </div>
             </div>
         </div>
+                <%
+String errorMessage = (String) request.getAttribute("error");
+if (errorMessage == null) {
+errorMessage = (String) session.getAttribute("error");
+}
+if (errorMessage != null) {
+        %>
+        <div id="toastMessage2">
+            <span class="material-symbols-rounded">close</span>
+            <span><%= errorMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast2 = document.getElementById("toastMessage2");
+                toast2.style.opacity = "0";
+                setTimeout(() => {
+                    toast2.style.display = "none";
+                }, 500);
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("error");
+            }
+        %>
         <script src="./login/script.js"></script></script>
 </body>
 

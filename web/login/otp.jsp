@@ -12,9 +12,47 @@
         <title>OTP Verification</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+        <style>
+            #toastMessage1 {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #007f00;
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 15px 20px;
+                border-radius: 5px;
+                opacity: 1;
+                transition: opacity 0.5s;
+                z-index: 1010;
+            }
+
+            #toastMessage2 {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #d32f2f;
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                padding: 15px 20px;
+                border-radius: 5px;
+                opacity: 1;
+                transition: opacity 0.5s;
+                z-index: 1010;
+            }
+        </style>
     </head>
-    <body class="flex items-center justify-center min-h-screen" style="background: linear-gradient(#fff, #ffbcfb);">
+    <body class="flex items-center justify-center min-h-screen" style="background: #fff;">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
             <div class="flex justify-center mb-4">
                 <img src="https://atpcare.vn/wp-content/uploads/2021/10/mb.jpg" alt="Not found" class="w-30 h-24" height="100" width="150"/>
@@ -46,6 +84,32 @@
             </p>
         </div>
 
+
+
+        <%
+    String errorMessage = (String) request.getAttribute("mess");
+    if (errorMessage == null) {
+        errorMessage = (String) session.getAttribute("mess");
+    }
+    if (errorMessage != null) {
+        %>
+        <div id="toastMessage2">
+            <span class="material-symbols-rounded">close</span>
+            <span><%= errorMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast2 = document.getElementById("toastMessage2");
+                toast2.style.opacity = "0";
+                setTimeout(() => {
+                    toast2.style.display = "none";
+                }, 500);
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("mess");
+            }
+        %>
         <script>
             const otpInputs = document.querySelectorAll('.otp-input');
 
@@ -91,5 +155,6 @@
             let countdownInterval = setInterval(updateCountdown, 1000);
 
         </script>
+
     </body>
 </html>

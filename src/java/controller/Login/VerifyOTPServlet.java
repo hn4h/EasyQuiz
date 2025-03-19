@@ -101,7 +101,7 @@ public class VerifyOTPServlet extends HttpServlet {
         String username = (String) session.getAttribute("username");
         String password = (String) session.getAttribute("password");
         if(otp == null || otpSession == null || !otp.equals(otpSession)){
-            request.setAttribute("mess", "otp is not correct");
+            request.setAttribute("mess", "Otp is not correct");
             request.getRequestDispatcher(link).forward(request, response);
             return;
         }
