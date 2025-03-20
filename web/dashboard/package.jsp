@@ -1,4 +1,5 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,8 +90,8 @@
             /* C?n ch?nh form */
             .form-group {
                 display: flex;
-                align-items: center; /* Canh label v� input th?ng h�ng */
-                margin-bottom: 10px; /* T?o kho?ng c�ch gi?a c�c d�ng */
+                align-items: center; /* Canh label vï¿½ input th?ng hï¿½ng */
+                margin-bottom: 10px; /* T?o kho?ng cï¿½ch gi?a cï¿½c dï¿½ng */
             }
 
             .form-group label {
@@ -100,18 +101,18 @@
             }
 
             .form-group input {
-                flex: 1; /* Input m? r?ng h?t ph?n c�n l?i */
+                flex: 1; /* Input m? r?ng h?t ph?n cï¿½n l?i */
                 padding: 8px;
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 font-size: 14px;
             }
 
-            /* Canh ch?nh n�t Save v� Cancel */
+            /* Canh ch?nh nï¿½t Save vï¿½ Cancel */
             .button-group {
                 display: flex;
                 justify-content: flex-end;
-                gap: 10px; /* Kho?ng c�ch gi?a c�c n�t */
+                gap: 10px; /* Kho?ng cï¿½ch gi?a cï¿½c nï¿½t */
                 margin-top: 15px;
             }
         </style>
@@ -253,37 +254,58 @@
         </div>
         <div id="newPackageModal" class="modal">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h2>New Package</h2>
-                    <span class="close material-symbols-rounded">close</span>
-                </div>
-                <div class="form-group">
-                    <label for="packageName">Package Name:</label>
-                    <input type="text" id="packageName" name="packageName">
-                </div>
+                <form action="addPackage" method="post">
+                    <div class="modal-header">
+                        <h2>New Package</h2>
+                        <span class="close material-symbols-rounded">close</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="packageName">Package Name:</label>
+                        <input type="text" id="packageName" name="packageName">
+                    </div>
 
-                <div class="form-group">
-                    <label for="packageValue">Package Duration:</label>
-                    <input type="text" id="packageValue" name="packageValue">
-                </div>
+                    <div class="form-group">
+                        <label for="packageValue">Package Duration:</label>
+                        <input type="text" id="packageValue" name="packageValue">
+                    </div>
 
-                <div class="form-group">
-                    <label for="packagePrice">Package Price:</label>
-                    <input type="text" id="packagePrice" name="packagePrice">
-                </div>
+                    <div class="form-group">
+                        <label for="packagePrice">Package Price:</label>
+                        <input type="text" id="packagePrice" name="packagePrice">
+                    </div>
 
-                <div class="form-group">
-                    <label for="packageDescription">Package Description:</label>
-                    <input type="text" id="packageDescription" name="packageDescription">
-                </div>
+                    <div class="form-group">
+                        <label for="packageDescription">Package Description:</label>
+                        <input type="text" id="packageDescription" name="packageDescription">
+                    </div>
 
-                <div class="button-group">
-                    <button id="modalSaveBtn" class="save-btn">Save</button>
-                    <button id="modalCancelBtn" class="cancel-btn">Cancel</button>
-                </div>
+                    <div class="button-group">
+                        <button id="modalSaveBtn" type="submit" class="save-btn">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
-
+        <%
+            String successMessage = (String) session.getAttribute("message");
+            if (successMessage != null) {
+        %>
+        <div id="toastMessage1">
+            <span class="material-symbols-rounded">check</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast1 = document.getElementById("toastMessage1");
+                toast1.style.opacity = "0";
+                setTimeout(() => {
+                    toast1.style.display = "none";
+                }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("message"); // Xóa sau khi hiển thị
+            }
+        %>
         <script>
             const newPackageBtn = document.getElementById('newPackageBtn');
             const modal = document.getElementById('newPackageModal');

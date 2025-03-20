@@ -19,6 +19,15 @@ public class Package {
     private int price;
     private Date createdDate;
 
+    public Package( String name, String description, int value, int price) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.value = value;
+        this.price = price;
+    }
+
+    
     public Package() {
     }
 
