@@ -135,6 +135,7 @@
                     <div class="flashcard-folder-header">
                         <a href="user?username=${username}&type=sets" class="flashcard-folder-item">Flashcard sets</a>
                         <a href="user?username=${username}&type=folder" class="flashcard-folder-item-actived">Folders</a>
+                        <a href="user?username=${username}&type=blogs" class="flashcard-folder-item">Blogs</a>
                     </div>
                     <div class="search-user">
                         <input id="search" type="text" placeholder="Search your folders" name="">
@@ -142,9 +143,9 @@
                     </div>
                     <div class="folder-container">
                         <ul class="folder-list">
-                            <c:forEach var="f" items="${folderList}">
+                            <c:forEach var="f" items="${listFolder}">
                                 <li class="folder-item">
-                                    <a href="" class="folder-link">
+                                    <a href="foldercontain?folderId=${f.folderId}" class="folder-link">
                                         <p>${f.quizSetCount} ${f.quizSetCount == 1 ? "item" : "items"}</p>
                                         <div class="title-icon">
                                             <span class="material-symbols-rounded">folder</span>
@@ -153,7 +154,7 @@
                                     </a>
                                 </li>
                             </c:forEach>
-                            <c:if test="${empty folderList}">
+                            <c:if test="${empty listFolder}">
                                 <p style="color: #333; text-align: center; font-weight: bold;">No folders found.</p>
                             </c:if>
                         </ul>

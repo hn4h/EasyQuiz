@@ -292,4 +292,40 @@ public class BlogDAO extends DBContext {
         }
         return null;
     }
+    public List<Blog> getAllBlogsByUsername(String username) {
+        List<Blog> list = new ArrayList<>();
+        try {
+            String sql = "SELECT b.Blog_ID, b.Author, b.Blog_Title, b.Blog_Content, b.Blog_Date,\n"
+                    + "                     a.UserName, a.ProfileImage, a.Email\n"
+                    + "                     FROM Blog b JOIN Accounts a ON b.Author = a.UserName \n"
+                    + "                     WHERE b.Author = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Blog b = new Blog();
+                AccountDAO a = new AccountDAO();
+                Account c = new Account();
+                
+                b.setBlogId(rs.getInt("Blog_ID"));
+                b.setBlogTitle(rs.getString("Blog_Content"));
+                b.setCreatedDate(rs.getDate("Blog_Date"));
+                
+                b.setAuthor(a.getAccountByUserName(username));
+                c.setUserName(rs.getString("UserName"));
+                c.setEmail(rs.getString("Email"));
+                c.setProfileImage(rs.getString("ProfileImage"));
+                b.setAuthor(c);
+                list.add(b);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return list;
+    }
+    
+    public static void main(String[] args) {
+        BlogDAO d = new BlogDAO();
+        System.out.println(d.getAllBlogsByUsername("giaphu1201").size());
+    }
 }

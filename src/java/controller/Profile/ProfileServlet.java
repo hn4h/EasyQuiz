@@ -16,8 +16,10 @@ import java.util.List;
 import model.QuizSet;
 import controller.Profile.DateUtil;
 import dal.AccountDAO;
+import dal.BlogDAO;
 import dal.FolderDAO;
 import model.Account;
+import model.Blog;
 import model.Folder;
 
 /**
@@ -71,6 +73,7 @@ public class ProfileServlet extends HttpServlet {
         QuizSetDAO qsd = new QuizSetDAO();
         FolderDAO fd = new FolderDAO();
         AccountDAO ad = new AccountDAO();
+        BlogDAO bl = new BlogDAO();
 
         if (username != null) {
             if ("sets".equals(type) || type == null) {
@@ -92,8 +95,17 @@ public class ProfileServlet extends HttpServlet {
                 request.setAttribute("user", user);
                 request.setAttribute("listFolder", folderList);
                 request.getRequestDispatcher("profile/folder.jsp").forward(request, response);
-            } else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            } else if("blogs".equals(type)) {
+                request.setAttribute("username", username);
+                
+                Account user = ad.getAccountByUserName(username);
+                List<Blog> blogList = bl.getAllBlogsByUsername(username);
+                request.setAttribute("user", user);
+                request.setAttribute("listBlog", blogList);
+                request.getRequestDispatcher("profile/blog.jsp").forward(request, response);
+                
+                
+                
             }
         } else {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST);

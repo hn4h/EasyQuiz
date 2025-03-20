@@ -56,7 +56,7 @@
                             <hr/>
                             <a href="logout" class="user-menu-item">Logout</a>
                             <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
+                            <a href="feedback" class="user-menu-item">Help and feedback</a>
                             <a href="upgrade" class="user-menu-item">Upgrades</a>
                         </div>
                     </div>
@@ -125,38 +125,36 @@
             </aside>
             <div class="body-container">
                 <div class="user-container">
-                    <img src="${creator.profileImage}" alt="Not found">
+                    <img src="${user.profileImage}" alt="">
                     <div class="user-name">
-                        <h2>${creator.userName}</h2>
-                        <p>${creator.email}</p>
+                        <h2>${user.userName}</h2>
+                        <p>${user.email}</p>
                     </div>
                 </div>
                 <div class="flashcard-folder">
                     <div class="flashcard-folder-header">
-                        <a href="user?username=${username}&type=sets" class="flashcard-folder-item-actived">Flashcard sets</a>
+                        <a href="user?username=${username}&type=sets" class="flashcard-folder-item">Flashcard sets</a>
                         <a href="user?username=${username}&type=folder" class="flashcard-folder-item">Folders</a>
-                        <a href="user?username=${username}&type=blogs" class="flashcard-folder-item">Blogs</a>
+                        <a href="user?username=${username}&type=blogs" class="flashcard-folder-item-actived">Blogs</a>
                     </div>
                     <div class="search-user">
-                        <input id="search"  type="text" placeholder="Search flashcards" name="">
+                        <input id="search" type="text" placeholder="Search blogs" name="">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
-                    <div class="term-today">
-                        <div class="term-header">
-                            <h4>${quizSet.formattedDate}</h4>
-                            <hr>
-                        </div>
-                        <ul class="term-list">
-                            <c:forEach var="quizSet" items="${listQuiz}">
-                                <li class="term-item">
-                                    <a href="quizz?id=${quizSet.quizSetId}" class="term-link">
-                                        <p>${quizSet.numberOfQuiz} terms</p>
-                                        <h3>${quizSet.quizSetName}</h3>
+                    <div class="folder-container">
+                        <ul class="folder-list">
+                            <c:forEach var="b" items="${listBlog}">
+                                <li class="folder-item">
+                                    <a href="blogdetail?blogId=${b.blogId}" class="folder-link">                                       
+                                        <div class="title-icon">
+                                            <span class="material-symbols-rounded">rss_feed</span>
+                                            <h3 style="color: #333;">${b.blogTitle} </h3>
+                                        </div>
                                     </a>
                                 </li>
                             </c:forEach>
-                            <c:if test="${empty listQuiz}">
-                                <p style="color: #333; text-align: center; font-weight: bold;">No flashcards found.</p>
+                            <c:if test="${empty listBlog}">
+                                <p style="color: #333; text-align: center; font-weight: bold;">No Blogs found.</p>
                             </c:if>
                         </ul>
                     </div>
