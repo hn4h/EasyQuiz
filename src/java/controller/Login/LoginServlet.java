@@ -50,11 +50,15 @@ public class LoginServlet extends HttpServlet {
             if (a == null) {
                 d.createAccountByEmail(acc.getEmail(), acc.getPicture());
                 a = d.checkEmail(acc.getEmail());
-            }
+            } else if (a.isIsDeleted()) {
+            request.setAttribute("error", "This account is deleted!");
+            request.getRequestDispatcher("login/login.jsp").forward(request, response);
+        } else {
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
             request.getSession().setAttribute("successMessage", "Login successfully!");
             response.sendRedirect("home");
+        }
         }
     }
 
@@ -97,7 +101,7 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "Invalid username or password!");
             request.getRequestDispatcher("login/login.jsp").forward(request, response);
         } else if (a.isIsDeleted()) {
-            request.setAttribute("error", "This account is temporary banned!");
+            request.setAttribute("error", "This account is deleted!");
             request.getRequestDispatcher("login/login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();

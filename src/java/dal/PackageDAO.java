@@ -4,9 +4,9 @@
  */
 package dal;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.*;
 import model.Package;
 
 /**
@@ -82,5 +82,63 @@ public class PackageDAO extends DBContext {
             System.out.println(ex);
         }
         return packages;
+    }
+    public boolean addPackage(Package p) {
+        try {
+            String sql = "INSERT INTO [EasyQuiz].[dbo].[Package] ([Package_Name], [Package_Description], [Package_Value], [Package_Amount]) "
+                    + "VALUES (?, ?, ?, ?)";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, p.getName());
+            stm.setString(2, p.getDescription());
+            stm.setInt(3, p.getValue());
+            stm.setInt(4, p.getPrice());
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+    public boolean updatePackage(Package p) {
+        try {
+            String sql = "UPDATE [EasyQuiz].[dbo].[Package] "
+                    + "SET [Package_Name] = ?, [Package_Description] = ?, [Package_Value] = ?, [Package_Amount] = ? "
+                    + "WHERE [Package_ID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, p.getName());
+            stm.setString(2, p.getDescription());
+            stm.setInt(3, p.getValue());
+            stm.setInt(4, p.getPrice());
+            stm.setInt(5, p.getId());
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return false;
+    }
+    public void activePackage(int id) {
+        try {
+            String sql = "UPDATE [EasyQuiz].[dbo].[Package] "
+                    + "SET [Package_Value] = 1 "
+                    + "WHERE [Package_ID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    public void deactivePackage(int id) {
+        try {
+            String sql = "UPDATE [EasyQuiz].[dbo].[Package] "
+                    + "SET [Package_Value] = 0 "
+                    + "WHERE [Package_ID] = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 }
