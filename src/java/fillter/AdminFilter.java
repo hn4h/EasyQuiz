@@ -115,6 +115,7 @@ public class AdminFilter implements Filter {
             res.sendRedirect("login");
         } else {
             if (!acc.isIsAdmin()) {
+                System.out.println(acc.isIsAdmin());
                 res.sendRedirect("error");
             }
         }

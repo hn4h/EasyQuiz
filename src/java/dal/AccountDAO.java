@@ -184,7 +184,7 @@ public class AccountDAO extends DBContext {
         }
         return null;
     }
-    
+
     public boolean updateProfileImage(String userName, String profileImage) {
         String sql = "UPDATE Accounts SET ProfileImage = ? WHERE UserName = ?";
         try {
@@ -201,7 +201,7 @@ public class AccountDAO extends DBContext {
             return false;
         }
     }
-    
+
     public boolean updateUsername(String oldUserName, String newUserName) {
         String sql = "UPDATE Accounts SET UserName = ? WHERE UserName = ?";
         try {
@@ -285,11 +285,7 @@ public class AccountDAO extends DBContext {
                 boolean isAdmin = rs.getInt("is_admin") == 1;
                 account.setIsAdmin(isAdmin);
                 account.setEmail(rs.getString("email"));
-                    if (rs.getInt("is_deleted") == 1) {
-                        return null;
-                    } else {
-                        return account;
-                    }
+                return account;
             }
         } catch (SQLException e) {
             System.out.println(e);
@@ -376,7 +372,67 @@ public class AccountDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
-        System.out.println(d.checkEmail("hanh113004@gmail.com").getUserName());
+        System.out.println(d.checkLimitTest("haha"));
     }
 
+    public boolean checkLimitLearn(String userName) {
+        String sql = "SELECT * from Accounts_Limit where UserName = ? and [Date] = CAST(GETDATE() AS DATE)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                // Nếu có kết quả từ SELECT, chỉ thực thi UPDATE
+                int learnLimit = rs.getInt("Learn_limit");
+                if (learnLimit == 0) {
+                    return false;
+                }
+                String updateSql = "UPDATE Accounts_Limit SET Learn_limit = Learn_limit - 1 WHERE UserName = ? and [Date] = CAST(GETDATE() AS DATE)";
+                st = connection.prepareStatement(updateSql);
+                st.setString(1, userName);
+                st.executeUpdate();
+            } else {
+                // Nếu không có kết quả, thực thi INSERT
+                String insertSql = "INSERT INTO Accounts_Limit(UserName, Date, Learn_limit, Test_limit) VALUES (?, GETDATE(), 4, 5)";
+                st = connection.prepareStatement(insertSql);
+                st.setString(1, userName);
+                st.executeUpdate();
+            }
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean checkLimitTest(String userName) {
+        String sql = "SELECT * from Accounts_Limit where UserName = ? and [Date] = CAST(GETDATE() AS DATE)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                // Nếu có kết quả từ SELECT, chỉ thực thi UPDATE
+                int learnLimit = rs.getInt("Test_limit");
+                if (learnLimit == 0) {
+                    return false;
+                }
+                String updateSql = "UPDATE Accounts_Limit SET Test_limit = Test_limit - 1 WHERE UserName = ? and [Date] = CAST(GETDATE() AS DATE)";
+                st = connection.prepareStatement(updateSql);
+                st.setString(1, userName);
+                st.executeUpdate();
+            } else {
+                // Nếu không có kết quả, thực thi INSERT
+                String insertSql = "INSERT INTO Accounts_Limit(UserName, Date, Learn_limit, Test_limit) VALUES (?, GETDATE(), 5, 4)";
+                st = connection.prepareStatement(insertSql);
+                st.setString(1, userName);
+                st.executeUpdate();
+            }
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
 }

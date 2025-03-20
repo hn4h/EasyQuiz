@@ -4,6 +4,7 @@
  */
 package controller.quiz;
 
+import dal.AccountDAO;
 import dal.QuizDAO;
 import dal.QuizSetDAO;
 import model.Quiz;
@@ -72,6 +73,14 @@ public class LearnQuizServlet extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
+        AccountDAO ad = new AccountDAO();
+        if(!ad.checkPremium(a.getUserName())){
+            if(!ad.checkLimitLearn(a.getUserName())){
+                session.setAttribute("message","You have used up all your study attempts for today. Please come back tomorrow.");
+                response.sendRedirect("quizz?id="+ quizSetIDParam);
+                return;
+            }
+        }
         if (quizSetIDParam != null) {
             try {
                 int quizSetID = Integer.parseInt(quizSetIDParam);
@@ -93,6 +102,7 @@ public class LearnQuizServlet extends HttpServlet {
                 request.setAttribute("error", "Invalid Quiz Set ID");
             }
         }
+        
         request.getRequestDispatcher("quiz/learnquiz.jsp").forward(request, response);
     }
 

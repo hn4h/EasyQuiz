@@ -4,6 +4,7 @@
  */
 package controller.quiz;
 
+import dal.AccountDAO;
 import dal.QuizDAO;
 import dal.QuizSetDAO;
 import model.Quiz;
@@ -76,7 +77,14 @@ public class TestQuizServlet extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
-
+        AccountDAO ad = new AccountDAO();
+        if(!ad.checkPremium(a.getUserName())){
+            if(!ad.checkLimitTest(a.getUserName())){
+                session.setAttribute("message","You have used up all your test attempts for today. Please come back tomorrow.");
+                response.sendRedirect("quizz?id="+ quizSetIDParam);
+                return;
+            }
+        }
         if (quizSetIDParam != null) {
             try {
                 int quizSetID = Integer.parseInt(quizSetIDParam);
