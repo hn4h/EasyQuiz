@@ -53,6 +53,8 @@ public class AccountDAO extends DBContext {
                     account.setCreatedDate(rs.getDate("createdDate"));
                     account.setProfileImage(rs.getString("profileImage"));
                     boolean isAdmin = rs.getInt("is_admin") == 1;
+                    boolean isDeleted = rs.getInt("is_deleted") == 1;
+                    account.setIsDeleted(isDeleted);
                     account.setIsAdmin(isAdmin);
                     account.setExpiredDate(rs.getDate("expiredDate"));
                     account.setEmail(rs.getString("email"));
@@ -202,6 +204,7 @@ public class AccountDAO extends DBContext {
         }
     }
 
+    
     public boolean updateUsername(String oldUserName, String newUserName) {
         String sql = "UPDATE Accounts SET UserName = ? WHERE UserName = ?";
         try {
@@ -374,6 +377,7 @@ public class AccountDAO extends DBContext {
         AccountDAO d = new AccountDAO();
         System.out.println(d.checkLimitTest("haha"));
     }
+    
 
     public boolean checkLimitLearn(String userName) {
         String sql = "SELECT * from Accounts_Limit where UserName = ? and [Date] = CAST(GETDATE() AS DATE)";

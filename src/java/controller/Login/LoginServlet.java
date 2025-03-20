@@ -94,7 +94,10 @@ public class LoginServlet extends HttpServlet {
         AccountDAO d = new AccountDAO();
         Account a = d.checkAuthen(email, password);
         if (a == null) {
-            request.setAttribute("error", "Invalid username or password");
+            request.setAttribute("error", "Invalid username or password!");
+            request.getRequestDispatcher("login/login.jsp").forward(request, response);
+        } else if (a.isIsDeleted()) {
+            request.setAttribute("error", "This account is temporary banned!");
             request.getRequestDispatcher("login/login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();

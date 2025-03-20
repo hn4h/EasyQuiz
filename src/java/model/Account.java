@@ -14,6 +14,7 @@ public class Account {
     private String userName;
     private String hashedPassword;
     private boolean isAdmin;
+    private boolean isDeleted;
     private String email;
     private String profileImage;
     private Date createdDate;
@@ -21,10 +22,11 @@ public class Account {
     public Account() {
     }
 
-    public Account(String userName, String hashedPassword, boolean isAdmin, String email, String profileImage, Date createdDate, Date expiredDate) {
+    public Account(String userName, String hashedPassword, boolean isAdmin, boolean isDeleted, String email, String profileImage, Date createdDate, Date expiredDate) {
         this.userName = userName;
         this.hashedPassword = hashedPassword;
         this.isAdmin = isAdmin;
+        this.isDeleted = isDeleted;
         this.email = email;
         this.profileImage = profileImage;
         this.createdDate = createdDate;
@@ -72,6 +74,16 @@ public class Account {
     public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+    public boolean isIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+    
+    
 
     public Date getExpiredDate() {
         return expiredDate;

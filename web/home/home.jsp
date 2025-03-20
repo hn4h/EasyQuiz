@@ -21,21 +21,46 @@
     String successMessage = (String) session.getAttribute("successMessage");
     if (successMessage != null) {
         %>
-        <div id="toastMessage">
+        <div id="toastMessage1">
             <span class="material-symbols-rounded">check</span>
             <span><%= successMessage %></span>
         </div>
         <script>
             setTimeout(function () {
-                let toast = document.getElementById("toastMessage");
-                toast.style.opacity = "0";
+                let toast1 = document.getElementById("toastMessage1");
+                toast1.style.opacity = "0";
                 setTimeout(() => {
-                    toast.style.display = "none";
+                    toast1.style.display = "none";
                 }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
             }, 3000);
         </script>
         <%
             session.removeAttribute("successMessage"); // Xóa sau khi hiển thị
+            }
+        %>
+        
+        <%
+    String errorMessage = (String) request.getAttribute("error");
+    if (errorMessage == null) {
+        errorMessage = (String) session.getAttribute("error");
+    }
+    if (errorMessage != null) {
+        %>
+        <div id="toastMessage2">
+            <span class="material-symbols-rounded">close</span>
+            <span><%= errorMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast2 = document.getElementById("toastMessage2");
+                toast2.style.opacity = "0";
+                setTimeout(() => {
+                    toast2.style.display = "none";
+                }, 500);
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("error");
             }
         %>
         <div class="header">
