@@ -169,7 +169,7 @@ public class HistoryDAO extends DBContext {
                 + "JOIN Quiz_Set q ON fc.Quiz_Set_ID = q.Quiz_Set_ID "
                 + "JOIN Accounts a ON q.Author = a.UserName "
                 + "WHERE fc.Folder_ID = ? AND fc.Is_Deleted = 0 "
-                + "order by Created_Date desc";
+                + "order by Folder_Contain_ID desc";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, foldeId);

@@ -539,6 +539,59 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+const items = document.querySelectorAll(".folder-item");
+const quizSetId = document.getElementById("currentQuiz").value;
+items.forEach(item => {
+    item.addEventListener("click", (e) => {
+        e.preventDefault();
+        const newFolderId = item.getAttribute("data-id");
+        const currentContained = document.querySelector(".folder-item.contained"); // Tìm `li` hiện tại có class `contained`
+
+        if (!currentContained) {
+            // Nếu chưa có `contained`, thêm class `contained` và gửi request add
+            item.classList.add("contained");
+            fetch(`addtofolder?folderId=${newFolderId}&quizSetId=${quizSetId}`, {
+                method: 'GET'
+            })
+                    .then(response => {
+                        if (response.ok) {
+                            item.querySelector(".ticked").style.display = "block";
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+        } else if (currentContained === item) {
+            // Nếu click vào chính `contained`, thì xóa `contained` và gửi request delete
+            item.classList.remove("contained");
+            fetch(`deletefromfolder?folderId=${newFolderId}&quizSetId=${quizSetId}`, {
+                method: 'GET'
+            })
+                    .then(response => {
+                        if (response.ok) {
+                            
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+        } else {
+            // Nếu click vào `li` khác `contained`, gửi request changefolder
+            const oldFolderId = currentContained.getAttribute("data-id");;
+            currentContained.classList.remove("contained");
+            item.classList.add("contained");
+
+            fetch(`changefolder?oldFolderId=${oldFolderId}&newFolderId=${newFolderId}&quizSetId=${quizSetId}`, {
+                method: 'GET'
+            })
+                    .then(response => {
+                        if (response.ok) {
+                            currentContained.querySelector(".ticked").style.display = "none";
+                            item.querySelector(".ticked").style.display = "block";
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+        }
+    });
+});
+
+
 
 
 

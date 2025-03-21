@@ -396,6 +396,7 @@
     background: #ffbcfb;
 }
 
+
 .sidebar-nav .nav-link :where(.nav-label, .dropdown-icon),
 .sidebar-nav .nav-link-actived :where(.nav-label, .dropdown-icon){
     transition: opacity 0.3s ease;
@@ -595,14 +596,14 @@
     margin: 0;
 }
 
-.more-option .nav-item {
+.more-option .folder-item {
     display: flex;
     align-items: center;
     padding: 10px;
     cursor: pointer;
 }
 
-.more-option .nav-item a {
+.more-option .folder-item a {
     text-decoration: none;
     color: #333;
     font-size: 14px;
@@ -610,13 +611,25 @@
     margin-left: 5px;
 }
 
-.more-option .nav-item span {
+.more-option .folder-item span {
     color: #333;
     font-size: 20px;
 }
 
-.more-option .nav-item:hover {
+.more-option .folder-item:hover {
     background: #f1f1f1;
+}
+
+.more-option .folder-item .ticked{
+    display: none;
+}
+
+.more-option .folder-item.contained{
+    background: #f1f1f1;
+}
+
+.nav-item.contained .ticked{
+    display: block;
 }
 
 /* Khi hiển thị */
@@ -1470,3 +1483,9 @@
 .option-btn .create-btn:hover {
     background: #2A004E;
 }
+
+.title-text{
+    font-size: 12px;
+}
+
+

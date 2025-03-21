@@ -1,6 +1,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -162,13 +163,26 @@
                             <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span>
                                 <p>Share</p>
                             </button>
-                            <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
+                            <c:if test="${not empty account}">
+                                <button class="btn">
+                                    <span class="material-symbols-rounded">folder_open</span>
+                                    <a class="nav-link">Add to folder</a>
+                                </button>
+                            </c:if>
+                            <input type="hidden" id="currentQuiz" value="${currentQuizSetId}">
                             <div class="more-option">
                                 <ul class="more-option-nav">
-                                    <li class="nav-item">
-                                        <span class="material-symbols-rounded">folder_open</span>
-                                        <a class="nav-link">Add to folder</a>
-                                    </li>
+                                    <c:forEach var="folder" items="${listFolder}">
+                                        <c:set var="quizIdsInFolder" value="${folderQuizMap[folder.folderId]}" />
+                                        <li class="folder-item ${fn:contains(quizIdsInFolder, currentQuizSetId) ? 'contained' : ''}" 
+                                            data-id="${folder.folderId}">
+                                            <div style="width: 100%;">
+                                                <span class="title-text"><i class="fa-solid fa-folder"></i>&nbsp;</span>
+                                                <a>${folder.folderName}</a>
+                                            </div>
+                                            <div class="ticked"><i class="fa-solid fa-check"></i></div>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                             </div>
                         </div>
