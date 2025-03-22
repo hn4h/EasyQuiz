@@ -35,19 +35,19 @@ public class AddPackageServlet extends HttpServlet {
             value = Integer.parseInt(valueString);
             price = Integer.parseInt(priceString);
         } catch (Exception e) {
-            request.getSession().setAttribute("message", "Invalid value or price");
+            request.getSession().setAttribute("error", "Invalid value or price");
             response.sendRedirect("managepackage");
             System.out.println("loi1");
             return;
         }        
         if (name == null || description == null || name.isEmpty() || description.isEmpty()) {
-            request.getSession().setAttribute("message", "Name and description cannot be empty");
+            request.getSession().setAttribute("error", "Name and description cannot be empty");
             response.sendRedirect("managepackage");
             System.out.println("loi2");
             return;
         }
         if (value <= 0 || price <= 0) {
-            request.getSession().setAttribute("message", "Value and price must be greater than 0");
+            request.getSession().setAttribute("error", "Value and price must be greater than 0");
             response.sendRedirect("managepackage");
             System.out.println("loi3");
             return;
@@ -57,7 +57,7 @@ public class AddPackageServlet extends HttpServlet {
         Package p = new Package(name, description, value, price);
         dao.addPackage(p);
         // Redirect to managepackage
-        request.getSession().setAttribute("message", "Add package successfully");
+        request.getSession().setAttribute("message", "Add package successfully!");
         response.sendRedirect("managepackage");
     }
 

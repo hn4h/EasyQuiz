@@ -90,7 +90,7 @@
                         </div>
                         <div class="search">
                             <label for="search">Search:</label>
-                            <input id="search" type="text">
+                            <input id="search" type="text" onkeyup="searchTable()">
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
                                 <th><span class="th-content">Avatar</span></th>
                                 <th onclick="sortTable(1)"><span class="th-content">User Name <i class="fas fa-sort" id="icon-1"></i></span></th>
                                 <th onclick="sortTable(2)"><span class="th-content">Email <i class="fas fa-sort" id="icon-2"></i></span></th>
-                                <th style="text-align: center;">Actions</th>
+<!--                                <th style="text-align: center;">Actions</th>-->
                                 <th style="text-align: center;">Details</th>
                             </tr>
                         </thead>
@@ -112,12 +112,12 @@
                                     <td style="text-align: center;"><img src="${c.imageProfile}" alt="Not found"></td>
                                     <td>${c.userName}</td>
                                     <td>${c.email}</td>
-                                    <td style="text-align: center;">
+<!--                                    <td style="text-align: center;">
                                         <select onchange="changeRowColor(this)" class="select-active">
                                             <option value="Active" selected>Active</option>
                                             <option value="Ban">Ban</option>
                                         </select>
-                                    </td>
+                                    </td>-->
                                     <td style="text-align: center;">
                                         <span class="dropdown-icon material-symbols-rounded" id="icon-${status.index}" onclick="toggleDetails(${status.index})" data-id="${status.index}">expand_more</span>
                                     </td>
@@ -154,7 +154,7 @@
                         <div class="pagination-options">
                             <select>
                                 <option>5</option>
-                                <option>10</option>
+                                <option selected>10</option>
                                 <option>15</option>
                                 <option>20</option>
                                 <option>25</option>

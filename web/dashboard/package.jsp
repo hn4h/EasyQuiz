@@ -42,14 +42,16 @@
                 margin-bottom: 20px;
             }
 
-            .close {
+            .close, .close-edit {
                 color: #aaa;
                 font-size: 28px;
                 font-weight: bold;
             }
 
             .close:hover,
-            .close:focus {
+            .close:focus,
+            .close-edit:hover,
+            .close-edit:focus{
                 color: black;
                 text-decoration: none;
                 cursor: pointer;
@@ -106,6 +108,7 @@
                 border: 1px solid #ccc;
                 border-radius: 5px;
                 font-size: 14px;
+                font-weight: 600;
             }
 
             /* Canh ch?nh nï¿½t Save vï¿½ Cancel */
@@ -202,8 +205,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name of package</th>
-                                <th>Value</th>
-                                <th>Price</th>
+                                <th>Value (days)</th>
+                                <th>Price (VND)</th>
                                 <th>Description</th>
                                 <th style="text-align: center;">Status</th>
                                 <th style="text-align: center;">Action</th>
@@ -213,9 +216,76 @@
                             <c:forEach items="${requestScope.packages}" var="p" varStatus="status">
                                 <tr class="user-row ${status.index % 2 == 0 ? 'even' : 'odd'}" id="row-${status.index}">
                                     <td>${p.id}</td>
-                                    <td>${p.name}</td>
-                                    <td>${p.value} days</td>
-                                    <td>${p.price} VND</td>
+                                    <c:choose>
+                                        <c:when test="${p.name == 'Annual'}">
+                                            <td>
+                                                <span class="package3">
+                                                    ${p.name}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package3">
+                                                    ${p.value}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package3">
+                                                    ${p.price}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${p.name == 'Monthly'}">
+                                            <td>
+                                                <span class="package1">
+                                                    ${p.name}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package1">
+                                                    ${p.value}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package1">
+                                                    ${p.price}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${p.name == 'Quarterly'}">
+                                            <td>
+                                                <span class="package2">
+                                                    ${p.name}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package2">
+                                                    ${p.value}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package2">
+                                                    ${p.price}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>
+                                                <span class="package0">
+                                                    ${p.name}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package0">
+                                                    ${p.value}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package0">
+                                                    ${p.price}
+                                                </span>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
                                     <td>${p.description}</td>
                                     <td style="text-align: center;">
                                         <select onchange="changeRowColor(this)" class="select-active">
@@ -225,7 +295,7 @@
                                     </td>
                                     <td style="text-align: center;">
                                         <button class="edit-btn">Edit</button>
-                                        <!--                                        <button class="delete-btn">Delete</button>-->
+                                        <!--<button class="delete-btn">Delete</button>-->
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -235,7 +305,7 @@
                         <div class="pagination-options">
                             <select>
                                 <option>5</option>
-                                <option>10</option>
+                                <option selected>10</option>
                                 <option>15</option>
                                 <option>20</option>
                                 <option>25</option>
@@ -265,12 +335,12 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="packageValue">Package Duration:</label>
+                        <label for="packageValue">Package Duration(days):</label>
                         <input type="text" id="packageValue" name="packageValue">
                     </div>
 
                     <div class="form-group">
-                        <label for="packagePrice">Package Price:</label>
+                        <label for="packagePrice">Package Price(VND):</label>
                         <input type="text" id="packagePrice" name="packagePrice">
                     </div>
 
@@ -281,6 +351,42 @@
 
                     <div class="button-group">
                         <button id="modalSaveBtn" type="submit" class="save-btn">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="editPackageModal" class="modal">
+            <div class="modal-content">
+                <form action="editPackage" method="post">
+                    <div class="modal-header">
+                        <h2>Edit Package</h2>
+                        <span class="close-edit material-symbols-rounded">close</span>
+                    </div>
+                    
+                    <input type="hidden" id="editPackageId" name="editPackageId">
+                    
+                    <div class="form-group">
+                        <label for="editPackageName">Package Name:</label>
+                        <input type="text" id="editPackageName" name="editPackageName">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editPackageValue">Package Duration(days):</label>
+                        <input type="text" id="editPackageValue" name="editPackageValue">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editPackagePrice">Package Price(VND):</label>
+                        <input type="text" id="editPackagePrice" name="editPackagePrice">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editPackageDescription">Package Description:</label>
+                        <input type="text" id="editPackageDescription" name="editPackageDescription">
+                    </div>
+
+                    <div class="button-group">
+                        <button id="editModalSaveBtn" type="submit" class="save-btn">Save</button>
                     </div>
                 </form>
             </div>
@@ -306,60 +412,28 @@
             session.removeAttribute("message"); // Xóa sau khi hiển thị
             }
         %>
+        
+        <%
+            String errorMessage = (String) session.getAttribute("error");
+            if (errorMessage != null) {
+        %>
+        <div id="toastMessage2">
+            <span class="material-symbols-rounded">close</span>
+            <span><%= errorMessage %></span>
+        </div>
         <script>
-            const newPackageBtn = document.getElementById('newPackageBtn');
-            const modal = document.getElementById('newPackageModal');
-            const span = document.getElementsByClassName("close")[0];
-            const modalSaveBtn = document.getElementById('modalSaveBtn');
-            const modalCancelBtn = document.getElementById('modalCancelBtn');
-            const packageTable = document.getElementById('packageTable');
-
-            newPackageBtn.addEventListener('click', () => {
-                modal.style.display = "block";
-            });
-
-            span.addEventListener('click', () => {
-                modal.style.display = "none";
-            });
-
-            modalCancelBtn.addEventListener('click', () => {
-                modal.style.display = "none";
-            });
-
-            modalSaveBtn.addEventListener('click', () => {
-                const packageName = document.getElementById('packageName').value;
-                const packageValue = document.getElementById('packageValue').value;
-                const packagePrice = document.getElementById('packagePrice').value;
-
-                if (packageName && packageValue && packagePrice) {
-                    const newRow = packageTable.insertRow(-1);
-                    const idCell = newRow.insertCell();
-                    const nameCell = newRow.insertCell();
-                    const valueCell = newRow.insertCell();
-                    const priceCell = newRow.insertCell();
-                    const actionsCell = newRow.insertCell();
-
-                    const nextId = packageTable.rows.length - 1;
-
-                    idCell.textContent = nextId;
-                    nameCell.textContent = packageName;
-                    valueCell.textContent = packageValue;
-                    priceCell.textContent = packagePrice;
-                    actionsCell.innerHTML = `
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                `;
-
-                    modal.style.display = "none";
-
-                    document.getElementById('packageName').value = '';
-                    document.getElementById('packageValue').value = '';
-                    document.getElementById('packagePrice').value = '';
-                } else {
-                    alert('Please fill in all fields.');
-                }
-            });
+            setTimeout(function () {
+                let toast2 = document.getElementById("toastMessage2");
+                toast2.style.opacity = "0";
+                setTimeout(() => {
+                    toast2.style.display = "none";
+                }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
+            }, 3000);
         </script>
+        <%
+            session.removeAttribute("error"); // Xóa sau khi hiển thị
+            }
+        %>
         <script src="./dashboard/dashboard.js"></script>
     </body>
 

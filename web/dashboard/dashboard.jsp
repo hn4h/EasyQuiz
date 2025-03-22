@@ -200,12 +200,56 @@
                                     <c:forEach items="${requestScope.newTransaction}" var="t">
                                         <tr>
                                             <td>${t.userName}</td>
-                                            <td><span
-                                                    style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">${t.description}</span>
-                                            </td>
-                                            <td><span
-                                                    style="padding: 5px 10px; color: #fff; background: #A64D79; border-radius: 20px; font-size: 14px;">${t.amount}</span>
-                                            </td>
+                                            <c:choose>
+                                                <c:when test="${t.description == 'Annual Package'}">
+                                                    <td>
+                                                        <span class="package3">
+                                                            ${t.description}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="package3">
+                                                            ${t.amount}
+                                                        </span>
+                                                    </td>
+                                                </c:when>
+                                                <c:when test="${t.description == 'Monthly Package'}">
+                                                    <td>
+                                                        <span class="package1">
+                                                            ${t.description}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="package1">
+                                                            ${t.amount}
+                                                        </span>
+                                                    </td>
+                                                </c:when>
+                                                <c:when test="${t.description == 'Quarterly Package'}">
+                                                    <td>
+                                                        <span class="package2">
+                                                            ${t.description}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="package2">
+                                                            ${t.amount}
+                                                        </span>
+                                                    </td>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <td>
+                                                        <span class="package0">
+                                                            ${t.description}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="package0">
+                                                            ${t.amount}
+                                                        </span>
+                                                    </td>
+                                                </c:otherwise>
+                                            </c:choose>
                                             <td><span style="color: #000;">${t.createdDate}</span></td>
                                         </tr>
                                     </c:forEach>

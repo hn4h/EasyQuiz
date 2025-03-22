@@ -117,6 +117,7 @@ public class PackageDAO extends DBContext {
         }
         return false;
     }
+    
     public void activePackage(int id) {
         try {
             String sql = "UPDATE [EasyQuiz].[dbo].[Package] "

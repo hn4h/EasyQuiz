@@ -1,42 +1,4 @@
-//
-//
-//// Lấy thẻ canvas
-//var ctx = document.getElementById('revenueChart').getContext('2d');
-//
-//var summaryData = {
-//    today: { revenue: "$500", users: "10", quizzes: "5", transactions: "3" },
-//    week: { revenue: "$5000", users: "120", quizzes: "45", transactions: "25" },
-//    month: { revenue: "$20,000", users: "500", quizzes: "200", transactions: "100" },
-//    year: { revenue: "$250,000", users: "6000", quizzes: "2500", transactions: "1300" }
-//};
-//
-//var chartData = {
-//    today: { labels: ['0h', '6h', '12h', '18h', '24h'], data: [5, 6, 3, 0, 4] },
-//    week: { labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'], data: [500, 700, 800, 650, 900, 0, 0] },
-//    month: { labels: ['Tuần 1', 'Tuần 2', 'Tuần 3', 'Tuần 4'], data: [4500, 5200, 5800, 6200] },
-//    year: { labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4'], data: [1500, 1800, 2000, 2500] }
-//};
-//
-//var revenueChart = new Chart(ctx, {
-//    type: 'line',
-//    data: {
-//        labels: chartData.week.labels,
-//        datasets: [{
-//            label: 'Revenue ($)',
-//            data: chartData.week.data,
-//            borderColor: '#640D5F',
-//            backgroundColor: 'rgba(255, 188, 251, 0.5)',
-//            fill: true,
-//            tension: 0.4
-//        }]
-//    },
-//    options: {
-//        responsive: true,
-//        plugins: {
-//            legend: { display: true }
-//        }
-//    }
-//});
+
 
 function updateSummary() {
     var timeRange = document.getElementById("summaryFilter").value;
@@ -54,8 +16,8 @@ function updateChart() {
 }
 
 // Trạng thái sắp xếp và dữ liệu gốc
-var sortStates = {}; 
-var originalOrder = []; 
+var sortStates = {};
+var originalOrder = [];
 
 document.addEventListener("DOMContentLoaded", function () {
     let table = document.querySelector("tbody");
@@ -111,7 +73,7 @@ function resetTable() {
         table.appendChild(clonedRow);
         if (clonedDetailsRow) {
             table.appendChild(clonedDetailsRow);
-        }
+    }
     });
 
     attachDropdownEvents(); // Gán lại sự kiện dropdown sau khi reset
@@ -157,8 +119,8 @@ function sortTable(colIndex) {
         let aText = a[0].children[colIndex].innerText.trim().toLowerCase();
         let bText = b[0].children[colIndex].innerText.trim().toLowerCase();
         return sortStates[colIndex] === "asc"
-            ? aText.localeCompare(bText, undefined, { numeric: true })
-            : bText.localeCompare(aText, undefined, { numeric: true });
+                ? aText.localeCompare(bText, undefined, {numeric: true})
+                : bText.localeCompare(aText, undefined, {numeric: true});
     });
 
     // Xóa bảng cũ và thêm lại các cặp hàng đã sắp xếp
@@ -167,7 +129,7 @@ function sortTable(colIndex) {
         table.appendChild(row);
         if (detailsRow) {
             table.appendChild(detailsRow);
-        }
+    }
     });
 
     // Gán lại sự kiện dropdown sau khi sort
@@ -190,7 +152,7 @@ function attachDropdownEvents() {
 
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".select-active").forEach(select => {
-        changeRowColor(select); 
+        changeRowColor(select);
         select.addEventListener("change", function () {
             changeRowColor(this);
         });
@@ -209,25 +171,26 @@ function changeRowColor(selectElement) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    let searchInput = document.getElementById("search");
+//-----------------Search
+function searchTable() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let rows = document.querySelectorAll("tbody tr.user-row");
 
-    searchInput.addEventListener("input", function () {
-        let filter = this.value.trim().toLowerCase();
-        let rows = document.querySelectorAll("tr.user-row");
+    rows.forEach(row => {
+        let cells = row.getElementsByTagName("td");
+        let found = false;
 
-        rows.forEach(row => {
-            let username = row.children[1].innerText.toLowerCase(); // Cột username
-            let email = row.children[2].innerText.toLowerCase();    // Cột email
-
-            if (username.includes(filter) || email.includes(filter)) {
-                row.style.display = ""; // Hiển thị nếu khớp
-            } else {
-                row.style.display = "none"; // Ẩn nếu không khớp
+        for (let cell of cells) {
+            if (cell.textContent.toLowerCase().includes(input)) {
+                found = true;
+                break;
             }
-        });
+        }
+
+        row.style.display = found ? "table-row" : "none";
     });
-});
+}
+
 
 //-----------------Phân trang
 document.addEventListener("DOMContentLoaded", function () {
@@ -246,8 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
             row.style.display = index >= start && index < end ? "table-row" : "none";
         });
 
-        document.querySelector(".pagination-text").textContent = 
-            `Showing ${start + 1} to ${Math.min(end, rows.length)} of ${rows.length} entries`;
+        document.querySelector(".pagination-text").textContent =
+                `Showing ${start + 1} to ${Math.min(end, rows.length)} of ${rows.length} entries`;
 
         updatePaginationButtons();
         generatePageNumbers();
@@ -267,7 +230,8 @@ document.addEventListener("DOMContentLoaded", function () {
             let pageBtn = document.createElement("button");
             pageBtn.textContent = i;
             pageBtn.classList.add("page-btn");
-            if (i === currentPage) pageBtn.classList.add("active");
+            if (i === currentPage)
+                pageBtn.classList.add("active");
 
             pageBtn.addEventListener("click", function () {
                 currentPage = i;
@@ -300,5 +264,81 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     displayPage(currentPage);
+});
+
+//--------------------------Pop up new package
+const newPackageBtn = document.getElementById('newPackageBtn');
+const modal = document.getElementById('newPackageModal');
+const span = document.getElementsByClassName("close")[0];
+const modalSaveBtn = document.getElementById('modalSaveBtn');
+const packageTable = document.getElementById('packageTable');
+
+newPackageBtn.addEventListener('click', () => {
+    modal.style.display = "block";
+});
+
+span.addEventListener('click', () => {
+    modal.style.display = "none";
+});
+modalSaveBtn.addEventListener('click', () => {
+    const packageName = document.getElementById('packageName').value;
+    const packageValue = document.getElementById('packageValue').value;
+    const packagePrice = document.getElementById('packagePrice').value;
+
+    if (packageName && packageValue && packagePrice) {
+        const newRow = packageTable.insertRow(-1);
+        const idCell = newRow.insertCell();
+        const nameCell = newRow.insertCell();
+        const valueCell = newRow.insertCell();
+        const priceCell = newRow.insertCell();
+        const actionsCell = newRow.insertCell();
+
+        const nextId = packageTable.rows.length - 1;
+
+        idCell.textContent = nextId;
+        nameCell.textContent = packageName;
+        valueCell.textContent = packageValue;
+        priceCell.textContent = packagePrice;
+        actionsCell.innerHTML = `
+                    <button class="edit-btn">Edit</button>
+                    <button class="delete-btn">Delete</button>
+                `;
+
+        modal.style.display = "none";
+
+        document.getElementById('packageName').value = '';
+        document.getElementById('packageValue').value = '';
+        document.getElementById('packagePrice').value = '';
+    } else {
+        alert('Please fill in all fields.');
+    }
+});
+
+//--------------------------Pop up edit package
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function () {
+        console.log("Nút Edit đã được nhấn!");
+        // Lấy hàng chứa nút vừa click
+        let row = this.closest('tr'); 
+
+        // Lấy thông tin từ hàng
+        let name = row.cells[1].textContent.trim();
+        let value = row.cells[2].textContent.trim();
+        let price = row.cells[3].textContent.trim();
+        let description = row.cells[4].textContent.trim();
+
+        // Đổ dữ liệu vào modal
+        document.getElementById("editPackageName").value = name;
+        document.getElementById("editPackageValue").value = value;
+        document.getElementById("editPackagePrice").value = price;
+        document.getElementById("editPackageDescription").value = description;
+
+        // Hiển thị modal
+        document.getElementById("editPackageModal").style.display = "block";
+    });
+});
+
+document.querySelector('.close-edit').addEventListener('click', function () {
+    document.getElementById("editPackageModal").style.display = "none";
 });
 

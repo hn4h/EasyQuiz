@@ -82,7 +82,7 @@ public class StatisDAO extends DBContext {
     public List<Account> getNewCreatedUser() {
         List<Account> list = new ArrayList<>();
         try {
-            String sql = "select top (6) UserName, profileImage from Accounts order by CreatedDate desc";
+            String sql = "select top (5) UserName, profileImage from Accounts order by CreatedDate desc";
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {

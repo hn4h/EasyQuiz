@@ -89,7 +89,7 @@
                         </div>
                         <div>
                             <label for="search">Search:</label>
-                            <input id="search" type="text">
+                            <input id="search" type="text" onkeyup="searchTable()">
                         </div>
                     </div>
                 </div>
@@ -97,36 +97,135 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>ID <i class="fas fa-sort"></i></th>
-                                <th>Name of user <i class="fas fa-sort"></i></th>
-                                <th>Name of package <i class="fas fa-sort"></i></th>
-                                <th>Total <i class="fas fa-sort"></i></th>
-                                <th>Status <i class="fas fa-sort"></i></th>
-                                <th>Purchasing date <i class="fas fa-sort"></i></th>
+                                <th onclick="sortTable(0)"><span class="th-content">Order code <i class="fas fa-sort" id="icon-0"></i></span></th>
+                                <th>Name of user</th>
+                                <th>Name of package</th>
+                                <th onclick="sortTable(3)"><span class="th-content">Total <i class="fas fa-sort" id="icon-3"></i></span></th>
+                                <th onclick="sortTable(4)"><span class="th-content">Status <i class="fas fa-sort" id="icon-4"></i></span></th>
+                                <th onclick="sortTable(5)"><span class="th-content">Purchasing date <i class="fas fa-sort" id="icon-5"></i></span></th>
                             </tr>
                         </thead>
                         <tbody>
-                        <c:forEach items="${requestScope.transactions}" var="t">
-                            <tr>
-                                <td>1</td>
-                                <td>${t.userName}</td>
-                                <td>${t.description}</td>
-                                <td>${t.amount}</td>
-                                <td>${t.status}</td>
-                                <td>${t.createdDate}</td>
-                            </tr>
-                        </c:forEach>
-                        
+                            <c:forEach items="${requestScope.transactions}" var="t" varStatus="status">
+                                <tr class="user-row ${status.index % 2 == 0 ? 'even' : 'odd'}" id="row-${status.index}">
+                                    <c:choose>
+                                        <c:when test="${t.description == 'Annual Package'}">
+                                            <td>
+                                                <span class="package3">
+                                                    ${t.orderCode}
+                                                </span>
+                                            </td>
+                                            <td>${t.userName}</td>
+                                            <td>
+                                                <span class="package3">
+                                                    ${t.description}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package3">
+                                                    ${t.amount}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${t.description == 'Monthly Package'}">
+                                            <td>
+                                                <span class="package1">
+                                                    ${t.orderCode}
+                                                </span>
+                                            </td>
+                                            <td>${t.userName}</td>
+                                            <td>
+                                                <span class="package1">
+                                                    ${t.description}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package1">
+                                                    ${t.amount}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${t.description == 'Quarterly Package'}">
+                                            <td>
+                                                <span class="package2">
+                                                    ${t.orderCode}
+                                                </span>
+                                            </td>
+                                            <td>${t.userName}</td>
+                                            <td>
+                                                <span class="package2">
+                                                    ${t.description}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package2">
+                                                    ${t.amount}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>
+                                                <span class="package0">
+                                                    ${t.orderCode}
+                                                </span>
+                                            </td>
+                                            <td>${t.userName}</td>
+                                            <td>
+                                                <span class="package0">
+                                                    ${t.description}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="package0">
+                                                    ${t.amount}
+                                                </span>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:choose>
+                                        <c:when test="${t.status == 'CANCELLED'}">
+                                            <td>
+                                                <span class="status1">
+                                                    ${t.status}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:when test="${t.status == 'PAID'}">
+                                            <td>
+                                                <span class="status2">
+                                                    ${t.status}
+                                                </span>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td>
+                                                <span class="status0">
+                                                    ${t.status}
+                                                </span>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <td>${t.createdDate}</td>
+                                </tr>
+                            </c:forEach>
                         </tbody>
                     </table>
                     <div class="pagination">
-                        <div>
-                            <nav>
-                                <a href="#">Previous</a>
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">Next</a>
-                            </nav>
+                        <div class="pagination-options">
+                            <select>
+                                <option>5</option>
+                                <option selected>10</option>
+                                <option>15</option>
+                                <option>20</option>
+                                <option>25</option>
+                            </select>
+                            <span>entries per page</span>
+                        </div>
+                        <span class="pagination-text">Showing ? to ?? of ?? entries</span>
+                        <div class="pagination-number">
+                            <button id="prev-page" class="disabled">Previous</button>
+                            <div id="page-numbers" class=".page-btn"></div>
+                            <button id="next-page" class="disabled">Next</button>
                         </div>
                     </div>
                 </div>
