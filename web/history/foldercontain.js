@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isSelected) {
                 // Add to folder
                 fetch(`addtofolder?folderId=${folderId}&quizSetId=${quizSetId}`, {
-                    method: 'GET'
+                    method: 'POST'
                 })
                         .then(response => {
                             if (response.ok) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Remove from folder
                 fetch(`deletefromfolder?folderId=${folderId}&quizSetId=${quizSetId}`, {
-                    method: 'GET'
+                    method: 'POST'
                 })
                         .then(response => {
                             if (response.ok) {

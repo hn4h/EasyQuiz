@@ -119,15 +119,40 @@
                     </ul>
                 </nav>
             </aside>
+
+        <%
+    String errorMessage = (String) request.getAttribute("error");
+    if (errorMessage == null) {
+        errorMessage = (String) session.getAttribute("error");
+    }
+    if (errorMessage != null) {
+        %>
+        <div id="toastMessage2">
+            <span class="material-symbols-rounded">close</span>
+            <span><%= errorMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast2 = document.getElementById("toastMessage2");
+                toast2.style.opacity = "0";
+                setTimeout(() => {
+                    toast2.style.display = "none";
+                }, 500);
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("error");
+            }
+        %>
             <div class="body-container">
                 <form action="addquiz" method="post" id="quizForm">
                     <div class="quiz-header">
                         <h1 class="form-title">Create a new quiz</h1>
                         <button type="submit" class="create-btn">Create</button>
                     </div>
-                    <input type="hidden" id="questionCount" name="questionCount">
-                    <input type="text" placeholder="Enter a title" class="input" name="quizTitle">
-                    <input type="text" placeholder="Add a description..." class="des input" name="quizDescription">
+                    <input type="hidden" id="questionCount" name="questionCount" value="${requestScope.quizSet.numberOfQuiz}">
+                    <input type="text" placeholder="Enter a title" class="input" name="quizTitle" value="${requestScope.quizSet.quizSetName}">
+                    <input type="text" placeholder="Add a description..." class="des input" name="quizDescription" value="${requestScope.quizSet.quizSetDescription}">
                     <!-- Quiz Items -->
                     <div class="quiz-item">
                         <div class="quiz-content">

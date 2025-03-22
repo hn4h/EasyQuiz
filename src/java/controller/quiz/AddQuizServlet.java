@@ -86,6 +86,12 @@ public class AddQuizServlet extends HttpServlet {
         qs.setQuizSetName(title);
         qs.setQuizSetDescription(description);
         qs.setNumberOfQuiz(Integer.parseInt(numberOfQuestions));
+        if(qs.getNumberOfQuiz() <= 0){
+            request.setAttribute("error", "Number of questions must be greater than 0");
+            request.setAttribute("quizSet", qs);
+            request.getRequestDispatcher("quiz/createquiz.jsp").forward(request, response);
+            return;
+        }
         int quizSetId = quizSetDAO.addQuizSet(qs);
         QuizDAO quizDAO = new QuizDAO();
         for (int i = 1; i <= Integer.parseInt(numberOfQuestions); i++) {
