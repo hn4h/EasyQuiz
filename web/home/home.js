@@ -148,7 +148,7 @@ function openBlogModal(element) {
             commentDiv.classList.add("comment");
 
             commentDiv.innerHTML = `
-                <img src="./images/avatar/default.png" alt="Avatar">
+                <img src="${comment.account.profileImage}" alt="Avatar">
                 <div class="blog-comment-content">
                     <p><strong>${comment.userName}</strong></p>
                     <p style="font-size: 14px; font-weight: 500;">${comment.content}</p>

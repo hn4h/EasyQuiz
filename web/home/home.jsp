@@ -252,7 +252,7 @@
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${popularBlog}" var="blog">
                                 <li class="card-item swiper-slide">
-                                    <a href="javascript:void(0);" class="card-link"
+                                    <a class="card-link"
                                        data-blogid="${blog.blogId}"
                                        data-title="${blog.blogTitle}"
                                        data-author="${blog.author.userName}"
@@ -264,7 +264,7 @@
                                            <c:if test="${!loop.last}">,</c:if>
                                        </c:forEach>
                                        ]'
-                                       onclick="openBlogModal(this)">
+                                       onclick="window.location.href='blogdetail?blogId=${blog.blogId}'">
                                         <h2 class="card-title">
                                             <c:choose>
                                                 <c:when test="${fn:length(blog.blogTitle) > 25}">

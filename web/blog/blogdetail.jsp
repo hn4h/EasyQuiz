@@ -124,15 +124,15 @@
                         <h2>${requestScope.blogDetail.blogTitle}</h2>
                         <div class="header-btn">
                             <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-                            <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>
-                            <div class="more-option" id="moreOption">
+<!--                            <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>-->
+<!--                            <div class="more-option" id="moreOption">
                                 <ul class="more-option-nav">
                                     <li class="nav-item">
                                         <span class="material-symbols-rounded">report</span>
                                         <a href="#" class="nav-link">Report</a>
                                     </li>
                                 </ul>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div id="copyMessage" class="copy-message">Link copied!</div>
@@ -195,10 +195,10 @@
 
         <script>
             // Toggle more options
-            document.getElementById('moreButton').addEventListener('click', function () {
-                const moreOption = document.getElementById('moreOption');
-                moreOption.classList.toggle('show');
-            });
+//            document.getElementById('moreButton').addEventListener('click', function () {
+//                const moreOption = document.getElementById('moreOption');
+//                moreOption.classList.toggle('show');
+//            });
 
             // Share button functionality (copy link to clipboard)
             document.getElementById('shareButton').addEventListener('click', function () {

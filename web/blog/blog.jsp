@@ -248,9 +248,9 @@
                         <div class="blog-card">
                             <div class="content-header">
                                 <h2><a href="blogdetail?blogId=${blog.blogId}" style="color: black;text-decoration: none">${blog.blogTitle}</a></h2>
-                                <div class="header-btn">                               
+<!--                                <div class="header-btn">                               
                                     <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="blog-header">
                                 <img alt="" src="${blog.author.profileImage}"/> 
