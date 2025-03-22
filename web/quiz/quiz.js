@@ -531,14 +531,6 @@ closeBtn.addEventListener('click', () => {
     }, 200); // Thời gian khớp với animation fadeOut
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Khi mở popup, đặt giá trị mặc định cho input
-    document.querySelector(".optionBtn").addEventListener("click", function () {
-        document.querySelector("input[name='numberQuiz']").value = 5;
-        document.querySelector("input[name='timeLimit']").value = 5;
-    });
-});
-
 const items = document.querySelectorAll(".folder-item");
 const quizSetId = document.getElementById("currentQuiz").value;
 items.forEach(item => {
@@ -551,7 +543,7 @@ items.forEach(item => {
             // Nếu chưa có `contained`, thêm class `contained` và gửi request add
             item.classList.add("contained");
             fetch(`addtofolder?folderId=${newFolderId}&quizSetId=${quizSetId}`, {
-                method: 'GET'
+                method: 'POST'
             })
                     .then(response => {
                         if (response.ok) {
@@ -563,11 +555,11 @@ items.forEach(item => {
             // Nếu click vào chính `contained`, thì xóa `contained` và gửi request delete
             item.classList.remove("contained");
             fetch(`deletefromfolder?folderId=${newFolderId}&quizSetId=${quizSetId}`, {
-                method: 'GET'
+                method: 'POST'
             })
                     .then(response => {
                         if (response.ok) {
-                            
+                            currentContained.querySelector(".ticked").style.display = "none";
                         }
                     })
                     .catch(error => console.error('Error:', error));
@@ -578,7 +570,7 @@ items.forEach(item => {
             item.classList.add("contained");
 
             fetch(`changefolder?oldFolderId=${oldFolderId}&newFolderId=${newFolderId}&quizSetId=${quizSetId}`, {
-                method: 'GET'
+                method: 'POST'
             })
                     .then(response => {
                         if (response.ok) {
@@ -591,7 +583,13 @@ items.forEach(item => {
     });
 });
 
-
+document.addEventListener("DOMContentLoaded", function () {
+    // Khi mở popup, đặt giá trị mặc định cho input
+    document.querySelector(".optionBtn").addEventListener("click", function () {
+        document.querySelector("input[name='numberQuiz']").value = 5;
+        document.querySelector("input[name='timeLimit']").value = 5;
+    });
+});
 
 
 
