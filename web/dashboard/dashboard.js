@@ -1,20 +1,4 @@
 
-
-function updateSummary() {
-    var timeRange = document.getElementById("summaryFilter").value;
-    document.getElementById("revenue").innerText = summaryData[timeRange].revenue;
-    document.getElementById("users").innerText = summaryData[timeRange].users;
-    document.getElementById("quizzes").innerText = summaryData[timeRange].quizzes;
-    document.getElementById("transactions").innerText = summaryData[timeRange].transactions;
-}
-
-function updateChart() {
-    var timeRange = document.getElementById("chartFilter").value;
-    revenueChart.data.labels = chartData[timeRange].labels;
-    revenueChart.data.datasets[0].data = chartData[timeRange].data;
-    revenueChart.update();
-}
-
 // Trạng thái sắp xếp và dữ liệu gốc
 var sortStates = {};
 var originalOrder = [];
@@ -165,7 +149,7 @@ function changeRowColor(selectElement) {
     if (value === "Active") {
         selectElement.style.backgroundColor = "";
         selectElement.style.color = "";
-    } else if (value === "Ban") {
+    } else if (value === "Disable") {
         selectElement.style.backgroundColor = "#C62300";
         selectElement.style.color = "#fff";
     }

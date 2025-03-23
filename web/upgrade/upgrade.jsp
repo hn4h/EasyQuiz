@@ -47,19 +47,21 @@
             <h1 class="text-4xl font-bold text-center mb-8">Get better results with the <br/> number one learning platform</h1>
             <div class="plans">            
                 <c:forEach var="p" items="${packages}">
-                    <div class="plan">
-                        <div class="plan-title">${p.name}</div>
-                        <div class="plan-description">${p.description}</div>
-                        <div class="plan-price">${p.price} VND</div>
-                        <div class="plan-description"></div>
-                        <form action="./order" method="post" id="paymentForm">
-                            <input type="hidden" name="packageName" value="${p.name}">
-                            <input type="hidden" name="price" value="${p.price}">
-                            <input type="hidden" name="value" value="${p.value}">
-                            <!-- Return URLs will be set by the server -->
-                            <button type="submit" id="plan-button secondary" class="plan-button secondary">Get EasyQuiz Premium</button>
-                        </form>
-                    </div>
+                    <c:if test="${p.isActive}">
+                        <div class="plan">
+                            <div class="plan-title">${p.name}</div>
+                            <div class="plan-description">${p.description}</div>
+                            <div class="plan-price">${p.price} VND</div>
+                            <div class="plan-description"></div>
+                            <form action="./order" method="post" id="paymentForm">
+                                <input type="hidden" name="packageName" value="${p.name}">
+                                <input type="hidden" name="price" value="${p.price}">
+                                <input type="hidden" name="value" value="${p.value}">
+                                <!-- Return URLs will be set by the server -->
+                                <button type="submit" id="plan-button secondary" class="plan-button secondary">Get EasyQuiz Premium</button>
+                            </form>
+                        </div>
+                    </c:if>
                 </c:forEach>
             </div>
             <div class="py-8"></div>
@@ -93,13 +95,21 @@
             <h1 class="text-4xl font-bold text-center mb-8">Experience it today at a great price!</h1>
             <div class="plans">            
                 <c:forEach var="p" items="${packages}">
-                    <div class="plan">
-                        <div class="plan-title">${p.name}</div>
-                        <div class="plan-description">${p.description}</div>
-                        <div class="plan-price">${p.price} VND</div>
-                        <div class="plan-description"></div>
-                        <a href="#" class="plan-button secondary">Get EasyQuiz Premium</a>
-                    </div>
+                    <c:if test="${p.isActive}">
+                        <div class="plan">
+                            <div class="plan-title">${p.name}</div>
+                            <div class="plan-description">${p.description}</div>
+                            <div class="plan-price">${p.price} VND</div>
+                            <div class="plan-description"></div>
+                            <form action="./order" method="post" id="paymentForm">
+                                <input type="hidden" name="packageName" value="${p.name}">
+                                <input type="hidden" name="price" value="${p.price}">
+                                <input type="hidden" name="value" value="${p.value}">
+                                <!-- Return URLs will be set by the server -->
+                                <button type="submit" id="plan-button secondary" class="plan-button secondary">Get EasyQuiz Premium</button>
+                            </form>
+                        </div>
+                    </c:if>
                 </c:forEach>
             </div>
         </div>

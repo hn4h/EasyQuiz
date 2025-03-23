@@ -51,13 +51,13 @@ public class AddPackageServlet extends HttpServlet {
         if (name == null || description == null || name.isEmpty() || description.isEmpty()) {
             request.getSession().setAttribute("error", "Name and description cannot be empty");
             response.sendRedirect("managepackage");
-            System.out.println("loi2");
+            System.out.println("loi3");
             return;
         }
         if (value <= 0 || price <= 0) {
             request.getSession().setAttribute("error", "Value and price must be greater than 0");
             response.sendRedirect("managepackage");
-            System.out.println("loi3");
+            System.out.println("loi4");
             return;
         }
         // Add package to database

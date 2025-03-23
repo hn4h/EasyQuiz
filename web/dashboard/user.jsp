@@ -95,29 +95,23 @@
                     </div>
                 </div>
                 <div class="user-table">
-                    <table>
+<!--                    <table>
                         <thead>
                             <tr>
                                 <th><span class="th-content">Avatar</span></th>
                                 <th onclick="sortTable(1)"><span class="th-content">User Name <i class="fas fa-sort" id="icon-1"></i></span></th>
                                 <th onclick="sortTable(2)"><span class="th-content">Email <i class="fas fa-sort" id="icon-2"></i></span></th>
-<!--                                <th style="text-align: center;">Actions</th>-->
+                                <th style="text-align: center;">Actions</th>
                                 <th style="text-align: center;">Details</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${requestScope.users}" var="c" varStatus="status">
                                 <tr class="user-row ${status.index % 2 == 0 ? 'even' : 'odd'}" id="row-${status.index}">
-                                    <!--<td>1</td>-->
+                                    <td>1</td>
                                     <td style="text-align: center;"><img src="${c.imageProfile}" alt="Not found"></td>
                                     <td>${c.userName}</td>
                                     <td>${c.email}</td>
-<!--                                    <td style="text-align: center;">
-                                        <select onchange="changeRowColor(this)" class="select-active">
-                                            <option value="Active" selected>Active</option>
-                                            <option value="Ban">Ban</option>
-                                        </select>
-                                    </td>-->
                                     <td style="text-align: center;">
                                         <span class="dropdown-icon material-symbols-rounded" id="icon-${status.index}" onclick="toggleDetails(${status.index})" data-id="${status.index}">expand_more</span>
                                     </td>
@@ -126,14 +120,14 @@
                                     <td colspan="5">
                                         <div class="user-content">
                                             <div class="column">
-                                                <!--                                        <p><strong>ID:</strong> 1</p>-->
+                                                                                        <p><strong>ID:</strong> 1</p>
                                                 <p><strong>Name:</strong> ${c.userName}</p>
                                                 <p><strong>Email:</strong> ${c.email}</p>
                                             </div>
                                             <div class="column">
                                                 <p><strong>Folder:</strong> ${c.numFolder}</p>
                                                 <p><strong>Quiz set:</strong> ${c.numQuizSet}</p>
-                                                <!--<p><strong>Quiz test completed:</strong> 5</p>-->
+                                                <p><strong>Quiz test completed:</strong> 5</p>
                                             </div>
                                             <div class="column">
                                                 <p><strong>Blog:</strong> ${c.numBlog}</p>
@@ -146,6 +140,37 @@
                                             </div>
                                         </div>
                                     </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>-->
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><span class="th-content">Avatar</span></th>
+                                <th onclick="sortTable(1)"><span class="th-content">User Name <i class="fas fa-sort" id="icon-1"></i></span></th>
+                                <th onclick="sortTable(2)"><span class="th-content">Email <i class="fas fa-sort" id="icon-2"></i></span></th>
+                                <th onclick="sortTable(3)"><span class="th-content">Folder <i class="fas fa-sort" id="icon-3"></i></span></th>
+                                <th onclick="sortTable(4)"><span class="th-content">Quiz set <i class="fas fa-sort" id="icon-4"></i></span></th>
+                                <th onclick="sortTable(5)"><span class="th-content">Blog <i class="fas fa-sort" id="icon-5"></i></span></th>
+                                <th onclick="sortTable(6)"><span class="th-content">Comment <i class="fas fa-sort" id="icon-6"></i></span></th>
+                                <th onclick="sortTable(7)"><span class="th-content">Feedback <i class="fas fa-sort" id="icon-7"></i></span></th>
+                                <th><span class="th-content">Note</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${requestScope.users}" var="c" varStatus="status">
+                                <tr class="user-row ${status.index % 2 == 0 ? 'even' : 'odd'}" id="row-${status.index}">
+                                    <!--<td>1</td>-->
+                                    <td><img src="${c.imageProfile}" alt="Not found"></td>
+                                    <td>${c.userName}</td>
+                                    <td>${c.email}</td>
+                                    <td>${c.numFolder}</td>
+                                    <td>${c.numQuizSet}</td>
+                                    <td>${c.numBlog}</td>
+                                    <td>${c.numComment}</td>
+                                    <td>${c.numFeedBack}</td>
                                 </tr>
                             </c:forEach>
                         </tbody>

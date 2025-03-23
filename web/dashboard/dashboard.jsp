@@ -103,10 +103,10 @@
                             </div>
                         </div>
                         <div class="summary-item" style="border-bottom: 4px solid #8174A0;">
-                            <span class="material-symbols-rounded">quiz</span>
+                            <span class="material-symbols-rounded">feedback</span>
                             <div>
-                                <p style="font-weight: 600;">Total Quiz</p>
-                                <p style="font-weight: bold; font-size: 30px;" id="quizzes">${requestScope.numOfQuizSet}</p>
+                                <p style="font-weight: 600;">Total Feedback</p>
+                                <p style="font-weight: bold; font-size: 30px;" id="quizzes">${requestScope.numOfFeedback}</p>
                             </div>
                         </div>
                         <div class="summary-item" style="border-bottom: 4px solid #441752;">
@@ -155,6 +155,7 @@
                                             enabled: true
                                             }
                                     },
+                                    colors: ['#640D5F'],
                                     dataLabels: {
                                     enabled: false
                                     },

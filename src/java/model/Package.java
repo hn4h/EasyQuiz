@@ -18,6 +18,7 @@ public class Package {
     private int value;
     private int price;
     private Date createdDate;
+    private boolean isActive;
 
     public Package( String name, String description, int value, int price) {
         this.id = id;
@@ -78,4 +79,14 @@ public class Package {
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
+
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+    
+    
 }

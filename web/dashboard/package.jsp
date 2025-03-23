@@ -288,10 +288,13 @@
                                     </c:choose>
                                     <td>${p.description}</td>
                                     <td style="text-align: center;">
-                                        <select onchange="changeRowColor(this)" class="select-active">
-                                            <option value="Active" selected>Active</option>
-                                            <option value="Ban">Ban</option>
-                                        </select>
+                                        <form action="activepackage" method="post">
+                                            <input type="hidden" name="packageId" value="${p.id}">
+                                            <select name="status" onchange="this.form.submit()" class="select-active">
+                                                <option value="Active" ${p.isActive ? 'selected' : ''}>Active</option>
+                                                <option value="Disable" ${!p.isActive ? 'selected' : ''}>Disable</option>
+                                            </select>
+                                        </form>
                                     </td>
                                     <td style="text-align: center;">
                                         <button class="edit-btn">Edit</button>
@@ -362,9 +365,9 @@
                         <h2>Edit Package</h2>
                         <span class="close-edit material-symbols-rounded">close</span>
                     </div>
-                    
+
                     <input type="hidden" id="editPackageId" name="editPackageId">
-                    
+
                     <div class="form-group">
                         <label for="editPackageName">Package Name:</label>
                         <input type="text" id="editPackageName" name="editPackageName">
@@ -412,7 +415,7 @@
             session.removeAttribute("message"); // Xóa sau khi hiển thị
             }
         %>
-        
+
         <%
             String errorMessage = (String) session.getAttribute("error");
             if (errorMessage != null) {

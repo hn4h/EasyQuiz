@@ -66,7 +66,7 @@ public class PackageDAO extends DBContext {
         try {
             String sql = "SELECT [Package_Name]\n"
                     + "      ,[Package_Description]\n"
-                    + "      ,[Package_Amount]\n"
+                    + "      ,[Package_Amount],[Is_Active]\n"
                     + "  FROM [EasyQuiz].[dbo].[Package]\n"
                     + "  order by Package_Value asc";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -76,6 +76,7 @@ public class PackageDAO extends DBContext {
                 p.setName(rs.getString("Package_Name"));
                 p.setDescription(rs.getString("Package_Description"));
                 p.setPrice(rs.getInt("Package_Amount"));
+                p.setIsActive(rs.getBoolean("Is_Active"));
                 packages.add(p);
             }
         } catch (SQLException ex) {
@@ -87,7 +88,7 @@ public class PackageDAO extends DBContext {
     public List<Package> getAllPackagesForDashboard() {
         List<Package> packages = new ArrayList<>();
         try {
-            String sql = "SELECT [Package_ID], [Package_Name], [Package_Description], [Package_Value], [Package_Amount], [Created_Date] "
+            String sql = "SELECT [Package_ID], [Package_Name], [Package_Description], [Package_Value], [Package_Amount], [Is_Active], [Created_Date] "
                     + "FROM [EasyQuiz].[dbo].[Package] "
                     + "ORDER BY [Package_Value] ASC";
             PreparedStatement stm = connection.prepareStatement(sql);
@@ -99,6 +100,7 @@ public class PackageDAO extends DBContext {
                 p.setDescription(rs.getString("Package_Description"));
                 p.setValue(rs.getInt("Package_Value"));
                 p.setPrice(rs.getInt("Package_Amount"));
+                p.setIsActive(rs.getBoolean("Is_Active"));
                 p.setCreatedDate(rs.getDate("Created_Date"));
                 packages.add(p);
             }
@@ -147,7 +149,7 @@ public class PackageDAO extends DBContext {
     public void activePackage(int id) {
         try {
             String sql = "UPDATE [EasyQuiz].[dbo].[Package] "
-                    + "SET [Package_Value] = 1 "
+                    + "SET [Is_Active] = 1 "
                     + "WHERE [Package_ID] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
@@ -160,7 +162,7 @@ public class PackageDAO extends DBContext {
     public void deactivePackage(int id) {
         try {
             String sql = "UPDATE [EasyQuiz].[dbo].[Package] "
-                    + "SET [Package_Value] = 0 "
+                    + "SET [Is_Active] = 0 "
                     + "WHERE [Package_ID] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, id);
@@ -168,5 +170,10 @@ public class PackageDAO extends DBContext {
         } catch (SQLException ex) {
             System.out.println(ex);
         }
+    }
+    
+    public static void main(String[] args) {
+        PackageDAO pd = new PackageDAO();
+        pd.activePackage(4);
     }
 }

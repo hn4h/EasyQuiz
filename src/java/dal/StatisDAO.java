@@ -35,6 +35,20 @@ public class StatisDAO extends DBContext {
         }
         return 0;
     }
+    
+    public int getNumberOfFeedback() {
+        String sql = "select count(*) from Feedback";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return 0;
+    }
 
     public int getNumberOfUser() {
         try {
@@ -153,13 +167,6 @@ public class StatisDAO extends DBContext {
         payment.setUserName(rs.getString("UserName"));
         payment.setCreatedDate(rs.getDate("Created_Date"));
         return payment;
-    }
-
-    public static void main(String[] args) {
-        StatisDAO d = new StatisDAO();
-        for (ChartColumn c : d.getRevenueLast90Days()) {
-            System.out.println(c.getColumnName() + " " + c.getValue());
-        }
     }
 
     public List<ChartColumn> getRevenueThisYear() {

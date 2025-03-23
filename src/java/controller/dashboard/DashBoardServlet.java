@@ -62,7 +62,7 @@ public class DashBoardServlet extends HttpServlet {
         
         String chartOption = request.getParameter("chartOption");
         StatisDAO db = new StatisDAO();
-        request.setAttribute("numOfQuizSet", db.getNumberOfQuiz());
+        request.setAttribute("numOfFeedback", db.getNumberOfFeedback());
         request.setAttribute("numOfUser", db.getNumberOfUser());
         request.setAttribute("numOfTransaction", db.getNumberOfTransaction());
         request.setAttribute("totalRevenue", db.getTotalRevenue());

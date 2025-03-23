@@ -5,8 +5,7 @@
 
 package controller.dashboard;
 
-import dal.FeedbackDAO;
-import dal.StatisDAO;
+import dal.PackageDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,10 +16,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author 11
+ * @author admin
  */
-@WebServlet(name="ManageFeedbackServlet", urlPatterns={"/managefeedback"})
-public class ManageFeedbackServlet extends HttpServlet {
+@WebServlet(name="ActivePackageServlet", urlPatterns={"/activepackage"})
+public class ActivePackageServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -37,10 +36,10 @@ public class ManageFeedbackServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ManageFeedbackServlet</title>");  
+            out.println("<title>Servlet ActivePackageServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ManageFeedbackServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ActivePackageServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,9 +56,7 @@ public class ManageFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        FeedbackDAO fd = new FeedbackDAO();
-        request.setAttribute("listFeedback", fd.getAllFeedbacks());
-        request.getRequestDispatcher("dashboard/feedback.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -72,7 +69,21 @@ public class ManageFeedbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        PackageDAO pd = new PackageDAO();
+        String pid = request.getParameter("packageId");
+        String status = request.getParameter("status");
+        int id = 0;
+        try {
+            id = Integer.parseInt(pid);
+            if ("Active".equals(status)) {
+                pd.activePackage(id);
+            } else {
+                pd.deactivePackage(id);
+            }
+            response.sendRedirect("managepackage");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /** 
