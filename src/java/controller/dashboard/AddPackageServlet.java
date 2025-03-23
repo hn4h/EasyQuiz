@@ -42,7 +42,7 @@ public class AddPackageServlet extends HttpServlet {
         }    
         PackageDAO pd = new PackageDAO();
         Package pack = pd.getPackageByName(name);
-        if (pack == null) {
+        if (pack != null) {
             request.getSession().setAttribute("error", "Package name is existed");
             response.sendRedirect("managepackage");
             System.out.println("loi2");

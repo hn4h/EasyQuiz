@@ -171,9 +171,4 @@ public class PackageDAO extends DBContext {
             System.out.println(ex);
         }
     }
-    
-    public static void main(String[] args) {
-        PackageDAO pd = new PackageDAO();
-        pd.activePackage(4);
-    }
 }

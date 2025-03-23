@@ -250,53 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
     displayPage(currentPage);
 });
 
-//--------------------------Pop up new package
-const newPackageBtn = document.getElementById('newPackageBtn');
-const modal = document.getElementById('newPackageModal');
-const span = document.getElementsByClassName("close")[0];
-const modalSaveBtn = document.getElementById('modalSaveBtn');
-const packageTable = document.getElementById('packageTable');
 
-newPackageBtn.addEventListener('click', () => {
-    modal.style.display = "block";
-});
-
-span.addEventListener('click', () => {
-    modal.style.display = "none";
-});
-modalSaveBtn.addEventListener('click', () => {
-    const packageName = document.getElementById('packageName').value;
-    const packageValue = document.getElementById('packageValue').value;
-    const packagePrice = document.getElementById('packagePrice').value;
-
-    if (packageName && packageValue && packagePrice) {
-        const newRow = packageTable.insertRow(-1);
-        const idCell = newRow.insertCell();
-        const nameCell = newRow.insertCell();
-        const valueCell = newRow.insertCell();
-        const priceCell = newRow.insertCell();
-        const actionsCell = newRow.insertCell();
-
-        const nextId = packageTable.rows.length - 1;
-
-        idCell.textContent = nextId;
-        nameCell.textContent = packageName;
-        valueCell.textContent = packageValue;
-        priceCell.textContent = packagePrice;
-        actionsCell.innerHTML = `
-                    <button class="edit-btn">Edit</button>
-                    <button class="delete-btn">Delete</button>
-                `;
-
-        modal.style.display = "none";
-
-        document.getElementById('packageName').value = '';
-        document.getElementById('packageValue').value = '';
-        document.getElementById('packagePrice').value = '';
-    } else {
-        alert('Please fill in all fields.');
-    }
-});
 
 //--------------------------Pop up edit package
 document.querySelectorAll('.edit-btn').forEach(button => {
@@ -327,4 +281,38 @@ document.querySelectorAll('.edit-btn').forEach(button => {
 document.querySelector('.close-edit').addEventListener('click', function () {
     document.getElementById("editPackageModal").style.display = "none";
 });
+
+//--------------------------Pop up new package
+// Lấy modal và nút mở modal
+const newPackageBtn = document.getElementById('newPackageBtn');
+const modal = document.getElementById('newPackageModal');
+const closeBtn = document.querySelector(".close");
+const addPackageForm = document.getElementById("addPackageForm");
+
+// Mở modal khi ấn nút "New Package"
+newPackageBtn.addEventListener('click', () => {
+    modal.style.display = "block";
+});
+
+// Đóng modal khi ấn nút "X"
+closeBtn.addEventListener('click', () => {
+    modal.style.display = "none";
+});
+
+// Xử lý khi submit form
+addPackageForm.addEventListener('submit', (event) => {
+    const packageName = document.getElementById('packageName').value.trim();
+    const packageValue = document.getElementById('packageValue').value.trim();
+    const packagePrice = document.getElementById('packagePrice').value.trim();
+    const packageDescription = document.getElementById('packageDescription').value.trim();
+
+    if (!packageName || !packageValue || !packagePrice || !packageDescription) {
+        event.preventDefault(); // Ngăn chặn submit nếu có ô trống
+        alert("Please fill in all fields.");
+        return;
+    }
+
+    // Nếu tất cả hợp lệ, form sẽ được submit
+});
+
 
