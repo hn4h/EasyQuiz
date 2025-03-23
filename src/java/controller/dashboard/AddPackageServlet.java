@@ -39,7 +39,15 @@ public class AddPackageServlet extends HttpServlet {
             response.sendRedirect("managepackage");
             System.out.println("loi1");
             return;
-        }        
+        }    
+        PackageDAO pd = new PackageDAO();
+        Package pack = pd.getPackageByName(name);
+        if (pack == null) {
+            request.getSession().setAttribute("error", "Package name is existed");
+            response.sendRedirect("managepackage");
+            System.out.println("loi2");
+            return;
+        }
         if (name == null || description == null || name.isEmpty() || description.isEmpty()) {
             request.getSession().setAttribute("error", "Name and description cannot be empty");
             response.sendRedirect("managepackage");

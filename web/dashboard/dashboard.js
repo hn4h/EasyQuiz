@@ -322,12 +322,14 @@ document.querySelectorAll('.edit-btn').forEach(button => {
         let row = this.closest('tr'); 
 
         // Lấy thông tin từ hàng
+        let id = row.cells[0].textContent.trim();
         let name = row.cells[1].textContent.trim();
         let value = row.cells[2].textContent.trim();
         let price = row.cells[3].textContent.trim();
         let description = row.cells[4].textContent.trim();
 
         // Đổ dữ liệu vào modal
+        document.getElementById("editPackageId").value = id;
         document.getElementById("editPackageName").value = name;
         document.getElementById("editPackageValue").value = value;
         document.getElementById("editPackagePrice").value = price;
