@@ -12,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 import model.Package;
 /**
  *
@@ -24,6 +25,15 @@ public class AddPackageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Account a = (Account) request.getSession().getAttribute("account");
+        if(a == null) {
+            response.sendRedirect("login");
+            return;
+        }
+        if(a.isIsAdmin() == false) {
+            response.sendRedirect("error");
+            return;
+        }
         String name = request.getParameter("packageName");
         String description = request.getParameter("packageDescription");
         String valueString = request.getParameter("packageValue");
@@ -68,14 +78,5 @@ public class AddPackageServlet extends HttpServlet {
         request.getSession().setAttribute("message", "Add package successfully!");
         response.sendRedirect("managepackage");
     }
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
