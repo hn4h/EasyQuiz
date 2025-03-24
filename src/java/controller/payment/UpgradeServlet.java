@@ -13,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
 
 /**
  *
@@ -24,6 +25,11 @@ public class UpgradeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Account a = (Account) request.getSession().getAttribute("account");
+        if(a == null) {
+            response.sendRedirect("login");
+            return;
+        }
         PackageDAO packageDAO = new PackageDAO();
         request.setAttribute("packages", packageDAO.getAllPackagesForPurchase());
         request.getRequestDispatcher("upgrade/upgrade.jsp").forward(request, response);

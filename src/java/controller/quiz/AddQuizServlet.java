@@ -62,6 +62,11 @@ public class AddQuizServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Account a = (Account) request.getSession().getAttribute("account");
+        if(a == null) {
+            response.sendRedirect("login");
+            return;
+        }
         request.getRequestDispatcher("quiz/createquiz.jsp").forward(request, response);
     }
 
@@ -76,6 +81,11 @@ public class AddQuizServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Account a = (Account) request.getSession().getAttribute("account");
+        if(a == null) {
+            response.sendRedirect("login");
+            return;
+        }
         String title = request.getParameter("quizTitle");
         String description = request.getParameter("quizDescription");
         String numberOfQuestions = request.getParameter("questionCount");

@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import dal.HistoryDAO;
+import model.Account;
 
 /**
  *
@@ -69,6 +70,11 @@ public class ChangeFolderServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        Account a = (Account) request.getSession().getAttribute("account");
+        if(a == null) {
+            response.sendRedirect("login");
+            return;
+        }
         String quizSetIdStr = request.getParameter("quizSetId");
         String oldFolderIdStr = request.getParameter("oldFolderId");
         String newFolderIdStr = request.getParameter("newFolderId");
