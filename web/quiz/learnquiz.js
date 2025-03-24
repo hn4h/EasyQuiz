@@ -136,16 +136,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //------------------------Pop up option test
-const testItem = document.querySelector('.test-btn');
+const testItems = document.querySelectorAll('.test-btn');
 const testPopup = document.getElementById('testPopup');
 const closeTestBtn = document.querySelector('.closetest-btn');
 const cancelBtn = document.querySelector('.cancel-btn');
 
 // Hiển thị popup
-testItem.addEventListener('click', (e) => {
-    testPopup.style.display = "block";
-    testPopup.classList.remove("hide");
-    e.stopPropagation();
+testItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        testPopup.style.display = "block";
+        testPopup.classList.remove("hide");
+        e.stopPropagation();
+    });
 });
 
 // Ẩn popup với animation fadeOut

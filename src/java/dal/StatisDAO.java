@@ -143,7 +143,7 @@ public class StatisDAO extends DBContext {
 
     public List<Payment> getNewPayments() {
         List<Payment> payments = new ArrayList<>();
-        String sql = "SELECT Top(6) * FROM Transaction_History where Status = 'PAID' ORDER BY Created_Date DESC";
+        String sql = "SELECT Top(5) * FROM Transaction_History where Status = 'PAID' ORDER BY Created_Date DESC";
         try (
                 PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {

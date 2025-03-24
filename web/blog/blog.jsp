@@ -19,101 +19,6 @@
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <style>
-            .pagination {
-                display: flex;
-                justify-content: center;
-                margin-top: 20px;
-            }
-
-            .page-link {
-                display: inline-block;
-                padding: 8px 12px;
-                margin: 0 5px;
-                background: #640D5F;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-            }
-
-            .page-link.active {
-                background: #640D5F;
-                font-weight: bold;
-            }
-
-            .page-link:hover {
-                background: #2A004E;
-            }
-
-            .comment-window {
-                border: 1px solid #ccc;
-                padding: 10px;
-                margin-top: 10px;
-            }
-
-            .comment {
-                display: flex;
-                align-items: center;
-                margin-bottom: 5px;
-            }
-
-            .comment img {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                margin-right: 10px;
-            }
-
-            .popup {
-                display: none;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: white;
-                padding: 20px;
-                border: 1px solid #ccc;
-                box-shadow: 0 0 10px rgba(0,0,0,0.5);
-                z-index: 1000;
-            }
-
-            .popup-content {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .popup-content input, .popup-content textarea {
-                margin-bottom: 10px;
-                padding: 5px;
-            }
-
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.5);
-                z-index: 999;
-            }
-
-            .message {
-                padding: 10px;
-                margin: 10px 0;
-                border-radius: 5px;
-            }
-
-            .success-message {
-                background-color: #d4edda;
-                color: #155724;
-            }
-
-            .error-message {
-                background-color: #f8d7da;
-                color: #721c24;
-            }
-        </style>
     </head>
 
     <body>
@@ -136,7 +41,7 @@
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
                             <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -149,17 +54,24 @@
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
                                     <p>${sessionScope.account.userName}</p>
-                                    <p>${sessionScope.account.email}</p>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${fn:length(sessionScope.account.email) > 15}">
+                                                ${fn:substring(sessionScope.account.email, 0, 15)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${sessionScope.account.email}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </p>
                                 </div>
                             </div>
                             <hr/>
                             <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
+                            <a href="feedback" class="user-menu-item"><i class="fa-solid fa-circle-info"></i> Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item"><i class="fa-solid fa-crown"></i> Upgrades</a>
                             <hr/>
-                            <a href="logout" class="user-menu-item">Logout</a>
-                            <hr/>
-                            <a href="feedback" class="user-menu-item">Help and feedback</a>
-                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                            <a href="logout" class="user-menu-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
                         </div>
                     </div>
                 </c:if>
@@ -245,12 +157,12 @@
                         </c:if>
                     </div>
                     <c:forEach var="blog" items="${blogs}">
-                        <div class="blog-card">
+                        <div class="blog-card" onclick="window.location.href = 'blogdetail?blogId=${blog.blogId}'">
                             <div class="content-header">
                                 <h2><a href="blogdetail?blogId=${blog.blogId}" style="color: black;text-decoration: none">${blog.blogTitle}</a></h2>
-<!--                                <div class="header-btn">                               
-                                    <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
-                                </div>-->
+                                <!--                                <div class="header-btn">                               
+                                                                    <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
+                                                                </div>-->
                             </div>
                             <div class="blog-header">
                                 <img alt="" src="${blog.author.profileImage}"/> 
@@ -261,6 +173,7 @@
                             <div class="blog-content">
                                 <h3>${blog.blogTitle}</h3>
                                 <p>${blog.blogContent}</p>
+                                <hr/>
                                 <div class="blog-comment">
                                     <h3>Comments</h3>
                                 </div>
@@ -268,7 +181,10 @@
                                     <c:forEach var="comment" items="${blog.comments}" varStatus="status">
                                         <div class="comment ${status.index >= 3 ? 'hidden-comment' : ''}" id="comment-${blog.blogId}-${status.index}">
                                             <img src="${comment.profileImage}" alt="Avatar">
-                                            <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
+                                            <div class="comment-info">
+                                                <h4>${comment.userName}</h4>
+                                                <span>${comment.commentContent}</span>
+                                            </div>
                                         </div>
                                     </c:forEach>
                                 </div>
@@ -390,7 +306,7 @@
                             console.log(userName);
                             console.log(newComment);
                             newComment.innerHTML = `
-    <img src="`+ profileImage + `" alt="Avatar">
+    <img src="` + profileImage + `" alt="Avatar">
     <p><strong>` + userName + `</strong>: ` + commentContent + `</p>
 `;
                             console.log(newComment);

@@ -124,15 +124,15 @@
                         <h2>${requestScope.blogDetail.blogTitle}</h2>
                         <div class="header-btn">
                             <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-<!--                            <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>-->
-<!--                            <div class="more-option" id="moreOption">
-                                <ul class="more-option-nav">
-                                    <li class="nav-item">
-                                        <span class="material-symbols-rounded">report</span>
-                                        <a href="#" class="nav-link">Report</a>
-                                    </li>
-                                </ul>
-                            </div>-->
+                            <!--                            <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>-->
+                            <!--                            <div class="more-option" id="moreOption">
+                                                            <ul class="more-option-nav">
+                                                                <li class="nav-item">
+                                                                    <span class="material-symbols-rounded">report</span>
+                                                                    <a href="#" class="nav-link">Report</a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>-->
                         </div>
                     </div>
                     <div id="copyMessage" class="copy-message">Link copied!</div>
@@ -159,7 +159,10 @@
                                 <c:forEach var="comment" items="${requestScope.blogDetail.comments}">
                                     <div class="comment">
                                         <img src="${comment.profileImage}" alt="Avatar">
-                                        <p><strong>${comment.userName}</strong>: ${comment.commentContent}</p>
+                                        <div class="comment-info">
+                                            <h4>${comment.userName}</h4>
+                                            <span>${comment.commentContent}</span>
+                                        </div>
                                     </div>
                                 </c:forEach>
                             </div>

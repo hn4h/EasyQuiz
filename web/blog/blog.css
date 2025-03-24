@@ -1,11 +1,11 @@
 h2 a {
-    color: black; 
-    text-decoration: none; 
+    color: black;
+    text-decoration: none;
 }
 
 h2 a:hover {
-    color: black; 
-    text-decoration: none; 
+    color: black;
+    text-decoration: none;
 }
 
 * {
@@ -148,6 +148,7 @@ h2 a:hover {
     width: 40px;
     border-radius: 50%;
     margin: 0 10px;
+    border: 2px solid #e6e6e6;
 }
 
 .avatar-user {
@@ -195,12 +196,12 @@ h2 a:hover {
 
 .user-menu-item,
 .create-menu-item {
-    padding: 10px 15px;
+    padding: 10px 5px;
 }
 
 .user-menu-item i,
 .create-menu-item i{
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .user-menu-item:hover,
@@ -223,6 +224,7 @@ h2 a:hover {
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    border: 2px solid #e6e6e6;
 }
 
 .user-info div{
@@ -512,7 +514,7 @@ h2 a:hover {
 
 .blog-container {
     margin: 20px auto;
-    max-width: 1100px;
+    max-width: 1000px;
     width: 100%;
 }
 
@@ -527,8 +529,9 @@ h2 a:hover {
     border-radius: 10px;
     color: #000;
     width: 100%;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .content-header {
@@ -537,7 +540,7 @@ h2 a:hover {
     align-items: center;
 }
 
-.btn {
+.btn:not(.header-blog button) {
     display: flex;
     background: #fff;
     color: #333;
@@ -555,6 +558,10 @@ h2 a:hover {
     margin-left: 5px;
 }
 
+.btn:hover {
+    background: #e6e6e6;
+}
+
 .header-btn {
     display: flex;
 }
@@ -563,10 +570,23 @@ h2 a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
 }
 
-.btn:hover {
-    background: #e6e6e6;
+.header-blog button{
+    display: flex;
+    padding: 10px 15px;
+    background: #640D5F;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.header-blog button:hover{
+    background: #2A004E;
 }
 
 .blog-header {
@@ -575,39 +595,41 @@ h2 a:hover {
 }
 
 .blog-header span {
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 600;
     color: #666;
     margin-right: 5px;
 }
 
 .blog-header img {
-    height: 22px;
-    width: 22px;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
     margin: 5px;
-}
-
-.blog-content {
-    margin-top: 20px;
+    border: 2px solid #e6e6e6;
 }
 
 .blog-content p {
     font-size: 15px;
     font-weight: 600;
     color: #666;
-    margin: 5px 0;
+    margin: 5px 0 10px 0;
+}
+
+.blog-content hr {
+    background: none;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
 }
 
 .blog-content h3 {
-    margin: 15px 0;
+    margin: 10px 0;
 }
 
 .blog-comment {
     position: relative;
     display: flex;
     align-items: center;
-    margin-top: 10px;
 }
 
 .blog-comment input[type="text"] {
@@ -661,4 +683,110 @@ h2 a:hover {
     border-radius: 5px;
     display: none; /* Ẩn ban đầu */
     transition: opacity 0.3s ease-in-out;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-link {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    background: #640D5F;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.page-link.active {
+    background: #640D5F;
+    font-weight: bold;
+}
+
+.page-link:hover {
+    background: #2A004E;
+}
+
+.comment-window {
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.comment img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #e6e6e6;
+}
+
+.comment-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-info span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup-content input, .popup-content textarea {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 999;
+}
+
+.message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
 }

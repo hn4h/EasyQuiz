@@ -76,7 +76,7 @@ public class LearnQuizServlet extends HttpServlet {
         AccountDAO ad = new AccountDAO();
         if(!ad.checkPremium(a.getUserName())){
             if(!ad.checkLimitLearn(a.getUserName())){
-                session.setAttribute("message","You have used up all your study attempts for today. Please come back tomorrow.");
+                request.getSession().setAttribute("message","You have used up all your study attempts for today. Please come back tomorrow.");
                 response.sendRedirect("quizz?id="+ quizSetIDParam);
                 return;
             }

@@ -14,8 +14,8 @@
 
     <body>
         <div class="header">
-            <div class="logo">
-                <span>EasyQuiz</span>
+            <div class="logo" >
+                <span onclick="window.location.href = 'home'">EasyQuiz</span>
                 <div class="vertical-line"></div>
                 <div class="name-dashboard">
                     <p>Dashboard</p>
@@ -191,10 +191,10 @@
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Name of user <i class="fas fa-sort"></i></th>
-                                        <th>Name of package <i class="fas fa-sort"></i></th>
-                                        <th>Price <i class="fas fa-sort"></i></th>
-                                        <th>Date <i class="fas fa-sort"></i></th>
+                                        <th>Name of user</th>
+                                        <th>Name of package</th>
+                                        <th>Price</th>
+                                        <th>Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>

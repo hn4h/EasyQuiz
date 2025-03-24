@@ -77,7 +77,7 @@
                 </div>
                 <div class="learn-complete-btn">
                     <button class="btn" onclick="window.location.href = 'learnquiz?quizSetID=${requestScope.quizDetail.qs.quizSetId}'">Restart Learn mode</button>
-                    <button class="btn" onclick="window.location.href = 'test?id=${requestScope.quizDetail.qs.quizSetId}'">Take a test</button>
+                    <button class="btn test-btn">Take a test</button>
                 </div>
             </div>
             <div class="progress">
@@ -133,13 +133,13 @@
             </div>
             <div class="continue-container">
                 <div class="continue-content">
-                    <p>Select the correct answer or press any key to continue</p>
+                    <p>Press continue button to next question</p>
                     <button class="continue-btn">
                         <span>Continue</span>
                     </button>
                 </div>
             </div>
         </div>
-        <script src="./quiz/learnquiz.js?v=1.1"></script> <!-- Thêm query string -->
+        <script src="./quiz/learnquiz.js?v=1.1"></script>
     </body>
 </html>

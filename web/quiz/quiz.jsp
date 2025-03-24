@@ -114,6 +114,27 @@
                 </div>
             </div>
         </form>
+        <%
+String successMessage = (String) session.getAttribute("message");
+if (successMessage != null) {
+        %>
+        <div id="toastMessage2">
+            <span class="material-symbols-rounded">close</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast1 = document.getElementById("toastMessage2");
+                toast1.style.opacity = "0";
+                setTimeout(() => {
+                    toast1.style.display = "none";
+                }, 500); 
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("message"); 
+            }
+        %>
         <div class="body">
             <aside class="sidebar">
                 <nav class="sidebar-nav">

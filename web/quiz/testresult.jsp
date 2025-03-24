@@ -66,7 +66,7 @@
                         </div>
                         <div class="option-btn">
                             <button type="button" class="cancel-btn"><span>Cancel</span></button>
-                            <button type="submit" class="create-btn"><span>Create new test</span></button>
+                            <button type="submit" class="create-btn remove-session"><span>Create new test</span></button>
                         </div>
                     </div>
                 </div>
@@ -159,7 +159,7 @@
                     <div class="next-step">
                         <h3>Next steps</h3>
                         <div class="next-step-btn">
-                            <div class="next-step-learn" onclick="window.location.href = 'learnquiz?quizSetID=${testSession.quizSetID}'">
+                            <div class="next-step-learn remove-session" onclick="window.location.href = 'learnquiz?quizSetID=${testSession.quizSetID}'">
                                 <div class="next-step-img">
                                     <img src="./images/icon/learn_icon.png" alt="alt"/>
                                 </div>

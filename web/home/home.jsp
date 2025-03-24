@@ -38,7 +38,7 @@
             session.removeAttribute("successMessage"); // Xóa sau khi hiển thị
             }
         %>
-        
+
         <%
     String errorMessage = (String) request.getAttribute("error");
     if (errorMessage == null) {
@@ -97,13 +97,13 @@
                                     <p>${sessionScope.account.userName}</p>
                                     <p>
                                         <c:choose>
-                                                    <c:when test="${fn:length(sessionScope.account.email) > 15}">
-                                                        ${fn:substring(sessionScope.account.email, 0, 15)}...
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        ${sessionScope.account.email}
-                                                    </c:otherwise>
-                                                </c:choose>
+                                            <c:when test="${fn:length(sessionScope.account.email) > 15}">
+                                                ${fn:substring(sessionScope.account.email, 0, 15)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${sessionScope.account.email}
+                                            </c:otherwise>
+                                        </c:choose>
                                     </p>
                                 </div>
                             </div>
@@ -160,6 +160,14 @@
                                 <span class="nav-label">Blog</span>
                             </a>
                         </li>
+                        <c:if test="${sessionScope.account.isAdmin}">
+                            <li class="nav-item">
+                                <a href="dashboard" class="nav-link">
+                                    <span class="material-symbols-rounded">dashboard</span>
+                                    <span class="nav-label">Dashboard</span>
+                                </a>
+                            </li>
+                        </c:if>
                     </ul>
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
@@ -264,7 +272,7 @@
                                            <c:if test="${!loop.last}">,</c:if>
                                        </c:forEach>
                                        ]'
-                                       onclick="window.location.href='blogdetail?blogId=${blog.blogId}'">
+                                       onclick="window.location.href = 'blogdetail?blogId=${blog.blogId}'">
                                         <h2 class="card-title">
                                             <c:choose>
                                                 <c:when test="${fn:length(blog.blogTitle) > 25}">
