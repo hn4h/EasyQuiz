@@ -64,17 +64,14 @@ public class PackageDAO extends DBContext {
     public List<Package> getAllPackagesForPurchase() {
         List<Package> packages = new ArrayList<>();
         try {
-            String sql = "SELECT [Package_Name]\n"
-                    + "      ,[Package_Description]\n"
-                    + "      ,[Package_Amount],[Is_Active]\n"
-                    + "  FROM [EasyQuiz].[dbo].[Package]\n"
-                    + "  order by Package_Value asc";
+            String sql = "select * from Package order by Package_Value asc";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Package p = new Package();
                 p.setName(rs.getString("Package_Name"));
                 p.setDescription(rs.getString("Package_Description"));
+                p.setValue(rs.getInt("Package_Value"));
                 p.setPrice(rs.getInt("Package_Amount"));
                 p.setIsActive(rs.getBoolean("Is_Active"));
                 packages.add(p);
