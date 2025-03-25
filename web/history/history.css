@@ -138,6 +138,7 @@
     width: 40px;
     border-radius: 50%;
     margin: 0 10px;
+    border: 2px solid #e6e6e6;
 }
 
 .avatar-user {
@@ -213,6 +214,7 @@
     height: 40px;
     width: 40px;
     border-radius: 50%;
+    border: 2px solid #e6e6e6;
 }
 
 .user-info div{
@@ -486,14 +488,23 @@
     padding: 60px 110px;
     width: 100%;
     transition: margin-left 0.4s ease;
-    margin-left: 260px;
+    margin-left: 200px;
+    padding-right: 350px;
 }
-
-.sidebar.collapsed + .body-container {
+.history-title{
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Montserrat', sans-serif;
+}
+/*.sidebar.collapsed + .body-container {
     margin-left: 85px;
-}
+}*/
 .history-card{
-    padding-top: 20px;
+
+    /* padding-top: 20px; */
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
@@ -525,7 +536,7 @@
     bottom: 0;
     width: 100%;
     height: 3px;
-    background-color: blue;
+    background-color: #640D5F;
     transition: width 0.3s ease-in-out;
 }
 .quiz-button:hover::after {
@@ -568,7 +579,7 @@
     bottom: 0;
     width: 0;
     height: 3px; /* Độ dày của underline */
-    background-color: blue;
+    background-color: #640D5F;
     transition: width 0.3s ease-in-out;
 }
 
@@ -759,7 +770,33 @@
     font-weight: 700;
     color: #666;
 }
+.quiz-box{
+    border-radius: 8px;
+    padding: 15px 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    cursor:pointer;
 
+    border-bottom: 4px solid transparent;
+}
+.quiz-box:hover{
+    border-color:#640D5F;
+}
+.folder-box{
+    border-radius: 8px;
+   padding: 15px 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    cursor:pointer;
+
+    border-bottom: 4px solid transparent;
+}
+.folder-box:hover{
+    border-color:#640D5F;
+}
+.quiz-detail{
+    font-size: 16px;
+    font-weight:normal;
+    color: #6d6d6d;
+}
 .folderPopup-container {
     padding: 2rem;
 }
@@ -879,10 +916,11 @@
 
 .option-select{
     background-color: #fff;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-size: 16px;
     font-weight: bold;
     /*border-style: none;*/
+    border: 2px solid #e6e6e6 !important;
     border-radius: 10px;
     color: #640D5F;
 }

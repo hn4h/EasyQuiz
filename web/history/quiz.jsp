@@ -146,19 +146,19 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <h1 class="text-2xl font-bold mb-4">History</h1>
+                <p class="history-title">History</p>
                 <div class="history-card">
                     <div class="button2">
-                        <a href="quiz" class="quiz-button">Quiz</a>
+                        <a href="quizhistory" class="quiz-button">Quiz</a>
                         <a href="folderhistory" class="folders-button">Folders</a>
                     </div>
                     <div style="margin-top: 20px;" class="flex justify-between items-center mb-4">
-                        <select class="option-select border border-gray-300 px-4 py-2 rounded">
+                        <select class="option-select border border-gray-300  rounded">
                             <option>Recent</option>
                             <option>Created</option>
                         </select>
                         <div class="relative w-1/3">
-                            <input type="text" placeholder="Search for a quiz" class="w-full p-2 border border-gray-300 rounded pr-10">
+                            <input style="border: 2px solid #e6e6e6;" type="text" placeholder="Search for a quiz" class="w-full p-2 border border-gray-300 rounded pr-10">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -172,14 +172,14 @@
                             <c:if test="${not empty todayQuizzes}">
                                 <h2 class="text-lg font-bold mb-2">TODAY</h2>
                                 <c:forEach var="quiz" items="${todayQuizzes}">
-                                    <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                                    <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-box">
                                         <div class="quiz-title flex">
-                                            <div>
-                                                <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
-                                                <span class="text-sm text-gray-600 ml-2">|</span>
-                                                <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
+                                            <div class="quiz-detail">
+                                                <span class="">${quiz.numberOfQuiz} terms</span>
+                                                <span class="">|</span>
+                                                <span class="">${quiz.author}</span>
                                             </div>
-                                            <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                            <span class="title-text text-gray-600 ">${quiz.quizSetName}</span>
                                         </div>
                                     </div>
                                 </c:forEach>

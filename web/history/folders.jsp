@@ -144,7 +144,7 @@
                 </nav>
             </aside> 
             <div class="body-container">
-                <h1 class="text-2xl font-bold mb-4">History</h1>
+                <p class="history-title">History</p>
                 <div class="history-card">
                     <div class="button2" style="margin-bottom: 50px;">
                         <a href="quizhistory" class="folders-button">Quiz</a>
@@ -153,12 +153,12 @@
                     <div>
                         <c:if test="${not empty folder}">
                             <c:forEach var="folder" items="${requestScope.folder}" >
-                                <div onclick="window.location.href = 'foldercontain?folderId=${folder.folderId}'" class="folder-card bg-white-100 rounded mb-4">
+                                <div onclick="window.location.href = 'foldercontain?folderId=${folder.folderId}'" class="folder-box">
                                     <div class=" quiz-title flex">
                                         <div>
                                             <p class="set-num">${folder.quizSetCount} Quiz Set</p>
                                         </div>
-                                        <span class="title-text text-gray-600 mt-1"><i class="fa-solid fa-folder"></i>&nbsp;${folder.folderName}</span>
+                                        <span class="title-text text-gray-600 "><i class="fa-solid fa-folder"></i>&nbsp;${folder.folderName}</span>
                                     </div>
                                 </div>
                             </c:forEach>
