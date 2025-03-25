@@ -111,7 +111,7 @@
                                 <img class="item-icon" src="./images/icon/flashcard_icon.png" alt="Not Found" />
                                 <div>
                                     <p class="item-name">${quizItem.quizSetName}</p>
-                                    <p class="item-meta">Quiz set · ${quizItem.numberOfQuiz} terms · Author: 
+                                    <p class="item-meta">Quiz set &nbsp;· &nbsp; ${quizItem.numberOfQuiz} terms &nbsp;· &nbsp;  Author: 
                                         <c:choose>
                                             <c:when test="${quizItem.author.userName eq account.userName}">
                                                 You
@@ -159,13 +159,7 @@
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <span class="material-symbols-rounded">person</span>
-                                <span class="nav-label">Profile</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="setting" class="nav-link">
                                 <span class="material-symbols-rounded">settings</span>
                                 <span class="nav-label">Setting</span>
                             </a>

@@ -121,7 +121,7 @@ closeBtn.addEventListener('click', () => {
 
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.querySelector('input[placeholder="Search for a quiz"]');
-    const quizCards = document.querySelectorAll('.quiz-card');
+    const quizCards = document.querySelectorAll('.quiz-box');
     const sectionHeaders = document.querySelectorAll('h2');
 
     searchInput.addEventListener('input', function(e) {

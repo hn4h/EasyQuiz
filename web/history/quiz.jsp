@@ -170,7 +170,10 @@
                         <c:if test="${hasData}">
 
                             <c:if test="${not empty todayQuizzes}">
-                                <h2 class="text-lg font-bold mb-2">TODAY</h2>
+                                <div class="term-header">
+                                    <h2 class="text-lg font-bold">TODAY</h2>
+                                    <hr/>
+                                </div>
                                 <c:forEach var="quiz" items="${todayQuizzes}">
                                     <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-box">
                                         <div class="quiz-title flex">
@@ -179,7 +182,7 @@
                                                 <span class="">|</span>
                                                 <span class="">${quiz.author}</span>
                                             </div>
-                                            <span class="title-text text-gray-600 ">${quiz.quizSetName}</span>
+                                            <p class="title-text text-gray-600 ">${quiz.quizSetName}</p>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -187,16 +190,19 @@
 
 
                             <c:if test="${not empty weekQuizzes}">
-                                <h2 class="text-lg font-bold mb-2">THIS WEEK</h2>
+                                <div class="term-header">
+                                    <h2 class="text-lg font-bold">THIS WEEK</h2>
+                                    <hr/>
+                                </div>
                                 <c:forEach var="quiz" items="${weekQuizzes}">
-                                    <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                                    <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-box">
                                         <div class="quiz-title flex">
                                             <div>
                                                 <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
                                                 <span class="text-sm text-gray-600 ml-2">|</span>
                                                 <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
                                             </div>
-                                            <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                            <p class="title-text text-gray-600 mt-1">${quiz.quizSetName}</p>
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -205,16 +211,19 @@
 
                             <c:if test="${not empty monthlyQuizzes}">
                                 <c:forEach var="entry" items="${monthlyQuizzes}">
-                                    <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
+                                    <div class="term-header">
+                                        <h2 class="text-lg font-bold mb-2">${fn:split(entry.key, '-')[0]} / ${fn:split(entry.key, '-')[1]}</h2>
+                                        <hr/>
+                                    </div>
                                     <c:forEach var="quiz" items="${entry.value}">
-                                        <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                                        <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-box">
                                             <div class="quiz-title flex">
                                                 <div>
                                                     <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
                                                     <span class="text-sm text-gray-600 ml-2">|</span>
                                                     <span class="text-sm text-gray-600 ml-2">${quiz.author}</span>
                                                 </div>
-                                                <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                                <p class="title-text text-gray-600 mt-1">${quiz.quizSetName}</p>
                                             </div>
                                         </div>
                                     </c:forEach>
@@ -242,12 +251,12 @@
                             </div>
                         </c:if>
                         <c:forEach var="quiz" items="${createdList}">
-                            <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-card bg-white-100 rounded mb-4">
+                            <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-box">
                                 <div class="quiz-title flex">
                                     <div>
                                         <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
                                     </div>
-                                    <span class="title-text text-gray-600 mt-1">${quiz.quizSetName}</span>
+                                    <p class="title-text text-gray-600 mt-1">${quiz.quizSetName}</p>
                                 </div>
                             </div>
                         </c:forEach>
