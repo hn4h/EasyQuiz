@@ -39,8 +39,6 @@ public class Account {
         this.email = email;
     }
     
-
-    
     public String getEmail() {
         return email;
     }
@@ -48,8 +46,6 @@ public class Account {
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
     public String getUserName() {
         return userName;
@@ -82,8 +78,6 @@ public class Account {
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
-    
-    
 
     public Date getExpiredDate() {
         return expiredDate;

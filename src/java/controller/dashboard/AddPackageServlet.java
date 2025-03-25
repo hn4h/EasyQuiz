@@ -39,17 +39,7 @@ public class AddPackageServlet extends HttpServlet {
         String valueString = request.getParameter("packageValue");
         String priceString = request.getParameter("packagePrice");
         int value,price;
-        try {
-            System.out.println(valueString);
-            System.out.println(priceString);
-            value = Integer.parseInt(valueString);
-            price = Integer.parseInt(priceString);
-        } catch (Exception e) {
-            request.getSession().setAttribute("error", "Invalid value or price");
-            response.sendRedirect("managepackage");
-            System.out.println("loi1");
-            return;
-        }    
+        
         PackageDAO pd = new PackageDAO();
         Package pack = pd.getPackageByName(name);
         if (pack != null) {
@@ -64,6 +54,17 @@ public class AddPackageServlet extends HttpServlet {
             System.out.println("loi3");
             return;
         }
+        try {
+            System.out.println(valueString);
+            System.out.println(priceString);
+            value = Integer.parseInt(valueString);
+            price = Integer.parseInt(priceString);
+        } catch (Exception e) {
+            request.getSession().setAttribute("error", "Invalid value or price");
+            response.sendRedirect("managepackage");
+            System.out.println("loi1");
+            return;
+        }    
         if (value <= 0 || price <= 0) {
             request.getSession().setAttribute("error", "Value and price must be greater than 0");
             response.sendRedirect("managepackage");

@@ -1,5 +1,6 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,8 +34,8 @@
                     <div class="create-btn-icon" id="createButton">
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
-                            <a href="#" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
+                            <a class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
                     <div class="upgrade-btn">
@@ -47,17 +48,24 @@
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
                                     <p>${sessionScope.account.userName}</p>
-                                    <p>${sessionScope.account.email}</p>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${fn:length(sessionScope.account.email) > 15}">
+                                                ${fn:substring(sessionScope.account.email, 0, 15)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${sessionScope.account.email}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </p>
                                 </div>
                             </div>
                             <hr/>
                             <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
+                            <a href="feedback" class="user-menu-item"><i class="fa-solid fa-circle-info"></i> Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item"><i class="fa-solid fa-crown"></i> Upgrades</a>
                             <hr/>
-                            <a href="logout" class="user-menu-item">Logout</a>
-                            <hr/>
-                            <a href="#" class="user-menu-item">Help and feedback</a>
-                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                            <a href="logout" class="user-menu-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
                         </div>
                     </div>
                 </c:if>

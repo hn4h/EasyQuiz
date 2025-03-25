@@ -40,7 +40,23 @@ public class EditPackgeServlet extends HttpServlet {
         String description = request.getParameter("editPackageDescription");
         String valueString = request.getParameter("editPackageValue");
         String priceString = request.getParameter("editPackagePrice");
-        int value,price, id;
+        int value,price, id;   
+        PackageDAO pd = new PackageDAO();
+        model.Package pack = pd.getPackageByName(name);
+        if (pack != null) {
+            request.getSession().setAttribute("error", "Package name is existed");
+            response.sendRedirect("managepackage");
+            System.out.println("loi2");
+            return;
+        }
+        
+        if (name == null || description == null || name.isEmpty() || description.isEmpty()) {
+            request.getSession().setAttribute("error", "Name and description cannot be empty");
+            response.sendRedirect("managepackage");
+            System.out.println("loi2");
+            return;
+        }
+        
         try {
             System.out.println(valueString);
             System.out.println(priceString);
@@ -52,13 +68,8 @@ public class EditPackgeServlet extends HttpServlet {
             response.sendRedirect("managepackage");
             System.out.println("loi1");
             return;
-        }        
-        if (name == null || description == null || name.isEmpty() || description.isEmpty()) {
-            request.getSession().setAttribute("error", "Name and description cannot be empty");
-            response.sendRedirect("managepackage");
-            System.out.println("loi2");
-            return;
-        }
+        }   
+        
         if (value <= 0 || price <= 0) {
             request.getSession().setAttribute("error", "Value and price must be greater than 0");
             response.sendRedirect("managepackage");

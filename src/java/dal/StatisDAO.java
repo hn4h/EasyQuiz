@@ -35,7 +35,7 @@ public class StatisDAO extends DBContext {
         }
         return 0;
     }
-    
+
     public int getNumberOfFeedback() {
         String sql = "select count(*) from Feedback";
         try {
@@ -114,13 +114,22 @@ public class StatisDAO extends DBContext {
     public List<UserStatis> getAllUserStatistics() {
         List<UserStatis> list = new ArrayList<>();
         try {
-            String sql = "select a.UserName, a.ProfileImage, a.Email, Count(f.Folder_ID) as NumOfFolder, Count(b.Blog_ID) as NumOfBlog, COUNT(qs.Quiz_Set_ID) as NumOfQuiz, COUNT(c.Comment_ID) as NumOfComment, COUNT(fb.Feedback_ID) as NumOfFeedBack from Accounts a\n"
-                    + "left join Folder f on a.UserName = f.UserName\n"
-                    + "left join Blog b on a.UserName = b.Author\n"
-                    + "left join Quiz_Set qs on a.UserName = qs.Author\n"
-                    + "left join Comment c on a.UserName = c.UserName\n"
-                    + "left join Feedback fb on a.UserName = fb.UserName\n"
-                    + "group by a.UserName, a.ProfileImage, a.Email";
+            String sql = "SELECT \n"
+                    + "    a.UserName, \n"
+                    + "    a.ProfileImage, \n"
+                    + "    a.Email, \n"
+                    + "    COUNT(DISTINCT f.Folder_ID) AS NumOfFolder, \n"
+                    + "    COUNT(DISTINCT b.Blog_ID) AS NumOfBlog, \n"
+                    + "    COUNT(DISTINCT qs.Quiz_Set_ID) AS NumOfQuiz, \n"
+                    + "    COUNT(DISTINCT c.Comment_ID) AS NumOfComment, \n"
+                    + "    COUNT(DISTINCT fb.Feedback_ID) AS NumOfFeedBack \n"
+                    + "FROM Accounts a\n"
+                    + "LEFT JOIN Folder f ON a.UserName = f.UserName\n"
+                    + "LEFT JOIN Blog b ON a.UserName = b.Author\n"
+                    + "LEFT JOIN Quiz_Set qs ON a.UserName = qs.Author\n"
+                    + "LEFT JOIN Comment c ON a.UserName = c.UserName\n"
+                    + "LEFT JOIN Feedback fb ON a.UserName = fb.UserName\n"
+                    + "GROUP BY a.UserName, a.ProfileImage, a.Email;";
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -339,57 +348,57 @@ public class StatisDAO extends DBContext {
 //        return list;
 //    }
     public List<ChartColumn> getRevenueLast90Days() {
-    List<ChartColumn> list = new ArrayList<>();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        List<ChartColumn> list = new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    try {
-        // SQL query để lấy ngày đầu tuần và tổng doanh thu
-        String sql = "SELECT \n"
-                + "    DATEADD(DAY, -DATEDIFF(DAY, '1970-01-05', Created_Date) % 7, Created_Date) AS WeekStart,\n"
-                + "    SUM(Amount) AS Revenue\n"
-                + "FROM Transaction_History\n"
-                + "WHERE DATEDIFF(DAY, Created_Date, GETDATE()) <= 89 AND Status = 'PAID'\n"
-                + "GROUP BY DATEADD(DAY, -DATEDIFF(DAY, '1970-01-05', Created_Date) % 7, Created_Date)\n"
-                + "ORDER BY WeekStart;";
-        PreparedStatement st = connection.prepareStatement(sql);
-        ResultSet rs = st.executeQuery();
+        try {
+            // SQL query để lấy ngày đầu tuần và tổng doanh thu
+            String sql = "SELECT \n"
+                    + "    DATEADD(DAY, -DATEDIFF(DAY, '1970-01-05', Created_Date) % 7, Created_Date) AS WeekStart,\n"
+                    + "    SUM(Amount) AS Revenue\n"
+                    + "FROM Transaction_History\n"
+                    + "WHERE DATEDIFF(DAY, Created_Date, GETDATE()) <= 89 AND Status = 'PAID'\n"
+                    + "GROUP BY DATEADD(DAY, -DATEDIFF(DAY, '1970-01-05', Created_Date) % 7, Created_Date)\n"
+                    + "ORDER BY WeekStart;";
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
 
-        // Thêm dữ liệu từ database vào danh sách
-        while (rs.next()) {
-            LocalDate weekStart = rs.getDate("WeekStart").toLocalDate();
-            String columnName = weekStart.format(formatter);
-            ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
-            list.add(c);
+            // Thêm dữ liệu từ database vào danh sách
+            while (rs.next()) {
+                LocalDate weekStart = rs.getDate("WeekStart").toLocalDate();
+                String columnName = weekStart.format(formatter);
+                ChartColumn c = new ChartColumn(columnName, rs.getInt("Revenue"));
+                list.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
-    } catch (SQLException e) {
-        System.out.println(e);
-    }
 
-    // Tạo danh sách đầy đủ 12 tuần gần nhất và điền giá trị mặc định 0 nếu tuần không có dữ liệu
-    LocalDate today = LocalDate.now();
-    LocalDate startDate = today.minusDays(83); // 12 tuần = 84 ngày
-    LocalDate firstMonday = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        // Tạo danh sách đầy đủ 12 tuần gần nhất và điền giá trị mặc định 0 nếu tuần không có dữ liệu
+        LocalDate today = LocalDate.now();
+        LocalDate startDate = today.minusDays(83); // 12 tuần = 84 ngày
+        LocalDate firstMonday = startDate.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
 
-    List<ChartColumn> fullList = new ArrayList<>();
-    for (LocalDate date = firstMonday; date.isBefore(today.plusDays(1)); date = date.plusWeeks(1)) {
-        String columnName = date.format(formatter);
-        boolean found = false;
-        for (ChartColumn c : list) {
-            if (c.getColumnName().equals(columnName)) {
-                fullList.add(c);
-                found = true;
-                break;
+        List<ChartColumn> fullList = new ArrayList<>();
+        for (LocalDate date = firstMonday; date.isBefore(today.plusDays(1)); date = date.plusWeeks(1)) {
+            String columnName = date.format(formatter);
+            boolean found = false;
+            for (ChartColumn c : list) {
+                if (c.getColumnName().equals(columnName)) {
+                    fullList.add(c);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                fullList.add(new ChartColumn(columnName, 0));
             }
         }
-        if (!found) {
-            fullList.add(new ChartColumn(columnName, 0));
-        }
+
+        // Sắp xếp lại theo ngày tăng dần
+        fullList.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
+                .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
+
+        return fullList;
     }
-
-    // Sắp xếp lại theo ngày tăng dần
-    fullList.sort((a, b) -> LocalDate.parse(a.getColumnName(), formatter)
-            .compareTo(LocalDate.parse(b.getColumnName(), formatter)));
-
-    return fullList;
-}
 }

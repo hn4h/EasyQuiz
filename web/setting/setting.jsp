@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -190,6 +191,16 @@
                                 <p>${sessionScope.account.email}</p>
                             </div>
                         </div>
+                        <fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd" var="today" />
+                        <c:if test="${sessionScope.account.expiredDate > today}">
+                            <div class="attribute-box">
+                                <div class="attribute-box-item">
+                                    <h3>Upgrade package time</h3>
+                                    <p>Your package will be expired at <strong style="color: #000;">${sessionScope.account.expiredDate}</strong></p>
+                                </div>
+                                <button type="button" onclick="window.location.href='upgrade'">Add extension</button>
+                            </div>
+                        </c:if>
                     </div>
                 </div>
                 <div class="personal-setting">

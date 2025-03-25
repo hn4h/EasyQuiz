@@ -175,6 +175,7 @@ public class AccountDAO extends DBContext {
                 boolean isAdmin = rs.getInt("is_admin") == 1;
                 account.setIsAdmin(isAdmin);
                 account.setEmail(rs.getString("email"));
+                account.setExpiredDate(rs.getDate("expiredDate"));
                 return account;
             }
         } catch (Exception e) {
@@ -285,6 +286,7 @@ public class AccountDAO extends DBContext {
                 boolean isDeleted = rs.getInt("is_deleted") == 1;
                 account.setIsDeleted(isDeleted);
                 account.setEmail(rs.getString("email"));
+                account.setExpiredDate(rs.getDate("ExpiredDate"));
                 return account;
             }
         } catch (SQLException e) {
@@ -372,7 +374,7 @@ public class AccountDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
-        System.out.println(d.checkLimitTest("haha"));
+        System.out.println(d.checkEmail("huannhhe180923@fpt.edu.vn").getExpiredDate());
     }
 
     public boolean checkLimitLearn(String userName) {

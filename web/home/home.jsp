@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +18,8 @@
     </head>
 
     <body>
-        <%
+
+        <% // -----------------------------Success message
     String successMessage = (String) session.getAttribute("successMessage");
     if (successMessage != null) {
         %>
@@ -39,7 +41,7 @@
             }
         %>
 
-        <%
+        <%// -----------------------------Error message
     String errorMessage = (String) request.getAttribute("error");
     if (errorMessage == null) {
         errorMessage = (String) session.getAttribute("error");
@@ -63,6 +65,29 @@
             session.removeAttribute("error");
             }
         %>
+
+        <% // -----------------------------Warning message
+    String warningMessage = (String) session.getAttribute("warningMessage");
+    if (warningMessage != null) {
+        %>
+        <div id="toastMessage3">
+            <span class="material-symbols-rounded">warning</span>
+            <span><%= warningMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast3 = document.getElementById("toastMessage3");
+                toast3.style.opacity = "0";
+                setTimeout(() => {
+                    toast3.style.display = "none";
+                }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
+            }, 5000);
+        </script>
+        <%
+            session.removeAttribute("warningMessage"); // Xóa sau khi hiển thị
+            }
+        %>
+
         <div class="header">
             <div class="logo">
                 <div class="menu-btn">
@@ -85,16 +110,31 @@
                             <a class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
-                    <div class="upgrade-btn">
-                        <a href="upgrade">Upgrade your package</a>
-                    </div>
+                    <fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd" var="today" />
+                    <c:choose>
+                        <c:when test="${sessionScope.account.expiredDate > today}">
+                            <div class="upgrade-btn">
+                                <a href="upgrade">Extend your package</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="upgrade-btn">
+                                <a href="upgrade">Upgrade your package</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                     <div class="avatar-user"  id="avatarUser">
                         <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>${sessionScope.account.userName}</p>
+                                    <div>
+                                        <p>${sessionScope.account.userName}</p>
+                                        <c:if test="${sessionScope.account.expiredDate > today}">
+                                            <span class="premium-icon material-symbols-rounded">crown</span>
+                                        </c:if>
+                                    </div>
                                     <p>
                                         <c:choose>
                                             <c:when test="${fn:length(sessionScope.account.email) > 15}">

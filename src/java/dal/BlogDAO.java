@@ -308,7 +308,7 @@ public class BlogDAO extends DBContext {
                 Account c = new Account();
                 
                 b.setBlogId(rs.getInt("Blog_ID"));
-                b.setBlogTitle(rs.getString("Blog_Content"));
+                b.setBlogTitle(rs.getString("Blog_Title"));
                 b.setCreatedDate(rs.getDate("Blog_Date"));
                 
                 b.setAuthor(a.getAccountByUserName(username));

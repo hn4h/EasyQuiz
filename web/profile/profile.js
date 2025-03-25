@@ -91,11 +91,26 @@ closeBtn.addEventListener('click', () => {
 document.addEventListener("DOMContentLoaded", function () {
     const searchInput = document.getElementById("search");
     const items = document.querySelectorAll(".term-item");
+    const itemsFolder = document.querySelectorAll(".folder-item");
 
     searchInput.addEventListener("input", function () {
         const filter = searchInput.value.trim().toLowerCase();
 
         items.forEach(item => {
+            const title = item.querySelector("h3").textContent.toLowerCase();
+
+            if (title.includes(filter)) {
+                item.style.display = "";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    });
+    
+    searchInput.addEventListener("input", function () {
+        const filter = searchInput.value.trim().toLowerCase();
+
+        itemsFolder.forEach(item => {
             const title = item.querySelector("h3").textContent.toLowerCase();
 
             if (title.includes(filter)) {

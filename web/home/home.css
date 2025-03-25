@@ -41,6 +41,24 @@
     z-index: 1010;
 }
 
+#toastMessage3 {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #FFB200;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 5px;
+    opacity: 1;
+    transition: opacity 0.5s;
+    z-index: 1010;
+}
+
 .menu-btn button {
     background-color: #fff;
     font-size: 20px;
@@ -253,12 +271,24 @@
     border: 2px solid #e6e6e6;
 }
 
-.user-info div{
-    margin-left: 10px
+.user-info div:not(.user-info div div){
+    margin-left: 10px;
 }
 
-.user-info p:first-child {
+.user-info div div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-info div div p {
     font-weight: bold;
+}
+
+.user-info div div span {
+    font-weight: bold;
+    font-size: 20px;
+    color: #ffbf00;
 }
 
 .folderPopup-container {

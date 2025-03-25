@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Account;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import model.GoogleAccount;
 
 /**
@@ -51,14 +53,19 @@ public class LoginServlet extends HttpServlet {
                 d.createAccountByEmail(acc.getEmail(), acc.getPicture());
                 a = d.checkEmail(acc.getEmail());
             } else if (a.isIsDeleted()) {
-            request.setAttribute("error", "This account is deleted!");
-            request.getRequestDispatcher("login/login.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("account", a);
-            request.getSession().setAttribute("successMessage", "Login successfully!");
-            response.sendRedirect("home");
-        }
+                request.setAttribute("error", "This account is deleted!");
+                request.getRequestDispatcher("login/login.jsp").forward(request, response);
+            } else {
+                HttpSession session = request.getSession();
+                session.setAttribute("account", a);
+                LocalDate expiredDate = a.getExpiredDate().toLocalDate(); // Chuyển từ java.sql.Date sang LocalDate nếu cần
+                LocalDate today = LocalDate.now();
+                if (ChronoUnit.DAYS.between(today, expiredDate) == 1) {
+                    request.getSession().setAttribute("warningMessage", "Your premium package will be expired tomorrow!");
+                }
+                request.getSession().setAttribute("successMessage", "Login successfully!");
+                response.sendRedirect("home");
+            }
         }
     }
 
