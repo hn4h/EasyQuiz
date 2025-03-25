@@ -124,7 +124,7 @@
     <body>
         <div class="header">
             <div class="logo">
-                <span>EasyQuiz</span>
+                <span onclick="window.location.href = 'home'">EasyQuiz</span>
                 <div class="vertical-line"></div>
                 <div class="name-dashboard">
                     <p>Dashboard | Package</p>

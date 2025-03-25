@@ -43,22 +43,29 @@
                     </div>
                     <div class="avatar-user"  id="avatarUser">
                         <img src="${sessionScope.account.profileImage}" alt="Not found">
-                        <div class="user-menu" id="userMenu">
+                                                <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
                                     <p>${sessionScope.account.userName}</p>
-                                    <p>${sessionScope.account.email}</p>
+                                    <p>
+                                        <c:choose>
+                                            <c:when test="${fn:length(sessionScope.account.email) > 15}">
+                                                ${fn:substring(sessionScope.account.email, 0, 15)}...
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${sessionScope.account.email}
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </p>
                                 </div>
                             </div>
                             <hr/>
                             <a href="setting" class="user-menu-item"><i class="fa-solid fa-user"></i> Profile</a>
-                            <a href="#" class="user-menu-item"><i class="fa-solid fa-moon"></i> Dark mode</a>
+                            <a href="feedback" class="user-menu-item"><i class="fa-solid fa-circle-info"></i> Help and feedback</a>
+                            <a href="upgrade" class="user-menu-item"><i class="fa-solid fa-crown"></i> Upgrades</a>
                             <hr/>
-                            <a href="logout" class="user-menu-item">Logout</a>
-                            <hr/>
-                            <a href="feedback" class="user-menu-item">Help and feedback</a>
-                            <a href="upgrade" class="user-menu-item">Upgrades</a>
+                            <a href="logout" class="user-menu-item"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>
                         </div>
                     </div>
                 </c:if>

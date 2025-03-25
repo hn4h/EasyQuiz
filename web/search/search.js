@@ -132,3 +132,11 @@ closeBtn.addEventListener('click', () => {
         folderPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
+//function validateSearch() {
+//    const input = document.getElementById('input').value.trim();
+//    if (input === "") {
+//        // Ngăn form gửi đi
+//        return false;
+//    }
+//    return true;
+//}
