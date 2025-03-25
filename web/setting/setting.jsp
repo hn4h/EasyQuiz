@@ -195,10 +195,13 @@
                         <c:if test="${sessionScope.account.expiredDate > today}">
                             <div class="attribute-box">
                                 <div class="attribute-box-item">
-                                    <h3>Upgrade package time</h3>
+                                    <div>
+                                        <h3>Upgrade package time</h3>
+                                        <span class="premium-icon material-symbols-rounded">crown</span>
+                                    </div>
                                     <p>Your package will be expired at <strong style="color: #000;">${sessionScope.account.expiredDate}</strong></p>
                                 </div>
-                                <button type="button" onclick="window.location.href='upgrade'">Add extension</button>
+                                <button type="button" onclick="window.location.href = 'upgrade'">Add extension</button>
                             </div>
                         </c:if>
                     </div>

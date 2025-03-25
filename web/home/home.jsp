@@ -258,7 +258,7 @@
                         </div>
                     </div>
                 </c:if>
-                <div class="container swiper">
+                <div class="container ${fn:length(popularQuizSet) <= 3 ? '' : 'swiper'}">
                     <h2>Popular Flashcard sets</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
@@ -294,7 +294,7 @@
                 </div>
 
 
-                <div class="container swiper">
+                <div class="container ${fn:length(popularBlog) <= 3 ? '' : 'swiper'}">
                     <h2>Popular Blog posts</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
@@ -377,41 +377,13 @@
                     </div>
                 </div>
 
-                <div class="container swiper">
+                <div class="container ${fn:length(topAuthors) <= 3 ? '' : 'swiper'}">
                     <h2>Top creator</h2>
                     <div class="card-wrapper">
                         <ul class="card-list swiper-wrapper">
                             <c:forEach items="${topAuthors}" var="creator"> 
                                 <li class="card-item swiper-slide" onclick="window.location.href = 'user?username=${creator.account.userName}&type=sets'">
-                                    <a href="#" class="card-link">
-                                        <div class="card-avt">
-                                            <img src="${creator.account.profileImage}" alt="Avatar"> 
-                                            <p>${creator.account.userName}</p> 
-                                        </div>
-                                        <div class="card-username">
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
-                                            <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                        </div>
-                                    </a>
-                                </li>
-                            </c:forEach>
-                            <c:forEach items="${topAuthors}" var="creator"> 
-                                <li class="card-item swiper-slide">
-                                    <a href="#" class="card-link">
-                                        <div class="card-avt">
-                                            <img src="${creator.account.profileImage}" alt="Avatar"> 
-                                            <p>${creator.account.userName}</p> 
-                                        </div>
-                                        <div class="card-username">
-                                            <p class="badge2"><i class="fa-solid fa-book"></i> ${creator.numberOfQuizSet} flashcard sets</p> 
-                                            <button class="card-button material-symbols-rounded">arrow_forward</button>
-                                        </div>
-                                    </a>
-                                </li>
-                            </c:forEach>
-                            <c:forEach items="${topAuthors}" var="creator"> 
-                                <li class="card-item swiper-slide">
-                                    <a href="#" class="card-link">
+                                    <a class="card-link">
                                         <div class="card-avt">
                                             <img src="${creator.account.profileImage}" alt="Avatar"> 
                                             <p>${creator.account.userName}</p> 

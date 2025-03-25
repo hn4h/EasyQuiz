@@ -567,6 +567,13 @@
     margin: 0 60px 35px;
     padding: 20px 10px;
     overflow: hidden;
+    width: 100%;
+}
+
+.small-list .card-list {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
 }
 
 .card-list .card-item {
@@ -712,6 +719,12 @@
 
 .container > h2:first-child {
     margin-left: 5%;
+}
+
+.container {
+    max-width: 1250px;
+    width: 100%;
+    margin: auto;
 }
 
 .recents-container {

@@ -450,31 +450,33 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //------------------------Pop up option
-const optionItem = document.querySelector('.test-btn');
-const optionPopup = document.getElementById('optionPopup');
+const testItems = document.querySelectorAll('.test-btn');
+const testPopup = document.getElementById('optionPopup');
 const closeTestBtn = document.querySelector('.closetest-btn');
 const cancelBtn = document.querySelector('.cancel-btn');
 
 // Hiển thị popup
-optionItem.addEventListener('click', (e) => {
-    optionPopup.style.display = "block";
-    optionPopup.classList.remove("hide");
-    e.stopPropagation();
+testItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+        testPopup.style.display = "block";
+        testPopup.classList.remove("hide");
+        e.stopPropagation();
+    });
 });
 
 // Ẩn popup với animation fadeOut
 closeTestBtn.addEventListener('click', () => {
-    optionPopup.classList.add("hide");
+    testPopup.classList.add("hide");
     setTimeout(() => {
-        optionPopup.style.display = "none";
+        testPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
 
 // Ẩn popup với animation fadeOut
 cancelBtn.addEventListener('click', () => {
-    optionPopup.classList.add("hide");
+    testPopup.classList.add("hide");
     setTimeout(() => {
-        optionPopup.style.display = "none";
+        testPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
 //------------------------Menu of avatar

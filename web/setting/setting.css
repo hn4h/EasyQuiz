@@ -655,6 +655,17 @@
     gap: 10px;
 }
 
+.attribute-box-item div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.attribute-box-item p {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .popup {
     position: fixed;
     top: 0;
@@ -801,4 +812,10 @@
     font-size: 14px !important;
     margin-top: 5px !important;
     font-weight: bold !important;
+}
+
+.premium-icon {
+    color: #FFB200;
+    font-size: 20px;
+    font-weight: bold;
 }

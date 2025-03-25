@@ -1,6 +1,6 @@
 // SwiperJS pagination
 const swiper = new Swiper('.card-wrapper', {
-    loop: true,
+    loop: false,
     spaceBetween: 20,
 
     // Pagination bullets
