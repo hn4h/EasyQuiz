@@ -36,7 +36,21 @@ public class AnswerDAO extends DBContext {
     }
 
     public Answer getAnswerById(int answerId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "SELECT * FROM Answer WHERE Answer_ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, answerId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Answer answer = new Answer();
+                answer.setAnswerID(rs.getInt("Answer_ID"));
+                answer.setContent(rs.getString("Answer_Content"));
+                answer.setIsCorrect(rs.getBoolean("Is_Correct"));
+                return answer;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public void deleteAnswersByQuizId(int quizID) {
         String sql = "DELETE FROM Answer WHERE Quiz_ID = ?";

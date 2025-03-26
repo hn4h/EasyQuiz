@@ -107,9 +107,9 @@ public class AddQuizServlet extends HttpServlet {
         for (int i = 1; i <= Integer.parseInt(numberOfQuestions); i++) {
             String question = request.getParameter("question" + i);
             int quizId = quizDAO.addQuiz(quizSetId, question);
-            System.out.println(question);
+//            System.out.println(question);
             String correctAnswer = request.getParameter("correct" + i);
-            System.out.println(correctAnswer);
+//            System.out.println(correctAnswer);
             for (int j = 1; j <= 4; j++) {
                 String answer = request.getParameter("answer" + i + "." + j);
                 boolean isCorrect = false;
