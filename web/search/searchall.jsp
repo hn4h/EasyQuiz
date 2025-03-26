@@ -189,7 +189,7 @@
                                 </div>
                                 <ul class="card-list">
                                 <c:forEach begin="0" end="2" step="1" items="${requestScope.creator}" var="creator">
-                                    <li class="card-item">
+                                    <li class="card-item" onclick="window.location.href='user?username=${creator.account.userName}'">
                                         <a href="#" class="card-link">
                                             <div class="card-avt">
                                                 <img src="${creator.account.profileImage}" alt="Avatar"> 
