@@ -1,4 +1,12 @@
 
+document.querySelector(".sidebar-toggler").addEventListener("click", () => {
+    // Toggle collapsed class on sidebar
+    document.querySelector(".sidebar").classList.toggle("collapsed");
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector(".sidebar").classList.toggle("collapsed");
+});
 //------------------------Menu of avatar
 // Get elements
 const avatarUser = document.getElementById('avatarUser');
@@ -38,15 +46,6 @@ document.addEventListener('click', () => {
     }
 });
 
-document.querySelector(".sidebar-toggler").addEventListener("click", () => {
-    closeAllDropdowns();
-    // Toggle collapsed class on sidebar
-    document.querySelector(".sidebar").classList.toggle("collapsed");
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector(".sidebar").classList.toggle("collapsed");
-});
 
 document.addEventListener("DOMContentLoaded", function () {
     const quizForm = document.getElementById("quizForm");
@@ -176,4 +175,19 @@ document.getElementById("quizForm").addEventListener("submit", function(event) {
         alert(`You need to choose correct answer for all questions!`);
         event.preventDefault(); 
     }
+});
+//------------------------Pop up create folder
+// Hiển thị popup
+createFolderItem.addEventListener('click', (e) => {
+    folderPopup.style.display = "block";
+    folderPopup.classList.remove("hide");
+    e.stopPropagation();
+});
+
+// Ẩn popup với animation fadeOut
+closeBtn.addEventListener('click', () => {
+    folderPopup.classList.add("hide");
+    setTimeout(() => {
+        folderPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
 });

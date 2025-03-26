@@ -25,13 +25,19 @@
             </div>
             <div class="create-login">
                 <c:if test="${sessionScope.account != null}">
+                    <fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd" var="today" />
                     <div class="avatar-user"  id="avatarUser">
                         <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>${sessionScope.account.userName}</p>
+                                    <div>
+                                        <p>${sessionScope.account.userName}</p>
+                                        <c:if test="${sessionScope.account.expiredDate > today}">
+                                            <span class="premium-icon material-symbols-rounded">crown</span>
+                                        </c:if>
+                                    </div>
                                     <p>
                                         <c:choose>
                                             <c:when test="${fn:length(sessionScope.account.email) > 15}">

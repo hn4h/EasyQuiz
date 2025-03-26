@@ -219,12 +219,24 @@
     border: 2px solid #e6e6e6;
 }
 
-.user-info div{
-    margin-left: 10px
+.user-info div:not(.user-info div div){
+    margin-left: 10px;
 }
 
-.user-info p:first-child {
+.user-info div div{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.user-info div div p {
     font-weight: bold;
+}
+
+.user-info div div span {
+    font-weight: bold;
+    font-size: 20px;
+    color: #ffbf00;
 }
 
 .folderPopup-container {

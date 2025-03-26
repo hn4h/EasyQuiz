@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,16 +39,31 @@
                             <a class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
-                    <div class="upgrade-btn">
-                        <a href="upgrade">Upgrade your package</a>
-                    </div>
+                    <fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd" var="today" />
+                    <c:choose>
+                        <c:when test="${sessionScope.account.expiredDate > today}">
+                            <div class="upgrade-btn">
+                                <a href="upgrade">Extend your package</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="upgrade-btn">
+                                <a href="upgrade">Upgrade your package</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                     <div class="avatar-user"  id="avatarUser">
                         <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>${sessionScope.account.userName}</p>
+                                    <div>
+                                        <p>${sessionScope.account.userName}</p>
+                                        <c:if test="${sessionScope.account.expiredDate > today}">
+                                            <span class="premium-icon material-symbols-rounded">crown</span>
+                                        </c:if>
+                                    </div>
                                     <p>
                                         <c:choose>
                                             <c:when test="${fn:length(sessionScope.account.email) > 15}">

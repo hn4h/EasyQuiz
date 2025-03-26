@@ -4,6 +4,8 @@
     Author     : Lenovo
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -38,19 +40,34 @@
                         <span><button><i class="fa-solid fa-plus"></i></button></span>
                         <div class="create-menu" id="createMenu">
                             <a href="addquiz" class="create-menu-item"><i class="fa-solid fa-book"></i> Flashcard set</a>
-                            <a class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
+                            <a href="#" class="create-menu-item" id="createFolderItem"><i class="fa-solid fa-folder"></i> Folder</a>
                         </div>
                     </div>
-                    <div class="upgrade-btn">
-                        <a href="upgrade">Upgrade your package</a>
-                    </div>
+                    <fmt:formatDate value="<%= new java.util.Date() %>" pattern="yyyy-MM-dd" var="today" />
+                    <c:choose>
+                        <c:when test="${sessionScope.account.expiredDate > today}">
+                            <div class="upgrade-btn">
+                                <a href="upgrade">Extend your package</a>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="upgrade-btn">
+                                <a href="upgrade">Upgrade your package</a>
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
                     <div class="avatar-user"  id="avatarUser">
                         <img src="${sessionScope.account.profileImage}" alt="Not found">
                         <div class="user-menu" id="userMenu">
                             <div class="user-info">
                                 <img src="${sessionScope.account.profileImage}" alt="Not found"/>
                                 <div>
-                                    <p>${sessionScope.account.userName}</p>
+                                    <div>
+                                        <p>${sessionScope.account.userName}</p>
+                                        <c:if test="${sessionScope.account.expiredDate > today}">
+                                            <span class="premium-icon material-symbols-rounded">crown</span>
+                                        </c:if>
+                                    </div>
                                     <p>
                                         <c:choose>
                                             <c:when test="${fn:length(sessionScope.account.email) > 15}">
@@ -79,6 +96,20 @@
                 </c:if>
             </div>
         </div>
+        <form action="createfolder" method="post">
+            <div class="folderPopup-container">
+                <div id="folderPopup" class="folder-popup">
+                    <div class="folder-popup-content">
+                        <span class="close-btn material-symbols-rounded">close</span>
+                        <h2>Create a new folder</h2>
+                        <input type="text" id="folderName" name="folderName" placeholder="Title" class="folder-input">
+                        <div class="create-folder-btn">
+                            <button type="submit" id="createFolderConfirm">Create folder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         <div class="body">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
@@ -127,30 +158,30 @@
                 </nav>
             </aside>
 
-        <%
-    String errorMessage = (String) request.getAttribute("error");
-    if (errorMessage == null) {
-        errorMessage = (String) session.getAttribute("error");
-    }
-    if (errorMessage != null) {
-        %>
-        <div id="toastMessage2">
-            <span class="material-symbols-rounded">close</span>
-            <span><%= errorMessage %></span>
-        </div>
-        <script>
-            setTimeout(function () {
-                let toast2 = document.getElementById("toastMessage2");
-                toast2.style.opacity = "0";
-                setTimeout(() => {
-                    toast2.style.display = "none";
-                }, 500);
-            }, 3000);
-        </script>
-        <%
-            session.removeAttribute("error");
-            }
-        %>
+            <%
+        String errorMessage = (String) request.getAttribute("error");
+        if (errorMessage == null) {
+            errorMessage = (String) session.getAttribute("error");
+        }
+        if (errorMessage != null) {
+            %>
+            <div id="toastMessage2">
+                <span class="material-symbols-rounded">close</span>
+                <span><%= errorMessage %></span>
+            </div>
+            <script>
+                setTimeout(function () {
+                    let toast2 = document.getElementById("toastMessage2");
+                    toast2.style.opacity = "0";
+                    setTimeout(() => {
+                        toast2.style.display = "none";
+                    }, 500);
+                }, 3000);
+            </script>
+            <%
+                session.removeAttribute("error");
+                }
+            %>
             <div class="body-container">
                 <form action="addquiz" method="post" id="quizForm">
                     <div class="quiz-header">
