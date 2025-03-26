@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
                 d.createAccountByEmail(acc.getEmail(), acc.getPicture());
                 a = d.checkEmail(acc.getEmail());
             } else if (a.isIsDeleted()) {
-                request.setAttribute("error", "This account is deleted!");
+                request.setAttribute("error", "Your account isn't allowed to log in!");
                 request.getRequestDispatcher("login/login.jsp").forward(request, response);
             } else {
                 HttpSession session = request.getSession();

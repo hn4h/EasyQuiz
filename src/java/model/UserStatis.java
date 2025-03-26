@@ -17,11 +17,12 @@ public class UserStatis {
     private int numQuizSet;
     private int numComment;
     private int numFeedBack;
+    private boolean isDeleted;
 
     public UserStatis() {
     }
 
-    public UserStatis(String imageProfile, String userName, String email, int numFolder, int numBlog, int numQuizSet, int numComment, int numFeedBack) {
+    public UserStatis(String imageProfile, String userName, String email, int numFolder, int numBlog, int numQuizSet, int numComment, int numFeedBack, boolean isDeleted) {
         this.imageProfile = imageProfile;
         this.userName = userName;
         this.email = email;
@@ -30,6 +31,7 @@ public class UserStatis {
         this.numQuizSet = numQuizSet;
         this.numComment = numComment;
         this.numFeedBack = numFeedBack;
+        this.isDeleted = isDeleted;
     }
 
     public String getImageProfile() {
@@ -95,5 +97,12 @@ public class UserStatis {
     public void setNumFeedBack(int numFeedBack) {
         this.numFeedBack = numFeedBack;
     }
-    
+
+    public boolean isIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }

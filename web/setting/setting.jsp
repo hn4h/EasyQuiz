@@ -274,26 +274,27 @@
                 </form>
             </div>
         </div>
-
-        <div id="deleteAccountPopup" class="popup" style="display: none;">
-            <div class="popup-content">
-                <span class="close-btn" onclick="hideDeleteAccountPopup()">×</span>
-                <h2>Are you sure?</h2>
-                <p class="popup-message">This action will delete all information about your account and cannot be recovered.</p>
-                <div class="button-container">
-                    <button class="delete-btn" onclick="deleteAccount()">Delete</button>
+        <form action="deleteaccount" method="post">
+            <div id="deleteAccountPopup" class="popup" style="display: none;">
+                <div class="popup-content">
+                    <span class="close-btn" onclick="hideDeleteAccountPopup()">×</span>
+                    <h2>Are you sure?</h2>
+                    <p class="popup-message">This action will delete all information about your account and cannot be recovered.</p>
+                    <div class="button-container">
+                        <button class="delete-btn">Delete</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
         <script src="./setting/setting.js"></script>
         <script>
-                        function showUsernamePopup() {
-                            document.getElementById("usernamePopup").style.display = "block";
-                        }
+                            function showUsernamePopup() {
+                                document.getElementById("usernamePopup").style.display = "block";
+                            }
 
-                        function hideUsernamePopup() {
-                            document.getElementById("usernamePopup").style.display = "none";
-                        }
+                            function hideUsernamePopup() {
+                                document.getElementById("usernamePopup").style.display = "none";
+                            }
         </script>
         <script>
             function showChangePasswordPopup() {

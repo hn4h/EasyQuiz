@@ -156,7 +156,7 @@
                                 <th onclick="sortTable(5)"><span class="th-content">Blog <i class="fas fa-sort" id="icon-5"></i></span></th>
                                 <th onclick="sortTable(6)"><span class="th-content">Comment <i class="fas fa-sort" id="icon-6"></i></span></th>
                                 <th onclick="sortTable(7)"><span class="th-content">Feedback <i class="fas fa-sort" id="icon-7"></i></span></th>
-                                <th><span class="th-content">Note</span></th>
+                                <th><span class="th-content">Status</span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -171,6 +171,15 @@
                                     <td>${c.numBlog}</td>
                                     <td>${c.numComment}</td>
                                     <td>${c.numFeedBack}</td>
+                                    <td>
+                                        <form action="activeaccount" method="post">
+                                            <input type="hidden" name="username" value="${c.userName}">
+                                            <select name="status" onchange="this.form.submit()" class="select-active">
+                                                <option value="Active" ${!c.isDeleted ? 'selected' : ''}>Active</option>
+                                                <option value="Disable" ${c.isDeleted ? 'selected' : ''}>Ban</option>
+                                            </select>
+                                        </form>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

@@ -371,6 +371,17 @@ public class AccountDAO extends DBContext {
             System.out.println(e);
         }
     }
+    
+    public void unbanAccount(String userName) {
+        String sql = "Update Accounts set is_deleted = 0 where username = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, userName);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
 
     public static void main(String[] args) {
         AccountDAO d = new AccountDAO();
