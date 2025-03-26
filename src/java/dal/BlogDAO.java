@@ -21,7 +21,7 @@ public class BlogDAO extends DBContext {
         List<Blog> list = new ArrayList<>();
         String sql = "SELECT Top(9) b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, a.ProfileImage, b.Blog_Date FROM Blog b\n"
                 + "join Comment c on c.Blog_ID = b.Blog_ID\n"
-                + "join Accounts a on a.userName = b.Author\n"
+                + "join Accounts a on a.userName = b.Author\n where b.Is_Deleted = 0\n"
                 + "group by b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, b.Blog_Date, a.ProfileImage\n"
                 + "order by count(c.Comment_ID) desc";
         try {
@@ -51,7 +51,7 @@ public class BlogDAO extends DBContext {
         List<Blog> list = new ArrayList<>();
         String sql = "SELECT Top(3) b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, a.ProfileImage, b.Blog_Date FROM Blog b\n"
                 + "join Comment c on c.Blog_ID = b.Blog_ID\n"
-                + "join Accounts a on a.userName = b.Author\n"
+                + "join Accounts a on a.userName = b.Author\n where b.Is_Deleted = 0 "
                 + "group by b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, b.Blog_Date, a.ProfileImage\n"
                 + "order by count(c.Comment_ID) desc";
         try {
@@ -81,7 +81,7 @@ public class BlogDAO extends DBContext {
         List<Blog> list = new ArrayList<>();
         String sql = "SELECT b.Blog_ID, b.Blog_Content, b.Blog_Title, b.Author, a.ProfileImage, b.Blog_Date "
                 + "FROM Blog b "
-                + "JOIN Accounts a ON a.UserName = b.Author "
+                + "JOIN Accounts a ON a.UserName = b.Author where b.Is_Deleted = 0 "
                 + "WHERE b.Is_Deleted = 0";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -165,7 +165,7 @@ public class BlogDAO extends DBContext {
         List<Blog> list = new ArrayList<>();
         String sql = "SELECT b.Blog_ID, b.Blog_Title, b.Blog_Content, b.Author, a.ProfileImage, b.Blog_Date "
                 + "FROM Blog b "
-                + "JOIN Accounts a ON a.UserName = b.Author "
+                + "JOIN Accounts a ON a.UserName = b.Author where b.Is_Deleted = 0 "
                 + "ORDER BY b.Blog_Date DESC "
                 + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         try {
@@ -211,7 +211,7 @@ public class BlogDAO extends DBContext {
         String sql = "SELECT b.Blog_ID, b.Blog_Title, b.Blog_Content, b.Author, a.ProfileImage, b.Blog_Date "
                 + "FROM Blog b "
                 + "JOIN Accounts a ON a.UserName = b.Author "
-                + "WHERE b.Blog_Title LIKE ? "
+                + "WHERE b.Blog_Title LIKE ? and b.Is_Deleted = 0 "
                 + "ORDER BY b.Blog_Date DESC";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -298,7 +298,7 @@ public class BlogDAO extends DBContext {
             String sql = "SELECT b.Blog_ID, b.Author, b.Blog_Title, b.Blog_Content, b.Blog_Date,\n"
                     + "                     a.UserName, a.ProfileImage, a.Email\n"
                     + "                     FROM Blog b JOIN Accounts a ON b.Author = a.UserName \n"
-                    + "                     WHERE b.Author = ?";
+                    + "                     WHERE b.Author = ? AND b.Is_Deleted = 0";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
@@ -327,5 +327,14 @@ public class BlogDAO extends DBContext {
     public static void main(String[] args) {
         BlogDAO d = new BlogDAO();
         System.out.println(d.getAllBlogsByUsername("giaphu1201").size());
+    }
+    public void deleteBlog(int blogId) {
+        String sql = "UPDATE Blog SET Is_Deleted = 1 WHERE Blog_ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, blogId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error deleting blog: " + e.getMessage());
+        }
     }
 }

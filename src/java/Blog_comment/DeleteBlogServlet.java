@@ -5,6 +5,7 @@
 
 package Blog_comment;
 
+import dal.BlogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Account;
+import model.Blog;
 
 /**
  *
@@ -19,43 +22,45 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 @WebServlet(name="DeleteBlogServlet", urlPatterns={"/deleteblog"})
 public class DeleteBlogServlet extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteBlogServlet</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteBlogServlet at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    } 
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String blogId = request.getParameter("blogId");
+        if (blogId == null) {
+            response.sendRedirect("error");
+            return;
+        }
+        if (blogId.isEmpty()) {
+            response.sendRedirect("error");
+            return;
+        }
+        int blogID;
+        try {
+            blogID = Integer.parseInt(blogId);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("error");
+            return;
+        }
+        BlogDAO bd = new BlogDAO();
+        Blog blog = bd.getBlogById(Integer.parseInt(blogId));
+        if (blog == null) {
+            response.sendRedirect("error");
+            return;
+        }
+        Account a = (Account) request.getSession().getAttribute("account");
+        if (a == null) {
+            response.sendRedirect("error");
+            return;
+        }
+        if (blog.getAuthor().equals(a.getUserName()) || a.isIsAdmin()) {
+            bd.deleteBlog(blogID);
+            response.sendRedirect("blog");
+            return;
+        } else {
+            response.sendRedirect("error");
+            return;
+        }
     } 
 
     /** 
@@ -69,7 +74,45 @@ public class DeleteBlogServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         String blogId = request.getParameter("blogId");
-        processRequest(request, response);
+        if (blogId == null) {
+            response.sendRedirect("error");
+            return;
+        }
+        if (blogId.isEmpty()) {
+            response.sendRedirect("error");
+            return;
+        }
+        int blogID;
+        try {
+            blogID = Integer.parseInt(blogId);
+        } catch (NumberFormatException e) {
+            response.sendRedirect("error");
+            return;
+        }
+        BlogDAO bd = new BlogDAO();
+        Blog blog = bd.getBlogById(Integer.parseInt(blogId));
+        if (blog == null) {
+            response.sendRedirect("error");
+            return;
+        }
+        Account a = (Account) request.getSession().getAttribute("account");
+        if (a == null) {
+            response.sendRedirect("error");
+            return;
+        }
+        if (blog.getAuthor().equals(a.getUserName())) {
+            bd.deleteBlog(blogID);
+            response.sendRedirect("manageblog");
+        } else {
+            response.sendRedirect("error");
+        }
+        if(!a.isIsAdmin()) {
+            response.sendRedirect("error");
+            return;
+        }else{
+            bd.deleteBlog(blogID);
+            response.sendRedirect("manageblog");
+        }
     }
 
     /** 
