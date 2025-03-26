@@ -20,6 +20,27 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     </head>
     <body>
+        <% // -----------------------------Success message
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) {
+        %>
+        <div id="toastMessage1">
+            <span class="material-symbols-rounded">check</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast1 = document.getElementById("toastMessage1");
+                toast1.style.opacity = "0";
+                setTimeout(() => {
+                    toast1.style.display = "none";
+                }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("successMessage"); // Xóa sau khi hiển thị
+            }
+        %>
         <div class="header">
             <div class="logo">
                 <div class="menu-btn">
@@ -151,14 +172,20 @@
             <div class="body-container">
                 <div class="blog-detail-container">
                     <div class="flashcard-header">
-                        <h2>${requestScope.blogDetail.blogTitle}</h2>
+                        <h2 class="blog-content-header">${requestScope.blogDetail.blogTitle}</h2>
                         <div class="header-btn">
                             <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span><p>Share</p></button>
                             <c:if test="${requestScope.blogDetail.author.userName eq sessionScope.account.userName or sessionScope.account.isAdmin}">
                                 <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>
                                 <div class="more-option" id="moreOption">
                                     <ul class="more-option-nav">
-                                        <li class="nav-item" onclick="window.location.href='deleteblog?blogId=${requestScope.blogDetail.blogId}'">
+                                        <c:if test="${requestScope.blogDetail.author.userName eq sessionScope.account.userName}">
+                                        <li class="nav-item" onclick="showPopup()">
+                                            <span class="material-symbols-rounded">edit</span>
+                                            <a class="nav-link">Edit</a>
+                                        </li>
+                                        </c:if>
+                                        <li class="nav-item" onclick="window.location.href = 'deleteblog?blogId=${requestScope.blogDetail.blogId}'">
                                             <span class="material-symbols-rounded">delete</span>
                                             <a class="nav-link">Delete</a>
                                         </li>
@@ -175,7 +202,7 @@
                             <span class="material-symbols-rounded">update</span>
                             <span>Created ${requestScope.blogDetail.createdDate}</span>
                         </div>
-                        <p>${requestScope.blogDetail.blogContent}</p>
+                        <p class="blog-content-info">${requestScope.blogDetail.blogContent}</p>
                         <div class="comment-title">
                             <h3>Comments</h3>
                         </div>
@@ -199,7 +226,7 @@
                                             <span>${comment.commentContent}</span>
                                         </div>
                                         <c:if test="${comment.userName eq sessionScope.account.userName or sessionScope.account.isAdmin}">
-                                            <button onclick="window.location.href='deletecomment?commentId=${comment.commentId}'"><span class="material-symbols-rounded">delete</span></button>
+                                            <button onclick="window.location.href = 'deletecomment?commentId=${comment.commentId}'"><span class="material-symbols-rounded">delete</span></button>
                                         </c:if>
                                     </div>
                                 </c:forEach>
@@ -233,6 +260,30 @@
             </div>
         </div>
 
+        <!-- Popup for creating a new blog -->
+        <div class="overlay" id="overlay" onclick="hidePopup()" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;"></div>
+        <div class="popup" id="createPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px;
+             border-radius: 15px; box-shadow: 0 0 15px rgba(0,0,0,0.5); z-index: 1000; width: 600px; max-width: 90%;">
+            <div class="popup-content" style="display: flex; flex-direction: column; align-items: center;">
+                <h2 style="margin-bottom: 20px; font-size: 24px;">Edit Blog</h2>
+                <form action="editBlog" method="post" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
+                    <input type="hidden" id="blogId" name="blogId">
+                    <div style="width: 100%; margin-bottom: 15px;">
+                        <input type="text" name="title" id="blogTitle" placeholder="Blog Title" required style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                    </div>
+                    <div style="width: 100%; margin-bottom: 15px;">
+                        <textarea name="content" id="blogContent" placeholder="Blog Content" rows="5" required style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; resize: vertical;"></textarea>
+                    </div>
+                    <div style="display: flex; justify-content: center; gap: 20px; width: 100%;">
+                        <button type="submit" class="btn" style="background-color: green; color: white; padding: 10px 20px; border: none;
+                                border-radius: 5px; font-size: 16px; cursor: pointer;">Save</button>
+                        <button type="button" class="btn" style="background-color: #C62300; color: white; padding: 10px 20px; border: none;
+                                border-radius: 5px; font-size: 16px; cursor: pointer;" onclick="hidePopup()">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <script>
 
             // Share button functionality (copy link to clipboard)
@@ -258,6 +309,26 @@
                     });
                 });
             });
+
+            function showPopup() {
+                let id = ${requestScope.blogDetail.blogId};
+                let title = document.querySelector(".blog-content-header").innerText;
+                let content = document.querySelector(".blog-content-info").innerText;
+                
+                document.getElementById("blogId").value = id;
+                document.getElementById("blogTitle").value = title;
+                document.getElementById("blogContent").value = content;
+                
+                document.getElementById('createPopup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            }
+
+            function hidePopup() {
+                document.getElementById('createPopup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('blogTitle').value = '';
+                document.getElementById('blogContent').value = '';
+            }
 
             // Submit comment function (giữ nguyên từ blog.jsp)
             function submitComment(blogId) {
@@ -302,8 +373,8 @@
                 let data = 'blogId=' + encodeURIComponent(blogId) + '&commentContent=' + encodeURIComponent(commentContent);
                 xhr.send(data);
             }
-            
-            
+
+
             // Toggle more options
             document.getElementById('moreButton').addEventListener('click', function () {
                 const moreOption = document.getElementById('moreOption');
