@@ -68,7 +68,46 @@ public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("error");
+
+        HttpSession session = request.getSession();
+        Account account = (Account) session.getAttribute("account");
+
+        if (account == null) {
+            response.sendRedirect("login");
+            return;
+        }
+
+        // Get parameters from the request
+        int commentId;
+        try {
+            commentId = Integer.parseInt(request.getParameter("commentId"));
+        } catch (NumberFormatException e) {
+            response.sendRedirect("error");
+            return;
+        }
+        int blogId;
+        try {
+            // Get the comment from the database to verify ownership
+            Comment comment = commentDAO.getCommentById(commentId);
+            blogId = comment.getBlogId();
+            if (comment == null) {
+                response.sendRedirect("error");
+                return;
+            }
+
+            // Check if the logged-in user is the owner of the comment
+            if (!comment.getUserName().equals(account.getUserName())) {
+               response.sendRedirect("error"); 
+                return;
+            }
+
+            // Delete the comment from the database
+            commentDAO.deleteComment(commentId);
+            response.sendRedirect("blogdetail?blogId=" + blogId);
+        } catch (SQLException e) {
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            response.getWriter().write("Failed to delete comment: " + e.getMessage());
+        }
     }
 
     /**
