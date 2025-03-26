@@ -69,7 +69,7 @@ public class DeleteFolderServlet extends HttpServlet {
         try{
             id = Integer.parseInt(folderIdRaw);
         }catch(NumberFormatException e){
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             System.out.println(e);
         }
         HistoryDAO dao = new HistoryDAO();

@@ -448,4 +448,12 @@ public class AccountDAO extends DBContext {
         }
         return false;
     }
+   public boolean checkGoogleAccount(String email){
+        Account acc = this.checkAuthen(email, "");
+        if(acc == null){
+            return false;
+        }else{
+            return true;
+        }
+   } 
 }

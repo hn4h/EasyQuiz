@@ -75,21 +75,21 @@ public class AddToFolderServlet extends HttpServlet {
         String quizSetIdStr = request.getParameter("quizSetId");
         String folderIdStr = request.getParameter("folderId");
         if (folderIdStr == null || quizSetIdStr == null) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             return;
         }
         int folderId = 0;
         try {
             folderId = Integer.parseInt(folderIdStr);
         } catch (NumberFormatException e) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             System.out.println(e);
         }
         int quizSetId = 0;
         try {
             quizSetId = Integer.parseInt(quizSetIdStr);
         } catch (NumberFormatException e) {
-            response.sendRedirect("home");
+            response.sendRedirect("error");
             System.out.println(e);
         }
         HistoryDAO dao = new HistoryDAO();
