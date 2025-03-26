@@ -1,5 +1,4 @@
 document.querySelector(".sidebar-toggler").addEventListener("click", () => {
-    closeAllDropdowns();
 
     // Toggle collapsed class on sidebar
     document.querySelector(".sidebar").classList.toggle("collapsed");
@@ -8,13 +7,6 @@ document.querySelector(".sidebar-toggler").addEventListener("click", () => {
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelector(".sidebar").classList.toggle("collapsed");
 });
-
-const closeAllDropdowns = () => {
-    document.querySelectorAll(".dropdown-container.open").forEach(openDropdown => {
-        toggleDropdown(openDropdown, openDropdown.querySelector(".dropdown-subject"), false);
-    });
-};
-
 //------------------------Menu of avatar
 // Get elements
 const avatarUser = document.getElementById('avatarUser');
@@ -33,20 +25,21 @@ document.addEventListener('click', () => {
     }
 });
 //----------------------Menu of create button
-// Lấy các phần tử
+// Get elements
 const createButton = document.getElementById('createButton');
 const dropdownCreateMenu = document.getElementById('createMenu');
 const createFolderItem = document.querySelector('.create-menu-item:nth-child(2)'); // Chọn mục "Folder"
 const folderPopup = document.getElementById('folderPopup');
 const closeBtn = document.querySelector('.close-btn');
 
-// Toggle menu Create khi nhấn vào nút +
+
+// Toggle dropdown menu on click
 createButton.addEventListener('click', (e) => {
     dropdownCreateMenu.classList.toggle('show');
-    e.stopPropagation();
+    e.stopPropagation(); // Prevent click from closing immediately
 });
 
-// Đóng menu khi click ra ngoài
+// Close menu when clicking outside
 document.addEventListener('click', () => {
     if (dropdownCreateMenu.classList.contains('show')) {
         dropdownCreateMenu.classList.remove('show');

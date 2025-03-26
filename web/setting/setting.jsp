@@ -215,10 +215,12 @@
                 <div class="personal-setting">
                     <h2>Account</h2>
                     <div class="personal-setting-box">
-                        <div class="attribute-box">
-                            <h3>Change password</h3>
-                            <button onclick="showChangePasswordPopup()">Change</button>
-                        </div>
+                        <c:if test="${!isGoogleAccount}">
+                            <div class="attribute-box">
+                                <h3>Change password</h3>
+                                <button onclick="showChangePasswordPopup()">Change</button>
+                            </div>
+                        </c:if>
                         <div class="attribute-box">
                             <div>
                                 <h3>Delete your account</h3>
@@ -288,13 +290,13 @@
         </form>
         <script src="./setting/setting.js"></script>
         <script>
-                            function showUsernamePopup() {
-                                document.getElementById("usernamePopup").style.display = "block";
-                            }
+                        function showUsernamePopup() {
+                            document.getElementById("usernamePopup").style.display = "block";
+                        }
 
-                            function hideUsernamePopup() {
-                                document.getElementById("usernamePopup").style.display = "none";
-                            }
+                        function hideUsernamePopup() {
+                            document.getElementById("usernamePopup").style.display = "none";
+                        }
         </script>
         <script>
             function showChangePasswordPopup() {

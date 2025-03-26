@@ -112,6 +112,27 @@
                 </div>
             </div>
         </form>
+        <% // -----------------------------Success message
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) {
+        %>
+        <div id="toastMessage1">
+            <span class="material-symbols-rounded">check</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast1 = document.getElementById("toastMessage1");
+                toast1.style.opacity = "0";
+                setTimeout(() => {
+                    toast1.style.display = "none";
+                }, 500); // Ẩn hoàn toàn sau 0.5 giây sau khi mờ
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("successMessage"); // Xóa sau khi hiển thị
+            }
+        %>
         <div class="body">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
@@ -202,6 +223,9 @@
                                     <h3>Comments</h3>
                                 </div>
                                 <div class="comment-window" id="commentWindow${blog.blogId}">
+                                    <c:if test="${blog.comments.size() == 0}">
+                                        <strong>No comments yet.</strong>
+                                    </c:if>
                                     <c:forEach var="comment" items="${blog.comments}" varStatus="status">
                                         <div class="comment ${status.index >= 3 ? 'hidden-comment' : ''}" id="comment-${blog.blogId}-${status.index}">
                                             <img src="${comment.profileImage}" alt="Avatar">

@@ -82,7 +82,7 @@ public class SettingServlet extends HttpServlet {
         }
         session.setAttribute("account", account);
 
-        request.setAttribute("isGoogleAccount", accountDAO.checkGoogleAccount(account.getUserName())); 
+        request.setAttribute("isGoogleAccount", accountDAO.checkGoogleAccount(account.getEmail())); 
         request.getRequestDispatcher("/setting/setting.jsp").forward(request, response);
     }
 

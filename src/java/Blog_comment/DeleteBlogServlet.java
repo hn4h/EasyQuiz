@@ -51,6 +51,7 @@ public class DeleteBlogServlet extends HttpServlet {
         }
         if (blog.getAuthor().getUserName().equals(a.getUserName()) || a.isIsAdmin()) {
             bd.deleteBlog(blogID);
+            request.getSession().setAttribute("successMessage", "Delete blog successfully!");
             response.sendRedirect("blog");
             return;
         } else {

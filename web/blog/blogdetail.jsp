@@ -158,10 +158,6 @@
                                 <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>
                                 <div class="more-option" id="moreOption">
                                     <ul class="more-option-nav">
-                                        <li class="nav-item">
-                                            <span class="material-symbols-rounded">edit</span>
-                                            <a class="nav-link">Edit</a>
-                                        </li>
                                         <li class="nav-item" onclick="window.location.href='deleteblog?blogId=${requestScope.blogDetail.blogId}'">
                                             <span class="material-symbols-rounded">delete</span>
                                             <a class="nav-link">Delete</a>
@@ -192,6 +188,9 @@
 
                         <div class="comment-window">
                             <div class="comment-content">
+                                <c:if test="${requestScope.blogDetail.comments.size() == 0}">
+                                    <strong>No comments yet.</strong>
+                                </c:if>
                                 <c:forEach var="comment" items="${requestScope.blogDetail.comments}">
                                     <div class="comment">
                                         <img src="${comment.profileImage}" alt="Avatar">
@@ -200,7 +199,7 @@
                                             <span>${comment.commentContent}</span>
                                         </div>
                                         <c:if test="${comment.userName eq sessionScope.account.userName or sessionScope.account.isAdmin}">
-                                            <button><span class="material-symbols-rounded" onclick="window.location.href='deletecomment?commentId=${comment.commentId}'">delete</span><span>Remove my comment</span></button>
+                                            <button onclick="window.location.href='deletecomment?commentId=${comment.commentId}'"><span class="material-symbols-rounded">delete</span></button>
                                         </c:if>
                                     </div>
                                 </c:forEach>
@@ -235,11 +234,6 @@
         </div>
 
         <script>
-            // Toggle more options
-            document.getElementById('moreButton').addEventListener('click', function () {
-                const moreOption = document.getElementById('moreOption');
-                moreOption.classList.toggle('show');
-            });
 
             // Share button functionality (copy link to clipboard)
             document.getElementById('shareButton').addEventListener('click', function () {
@@ -308,6 +302,13 @@
                 let data = 'blogId=' + encodeURIComponent(blogId) + '&commentContent=' + encodeURIComponent(commentContent);
                 xhr.send(data);
             }
+            
+            
+            // Toggle more options
+            document.getElementById('moreButton').addEventListener('click', function () {
+                const moreOption = document.getElementById('moreOption');
+                moreOption.classList.toggle('show');
+            });
 
         </script>
         <script src="./blog/blog.js"></script>
