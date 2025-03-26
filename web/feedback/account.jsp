@@ -12,8 +12,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css">
-    <script src="account.js"></script>
+    <link rel="stylesheet" href="./feedback/styles.css">
+    <script src="./feedback/account.js"></script>
     <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
 </head>
 <body class="bg-gray-50">
@@ -24,7 +24,7 @@
                 <a href="home"><span>EasyQuiz |</span></a>
             </div>
             <div class="help-center-title">
-                <a href="../feedback">Help center</a>
+                <a href="feedback">Help center</a>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@
     <div class="flex items-center space-x-2 text-gray-600">
         <span>EasyQuiz Help Center</span>
         <i class="fas fa-chevron-right"></i>
-        <span><a href="../feedback">Account</a></span>
+        <span><a href="feedback">Account</a></span>
     </div>
     <div class="mt-4 flex items-center space-x-4">
         <h2 class="text-3xl font-bold text-gray-800">Account</h2>

@@ -13,8 +13,8 @@
     <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
-    <link rel="stylesheet" href="styles.css">
-    <script src="studying.js"></script>
+    <link rel="stylesheet" href="./feedback/styles.css">
+    <script src="./feedback/studying.js"></script>
 </head>
 <body class="bg-gray-50">
 <header class="bg-white shadow-sm">
@@ -24,7 +24,7 @@
                 <a href="home"><span>EasyQuiz |</span></a>
             </div>
             <div class="help-center-title">
-                <a href="../feedback">Help center</a>
+                <a href="feedback">Help center</a>
             </div>
         </div>
     </div>
