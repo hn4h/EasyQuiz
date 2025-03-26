@@ -121,8 +121,6 @@ public class QuizSetDAO extends DBContext {
         return list;
     }
 
-    
-
     public int addQuizSet(QuizSet qs) {
         int generatedKeys = 1;
         try {
@@ -171,11 +169,6 @@ public class QuizSetDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    
-    public static void main(String[] args) {
-        QuizSetDAO d = new QuizSetDAO();
-        d.addQuizHistory(2, "EasyQuiz343293");
-    }
 
     public List<QuizSet> searchAllQuizSetByName(String quizSetName) {
         List<QuizSet> list = new ArrayList<>();
@@ -223,6 +216,7 @@ public class QuizSetDAO extends DBContext {
         }
         return list;
     }
+
     public void updateQuizSet(int quizSetId, String title, String description, int numberOfQuestions) {
         try {
             String sql = "UPDATE Quiz_Set SET Quiz_Set_Name = ?, Number_Of_Quiz = ?, Quiz_Set_Description = ? WHERE Quiz_Set_ID = ?";
@@ -235,5 +229,47 @@ public class QuizSetDAO extends DBContext {
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    public void deleteQuizSet(int quizSetId) {
+        try {
+            // Xóa bản ghi trong Folder_Contain
+            String sql1 = "DELETE FROM Folder_Contain WHERE Quiz_Set_ID = ?";
+            PreparedStatement ps1 = connection.prepareStatement(sql1);
+            ps1.setInt(1, quizSetId);
+            ps1.executeUpdate();
+
+            // Xóa lịch sử làm bài
+            String sql2 = "DELETE FROM Quiz_Set_History WHERE Quiz_Set_ID = ?";
+            PreparedStatement ps2 = connection.prepareStatement(sql2);
+            ps2.setInt(1, quizSetId);
+            ps2.executeUpdate();
+
+            // Xóa câu trả lời
+            String sql3 = "DELETE FROM Answer WHERE Quiz_ID IN (SELECT Quiz_ID FROM Quiz WHERE Quiz_Set_ID = ?)";
+            PreparedStatement ps3 = connection.prepareStatement(sql3);
+            ps3.setInt(1, quizSetId);
+            ps3.executeUpdate();
+
+            // Xóa câu hỏi
+            String sql4 = "DELETE FROM Quiz WHERE Quiz_Set_ID = ?";
+            PreparedStatement ps4 = connection.prepareStatement(sql4);
+            ps4.setInt(1, quizSetId);
+            ps4.executeUpdate();
+
+            // Xóa bộ đề
+            String sql5 = "DELETE FROM Quiz_Set WHERE Quiz_Set_ID = ?";
+            PreparedStatement ps5 = connection.prepareStatement(sql5);
+            ps5.setInt(1, quizSetId);
+            ps5.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public static void main(String[] args) {
+        QuizSetDAO d = new QuizSetDAO();
+        d.deleteQuizSet(5);
     }
 }
