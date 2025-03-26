@@ -78,6 +78,7 @@ public class DeleteQuizSetServlet extends HttpServlet {
         
         QuizSetDAO d = new QuizSetDAO();
         d.deleteQuizSet(quizSetId);
+        request.getSession().setAttribute("successMessage", "Delete quizset successfully!");
         response.sendRedirect("quizhistory");
         
     } 

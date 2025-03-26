@@ -23,6 +23,27 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
     <body>
+        <% // -----------------------------Success message
+    String successMessage = (String) session.getAttribute("successMessage");
+    if (successMessage != null) {
+        %>
+        <div id="toastMessage1">
+            <span class="material-symbols-rounded">check</span>
+            <span><%= successMessage %></span>
+        </div>
+        <script>
+            setTimeout(function () {
+                let toast1 = document.getElementById("toastMessage1");
+                toast1.style.opacity = "0";
+                setTimeout(() => {
+                    toast1.style.display = "none";
+                }, 500); 
+            }, 3000);
+        </script>
+        <%
+            session.removeAttribute("successMessage"); 
+            }
+        %>
         <div class="header">
             <div class="logo">
                 <div class="menu-btn">
@@ -267,12 +288,13 @@
                             </div>
                         </c:if>
                         <c:forEach var="quiz" items="${createdList}">
-                            <div onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" class="quiz-box">
-                                <div class="quiz-title flex">
-                                    <div>
+                            <div class="quiz-box">
+                                <div class="quiz-title2">
+                                    <div class="quiz-title-left" onclick="window.location.href = 'quizz?id=${quiz.quizSetId}'" >
                                         <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
+                                        <p class="title-text text-gray-600 mt-1">${quiz.quizSetName}</p>
                                     </div>
-                                    <p class="title-text text-gray-600 mt-1">${quiz.quizSetName}</p>
+                                    <button onclick="window.location.href='deletequizset?quizSetId=${quiz.quizSetId}'"><span class="material-symbols-rounded">delete</span></button>
                                 </div>
                             </div>
                         </c:forEach>
