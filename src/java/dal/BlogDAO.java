@@ -337,4 +337,17 @@ public class BlogDAO extends DBContext {
             System.out.println("Error deleting blog: " + e.getMessage());
         }
     }
+
+    public void updateBlog(Blog blog) {
+        String sql = "UPDATE Blog SET Blog_Title = ?, Blog_Content = ? WHERE Blog_ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, blog.getBlogTitle());
+            ps.setString(2, blog.getBlogContent());
+            ps.setInt(3, blog.getBlogId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating blog: " + e.getMessage());
+        }
+    }
+
 }
