@@ -33,6 +33,20 @@
                     <input type="text" placeholder="Search for study" name="input">
                 </div>
             </form>
+            <form action="createfolder" method="post">
+                <div class="folderPopup-container">
+                    <div id="folderPopup" class="folder-popup">
+                        <div class="folder-popup-content">
+                            <span class="close-btn material-symbols-rounded">close</span>
+                            <h2>Create a new folder</h2>
+                            <input type="text" id="folderName" name="folderName" placeholder="Title" class="folder-input">
+                            <div class="create-folder-btn">
+                                <button type="submit" id="createFolderConfirm">Create folder</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="create-login">
                 <c:if test="${not empty sessionScope.account.userName}">
                     <div class="create-btn-icon" id="createButton">
@@ -140,15 +154,21 @@
                         <h2>${requestScope.blogDetail.blogTitle}</h2>
                         <div class="header-btn">
                             <button class="btn" id="shareButton"><span class="material-symbols-rounded">share</span><p>Share</p></button>
-                            <!--                            <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>-->
-                            <!--                            <div class="more-option" id="moreOption">
-                                                            <ul class="more-option-nav">
-                                                                <li class="nav-item">
-                                                                    <span class="material-symbols-rounded">report</span>
-                                                                    <a href="#" class="nav-link">Report</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>-->
+                            <c:if test="${requestScope.blogDetail.author.userName eq sessionScope.account.userName or sessionScope.account.isAdmin}">
+                                <button class="btn" id="moreButton"><span class="material-symbols-rounded">more_horiz</span></button>
+                                <div class="more-option" id="moreOption">
+                                    <ul class="more-option-nav">
+                                        <li class="nav-item">
+                                            <span class="material-symbols-rounded">edit</span>
+                                            <a class="nav-link">Edit</a>
+                                        </li>
+                                        <li class="nav-item" onclick="window.location.href='deleteblog?blogId=${requestScope.blogDetail.blogId}'">
+                                            <span class="material-symbols-rounded">delete</span>
+                                            <a class="nav-link">Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                     <div id="copyMessage" class="copy-message">Link copied!</div>
@@ -179,6 +199,9 @@
                                             <h4>${comment.userName}</h4>
                                             <span>${comment.commentContent}</span>
                                         </div>
+                                        <c:if test="${comment.userName eq sessionScope.account.userName or sessionScope.account.isAdmin}">
+                                            <button><span class="material-symbols-rounded" onclick="window.location.href='deletecomment?commentId=${comment.commentId}'">delete</span><span>Remove my comment</span></button>
+                                        </c:if>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -206,7 +229,6 @@
                                 </c:forEach>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -214,10 +236,10 @@
 
         <script>
             // Toggle more options
-//            document.getElementById('moreButton').addEventListener('click', function () {
-//                const moreOption = document.getElementById('moreOption');
-//                moreOption.classList.toggle('show');
-//            });
+            document.getElementById('moreButton').addEventListener('click', function () {
+                const moreOption = document.getElementById('moreOption');
+                moreOption.classList.toggle('show');
+            });
 
             // Share button functionality (copy link to clipboard)
             document.getElementById('shareButton').addEventListener('click', function () {
@@ -269,10 +291,12 @@
                             let commentWindow = document.querySelector('.comment-window');
                             let newComment = document.createElement('div');
                             newComment.classList.add('comment');
-                            newComment.innerHTML = `
-        <img src="${sessionScope.account.profileImage}" alt="Avatar">
-        <p><strong>` + userName + `</strong>: ` + commentContent + `</p>
-    `;
+                            newComment.innerHTML =
+                                    `<img src="${sessionScope.account.profileImage}" alt="Avatar">
+                                        <div class="comment-info">
+                                            <h4>` + userName + `</h4>
+                                            <span>` + commentContent + `</span>
+                                        </div>`;
                             commentWindow.insertBefore(newComment, commentWindow.firstChild);
                             commentInput.value = '';
                         } else {

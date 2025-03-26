@@ -14,6 +14,30 @@ const closeAllDropdowns = () => {
         toggleDropdown(openDropdown, openDropdown.querySelector(".dropdown-subject"), false);
     });
 };
+
+//----------------------------Share button
+document.getElementById("shareButton").addEventListener("click", function() {
+    // Lấy đường link hiện tại
+    const pageLink = window.location.href;
+
+    // Sao chép link vào clipboard
+    navigator.clipboard.writeText(pageLink).then(() => {
+        // Hiển thị thông báo
+        const message = document.getElementById("copyMessage");
+        message.style.display = "block";
+        message.style.opacity = "1";
+
+        // Ẩn sau 2 giây
+        setTimeout(() => {
+            message.style.opacity = "0";
+            setTimeout(() => message.style.display = "none", 300); // Đợi hiệu ứng mờ rồi ẩn
+        }, 2000);
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+});
+
+
 //------------------------Menu of avatar
 // Get elements
 const avatarUser = document.getElementById('avatarUser');
@@ -66,27 +90,3 @@ closeBtn.addEventListener('click', () => {
         folderPopup.style.display = "none";
     }, 200); // Thời gian khớp với animation fadeOut
 });
-//----------------------------Share button
-document.getElementById("shareButton").addEventListener("click", function() {
-    // Lấy đường link hiện tại
-    const pageLink = window.location.href;
-
-    // Sao chép link vào clipboard
-    navigator.clipboard.writeText(pageLink).then(() => {
-        // Hiển thị thông báo
-        const message = document.getElementById("copyMessage");
-        message.style.display = "block";
-        message.style.opacity = "1";
-
-        // Ẩn sau 2 giây
-        setTimeout(() => {
-            message.style.opacity = "0";
-            setTimeout(() => message.style.display = "none", 300); // Đợi hiệu ứng mờ rồi ẩn
-        }, 2000);
-    }).catch(err => {
-        console.error("Failed to copy: ", err);
-    });
-});
-
-
-
