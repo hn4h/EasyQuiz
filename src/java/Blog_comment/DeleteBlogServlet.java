@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 
 package Blog_comment;
 
@@ -53,7 +49,7 @@ public class DeleteBlogServlet extends HttpServlet {
             response.sendRedirect("error");
             return;
         }
-        if (blog.getAuthor().equals(a.getUserName()) || a.isIsAdmin()) {
+        if (blog.getAuthor().getUserName().equals(a.getUserName()) || a.isIsAdmin()) {
             bd.deleteBlog(blogID);
             response.sendRedirect("blog");
             return;
