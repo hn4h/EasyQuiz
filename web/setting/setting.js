@@ -1,30 +1,3 @@
-
-//Toggle the visibility of a dropdown menu
-const toggleDropdown = (dropdown, menu, isOpen) => {
-    dropdown.classList.toggle("open", isOpen);
-    menu.style.height = isOpen ? `${menu.scrollHeight}px` : 0;
-}
-
-const closeAllDropdowns = () => {
-    document.querySelectorAll(".dropdown-container.open").forEach(openDropdown => {
-        toggleDropdown(openDropdown, openDropdown.querySelector(".dropdown-subject"), false);
-    });
-}
-//Attach click event to all dropdown toggles
-document.querySelectorAll(".dropdown-toggle").forEach(dropdownToggle => {
-    dropdownToggle.addEventListener("click", e => {
-        e.preventDefault();
-
-        const dropdown = e.target.closest(".dropdown-container");
-        const menu = dropdown.querySelector(".dropdown-subject");
-        const isOpen = dropdown.classList.contains("open");
-
-        closeAllDropdowns();//Close all open dropdowns
-
-        toggleDropdown(dropdown, menu, !isOpen); //Toggle current dropdown visibility
-    });
-});
-
 document.querySelector(".sidebar-toggler").addEventListener("click", () => {
     closeAllDropdowns();
 
@@ -53,23 +26,6 @@ document.addEventListener('click', () => {
     }
 });
 
-function changeTheme(theme) {
-    if (theme === "dark") {
-        document.body.classList.add("dark-theme");
-    } else {
-        document.body.classList.remove("dark-theme");
-    }
-    // Lưu theme vào localStorage để áp dụng trên toàn hệ thống
-    localStorage.setItem("theme", theme);
-}
-
-window.onload = function () {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-        document.getElementById("theme").value = savedTheme;
-        changeTheme(savedTheme);
-    }
-};
 //---------------------Look password
 const togglePassword1 = document.getElementById("togglePassword1");
 const togglePassword2 = document.getElementById("togglePassword2");

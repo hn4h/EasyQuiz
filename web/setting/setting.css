@@ -588,6 +588,12 @@
     align-self: center;
 }
 
+.avt-item button span{
+    font-size: 70px;
+    font-weight: 500;
+    color: #999;
+}
+
 .avt-item button {
     display: flex;
     align-items: center;

@@ -163,7 +163,7 @@ public class SettingServlet extends HttpServlet {
         if (alertMessage != "") {
             request.getSession().setAttribute("successMessage", alertMessage);
         }
-        response.sendRedirect("setting?t=" + System.currentTimeMillis());
+        response.sendRedirect("setting");
     }
 
     /**

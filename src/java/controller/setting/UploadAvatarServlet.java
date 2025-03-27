@@ -2,26 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Blog_comment;
+package controller.setting;
 
-import dal.BlogDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Blog;
-import service.BlogService;
+import jakarta.servlet.http.Part;
+import java.io.File;
+import java.nio.file.Paths;
 
 /**
  *
- * @author DUCA
+ * @author admin
  */
-@WebServlet(name = "BlogServlet", urlPatterns = {"/blog"})
-public class BlogServlet extends HttpServlet {
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 50 // 50MB
+)
+@WebServlet(name = "UploadAvatarServlet", urlPatterns = {"/uploadavatar"})
+public class UploadAvatarServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +45,10 @@ public class BlogServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet BlogServlet</title>");
+            out.println("<title>Servlet UploadAvatarServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet BlogServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UploadAvatarServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,33 +66,7 @@ public class BlogServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        BlogDAO blogDAO = new BlogDAO();
-        int page = 1;
-        int pageSize = 5;
-
-        String pageParam = request.getParameter("page");
-        if (pageParam != null) {
-            try {
-                page = Integer.parseInt(pageParam);
-                if (page < 1) {
-                    page = 1;
-                }
-            } catch (NumberFormatException e) {
-                page = 1;
-            }
-        }
-
-        List<Blog> blogs = blogDAO.getBlogsByPage(page, pageSize);
-        int totalBlogs = blogDAO.getTotalBlogs();
-        int totalPages = (int) Math.ceil((double) totalBlogs / pageSize);
-        if (page > totalPages) {
-            page = totalPages;
-        }
-        request.setAttribute("blogs", blogs);
-        request.setAttribute("currentPage", page);
-        request.setAttribute("totalPages", totalPages);
-
-        request.getRequestDispatcher("blog/blog.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -98,10 +77,36 @@ public class BlogServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String UPLOAD_DIRECTORY = "images/avatar";
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Part filePart = request.getPart("avatar");
+
+        if (filePart == null || filePart.getSize() == 0) {
+            response.sendRedirect("setting&error=NoFileSelected");
+            return;
+        }
+
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        if (fileName.isEmpty()) {
+            response.sendRedirect("setting&error=InvalidFile");
+            return;
+        }
+
+        // Đường dẫn thư mục thực trên server
+        String uploadPath = getServletContext().getRealPath("/") + UPLOAD_DIRECTORY;
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdirs(); // Tạo thư mục nếu chưa có
+        }
+        // Lưu file vào thư mục `images/avatar`
+        String filePath = uploadPath + File.separator + fileName;
+        filePart.write(filePath);
+
+        // Chuyển hướng sau khi upload thành công
+        response.sendRedirect("setting?avatar=" + UPLOAD_DIRECTORY + "/" + fileName);
     }
 
     /**

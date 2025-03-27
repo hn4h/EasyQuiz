@@ -590,6 +590,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin-top: 20px;
 }
 
+.blog-content-info {
+    font-weight: 600;
+    color: #333;
+}
+
 .blog-header {
     display: flex;
     align-items: center;

@@ -43,7 +43,17 @@ public class EditPackgeServlet extends HttpServlet {
         int value,price, id;   
         PackageDAO pd = new PackageDAO();
         model.Package pack = pd.getPackageByName(name);
-        if (pack != null) {
+        
+        try {
+            id = Integer.parseInt(idString);
+        } catch (Exception e) {
+            request.getSession().setAttribute("error", "Invalid id");
+            response.sendRedirect("managepackage");
+            System.out.println("loi1");
+            return;
+        }  
+        
+        if (pack != null && pack.getId() != id) {
             request.getSession().setAttribute("error", "Package name is existed");
             response.sendRedirect("managepackage");
             System.out.println("loi2");
@@ -62,7 +72,6 @@ public class EditPackgeServlet extends HttpServlet {
             System.out.println(priceString);
             value = Integer.parseInt(valueString);
             price = Integer.parseInt(priceString);
-            id = Integer.parseInt(idString);
         } catch (Exception e) {
             request.getSession().setAttribute("error", "Invalid value or price");
             response.sendRedirect("managepackage");

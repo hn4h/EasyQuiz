@@ -724,19 +724,23 @@ h2 a:hover {
     display: inline-block;
     padding: 8px 12px;
     margin: 0 5px;
-    background: #640D5F;
-    color: white;
+    background: #fff;
+    color: #333;
     text-decoration: none;
     border-radius: 5px;
+    border: 2px solid #e6e6e6;
+    font-weight: bold;
 }
 
 .page-link.active {
+    color: #fff;
     background: #640D5F;
     font-weight: bold;
 }
 
 .page-link:hover {
-    background: #2A004E;
+    color: #fff;
+    background: #640D5F;
 }
 
 .comment-window {

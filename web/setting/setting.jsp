@@ -181,6 +181,28 @@
                                             </form>
                                         </div>
                                     </c:forEach>
+                                    <!-- Hiển thị ảnh đã upload -->
+                                    <c:if test="${not empty param.avatar}">
+                                        <div class="avt-item">
+                                            <form action="setting" method="post" style="display: inline;">
+                                                <input type="hidden" name="action" value="updateAvatar">
+                                                <input type="hidden" name="avatar" value="${param.avatar}">
+                                                <button type="submit">
+                                                    <img src="${param.avatar}?t=${param.t}" alt="Avatar">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </c:if>
+                                    <div class="avt-item">
+                                        <form id="uploadForm" action="uploadavatar" method="post" enctype="multipart/form-data" style="display: inline;">
+                                            <input type="file" name="avatar" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadFile()">
+                                            <button type="button" onclick="document.getElementById('avatarInput').click();">
+                                                <span class="material-symbols-rounded">add</span>
+                                            </button>
+                                        </form>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -290,13 +312,18 @@
         </form>
         <script src="./setting/setting.js"></script>
         <script>
-                        function showUsernamePopup() {
-                            document.getElementById("usernamePopup").style.display = "block";
+                        function uploadFile() {
+                            document.getElementById('uploadForm').submit();
                         }
+        </script>
+        <script>
+            function showUsernamePopup() {
+                document.getElementById("usernamePopup").style.display = "block";
+            }
 
-                        function hideUsernamePopup() {
-                            document.getElementById("usernamePopup").style.display = "none";
-                        }
+            function hideUsernamePopup() {
+                document.getElementById("usernamePopup").style.display = "none";
+            }
         </script>
         <script>
             function showChangePasswordPopup() {

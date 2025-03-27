@@ -193,7 +193,7 @@ public class BlogDAO extends DBContext {
     }
 
     public int getTotalBlogs() {
-        String sql = "SELECT COUNT(*) FROM Blog";
+        String sql = "SELECT COUNT(*) FROM Blog where is_deleted = 0";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -292,6 +292,7 @@ public class BlogDAO extends DBContext {
         }
         return null;
     }
+
     public List<Blog> getAllBlogsByUsername(String username) {
         List<Blog> list = new ArrayList<>();
         try {
@@ -306,11 +307,11 @@ public class BlogDAO extends DBContext {
                 Blog b = new Blog();
                 AccountDAO a = new AccountDAO();
                 Account c = new Account();
-                
+
                 b.setBlogId(rs.getInt("Blog_ID"));
                 b.setBlogTitle(rs.getString("Blog_Title"));
                 b.setCreatedDate(rs.getDate("Blog_Date"));
-                
+
                 b.setAuthor(a.getAccountByUserName(username));
                 c.setUserName(rs.getString("UserName"));
                 c.setEmail(rs.getString("Email"));
@@ -323,11 +324,12 @@ public class BlogDAO extends DBContext {
         }
         return list;
     }
-    
+
     public static void main(String[] args) {
         BlogDAO d = new BlogDAO();
-        System.out.println(d.getAllBlogsByUsername("giaphu1201").size());
+        System.out.println(d.getTotalBlogs());
     }
+
     public void deleteBlog(int blogId) {
         String sql = "UPDATE Blog SET Is_Deleted = 1 WHERE Blog_ID = ?";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {

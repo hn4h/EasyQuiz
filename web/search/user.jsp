@@ -129,6 +129,14 @@
                                 <span class="nav-label">Blog</span>
                             </a>
                         </li>
+                        <c:if test="${sessionScope.account.isAdmin}">
+                            <li class="nav-item">
+                                <a href="dashboard" class="nav-link">
+                                    <span class="material-symbols-rounded">dashboard</span>
+                                    <span class="nav-label">Dashboard</span>
+                                </a>
+                            </li>
+                        </c:if>
                     </ul>
                     <!--Bottom nav-->
                     <ul class="nav-list secondary-nav">
