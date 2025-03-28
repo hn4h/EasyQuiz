@@ -84,7 +84,7 @@ public class SearchQuizSetServlet extends HttpServlet {
             }
         }
         QuizSetDetail quizDetail = qsDao.getQuizDetailById(id);
-
+        request.setAttribute("quizTitle", qsDao.getQuizSetById(id).getQuizSetName());
         request.setAttribute("input", input);
         request.setAttribute("preview", quizDetail);
         request.setAttribute("quizSet", qList);

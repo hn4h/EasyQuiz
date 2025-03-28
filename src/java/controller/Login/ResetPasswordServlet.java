@@ -72,21 +72,22 @@ public class ResetPasswordServlet extends HttpServlet {
             TokenForgetPassword tokenForgetPassword = DAOToken.getTokenPassword(token);
             ResetService service = new ResetService();
             if (tokenForgetPassword == null) {
-                request.setAttribute("mess", "Token invalid");
+                request.setAttribute("error", "Token is invalid!");
                 request.getRequestDispatcher("login/forgetpassword.jsp").forward(request, response);
                 return;
             }
             if (tokenForgetPassword.isIsUsed()) {
-                request.setAttribute("mess", "Token is used");
+                request.setAttribute("error", "Token is unavailable!");
                 request.getRequestDispatcher("login/forgetpassword.jsp").forward(request, response);
                 return;
             }
             if (service.isExpireTime(tokenForgetPassword.getExpiredTime())) {
-                request.setAttribute("mess", "Token is expiry time");
+                request.setAttribute("error", "Token time is expired!");
                 request.getRequestDispatcher("login/forgetpassword.jsp").forward(request, response);
                 return;
             }
             Account user = DAOUser.getAccountByUserName(tokenForgetPassword.getUserName());
+            request.getSession().setAttribute("successMessage", "Reset password successfully!");
             request.setAttribute("email", user.getEmail());
             session.setAttribute("token", tokenForgetPassword.getToken());
             request.getRequestDispatcher(resetLink).forward(request, response);

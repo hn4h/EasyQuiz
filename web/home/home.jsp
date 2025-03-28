@@ -373,7 +373,6 @@
                                 <div id="modalComments"></div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 

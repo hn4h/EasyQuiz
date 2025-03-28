@@ -136,21 +136,21 @@ if (errorMessage != null) {
                             <div class="forget-password">
                                 <a href="forgetpassword">Forgot password?</a>
                             </div>
-<!--                            <div class="error-message">${requestScope.error}</div>
-                        </div>-->
+
                             <div class="login-button">
                                 <button type="submit">Log in</button>
                             </div>
+                        </div>
                     </form>
                     <div>
                         <div class="create-button">
-                            <a href="signup"><button>Create an account</button></a>
+                            <a onclick="window.location.href = 'signup'"><button>Create an account</button></a>
                         </div>
                     </div>
+
                 </div>
             </div>
-        </div>
-        <script src="./login/script.js"></script>
+            <script src="./login/script.js"></script>
     </body>
 
 </html>

@@ -999,3 +999,7 @@
 .error-container p a:hover {
     color: #2A004E;
 }
+
+.card-item{
+    cursor: pointer;
+}
