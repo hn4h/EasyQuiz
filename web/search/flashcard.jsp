@@ -211,10 +211,10 @@
                                 <h2>Preview</h2>
                                 <div class="preview-text">
                                     <div class="preview-header">
-                                        <h3>Title</h3>
+                                        <h3>${quizTitle}</h3>
                                         <button onclick="window.location.href='quizz?id=${requestScope.preview.qs.quizSetId}'"><a>Study</a></button>
                                     </div>
-                                    <div class="preview-list">
+                                    <div class="preview-list <c:if test="${empty sessionScope.account}">blurred</c:if>">
                                         <c:forEach items="${requestScope.preview.flashCards}" var="q">
                                             <div class="preview-item">
                                                 <strong>${q.definition}</strong>
