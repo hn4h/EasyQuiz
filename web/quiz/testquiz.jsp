@@ -48,24 +48,28 @@
                 <button id="cancel-test" onclick="window.location.href = 'quizz?id=${requestScope.quizDetail.qs.quizSetId}'"><span class="material-symbols-rounded">close</span></button>
             </div>
         </div>
-        <div class="optionPopup-container">
-            <div id="optionPopup" class="option-popup">
-                <div class="option-popup-content">
-                    <span class="close-btn material-symbols-rounded">close</span>
-                    <h2>Options</h2>
-                    <div class="option-list">
-                        <div class="option-item">
-                            <span class="option-name">Questions (max ?)</span>
-                            <input type="number"/>
+        <form action="testquiz">
+            <div class="optionPopup-container">
+                <div id="optionPopup" class="test-popup">
+                    <div class="option-popup-content">
+                        <input name="quizSetID" type="hidden" value="${requestScope.quizDetail.qs.quizSetId}">
+                        <h2>Options</h2>
+                        <div class="option-list">
+                            <div class="test-item">
+                                <span class="test-name">Questions (max ${requestScope.quizDetail.qs.numberOfQuiz})</span>
+                                <input name="numberQuiz" min="1" max="${requestScope.quizDetail.qs.numberOfQuiz}" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz}"/>
+                                <span class="test-name">Time (minutes)</span>
+                                <input name="timeLimit" min="1" max="${requestScope.quizDetail.qs.numberOfQuiz + 20}" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz + 10}"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="option-btn">
-                        <button class="cancel-btn"><span>Cancel</span></button>
-                        <button class="create-btn"><span>Create new test</span></button>
+                        <div class="option-btn">
+                            <button type="button" class="cancel-btn"><span>Cancel</span></button>
+                            <button type="submit" class="create-btn remove-session"><span>Create new test</span></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
         <div class="body">
             <div class="question-list">
                 <span id="menuButton" class="menu-btn material-symbols-rounded">menu</span>

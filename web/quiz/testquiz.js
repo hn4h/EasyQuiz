@@ -45,21 +45,7 @@ optionItem.addEventListener('click', (e) => {
     e.stopPropagation();
 });
 
-// Ẩn popup với animation fadeOut
-closeBtn.addEventListener('click', () => {
-    optionPopup.classList.add("hide");
-    setTimeout(() => {
-        optionPopup.style.display = "none";
-    }, 200); // Thời gian khớp với animation fadeOut
-});
 
-// Ẩn popup với animation fadeOut
-cancelBtn.addEventListener('click', () => {
-    optionPopup.classList.add("hide");
-    setTimeout(() => {
-        optionPopup.style.display = "none";
-    }, 200); // Thời gian khớp với animation fadeOut
-});
 
 
 //---------------Pop up confirm submit
@@ -186,6 +172,15 @@ function scrollToQuestion(questionNumber) {
         targetQuestion.scrollIntoView({behavior: 'smooth', block: 'center'});
     }
 }
+
+
+// Ẩn popup với animation fadeOut
+cancelBtn.addEventListener('click', () => {
+    optionPopup.classList.add("hide");
+    setTimeout(() => {
+        optionPopup.style.display = "none";
+    }, 200); // Thời gian khớp với animation fadeOut
+});
 
 //-----------------------------Chuyen data nhung lua chon cua nguoi dung sang be
 

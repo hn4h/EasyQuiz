@@ -113,10 +113,10 @@
                         <h2>Options</h2>
                         <div class="test-list">
                             <div class="test-item">
-                                <span class="test-name">Questions (max 10)</span>
-                                <input name="numberQuiz" min="5" max="10" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz}"/>
+                                <span class="test-name">Questions (max ${requestScope.quizDetail.qs.numberOfQuiz})</span>
+                                <input name="numberQuiz" min="1" max="${requestScope.quizDetail.qs.numberOfQuiz}" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz}"/>
                                 <span class="test-name">Time (minutes)</span>
-                                <input name="timeLimit" min="5" max="20" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz + 10}"/>
+                                <input name="timeLimit" min="1" max="${requestScope.quizDetail.qs.numberOfQuiz + 20}" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz + 10}"/>
                             </div>
                         </div>
                         <div class="test-submit-btn">
