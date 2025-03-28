@@ -160,8 +160,8 @@
                 </nav>
             </aside> 
             <div class="body-container">
-                <p class="history-title">History</p>
                 <div class="history-card">
+                    <p class="history-title">History</p>
                     <div class="button2" style="margin-bottom: 50px;">
                         <a href="quizhistory" class="folders-button">Quiz</a>
                         <a href="folderhistory" class="quiz-button">Folders</a>
@@ -180,7 +180,7 @@
                             </c:forEach>
                         </c:if>
                         <c:if test="${empty folder}">
-                            <div class="empty-quiz" style="margin-top: 160px">
+                            <div class="empty-quiz" style="margin: 140px 0">
                                 <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">You haven't created any folder before</p>
                                 <img style="margin: 0 auto; width: 150px;" src="./images/history/folders_empty.png" alt="Not found">
                             </div>

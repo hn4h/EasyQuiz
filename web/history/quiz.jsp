@@ -37,7 +37,7 @@
                 toast1.style.opacity = "0";
                 setTimeout(() => {
                     toast1.style.display = "none";
-                }, 500); 
+                }, 500);
             }, 3000);
         </script>
         <%
@@ -183,8 +183,8 @@
                 </nav>
             </aside>
             <div class="body-container">
-                <p class="history-title">History</p>
                 <div class="history-card">
+                    <p class="history-title">History</p>
                     <div class="button2">
                         <a href="quizhistory" class="quiz-button">Quiz</a>
                         <a href="folderhistory" class="folders-button">Folders</a>
@@ -270,7 +270,7 @@
 
 
                         <c:if test="${not hasData}">
-                            <div class="empty-quiz" style="margin-top: 140px">
+                            <div class="empty-quiz" style="margin: 140px 0">
                                 <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">
                                     You haven't accessed any quiz set before
                                 </p>
@@ -280,7 +280,7 @@
                     </div>
                     <div class="created">
                         <c:if test="${empty createdList}">
-                            <div class="empty-quiz" style="margin-top: 140px">
+                            <div class="empty-quiz" style="margin: 140px 0">
                                 <p style="text-align: center; font-size: 0.8rem; font-weight: 600; color: #666;">
                                     You haven't created any quiz set before
                                 </p>
@@ -294,7 +294,7 @@
                                         <span class="text-sm text-gray-600">${quiz.numberOfQuiz} terms</span>
                                         <p class="title-text text-gray-600 mt-1">${quiz.quizSetName}</p>
                                     </div>
-                                    <button onclick="window.location.href='deletequizset?quizSetId=${quiz.quizSetId}'"><span class="material-symbols-rounded">delete</span></button>
+                                    <button onclick="window.location.href = 'deletequizset?quizSetId=${quiz.quizSetId}'"><span class="material-symbols-rounded">delete</span></button>
                                 </div>
                             </div>
                         </c:forEach>
@@ -306,32 +306,32 @@
         <script src="./history/history.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
         <script>
-                                document.addEventListener("DOMContentLoaded", function () {
-                                    const searchInput = document.querySelector("input[placeholder='Search for a quiz']");
-                                    const quizCards = Array.from(document.querySelectorAll(".quiz-card"));
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            const searchInput = document.querySelector("input[placeholder='Search for a quiz']");
+                                            const quizCards = Array.from(document.querySelectorAll(".quiz-card"));
 
-                                    const quizzes = quizCards.map(card => ({
-                                            element: card,
-                                            name: card.querySelector(".title-text").innerText.trim()
-                                        }));
-                                    const fuse = new Fuse(quizzes, {
-                                        keys: ["name"],
-                                        threshold: 0.3
-                                    });
+                                            const quizzes = quizCards.map(card => ({
+                                                    element: card,
+                                                    name: card.querySelector(".title-text").innerText.trim()
+                                                }));
+                                            const fuse = new Fuse(quizzes, {
+                                                keys: ["name"],
+                                                threshold: 0.3
+                                            });
 
-                                    searchInput.addEventListener("input", function () {
-                                        const query = this.value.trim().toLowerCase();
+                                            searchInput.addEventListener("input", function () {
+                                                const query = this.value.trim().toLowerCase();
 
-                                        if (!query) {
-                                            quizCards.forEach(card => card.style.display = "block");
-                                            return;
-                                        }
+                                                if (!query) {
+                                                    quizCards.forEach(card => card.style.display = "block");
+                                                    return;
+                                                }
 
-                                        const results = fuse.search(query).map(result => result.item.element);
-                                        quizCards.forEach(card => card.style.display = "none");
-                                        results.forEach(card => card.style.display = "block");
-                                    });
-                                });
+                                                const results = fuse.search(query).map(result => result.item.element);
+                                                quizCards.forEach(card => card.style.display = "none");
+                                                results.forEach(card => card.style.display = "block");
+                                            });
+                                        });
         </script>
 
     </body>
