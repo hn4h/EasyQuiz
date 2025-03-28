@@ -2,6 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.util.List, java.util.Map" %>
+<%@ page import="model.Account" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -182,17 +184,26 @@
                                         </div>
                                     </c:forEach>
                                     <!-- Hiển thị ảnh đã upload -->
-                                    <c:if test="${not empty param.avatar}">
-                                        <div class="avt-item">
-                                            <form action="setting" method="post" style="display: inline;">
-                                                <input type="hidden" name="action" value="updateAvatar">
-                                                <input type="hidden" name="avatar" value="${param.avatar}">
-                                                <button type="submit">
-                                                    <img src="${param.avatar}?t=${param.t}" alt="Avatar">
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </c:if>
+                                    <% 
+                                        Account acc = (Account) session.getAttribute("account");
+                                        Map<String, List<String>> userAvatars = (Map<String, List<String>>) session.getAttribute("userAvatars");
+                                        List<String> avatarList = (userAvatars != null && acc.getUserName() != null) ? userAvatars.get(acc.getUserName()) : null;
+                                    %>
+
+                                    <% if (avatarList != null && !avatarList.isEmpty()) { %>
+                                    <% for (String avatar : avatarList) { %>
+                                    <div class="avt-item">
+                                        <form action="setting" method="post" style="display: inline;">
+                                            <input type="hidden" name="action" value="updateAvatar">
+                                            <input type="hidden" name="avatar" value="<%= avatar %>">
+                                            <button type="submit">
+                                                <img src="<%= avatar %>" alt="Avatar">
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <% } %>
+                                    <% } %>
+
                                     <div class="avt-item">
                                         <form id="uploadForm" action="uploadavatar" method="post" enctype="multipart/form-data" style="display: inline;">
                                             <input type="file" name="avatar" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadFile()">
@@ -315,6 +326,14 @@
                         function uploadFile() {
                             document.getElementById('uploadForm').submit();
                         }
+        </script>
+        <script>
+            window.onload = function () {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has("uploaded")) {
+                    window.location.href = "setting"; 
+                }
+            };
         </script>
         <script>
             function showUsernamePopup() {
