@@ -17,6 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Collection;
 import java.util.Collections;
 import model.Account;
 import model.TestSession;
@@ -94,6 +95,9 @@ public class TestQuizServlet extends HttpServlet {
                 if (quizzes == null || quizzes.isEmpty()) {
                     request.setAttribute("error", "No quizzes found for quizSetID: " + quizSetID);
                 } else {
+                    for(Quiz quiz : quizzes){
+                        Collections.shuffle(quiz.getAnswers());
+                    }
                     TestSession test = new TestSession();
                     test.setQuizSetID(quizSetID);
                     test.setTimeLimit(timeLimit);
