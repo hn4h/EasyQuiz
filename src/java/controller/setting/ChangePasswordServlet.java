@@ -85,8 +85,11 @@ public class ChangePasswordServlet extends HttpServlet {
         String newPassword = request.getParameter("newpassword");
         Account account = (Account) request.getSession().getAttribute("account");
         AccountDAO dao = new AccountDAO();
-        System.out.println(account.getUserName());
-        System.out.println(oldPassword);
+        if(oldPassword.equals(newPassword)){
+            request.setAttribute("error", "Change password failed(New password must not be the same as old password)");
+            request.getRequestDispatcher("setting/setting.jsp").forward(request, response);
+            return;
+        }
         if (dao.changePassword(account.getEmail(), oldPassword, newPassword)) {
             //request.setAttribute("message", "Change password successfully");
             //request.getRequestDispatcher("setting/setting.jsp").forward(request, response);
