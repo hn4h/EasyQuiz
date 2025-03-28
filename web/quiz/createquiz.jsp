@@ -190,8 +190,10 @@
                         <h1 class="form-title">Create a new quiz</h1>
                         <button type="submit" class="create-btn">Create</button>
                     </div>
+                    <div class="error-message" id="globalError"></div>
                     <input type="hidden" id="questionCount" name="questionCount" value="${requestScope.quizSet.numberOfQuiz}">
                     <input type="text" placeholder="Enter a title" class="input" name="quizTitle" value="${requestScope.quizSet.quizSetName}">
+                    <div class="error-message" id="quizTitleError"></div>
                     <input type="text" placeholder="Add a description..." class="des input" name="quizDescription" value="${requestScope.quizSet.quizSetDescription}">
                     <!-- Quiz Items -->
                     <div class="quiz-item">
@@ -199,11 +201,13 @@
                             <i class="fas fa-grip-vertical drag-handle"></i>
                             <div class="question">
                                 <div class="question-header">
+                                    <input type="hidden" name="quizId${newQuestionNum}" value="new" class="question-id">
                                     <input class="question-text input" type="text" name="question1" placeholder="Enter question here">
                                     <div class="actions">  
                                         <i class="fas fa-trash"></i>
                                     </div>
                                 </div>
+                                <div class="error-message error1 question-error"></div>
                                 <p class="text-gray">Answer</p>
                                 <div class="options">
                                     <div class="option">
@@ -223,6 +227,7 @@
                                         <input type="text" placeholder="Option 4" name="answer1.4" class="option-input">
                                     </div>
                                 </div>
+                                <div class="error-message error1 option-radio-error"></div>
                             </div>
                         </div>
                     </div>

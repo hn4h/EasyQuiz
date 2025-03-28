@@ -165,9 +165,11 @@
                         <h1 class="form-title">Edit quiz</h1>
                         <button type="submit" class="create-btn">Save changes</button>
                     </div>
+                    <div class="error-message" id="globalError"></div>
                     <input type="hidden" name="quizSetId" value="${requestScope.quizset.quizSetId}">
                     <input type="hidden" id="questionCount" name="questionCount">
                     <input type="text" value="${requestScope.quizset.quizSetName}" placeholder="Enter a title" class="input" name="quizTitle">
+                    <div class="error-message" id="quizTitleError"></div>
                     <input type="text" value="${requestScope.quizset.quizSetDescription}" placeholder="Add a description..." class="des input" name="quizDescription">
                     <!-- Quiz Items -->
                     <c:forEach var="quiz" items="${quizzes}">
@@ -183,7 +185,7 @@
                                         </div>
                                     </div>
                                     <p class="text-gray">Answer</p>
-                                    <div class="options">
+                                    <div class="options options${quiz.quizID}">
                                         <c:forEach var="a" items="${quiz.answers}" varStatus="status">
                                             <div class="option">
                                                 <input type="hidden" name="answerId_${quizLoop.index}_${answerLoop.index}" value="${a.answerID}">
@@ -205,7 +207,7 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./quiz/createquiz.js"></script>
-        <script>
+<!--        <script>
             document.addEventListener("DOMContentLoaded", function () {
                 document.querySelectorAll(".quiz-item").forEach((quizItem, quizIndex) => {
                     let options = quizItem.querySelectorAll(".option");
@@ -221,8 +223,6 @@
                     });
                 });
             });
-
-
-        </script>
+        </script>-->
     </body>
 </html>
