@@ -53,12 +53,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const questionCountInput = document.getElementById("questionCount");
     let questionCount = parseInt(questionCountInput.value, 10) || 1;
     let draggedItem = null;
+   
 
     function updateQuestionNames() {
         const quizItems = quizForm.querySelectorAll(".quiz-item");
+        questionCount = quizItems.length;
+        questionCountInput.value = questionCount;
+
         quizItems.forEach((item, index) => {
-            const quizID = item.querySelector(".question-id").value; // Lấy quizID của câu hỏi
-            item.dataset.quizId = quizID; // Lưu quizID vào dataset
             const questionNumber = index + 1;
             item.querySelector(".question-text").name = `question${questionNumber}`;
             item.querySelector(".question-id").name = `quizId${questionNumber}`;
@@ -69,6 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 answer.name = `answer${questionNumber}.${answerIndex + 1}`;
             });
         });
+
+        toggleDeleteButtons();
     }
 
     function createNewQuizItem() {
@@ -111,9 +115,18 @@ document.addEventListener("DOMContentLoaded", function () {
         questionCountInput.value = questionCount;
         updateQuestionNames();
     });
+    
+    function toggleDeleteButtons() {
+        const deleteButtons = quizForm.querySelectorAll(".fa-trash");
+        if (questionCount <= 1) {
+            deleteButtons.forEach(btn => btn.classList.add("disabled"));
+        } else {
+            deleteButtons.forEach(btn => btn.classList.remove("disabled"));
+        }
+    }
 
     quizForm.addEventListener("click", function (event) {
-        if (event.target.classList.contains("fa-trash")) {
+        if (event.target.classList.contains("fa-trash") && !event.target.classList.contains("disabled")) {
             const quizItem = event.target.closest(".quiz-item");
             if (quizItem) {
                 quizItem.remove();
@@ -121,6 +134,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+    
+    
+    
     let selectedAnswers = new Map(); // Lưu trạng thái của các câu hỏi
 
     quizForm.addEventListener("dragstart", function (event) {
@@ -191,6 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".drag-handle").forEach(handle => handle.setAttribute("draggable", "true"));
     updateQuestionNames();
 });
+
+
 //------------------------Pop up create folder
 // Hiển thị popup
 createFolderItem.addEventListener('click', (e) => {

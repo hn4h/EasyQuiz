@@ -203,7 +203,7 @@
                                 <div class="question-header">
                                     <input type="hidden" name="quizId${newQuestionNum}" value="new" class="question-id">
                                     <input class="question-text input" type="text" name="question1" placeholder="Enter question here">
-                                    <div class="actions">  
+                                    <div class="actions delete-question-btn">  
                                         <i class="fas fa-trash"></i>
                                     </div>
                                 </div>
