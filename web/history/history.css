@@ -519,9 +519,9 @@
     padding: 60px 50px;
     width: 100%;
     transition: margin-left 0.4s ease;
-/*    max-width: 1200px;*/
+    /*    max-width: 1200px;*/
     margin-left: 260px;
-/*    margin: 0 auto;*/
+    /*    margin: 0 auto;*/
 }
 
 .sidebar.collapsed + .body-container {
@@ -549,9 +549,7 @@
     padding: 20px;
     background-color: #fff;
 }
-.button2{
 
-}
 .quiz-button{
     position: relative;
     display: inline-block;
@@ -1018,10 +1016,17 @@
     background-color: #ddd;
 }
 hr{
-        display: block;
-   
+    display: block;
+
     unicode-bidi: isolate;
     overflow: hidden;
     border-style: inset;
     border-width: 1px;
+}
+
+.relative{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
 }

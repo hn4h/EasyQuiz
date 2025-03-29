@@ -162,15 +162,23 @@
             <div class="body-container">
                 <div class="history-card">
                     <p class="history-title">History</p>
-                    <div class="button2" style="margin-bottom: 50px;">
+                    <div class="button2" style="margin-bottom: 20px;">
                         <a href="quizhistory" class="folders-button">Quiz</a>
                         <a href="folderhistory" class="quiz-button">Folders</a>
+                    </div>
+                    <div class="relative">
+                        <input style="width: 33%; border: 2px solid #e6e6e6;" type="text" placeholder="Search for a folder" class="p-2 border border-gray-300 rounded pr-10">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </div>
                     </div>
                     <div>
                         <c:if test="${not empty folder}">
                             <c:forEach var="folder" items="${requestScope.folder}" >
                                 <div onclick="window.location.href = 'foldercontain?folderId=${folder.folderId}'" class="folder-box">
-                                    <div class=" quiz-title flex">
+                                    <div class="quiz-title flex">
                                         <div>
                                             <p class="set-num">${folder.quizSetCount} Quiz Set</p>
                                         </div>
@@ -191,5 +199,34 @@
         </div>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="./history/history.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+        <script>
+                                    document.addEventListener("DOMContentLoaded", function () {
+                                        const searchInput = document.querySelector("input[placeholder='Search for a folder']");
+                                        const folderCards = Array.from(document.querySelectorAll(".folder-box"));
+
+                                        const folder = folderCards.map(card => ({
+                                                element: card,
+                                                name: card.querySelector(".title-text").innerText.trim()
+                                            }));
+                                        const fuse = new Fuse(folder, {
+                                            keys: ["name"],
+                                            threshold: 0.3
+                                        });
+
+                                        searchInput.addEventListener("input", function () {
+                                            const query = this.value.trim().toLowerCase();
+
+                                            if (!query) {
+                                                folderCards.forEach(card => card.style.display = "block");
+                                                return;
+                                            }
+
+                                            const results = fuse.search(query).map(result => result.item.element);
+                                            folderCards.forEach(card => card.style.display = "none");
+                                            results.forEach(card => card.style.display = "block");
+                                        });
+                                    });
+        </script>
     </body>
 </html>
