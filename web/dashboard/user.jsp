@@ -26,10 +26,10 @@
 
             <div class="admin-icon">
                 <div>
-                    <img src="./images/avatar/default.png" alt="Not found">
+                    <img src="${sessionScope.account.profileImage}" alt="Not found">
                 </div>
                 <div class="admin-info">
-                    <p>Admin</p>
+                    <p>${sessionScope.account.userName}</p>
                     <p>Website Owner</p>
                 </div>
             </div>
