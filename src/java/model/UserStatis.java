@@ -18,11 +18,12 @@ public class UserStatis {
     private int numComment;
     private int numFeedBack;
     private boolean isDeleted;
+    private boolean isAdmin;
 
     public UserStatis() {
     }
 
-    public UserStatis(String imageProfile, String userName, String email, int numFolder, int numBlog, int numQuizSet, int numComment, int numFeedBack, boolean isDeleted) {
+    public UserStatis(String imageProfile, String userName, String email, int numFolder, int numBlog, int numQuizSet, int numComment, int numFeedBack, boolean isDeleted, boolean isAdmin) {
         this.imageProfile = imageProfile;
         this.userName = userName;
         this.email = email;
@@ -32,6 +33,7 @@ public class UserStatis {
         this.numComment = numComment;
         this.numFeedBack = numFeedBack;
         this.isDeleted = isDeleted;
+        this.isAdmin = isAdmin;
     }
 
     public String getImageProfile() {
@@ -105,4 +107,14 @@ public class UserStatis {
     public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+    
+    
 }

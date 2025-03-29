@@ -119,6 +119,7 @@ public class StatisDAO extends DBContext {
                     + "    a.ProfileImage, \n"
                     + "    a.Email, \n"
                     + "    a.is_deleted, \n"
+                    + "    a.is_admin, \n"
                     + "    COUNT(DISTINCT f.Folder_ID) AS NumOfFolder, \n"
                     + "    COUNT(DISTINCT b.Blog_ID) AS NumOfBlog, \n"
                     + "    COUNT(DISTINCT qs.Quiz_Set_ID) AS NumOfQuiz, \n"
@@ -130,7 +131,7 @@ public class StatisDAO extends DBContext {
                     + "LEFT JOIN Quiz_Set qs ON a.UserName = qs.Author\n"
                     + "LEFT JOIN Comment c ON a.UserName = c.UserName\n"
                     + "LEFT JOIN Feedback fb ON a.UserName = fb.UserName\n"
-                    + "GROUP BY a.UserName, a.ProfileImage, a.Email, a.is_deleted;";
+                    + "GROUP BY a.UserName, a.ProfileImage, a.Email, a.is_deleted, a.is_admin;";
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -144,6 +145,7 @@ public class StatisDAO extends DBContext {
                 u.setNumFolder(rs.getInt("NumOfFolder"));
                 u.setNumQuizSet(rs.getInt("NumOfQuiz"));
                 u.setIsDeleted(rs.getBoolean("is_deleted"));
+                u.setIsAdmin(rs.getBoolean("is_admin"));
                 list.add(u);
             }
         } catch (SQLException e) {
