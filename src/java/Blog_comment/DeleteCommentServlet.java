@@ -96,10 +96,10 @@ public class DeleteCommentServlet extends HttpServlet {
             }
 
             // Check if the logged-in user is the owner of the comment
-            if (!comment.getUserName().equals(account.getUserName())) {
-               response.sendRedirect("error"); 
-                return;
-            }
+//            if (!comment.getUserName().equals(account.getUserName())) {
+//               response.sendRedirect("error"); 
+//                return;
+//            }
 
             // Delete the comment from the database
             commentDAO.deleteComment(commentId);
@@ -160,7 +160,7 @@ public class DeleteCommentServlet extends HttpServlet {
                 response.getWriter().write("You are not authorized to delete this comment.");
                 return;
             }
-
+            request.getSession().setAttribute("successMessage", "Delete comment successfully!");
             // Delete the comment from the database
             commentDAO.deleteComment(commentId);
             response.setStatus(HttpServletResponse.SC_OK);

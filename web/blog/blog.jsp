@@ -202,15 +202,15 @@
                         </c:if>
                     </div>
                     <c:forEach var="blog" items="${blogs}">
-                        <div class="blog-card" onclick="window.location.href = 'blogdetail?blogId=${blog.blogId}'">
-                            <div class="content-header">
-                                <h2><a href="blogdetail?blogId=${blog.blogId}" style="color: black;text-decoration: none">${blog.blogTitle}</a></h2>
+                        <div class="blog-card">
+                            <div class="content-header" onclick="window.location.href = 'blogdetail?blogId=${blog.blogId}'">
+                                <h2><a style="color: black;text-decoration: none">${blog.blogTitle}</a></h2>
                                 <!--                                <div class="header-btn">                               
                                                                     <button class="btn"><span class="material-symbols-rounded">more_horiz</span></button>
                                                                 </div>-->
                             </div>
                             <div class="blog-header">
-                                <img alt="" src="${blog.author.profileImage}"/> 
+                                <img onclick="window.location.href='user?username=${blog.author.userName}&type='" alt="" src="${blog.author.profileImage}"/> 
                                 <span style="margin-right: 20px;">${blog.author.userName}</span>
                                 <span class="material-symbols-rounded">update</span>
                                 <span>Created ${blog.createdDate}</span>
