@@ -254,13 +254,15 @@
                                 <button onclick="showChangePasswordPopup()">Change</button>
                             </div>
                         </c:if>
-                        <div class="attribute-box">
-                            <div>
-                                <h3>Delete your account</h3>
-                                <p>This will delete all your data and cannot be undone.</p>
+                        <c:if test="${!sessionScope.account.isAdmin}">
+                            <div class="attribute-box">
+                                <div>
+                                    <h3>Delete your account</h3>
+                                    <p>This will delete all your data and cannot be undone.</p>
+                                </div>
+                                <button onclick="showDeleteAccountPopup()" style="color: #fff; background-color: #970000;">Delete account</button>
                             </div>
-                            <button onclick="showDeleteAccountPopup()" style="color: #fff; background-color: #970000;">Delete account</button>
-                        </div>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -331,7 +333,7 @@
             window.onload = function () {
                 const urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has("uploaded")) {
-                    window.location.href = "setting"; 
+                    window.location.href = "setting";
                 }
             };
         </script>
