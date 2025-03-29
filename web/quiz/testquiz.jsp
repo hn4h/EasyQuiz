@@ -57,9 +57,9 @@
                         <div class="option-list">
                             <div class="test-item">
                                 <span class="test-name">Questions (max ${requestScope.quizDetail.qs.numberOfQuiz})</span>
-                                <input name="numberQuiz" min="1" max="${requestScope.quizDetail.qs.numberOfQuiz}" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz}"/>
+                                <input name="numberQuiz" min="1" max="${requestScope.quizDetail.qs.numberOfQuiz}" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz >= 10 ? 10 : requestScope.quizDetail.qs.numberOfQuiz}"/>
                                 <span class="test-name">Time (minutes)</span>
-                                <input name="timeLimit" min="1" max="${requestScope.quizDetail.qs.numberOfQuiz + 20}" type="number" value="${requestScope.quizDetail.qs.numberOfQuiz + 10}"/>
+                                <input name="timeLimit" min="1" max="90" type="number" value="10"/>
                             </div>
                         </div>
                         <div class="option-btn">
