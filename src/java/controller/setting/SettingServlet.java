@@ -82,7 +82,7 @@ public class SettingServlet extends HttpServlet {
         }
         session.setAttribute("account", account);
 
-        request.setAttribute("isGoogleAccount", accountDAO.checkGoogleAccount(account.getEmail())); 
+        request.setAttribute("isGoogleAccount", accountDAO.checkGoogleAccount(account.getEmail()));
         request.getRequestDispatcher("/setting/setting.jsp").forward(request, response);
     }
 
@@ -125,6 +125,11 @@ public class SettingServlet extends HttpServlet {
             if (newUsername != null && !newUsername.trim().isEmpty()) {
                 if (!newUsername.equals(account.getUserName())) { // Check if it's actually different
                     if (!accountDAO.checkUsername(newUsername)) { // Ensure username is unique
+                        if (newUsername.length() < 3) {
+                            request.setAttribute("error", "Your username is too short. The minimum length is 3 characters.");
+                            request.getRequestDispatcher("/setting/setting.jsp").forward(request, response);
+                            return;
+                        }
                         if (accountDAO.updateUsername(account.getUserName(), newUsername)) {
                             account.setUserName(newUsername);
                             alertMessage = "Change username successfully!";

@@ -1,8 +1,8 @@
 /*
- * Click nbfs://netbeans/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://netbeans/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Blog_comment;
+package blog;
 
 import dal.CommentDAO;
 import java.io.IOException;
@@ -13,7 +13,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Date;
 import java.sql.SQLException;
+
 import model.Account;
 import model.Comment;
 
@@ -21,8 +23,8 @@ import model.Comment;
  *
  * @author DUCA
  */
-@WebServlet(name = "DeleteCommentServlet", urlPatterns = {"/deletecomment"})
-public class DeleteCommentServlet extends HttpServlet {
+@WebServlet(name = "AddCommentServlet", urlPatterns = {"/addcomment"})
+public class AddCommentServlet extends HttpServlet {
 
     private CommentDAO commentDAO;
 
@@ -44,13 +46,14 @@ public class DeleteCommentServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DeleteCommentServlet</title>");
+            out.println("<title>Servlet AddCommentServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet DeleteCommentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddCommentServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -68,46 +71,7 @@ public class DeleteCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-
-        if (account == null) {
-            response.sendRedirect("login");
-            return;
-        }
-
-        // Get parameters from the request
-        int commentId;
-        try {
-            commentId = Integer.parseInt(request.getParameter("commentId"));
-        } catch (NumberFormatException e) {
-            response.sendRedirect("error");
-            return;
-        }
-        int blogId;
-        try {
-            // Get the comment from the database to verify ownership
-            Comment comment = commentDAO.getCommentById(commentId);
-            blogId = comment.getBlogId();
-            if (comment == null) {
-                response.sendRedirect("error");
-                return;
-            }
-
-            // Check if the logged-in user is the owner of the comment
-//            if (!comment.getUserName().equals(account.getUserName())) {
-//               response.sendRedirect("error"); 
-//                return;
-//            }
-
-            // Delete the comment from the database
-            commentDAO.deleteComment(commentId);
-            response.sendRedirect("blogdetail?blogId=" + blogId);
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Failed to delete comment: " + e.getMessage());
-        }
+        response.sendRedirect("error");
     }
 
     /**
@@ -131,43 +95,42 @@ public class DeleteCommentServlet extends HttpServlet {
 
         if (account == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("You must be logged in to delete a comment.");
+            response.getWriter().write("You must be logged in to comment.");
             return;
         }
 
         // Get parameters from the request
-        int commentId;
+        int blogId;
+        String commentContent;
         try {
-            commentId = Integer.parseInt(request.getParameter("commentId"));
+            blogId = Integer.parseInt(request.getParameter("blogId"));
+            commentContent = request.getParameter("commentContent");
         } catch (NumberFormatException e) {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Invalid comment ID.");
+            response.getWriter().write("Invalid blog ID.");
             return;
         }
 
-        try {
-            // Get the comment from the database to verify ownership
-            Comment comment = commentDAO.getCommentById(commentId);
-            if (comment == null) {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                response.getWriter().write("Comment not found.");
-                return;
-            }
+        if (commentContent == null || commentContent.trim().isEmpty()) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write("Comment content cannot be empty.");
+            return;
+        }
 
-            // Check if the logged-in user is the owner of the comment
-            if (!comment.getUserName().equals(account.getUserName())) {
-                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                response.getWriter().write("You are not authorized to delete this comment.");
-                return;
-            }
-            request.getSession().setAttribute("successMessage", "Delete comment successfully!");
-            // Delete the comment from the database
-            commentDAO.deleteComment(commentId);
+        // Create a new Comment object
+        Comment comment = new Comment();
+        comment.setBlogId(blogId);
+        comment.setUserName(account.getUserName());
+        comment.setCommentContent(commentContent);
+
+        try {
+            // Insert the comment into the database
+            commentDAO.addComment(comment);
             response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Comment deleted successfully.");
+            response.getWriter().write("Comment added successfully.");
         } catch (SQLException e) {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Failed to delete comment: " + e.getMessage());
+            response.getWriter().write("Failed to add comment: " + e.getMessage());
         }
     }
 
@@ -178,6 +141,7 @@ public class DeleteCommentServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet for deleting comments";
+        return "Short description";
     }// </editor-fold>
+
 }

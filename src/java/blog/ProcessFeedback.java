@@ -2,36 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Blog_comment;
+package blog;
 
-import dal.CommentDAO;
+import dal.DBContext;
+import dal.FeedbackDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.Date;
-import java.sql.SQLException;
-
 import model.Account;
-import model.Comment;
 
 /**
  *
  * @author DUCA
  */
-@WebServlet(name = "AddCommentServlet", urlPatterns = {"/addcomment"})
-public class AddCommentServlet extends HttpServlet {
-
-    private CommentDAO commentDAO;
-
-    @Override
-    public void init() throws ServletException {
-        commentDAO = new CommentDAO();
-    }
+@WebServlet(name = "ProcessFeedback", urlPatterns = {"/feedback"})
+public class ProcessFeedback extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +44,10 @@ public class AddCommentServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCommentServlet</title>");
+            out.println("<title>Servlet ProcessFeedback</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCommentServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ProcessFeedback at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,7 +65,7 @@ public class AddCommentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("error");
+        request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
     }
 
     /**
@@ -85,53 +79,29 @@ public class AddCommentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Set response content type
-        response.setContentType("text/plain");
-        response.setCharacterEncoding("UTF-8");
-
-        // Get the session to retrieve the logged-in user
+        String feedbackContent = request.getParameter("feedbackContent");
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
 
         if (account == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("You must be logged in to comment.");
+            //handle no username
+            request.setAttribute("errorMessage", "You must log in before performing this action.");
+            request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
             return;
         }
 
-        // Get parameters from the request
-        int blogId;
-        String commentContent;
-        try {
-            blogId = Integer.parseInt(request.getParameter("blogId"));
-            commentContent = request.getParameter("commentContent");
-        } catch (NumberFormatException e) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Invalid blog ID.");
+        if (feedbackContent == null || feedbackContent.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "You must complete the content before performing this action.");
+            request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
             return;
         }
 
-        if (commentContent == null || commentContent.trim().isEmpty()) {
-            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-            response.getWriter().write("Comment content cannot be empty.");
-            return;
-        }
-
-        // Create a new Comment object
-        Comment comment = new Comment();
-        comment.setBlogId(blogId);
-        comment.setUserName(account.getUserName());
-        comment.setCommentContent(commentContent);
-
-        try {
-            // Insert the comment into the database
-            commentDAO.addComment(comment);
-            response.setStatus(HttpServletResponse.SC_OK);
-            response.getWriter().write("Comment added successfully.");
-        } catch (SQLException e) {
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            response.getWriter().write("Failed to add comment: " + e.getMessage());
-        }
+        FeedbackDAO feedbackDAO = new FeedbackDAO();
+        feedbackDAO.addFeedback(account.getUserName(), feedbackContent);
+        //send success
+        System.out.println("Send feedback successfully.");
+        request.setAttribute("successMessage", "Send feedback successfully.");
+        request.getRequestDispatcher("feedback/feedback.jsp").forward(request, response);
     }
 
     /**

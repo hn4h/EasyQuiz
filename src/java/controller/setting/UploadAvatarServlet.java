@@ -102,7 +102,7 @@ public class UploadAvatarServlet extends HttpServlet {
         }
 
         // Đường dẫn thư mục thực trên server
-        String uploadPath = "C:\\GitHub\\EasyQuiz\\web\\images\\avatar";
+        String uploadPath = "D:\\Workspace\\EasyQuiz\\web\\images\\avatar";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs(); // Tạo thư mục nếu chưa có

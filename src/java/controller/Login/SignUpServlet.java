@@ -74,6 +74,11 @@ public class SignUpServlet extends HttpServlet {
         String email = request.getParameter("email");
         String rePassword = request.getParameter("confirmPassword");
         AccountDAO dao = new AccountDAO();
+        if(username.length() < 3){
+            request.setAttribute("error", "Your username is too short. The minimum length is 3 characters.");
+            request.getRequestDispatcher("login/register.jsp").forward(request, response);
+            return;
+        }
         if (dao.checkUsername(username)) {
             request.setAttribute("error", "Username already exists");
             request.getRequestDispatcher("login/register.jsp").forward(request, response);

@@ -111,10 +111,16 @@ public class LoginServlet extends HttpServlet {
             request.setAttribute("error", "This account is deleted!");
             request.getRequestDispatcher("login/login.jsp").forward(request, response);
         } else {
+            if (a.isIsAdmin()) {
+                HttpSession session = request.getSession();
+                session.setAttribute("account", a);
+                request.getSession().setAttribute("successMessage", "Login successfully!");
+                response.sendRedirect("dashboard");
+            }else{
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
             request.getSession().setAttribute("successMessage", "Login successfully!");
-            response.sendRedirect("home");
+            response.sendRedirect("home");}
         }
     }
 

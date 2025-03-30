@@ -1,4 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="jakarta.servlet.jsp.PageContext" %>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,6 +16,20 @@
     </head>
 
     <body>
+        <%
+            Object revenueObj = pageContext.getAttribute("totalRevenue", PageContext.REQUEST_SCOPE); 
+
+            String formattedRevenue = "0"; 
+            if (revenueObj != null) {
+                try {
+                    double totalRevenue = Double.parseDouble(revenueObj.toString()); 
+                    NumberFormat formatter = NumberFormat.getInstance(new Locale("vi", "VN"));
+                    formattedRevenue = formatter.format(totalRevenue);
+                } catch (NumberFormatException e) {
+                    formattedRevenue = "error";
+                }
+            }
+        %>
         <div class="header">
             <div class="logo" >
                 <span onclick="window.location.href = 'home'">EasyQuiz</span>
@@ -92,7 +109,7 @@
                             <span class="material-symbols-rounded">payments</span>
                             <div>
                                 <p style="font-weight: 600;">Total Revenue</p>
-                                <p style="font-weight: bold; font-size: 30px;" id="revenue">${requestScope.totalRevenue}</p>
+                                <p style="font-weight: bold; font-size: 30px;" id="revenue"><%= formattedRevenue %></p>
                             </div>
                         </div>
                         <div class="summary-item" style="border-bottom: 4px solid #A888B5;">

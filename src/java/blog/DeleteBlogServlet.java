@@ -1,5 +1,5 @@
 
-package Blog_comment;
+package blog;
 
 import dal.BlogDAO;
 import java.io.IOException;

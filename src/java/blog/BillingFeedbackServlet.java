@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Blog_comment;
+package blog;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,8 +17,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author admin
  */
-@WebServlet(name="StudyingFeedbackServlet", urlPatterns={"/studyingfeedback"})
-public class StudyingFeedbackServlet extends HttpServlet {
+@WebServlet(name="BillingFeedbackServlet", urlPatterns={"/billingfeedback"})
+public class BillingFeedbackServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -35,10 +35,10 @@ public class StudyingFeedbackServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet StudyingFeedbackServlet</title>");  
+            out.println("<title>Servlet BillingFeedbackServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet StudyingFeedbackServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet BillingFeedbackServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -55,7 +55,7 @@ public class StudyingFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("feedback/studying.jsp").forward(request, response);
+        request.getRequestDispatcher("feedback/billing.jsp").forward(request, response);
     } 
 
     /** 

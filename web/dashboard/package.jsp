@@ -292,7 +292,7 @@
                                             <input type="hidden" name="packageId" value="${p.id}">
                                             <select name="status" onchange="this.form.submit()" class="select-active">
                                                 <option value="Active" ${p.isActive ? 'selected' : ''}>Active</option>
-                                                <option value="Disable" ${!p.isActive ? 'selected' : ''}>Disable</option>
+                                                <option value="Disable" ${!p.isActive ? 'selected' : ''}>Deactive</option>
                                             </select>
                                         </form>
                                     </td>
