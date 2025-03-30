@@ -1,10 +1,15 @@
-<%-- 
+<%--
     Document   : upgrade
     Created on : Feb 20, 2025, 12:49:10 AM
     Author     : admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Locale" %>
+<%@ page import="jakarta.servlet.jsp.PageContext" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@page import="model.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +21,7 @@
         <link rel="shortcut icon" href="./images/logo/Easyquiz_logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     </head>
-    <body style="    background-image: url('./images/background/backgr1.png');
+    <body style="background-image: url('./images/background/backgr1.png');
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -46,18 +51,21 @@
             <div class="py-4"></div>
             <h1 class="text-4xl font-bold text-center mb-8">Get better results with the <br/> number one learning platform</h1>
             <div class="plans">            
+                <fmt:setLocale value="vi_VN"/>
+                <fmt:setBundle basename="messages"/>
                 <c:forEach var="p" items="${packages}">
                     <c:if test="${p.isActive}">
                         <div class="plan">
                             <div class="plan-title">${p.name}</div>
                             <div class="plan-description">${p.description}</div>
-                            <div class="plan-price">${p.price} VND</div>
+                            <div class="plan-price">
+                                <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> VND
+                            </div>
                             <div class="plan-description"></div>
                             <form action="./order" method="post" id="paymentForm">
                                 <input type="hidden" name="packageName" value="${p.name}">
                                 <input type="hidden" name="price" value="${p.price}">
                                 <input type="hidden" name="value" value="${p.value}">
-                                <!-- Return URLs will be set by the server -->
                                 <button type="submit" id="plan-button secondary" class="plan-button secondary">Get EasyQuiz Premium</button>
                             </form>
                         </div>
@@ -99,13 +107,14 @@
                         <div class="plan">
                             <div class="plan-title">${p.name}</div>
                             <div class="plan-description">${p.description}</div>
-                            <div class="plan-price">${p.price} VND</div>
+                            <div class="plan-price">
+                                <fmt:formatNumber value="${p.price}" type="number" groupingUsed="true"/> VND
+                            </div>
                             <div class="plan-description"></div>
                             <form action="./order" method="post" id="paymentForm">
                                 <input type="hidden" name="packageName" value="${p.name}">
                                 <input type="hidden" name="price" value="${p.price}">
                                 <input type="hidden" name="value" value="${p.value}">
-                                <!-- Return URLs will be set by the server -->
                                 <button type="submit" id="plan-button secondary" class="plan-button secondary">Get EasyQuiz Premium</button>
                             </form>
                         </div>
